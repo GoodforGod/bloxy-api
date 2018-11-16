@@ -1,4 +1,4 @@
-package io.api.bloxy.model.dto
+package io.api.bloxy.model.dto.token
 
 
 /**
