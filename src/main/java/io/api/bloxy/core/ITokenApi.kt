@@ -17,20 +17,20 @@ interface ITokenApi {
         limit: Int = 100
     ): List<Holder>
 
-    // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT TILL RETURN EMPTY
+    // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT & OFFSET TILL RETURN EMPTY
     fun holderDetails(
         address: String,
         limit: Int = 100,
         minBalance: Double = 1.0e-6,
-        toCountMin: Int = 1,
-        fromCountMin: Int = 0
+        minReceived: Int = 1,
+        minSend: Int = 0
     ): List<HolderDetails>
 
     fun holderCorrelations(
         addresses: List<String>
     ): List<TokenCorrelation>
 
-    fun holderSimilars(
+    fun holderSimilar(
         address: String
     ): List<HolderSimilar>
 
@@ -38,7 +38,7 @@ interface ITokenApi {
         nameOrSymbol: String
     ): List<Token>
 
-    // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT TILL RETURN EMPTY
+    // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT & OFFSET TILL RETURN EMPTY
     fun tokenTransfers(
         address: String,
         limit: Int = 100,

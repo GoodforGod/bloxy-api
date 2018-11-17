@@ -7,6 +7,6 @@ package io.api.bloxy.executor
  * @author GoodforGod
  * @since 16.11.2018
  */
-interface IHttpExecutor {
+interface IHttpClient {
     fun get(url: String) : String
 }

@@ -1,6 +1,7 @@
 package io.api.bloxy.core.impl
 
 import io.api.bloxy.core.ITokenApi
+import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.token.*
 import java.time.LocalDateTime
 
@@ -13,7 +14,7 @@ import java.time.LocalDateTime
  * @author GoodforGod
  * @since 16.11.2018
  */
-class TokenApiProvider : ITokenApi {
+internal class TokenApiProvider(client: IHttpClient, key:String) : ITokenApi, BasicProvider(client, "", key) {
 
     override fun holders(address: String, limit: Int): List<Holder> {
         TODO("not implemented yet") //File | Settings | File Templates
@@ -23,8 +24,8 @@ class TokenApiProvider : ITokenApi {
         address: String,
         limit: Int,
         minBalance: Double,
-        toCountMin: Int,
-        fromCountMin: Int
+        minReceived: Int,
+        minSend: Int
     ): List<HolderDetails> {
         TODO("not implemented yet") //File | Settings | File Templates
     }
@@ -33,7 +34,7 @@ class TokenApiProvider : ITokenApi {
         TODO("not implemented yet") //File | Settings | File Templates
     }
 
-    override fun holderSimilars(address: String): List<HolderSimilar> {
+    override fun holderSimilar(address: String): List<HolderSimilar> {
         TODO("not implemented yet") //File | Settings | File Templates
     }
 
