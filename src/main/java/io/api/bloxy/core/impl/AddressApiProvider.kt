@@ -17,18 +17,18 @@ import io.api.bloxy.model.dto.address.Balance
 class AddressApiProvider(client: IHttpClient, key: String) : IAddressApi, BasicProvider(client, "address", key) {
 
     override fun details(addresses: List<String>): List<AddrDetails> {
-        return get("address_stat?" + addressAsParam(addresses), AddrDetails::class.java)
+        return parse(get("address_diagnostics?" + addressAsParam(addresses)))
     }
 
     override fun statistics(addresses: List<String>): List<AddrStatistic> {
-        TODO("not implemented yet") //File | Settings | File Templates
+        return parse(get("address_stat?" + addressAsParam(addresses)))
     }
 
-    override fun correlated(addresses: List<String>): List<AddrCorrelation> {
-        TODO("not implemented yet") //File | Settings | File Templates
+    override fun correlated(address: String): List<AddrCorrelation> {
+        return parse(get("correlated_address_tokens?address=$address"))
     }
 
     override fun balance(address: String): Balance {
-        TODO("not implemented yet") //File | Settings | File Templates
+        return Balance(parse(get("balance?address=$address")))
     }
 }

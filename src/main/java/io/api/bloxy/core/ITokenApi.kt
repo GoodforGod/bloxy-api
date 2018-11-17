@@ -35,8 +35,17 @@ interface ITokenApi {
     ): List<HolderSimilar>
 
     fun tokenByNameOrSymbol(
-        nameOrSymbol: String
+        nameOrSymbol: String,
+        limit:Int
     ): List<Token>
+
+    fun tokenDetails(
+        addresses: List<String>
+    ) : List<TokenDetails>
+
+    fun tokenStatistic(
+        address: String
+    ) : List<TokenStatistic>
 
     // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT & OFFSET TILL RETURN EMPTY
     fun tokenTransfers(

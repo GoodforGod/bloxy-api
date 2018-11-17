@@ -1,7 +1,5 @@
 package io.api.bloxy.model.dto.address
 
-import java.math.BigInteger
-
 
 /**
  * ! NO DESCRIPTION !
@@ -13,9 +11,9 @@ data class CoinBalance(
     val symbol: String = "",
     val token_address: String = "",
     val sent_txs: Long = 0,
-    val sent_amount: BigInteger = BigInteger.ZERO,
+    val sent_amount: Double = .0,
     val received_txs: Long = 0,
-    val received_amount: BigInteger = BigInteger.ZERO,
-    val balance: BigInteger = BigInteger.ZERO
+    val received_amount: Double = .0,
+    val balance: Double = .0
 ) {
 }

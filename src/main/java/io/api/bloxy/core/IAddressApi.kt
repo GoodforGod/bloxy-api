@@ -17,7 +17,7 @@ interface IAddressApi {
 
     fun statistics(addresses: List<String>) : List<AddrStatistic>
 
-    fun correlated(addresses: List<String>) : List<AddrCorrelation>
+    fun correlated(address: String) : List<AddrCorrelation>
 
     fun balance(address: String) : Balance
 }

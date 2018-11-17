@@ -1,8 +1,8 @@
 package io.api.bloxy.core.impl
 
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import io.api.bloxy.error.ResponseException
+import com.beust.klaxon.Klaxon
+import io.api.bloxy.error.HttpException
+import io.api.bloxy.error.ParseException
 import io.api.bloxy.executor.IHttpClient
 import java.util.stream.Collectors
 
@@ -13,25 +13,34 @@ import java.util.stream.Collectors
  * @author GoodforGod
  * @since 17.11.2018
  */
-abstract class BasicProvider(
-    private val client: IHttpClient,
-    module: String,
-    key: String
-) {
+abstract class BasicProvider(private val client: IHttpClient, module: String, key: String) {
 
-    private inline fun <reified T> Gson.fromJson(json: String) = this.fromJson<T>(json, object : TypeToken<T>() {}.type)
-    private val converter = Gson()
+    val converter = Klaxon()
 
     private val base = "https://bloxy.info/api/$module/"
     private val keyParam = "&key=$key&format=structure"
 
-    fun <T> get(urlParams: String, type: Class<T>): List<T> {
-        val typeToken = object : TypeToken<List<T>>() {}.type
-        val response = client.get(base + urlParams + keyParam)
-        return if (response.isNotEmpty()) converter.fromJson(response) else throw ResponseException("Empty response from server")
+    protected fun get(urlParams: String): String {
+        try {
+            return client.get(base + urlParams + keyParam)
+        } catch (e: Exception) {
+            throw HttpException(e.message, e.cause)
+        }
+    }
+
+    inline fun <reified T> parse(json: String): List<T> {
+        try {
+            return if (json.isEmpty()) emptyList() else converter.parseArray(json) ?: emptyList()
+        } catch (e: Exception) {
+            throw ParseException(e.message, e.cause)
+        }
     }
 
     fun addressAsParam(addresses: List<String>): String {
         return addresses.stream().collect(Collectors.joining("&address[]=", "address[]=", ""))
+    }
+
+    fun tokenAsParam(addresses: List<String>): String {
+        return addresses.stream().collect(Collectors.joining("&token[]=", "token[]=", ""))
     }
 }

@@ -7,8 +7,7 @@ package io.api.bloxy.error
  * @author GoodforGod
  * @since 17.11.2018
  */
-class ResponseException : RuntimeException {
+open class BloxyException : RuntimeException {
     constructor(message: String?) : super(message)
-
-    constructor(message: String?, cause: Throwable) : super(message, cause)
+    constructor(message: String?, cause: Throwable?) : super(message, cause)
 }
