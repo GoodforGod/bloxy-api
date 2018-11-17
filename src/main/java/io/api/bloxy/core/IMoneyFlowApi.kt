@@ -8,4 +8,5 @@ package io.api.bloxy.core
  * @since 16.11.2018
  */
 interface IMoneyFlowApi {
+
 }
