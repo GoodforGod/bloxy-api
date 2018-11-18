@@ -1,4 +1,4 @@
-package io.api.bloxy.model.dto.tokensale
+package io.api.bloxy.model.dto
 
 
 /**
@@ -7,7 +7,7 @@ package io.api.bloxy.model.dto.tokensale
  * @author GoodforGod
  * @since 18.11.2018
  */
-data class SaleDepthTx(
+data class Tx(
     val depth: Int = 0,
     val tx_time: String = "",
     val tx_hash: String = "",

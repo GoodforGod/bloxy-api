@@ -1,6 +1,7 @@
 package io.api.bloxy.core
 
-import io.api.bloxy.model.Address
+import io.api.bloxy.model.dto.Address
+import io.api.bloxy.model.dto.Tx
 import io.api.bloxy.model.dto.tokensale.*
 import java.time.LocalDateTime
 
@@ -48,7 +49,7 @@ interface ITokenSaleApi {
         depth: Int = 10,
         limit: Int = 100,
         minTxAmount: Int = 0,
-        minBalance: Number = .0,
+        minBalance: Double = .0,
         ignoreAddressWithTxs: Int = 2000,
         receivedSince: LocalDateTime = LocalDateTime.MIN,
         receivedTill: LocalDateTime = LocalDateTime.MAX,
@@ -60,20 +61,20 @@ interface ITokenSaleApi {
         depth: Int = 10,
         limit: Int = 100,
         minTxAmount: Int = 0,
-        minBalance: Number = .0,
+        minBalance: Double = .0,
         ignoreAddressWithTxs: Int = 2000,
         receivedSince: LocalDateTime = LocalDateTime.MIN,
         receivedTill: LocalDateTime = LocalDateTime.MAX,
         snapshot: LocalDateTime = LocalDateTime.MIN
-    ): List<SaleDepthTx>
+    ): List<Tx>
 
     fun moneySources(
         contract: String,
         depth: Int = 5,
         limit: Int = 100,
         minTxAmount: Int = 0,
-        minBalance: Number = .0,
-        ignoreAddressWithTxs: Int = 2000,
+        minBalance: Double = .0,
+        ignoreAddressWithTxs: Int = 1000,
         receivedSince: LocalDateTime = LocalDateTime.MIN,
         receivedTill: LocalDateTime = LocalDateTime.MAX,
         snapshot: LocalDateTime = LocalDateTime.MIN
@@ -84,17 +85,17 @@ interface ITokenSaleApi {
         depth: Int = 5,
         limit: Int = 100,
         minTxAmount: Int = 0,
-        minBalance: Number = .0,
-        ignoreAddressWithTxs: Int = 2000,
+        minBalance: Double = .0,
+        ignoreAddressWithTxs: Int = 1000,
         receivedSince: LocalDateTime = LocalDateTime.MIN,
         receivedTill: LocalDateTime = LocalDateTime.MAX,
         snapshot: LocalDateTime = LocalDateTime.MIN
-    ): List<SaleDepthTx>
+    ): List<Tx>
 
     fun tokenDistribution(
         contract: String,
         limit: Int = 100,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
-    ): List<SaleDepthTx>
+    ): List<Tx>
 }

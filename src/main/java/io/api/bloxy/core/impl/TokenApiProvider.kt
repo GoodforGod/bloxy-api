@@ -40,8 +40,7 @@ internal class TokenApiProvider(client: IHttpClient, key: String) : ITokenApi, B
     }
 
     override fun tokenByNameOrSymbol(nameOrSymbol: String, limit: Int): List<Token> {
-        val formatLimit = if (limit > 100000) 100000 else limit
-        return if (formatLimit < 1) emptyList() else parse(get("token_search?search=$nameOrSymbol&limit=$formatLimit"))
+        return parse(get("token_search?search=$nameOrSymbol&limit=${toLimit(limit, 100000)}"))
     }
 
     override fun tokenDetails(contracts: List<String>): List<TokenDetails> {

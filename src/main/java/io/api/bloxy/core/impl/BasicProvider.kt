@@ -28,7 +28,7 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         }
     }
 
-    inline fun <reified T> parse(json: String): List<T> {
+    protected inline fun <reified T> parse(json: String): List<T> {
         try {
             return if (json.isEmpty()) emptyList() else converter.parseArray(json) ?: emptyList()
         } catch (e: Exception) {
@@ -37,25 +37,37 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
     }
 
     protected inline fun <reified T> getWithOffset(urlParams: String, limit: Int, offsetMax: Int = 10000): List<T> {
-        val result: MutableList<T> = ArrayList()
-        var temp: List<T>
-        var cycleLimit = limit
-        var offset = 0
-        do {
-            temp = parse(get("$urlParams&limit=$cycleLimit&offset=$offset"))
-            result.addAll(temp)
-            cycleLimit -= 10000
-            offset += offsetMax
-        } while (cycleLimit > 0 && temp.isNotEmpty())
+        try {
+            val result: MutableList<T> = ArrayList()
+            var temp: List<T>
+            var cycleLimit = limit
+            var offset = 0
+            do {
+                temp = parse(get("$urlParams&limit=$cycleLimit&offset=$offset"))
+                result.addAll(temp)
+                cycleLimit -= offsetMax
+                offset += offsetMax
+            } while (cycleLimit > 0 && temp.isNotEmpty())
 
-        return result
+            return result
+        } catch (e: Exception) {
+            throw HttpException(e.message, e.cause)
+        }
+    }
+
+    fun toLimit(limit: Int, max: Int): Int {
+        return if (limit > max) max else if (limit < 1) 1 else limit
+    }
+
+    private fun asParam(values: List<String>, prefix: String, delim: String) : String {
+        return values.stream().collect(Collectors.joining(delim, prefix, ""))
     }
 
     fun addressAsParam(addresses: List<String>): String {
-        return addresses.stream().collect(Collectors.joining("&address[]=", "address[]=", ""))
+        return asParam(addresses, "address[]=", "&address[]=")
     }
 
     fun tokenAsParam(addresses: List<String>): String {
-        return addresses.stream().collect(Collectors.joining("&token[]=", "token[]=", ""))
+        return asParam(addresses, "token[]=", "&token[]=")
     }
 }

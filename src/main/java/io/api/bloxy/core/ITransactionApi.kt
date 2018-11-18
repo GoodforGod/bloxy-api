@@ -1,5 +1,8 @@
 package io.api.bloxy.core
 
+import io.api.bloxy.model.dto.transaction.TxDetail
+import io.api.bloxy.model.dto.transaction.TxTransfer
+
 
 /**
  * ! NO DESCRIPTION !
@@ -8,4 +11,11 @@ package io.api.bloxy.core
  * @since 16.11.2018
  */
 interface ITransactionApi {
+
+    fun transfers(
+        txHashes: List<String>,
+        limit: Int = 1000
+    ): List<TxTransfer>
+
+    fun details(txHashes: List<String>): List<TxDetail>
 }

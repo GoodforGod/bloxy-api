@@ -1,6 +1,8 @@
 package io.api.bloxy.core
 
-import io.api.bloxy.model.Address
+import io.api.bloxy.model.dto.Address
+import io.api.bloxy.model.dto.Tx
+import io.api.bloxy.model.dto.moneyflow.*
 import java.time.LocalDateTime
 
 
@@ -13,23 +15,26 @@ import java.time.LocalDateTime
 interface IMoneyFlowApi {
     fun addressVolumes(
         addresses: List<String>,
-               contract: String = "ETH",
-               since: LocalDateTime = LocalDateTime.MIN,
-               till: LocalDateTime = LocalDateTime.MAX)
+        contract: String = "ETH",
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX
+    ) : List<Volume>
 
     fun topSenders(
         address: String,
-                   contract: String = "ETH",
-                   limit: Int = 100,
-                   since: LocalDateTime = LocalDateTime.MIN,
-                   till: LocalDateTime = LocalDateTime.MAX)
+        contract: String = "ETH",
+        limit: Int = 100,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX
+    ) : List<Sender>
 
-    fun topReceives(
+    fun topReceivers(
         address: String,
-                   contract: String = "ETH",
-                   limit: Int = 100,
-                   since: LocalDateTime = LocalDateTime.MIN,
-                   till: LocalDateTime = LocalDateTime.MAX)
+        contract: String = "ETH",
+        limit: Int = 100,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX
+    ) : List<Receiver>
 
     fun moneyDistribution(
         address: String,
@@ -37,12 +42,88 @@ interface IMoneyFlowApi {
         depth: Int = 10,
         limit: Int = 100,
         minTxAmount: Int = 0,
-        minBalance: Number = .0,
+        minBalance: Double = .0,
         ignoreAddressWithTxs: Int = 2000,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX,
         snapshot: LocalDateTime = LocalDateTime.MIN
-    ) : List<Address>
+    ): List<Address>
 
-    fun
+    fun txsDistribution(
+        address: String,
+        contract: String = "ETH",
+        depth: Int = 10,
+        limit: Int = 100,
+        minTxAmount: Int = 0,
+        minBalance: Double = .0,
+        ignoreAddressWithTxs: Int = 2000,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX,
+        snapshot: LocalDateTime = LocalDateTime.MIN
+    ): List<Tx>
+
+    fun moneySource(
+        address: String,
+        contract: String = "ETH",
+        depth: Int = 10,
+        limit: Int = 100,
+        minTxAmount: Int = 0,
+        minBalance: Double = .0,
+        ignoreAddressWithTxs: Int = 1000,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX,
+        snapshot: LocalDateTime = LocalDateTime.MIN
+    ): List<Address>
+
+    fun txsSource(
+        address: String,
+        contract: String = "ETH",
+        depth: Int = 10,
+        limit: Int = 100,
+        minTxAmount: Int = 0,
+        minBalance: Double = .0,
+        ignoreAddressWithTxs: Int = 1000,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX,
+        snapshot: LocalDateTime = LocalDateTime.MIN
+    ): List<Tx>
+
+    fun transfersAddr(
+        addresses: List<String>,
+        contracts: List<String> = emptyList(),
+        limit: Int = 1000,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX
+    ): List<AddrTransfer>
+
+    fun transfersReceived(
+        addresses: List<String>,
+        contracts: List<String> = emptyList(),
+        limit: Int = 1000,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX
+    ): List<AddrTransfer>
+
+    fun transfersSend(
+        addresses: List<String>,
+        contracts: List<String> = emptyList(),
+        limit: Int = 1000,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX
+    ): List<AddrTransfer>
+
+
+    fun topSendersCount(
+        address: String,
+        limit: Int = 100,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX
+    ) : List<SenderSimple>
+
+    fun topReceiversCount(
+        address: String,
+        limit: Int = 100,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX
+    ) : List<ReceiverSimple>
 }

@@ -13,11 +13,19 @@ import io.api.bloxy.model.dto.address.Balance
  * @since 16.11.2018
  */
 interface IAddressApi {
-    fun details(addresses: List<String>) : List<AddrDetails>
+    fun details(
+        addresses: List<String>
+    ): List<AddrDetails>
 
-    fun statistics(addresses: List<String>) : List<AddrStatistic>
+    fun statistics(
+        addresses: List<String>
+    ): List<AddrStatistic>
 
-    fun correlated(address: String) : List<AddrCorrelation>
+    fun correlated(
+        address: String
+    ): List<AddrCorrelation>
 
-    fun balance(address: String) : Balance
+    fun balance(
+        address: String
+    ): Balance
 }
