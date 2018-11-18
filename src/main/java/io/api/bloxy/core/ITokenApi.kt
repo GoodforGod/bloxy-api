@@ -13,13 +13,13 @@ import java.time.LocalDateTime
 interface ITokenApi {
 
     fun holders(
-        address: String,
+        contract: String,
         limit: Int = 100
     ): List<Holder>
 
     // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT & OFFSET TILL RETURN EMPTY
     fun holderDetails(
-        address: String,
+        contract: String,
         limit: Int = 100,
         minBalance: Double = 1.0e-6,
         minReceived: Int = 1,
@@ -27,31 +27,31 @@ interface ITokenApi {
     ): List<HolderDetails>
 
     fun holderCorrelations(
-        addresses: List<String>
+        contracts: List<String>
     ): List<TokenCorrelation>
 
     fun holderSimilar(
-        address: String
+        contracts: String
     ): List<HolderSimilar>
 
     fun tokenByNameOrSymbol(
         nameOrSymbol: String,
-        limit:Int
+        limit:Int = 100
     ): List<Token>
 
     fun tokenDetails(
-        addresses: List<String>
+        contracts: List<String>
     ) : List<TokenDetails>
 
     fun tokenStatistic(
-        address: String
+        contract: String
     ) : List<TokenStatistic>
 
     // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT & OFFSET TILL RETURN EMPTY
     fun tokenTransfers(
-        address: String,
+        contract: String,
         limit: Int = 100,
-        fromTime: LocalDateTime = LocalDateTime.MIN,
-        tillTime: LocalDateTime = LocalDateTime.MAX
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX
     ): List<TokenTransfer>
 }

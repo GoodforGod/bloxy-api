@@ -15,7 +15,6 @@ interface IDexApi {
     fun contracts(
         protocols: List<String>,
         limit: Int = 100,
-        offset: Int = 0,
         timeSpanDays: Int = 30
     ): List<DexContract>
 
@@ -24,7 +23,6 @@ interface IDexApi {
         dexContracts: List<String> = emptyList(),
         tokenAddresses: List<String> = emptyList(),
         limit: Int = 100,
-        offset: Int = 0,
         timeSpanDays: Int = 5
     ): List<DexTrade>
 
@@ -37,7 +35,6 @@ interface IDexApi {
         protocols: List<String>,
         dexContracts: List<String> = emptyList(),
         limit: Int = 100,
-        offset: Int = 0,
         timeSpanDays: Int = 30
     ): List<DexTradeActive>
 }

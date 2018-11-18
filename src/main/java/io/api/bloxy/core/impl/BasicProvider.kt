@@ -36,6 +36,21 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         }
     }
 
+    protected inline fun <reified T> getWithOffset(urlParams: String, limit: Int, offsetMax: Int = 10000): List<T> {
+        val result: MutableList<T> = ArrayList()
+        var temp: List<T>
+        var cycleLimit = limit
+        var offset = 0
+        do {
+            temp = parse(get("$urlParams&limit=$cycleLimit&offset=$offset"))
+            result.addAll(temp)
+            cycleLimit -= 10000
+            offset += offsetMax
+        } while (cycleLimit > 0 && temp.isNotEmpty())
+
+        return result
+    }
+
     fun addressAsParam(addresses: List<String>): String {
         return addresses.stream().collect(Collectors.joining("&address[]=", "address[]=", ""))
     }
