@@ -14,7 +14,8 @@ interface ITransactionApi {
 
     fun transfers(
         txHashes: List<String>,
-        limit: Int = 1000
+        limit: Int = 1000,
+        offset: Int = 0
     ): List<TxTransfer>
 
     fun details(txHashes: List<String>): List<TxDetail>

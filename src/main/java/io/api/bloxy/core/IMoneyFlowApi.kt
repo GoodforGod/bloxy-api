@@ -24,6 +24,7 @@ interface IMoneyFlowApi {
         address: String,
         contract: String = "ETH",
         limit: Int = 100,
+        offset: Int = 0,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
     ) : List<Sender>
@@ -32,6 +33,7 @@ interface IMoneyFlowApi {
         address: String,
         contract: String = "ETH",
         limit: Int = 100,
+        offset: Int = 0,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
     ) : List<Receiver>
@@ -41,6 +43,7 @@ interface IMoneyFlowApi {
         contract: String = "ETH",
         depth: Int = 10,
         limit: Int = 100,
+        offset: Int = 0,
         minTxAmount: Int = 0,
         minBalance: Double = .0,
         ignoreAddressWithTxs: Int = 2000,
@@ -80,6 +83,7 @@ interface IMoneyFlowApi {
         contract: String = "ETH",
         depth: Int = 10,
         limit: Int = 100,
+        offset: Int = 0,
         minTxAmount: Int = 0,
         minBalance: Double = .0,
         ignoreAddressWithTxs: Int = 1000,
@@ -92,6 +96,7 @@ interface IMoneyFlowApi {
         addresses: List<String>,
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
+        offset: Int = 0,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
     ): List<AddrTransfer>
@@ -100,6 +105,7 @@ interface IMoneyFlowApi {
         addresses: List<String>,
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
+        offset: Int = 0,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
     ): List<AddrTransfer>
@@ -108,6 +114,7 @@ interface IMoneyFlowApi {
         addresses: List<String>,
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
+        offset: Int = 0,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
     ): List<AddrTransfer>
@@ -116,6 +123,7 @@ interface IMoneyFlowApi {
     fun topSendersCount(
         address: String,
         limit: Int = 100,
+        offset: Int = 0,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
     ) : List<SenderSimple>
@@ -123,6 +131,7 @@ interface IMoneyFlowApi {
     fun topReceiversCount(
         address: String,
         limit: Int = 100,
+        offset: Int = 0,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
     ) : List<ReceiverSimple>

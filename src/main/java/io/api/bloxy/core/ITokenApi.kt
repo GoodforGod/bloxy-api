@@ -14,13 +14,15 @@ interface ITokenApi {
 
     fun holders(
         contract: String,
-        limit: Int = 100
+        limit: Int = 100,
+        offset: Int = 0
     ): List<Holder>
 
     // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT & OFFSET TILL RETURN EMPTY
     fun holderDetails(
         contract: String,
         limit: Int = 100,
+        offset: Int = 0,
         minBalance: Double = 1.0e-6,
         minReceived: Int = 1,
         minSend: Int = 0
@@ -36,21 +38,23 @@ interface ITokenApi {
 
     fun tokenByNameOrSymbol(
         nameOrSymbol: String,
-        limit:Int = 100
+        limit: Int = 100,
+        offset: Int = 0
     ): List<Token>
 
     fun tokenDetails(
         contracts: List<String>
-    ) : List<TokenDetails>
+    ): List<TokenDetails>
 
     fun tokenStatistic(
         contract: String
-    ) : List<TokenStatistic>
+    ): List<TokenStatistic>
 
     // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT & OFFSET TILL RETURN EMPTY
     fun tokenTransfers(
         contract: String,
         limit: Int = 100,
+        offset: Int = 0,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
     ): List<TokenTransfer>

@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.address
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -7,7 +9,12 @@ package io.api.bloxy.model.dto.address
  * @author GoodforGod
  * @since 17.11.2018
  */
-class Balance(balances: List<CoinBalance>) {
+class Balance(balances: List<CoinBalance>) : IModel {
+
+    companion object {
+        val empty: Balance = Balance(emptyList())
+    }
+
 
     private val balances: Map<String, CoinBalance>
 
@@ -15,6 +22,8 @@ class Balance(balances: List<CoinBalance>) {
         this.balances = HashMap()
         balances.forEach { b -> this.balances[b.symbol] = b }
     }
+
+    override fun isEmpty(): Boolean = balances.isEmpty()
 
     fun exist(symbol: String): Boolean {
         return this.balances[symbol] != null

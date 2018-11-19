@@ -8,5 +8,5 @@ package io.api.bloxy.model
  * @since 17.11.2018
  */
 interface IModel {
-    fun isValid() : Boolean
+    fun isEmpty() : Boolean
 }

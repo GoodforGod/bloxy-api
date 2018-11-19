@@ -17,18 +17,18 @@ import io.api.bloxy.model.dto.address.Balance
 class AddressApiProvider(client: IHttpClient, key: String) : IAddressApi, BasicProvider(client, "address", key) {
 
     override fun details(addresses: List<String>): List<AddrDetails> {
-        return parse(get("address_diagnostics?" + addressAsParam(addresses)))
+        return if(addresses.isNullOrEmpty()) emptyList() else parse(get("address_diagnostics?${addressAsParam(addresses)}"))
     }
 
     override fun statistics(addresses: List<String>): List<AddrStatistic> {
-        return parse(get("address_stat?" + addressAsParam(addresses)))
+        return if(addresses.isNullOrEmpty()) emptyList() else parse(get("address_stat?${addressAsParam(addresses)}"))
     }
 
     override fun correlated(address: String): List<AddrCorrelation> {
-        return parse(get("correlated_address_tokens?address=$address"))
+        return if(address.isNullOrEmpty()) emptyList() else parse(get("correlated_address_tokens?address=$address"))
     }
 
     override fun balance(address: String): Balance {
-        return Balance(parse(get("balance?address=$address")))
+        return if(address.isNullOrEmpty()) Balance.empty else Balance(parse(get("balance?address=$address")))
     }
 }

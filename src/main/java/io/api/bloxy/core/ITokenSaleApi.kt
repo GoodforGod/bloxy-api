@@ -17,26 +17,29 @@ interface ITokenSaleApi {
     fun sales(
         contracts: List<String> = emptyList(),
         limit: Int = 30,
+        offset: Int = 0,
         timeSpanDays: Int = 30
     ): List<Sale>
 
     fun saleTxs(
         contracts: List<String> = emptyList(),
         limit: Int = 30,
+        offset: Int = 0,
         timeSpanDays: Int = 30
     ): List<SaleTx>
 
-    fun daily(
+    fun dailyStats(
         contract: String
     ): List<SaleDaily>
 
-    fun saleAddrStats(
+    fun addrStats(
         contract: String
     ): List<SaleAddrStatistic>
 
     fun buyers(
         contract: String,
-        limit: Int = 100
+        limit: Int = 100,
+        offset: Int = 0
     ): List<SaleBuyer>
 
     fun wallets(
@@ -48,23 +51,24 @@ interface ITokenSaleApi {
         contract: String,
         depth: Int = 10,
         limit: Int = 100,
+        offset: Int = 0,
         minTxAmount: Int = 0,
-        minBalance: Double = .0,
+        minBalance: Double = .001,
         ignoreAddressWithTxs: Int = 2000,
-        receivedSince: LocalDateTime = LocalDateTime.MIN,
-        receivedTill: LocalDateTime = LocalDateTime.MAX,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX,
         snapshot: LocalDateTime = LocalDateTime.MIN
     ): List<Address>
 
     fun txsDistribution(
         contract: String,
         depth: Int = 10,
-        limit: Int = 100,
+        limit: Int = 5000,
+        offset: Int = 0,
         minTxAmount: Int = 0,
-        minBalance: Double = .0,
         ignoreAddressWithTxs: Int = 2000,
-        receivedSince: LocalDateTime = LocalDateTime.MIN,
-        receivedTill: LocalDateTime = LocalDateTime.MAX,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX,
         snapshot: LocalDateTime = LocalDateTime.MIN
     ): List<Tx>
 
@@ -72,29 +76,31 @@ interface ITokenSaleApi {
         contract: String,
         depth: Int = 5,
         limit: Int = 100,
+        offset: Int = 0,
         minTxAmount: Int = 0,
-        minBalance: Double = .0,
-        ignoreAddressWithTxs: Int = 1000,
-        receivedSince: LocalDateTime = LocalDateTime.MIN,
-        receivedTill: LocalDateTime = LocalDateTime.MAX,
+        minBalance: Double = .001,
+        ignoreAddressWithTxs: Int = 2000,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX,
         snapshot: LocalDateTime = LocalDateTime.MIN
     ): List<Address>
 
     fun txsSources(
         contract: String,
         depth: Int = 5,
-        limit: Int = 100,
+        limit: Int = 5000,
+        offset: Int = 0,
         minTxAmount: Int = 0,
-        minBalance: Double = .0,
-        ignoreAddressWithTxs: Int = 1000,
-        receivedSince: LocalDateTime = LocalDateTime.MIN,
-        receivedTill: LocalDateTime = LocalDateTime.MAX,
+        ignoreAddressWithTxs: Int = 2000,
+        since: LocalDateTime = LocalDateTime.MIN,
+        till: LocalDateTime = LocalDateTime.MAX,
         snapshot: LocalDateTime = LocalDateTime.MIN
     ): List<Tx>
 
     fun tokenDistribution(
         contract: String,
-        limit: Int = 100,
+        limit: Int = 5000,
+        offset: Int = 0,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX
     ): List<Tx>
