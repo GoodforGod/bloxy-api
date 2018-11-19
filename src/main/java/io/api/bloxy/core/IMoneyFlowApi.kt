@@ -3,6 +3,7 @@ package io.api.bloxy.core
 import io.api.bloxy.model.dto.Address
 import io.api.bloxy.model.dto.Tx
 import io.api.bloxy.model.dto.moneyflow.*
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 
@@ -42,10 +43,10 @@ interface IMoneyFlowApi {
         address: String,
         contract: String = "ETH",
         depth: Int = 10,
-        limit: Int = 100,
+        limit: Int = 1000,
         offset: Int = 0,
         minTxAmount: Int = 0,
-        minBalance: Double = .0,
+        minBalance: Double = .001,
         ignoreAddressWithTxs: Int = 2000,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX,
@@ -56,9 +57,10 @@ interface IMoneyFlowApi {
         address: String,
         contract: String = "ETH",
         depth: Int = 10,
-        limit: Int = 100,
+        limit: Int = 5000,
+        offset: Int = 0,
         minTxAmount: Int = 0,
-        minBalance: Double = .0,
+        minBalance: Double = .001,
         ignoreAddressWithTxs: Int = 2000,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX,
@@ -68,10 +70,11 @@ interface IMoneyFlowApi {
     fun moneySource(
         address: String,
         contract: String = "ETH",
-        depth: Int = 10,
-        limit: Int = 100,
+        depth: Int = 5,
+        limit: Int = 1000,
+        offset: Int = 0,
         minTxAmount: Int = 0,
-        minBalance: Double = .0,
+        minBalance: Double = .001,
         ignoreAddressWithTxs: Int = 1000,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX,
@@ -81,11 +84,11 @@ interface IMoneyFlowApi {
     fun txsSource(
         address: String,
         contract: String = "ETH",
-        depth: Int = 10,
-        limit: Int = 100,
+        depth: Int = 5,
+        limit: Int = 5000,
         offset: Int = 0,
         minTxAmount: Int = 0,
-        minBalance: Double = .0,
+        minBalance: Double = .001,
         ignoreAddressWithTxs: Int = 1000,
         since: LocalDateTime = LocalDateTime.MIN,
         till: LocalDateTime = LocalDateTime.MAX,
@@ -97,8 +100,8 @@ interface IMoneyFlowApi {
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
         offset: Int = 0,
-        since: LocalDateTime = LocalDateTime.MIN,
-        till: LocalDateTime = LocalDateTime.MAX
+        since: LocalDate = LocalDate.MIN,
+        till: LocalDate = LocalDate.MAX
     ): List<AddrTransfer>
 
     fun transfersReceived(
@@ -106,19 +109,18 @@ interface IMoneyFlowApi {
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
         offset: Int = 0,
-        since: LocalDateTime = LocalDateTime.MIN,
-        till: LocalDateTime = LocalDateTime.MAX
+        since: LocalDate = LocalDate.MIN,
+        till: LocalDate = LocalDate.MAX
     ): List<AddrTransfer>
 
-    fun transfersSend(
+    fun transfersSent(
         addresses: List<String>,
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
         offset: Int = 0,
-        since: LocalDateTime = LocalDateTime.MIN,
-        till: LocalDateTime = LocalDateTime.MAX
+        since: LocalDate = LocalDate.MIN,
+        till: LocalDate = LocalDate.MAX
     ): List<AddrTransfer>
-
 
     fun topSendersCount(
         address: String,

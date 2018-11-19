@@ -4,6 +4,7 @@ import com.beust.klaxon.Klaxon
 import io.api.bloxy.error.HttpException
 import io.api.bloxy.error.ParseException
 import io.api.bloxy.executor.IHttpClient
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.util.stream.Collectors
 
@@ -69,6 +70,7 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
     }
 
     fun toNoZero(value: Int) = if (value < 1) 1 else value
+
     fun toNoZero(value: Double) = if (value < 0) 0.001 else value
 
     fun toLimit(limit: Int, max: Int = 100000): Int = if (limit > max) max else if (limit < 1) 1 else limit
@@ -81,12 +83,20 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         return if (timeSpan > maxDays) maxDays else if (timeSpan < 1) 1 else timeSpan
     }
 
+    fun toIgnored(ignoreAmount: Int, max: Int = 10000): Int {
+        return if (ignoreAmount < 100) 100 else if (ignoreAmount > max) max else ignoreAmount
+    }
+
     fun asParam(values: List<String>, prefix: String, delim: String): String {
         return values.stream().collect(Collectors.joining(delim, prefix, ""))
     }
 
-    fun dateAsParam(paramName: String, date: LocalDateTime): String {
+    fun dateTimeAsParam(paramName: String, date: LocalDateTime): String {
         return if (date == LocalDateTime.MIN || date == LocalDateTime.MAX) "" else "&$paramName=$date"
+    }
+
+    fun dateAsParam(paramName: String, date: LocalDate): String {
+        return if (date == LocalDate.MIN || date == LocalDate.MAX) "" else "&$paramName=$date"
     }
 
     fun tokenAsParam(addresses: List<String>): String {
