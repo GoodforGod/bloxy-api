@@ -10,6 +10,7 @@ import io.api.bloxy.model.dto.dex.*
  * @since 16.11.2018
  */
 interface IDexApi {
+
     fun protocols(): List<DexProtocol>
 
     fun contracts(

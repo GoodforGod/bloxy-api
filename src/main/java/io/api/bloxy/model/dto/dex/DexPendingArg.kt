@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.dex
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -19,5 +21,8 @@ data class DexPendingArg(
     val r: String = "",
     val s: String = "",
     val amount: Number = .0
-) {
+) : IModel {
+    override fun isEmpty(): Boolean {
+        return tokenGet.isEmpty() && tokenGive.isEmpty() && v == .0 && amount == .0
+    }
 }

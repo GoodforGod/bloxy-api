@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.address
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -24,5 +26,8 @@ data class AddrStatistic(
     val first_tx_at: String = "",
     val last_tx_at: String = "",
     val annotation: String = ""
-) {
+) : IModel{
+    override fun isEmpty(): Boolean {
+        return address.isEmpty()
+    }
 }

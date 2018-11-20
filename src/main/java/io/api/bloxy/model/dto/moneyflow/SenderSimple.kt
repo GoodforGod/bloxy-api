@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.moneyflow
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -12,5 +14,8 @@ data class SenderSimple(
     val sender_type: String = "",
     val transactions: Long = 0,
     val annotation: String = ""
-) {
+): IModel {
+    override fun isEmpty(): Boolean {
+        return sender.isEmpty() && transactions == 0L
+    }
 }

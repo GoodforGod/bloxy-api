@@ -1,6 +1,6 @@
 package io.api.bloxy.model.dto.token
 
-import java.math.BigInteger
+import io.api.bloxy.model.IModel
 
 
 /**
@@ -16,13 +16,14 @@ data class HolderDetails(
     val uniq_senders: Long = 0,
     val from_count: Long = 0,
     val uniq_receivers: Long = 0,
-    val to_amount: BigInteger = BigInteger.ZERO,
-    val from_amount: BigInteger = BigInteger.ZERO,
+    val to_amount: Double = .0,
+    val from_amount: Double = .0,
     val first_tx_at: String = "",
     val last_tx_at: String = "",
-    val balance: BigInteger = BigInteger.ZERO,
+    val balance: Double = .0,
     val annotation: String = ""
-) {
-
-
+) : IModel {
+    override fun isEmpty(): Boolean {
+        return address.isEmpty() && address_type.isEmpty() && to_count == 0L && from_count == 0L
+    }
 }

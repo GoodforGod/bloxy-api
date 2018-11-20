@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.transaction
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -19,5 +21,8 @@ data class TxTransfer(
     val receiver_type: String = "",
     val sender_annotation: String = "",
     val receiver_annotation: String = ""
-) {
+) : IModel {
+    override fun isEmpty(): Boolean {
+        return tx_hash.isEmpty() && sender.isEmpty() && receiver.isEmpty() && amount == .0
+    }
 }

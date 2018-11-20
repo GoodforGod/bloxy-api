@@ -18,5 +18,7 @@ interface ITransactionApi {
         offset: Int = 0
     ): List<TxTransfer>
 
-    fun details(txHashes: List<String>): List<TxDetail>
+    fun details(
+        txHashes: List<String>
+    ): List<TxDetail>
 }

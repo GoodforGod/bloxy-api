@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.transaction
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -22,5 +24,8 @@ data class TxDetail(
     val gas_price: Double = .0,
     val gas: Double = .0,
     val gas_value: Double = .0
-) {
+) : IModel {
+    override fun isEmpty(): Boolean {
+        return tx_hash.isEmpty() && tx_from.isEmpty() && tx_to.isEmpty()
+    }
 }

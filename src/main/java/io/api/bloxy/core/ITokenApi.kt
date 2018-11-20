@@ -18,7 +18,6 @@ interface ITokenApi {
         offset: Int = 0
     ): List<Holder>
 
-    // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT & OFFSET TILL RETURN EMPTY
     fun holderDetails(
         contract: String,
         limit: Int = 100,
@@ -50,7 +49,6 @@ interface ITokenApi {
         contract: String
     ): List<TokenStatistic>
 
-    // NO OFFSET, JUST DO NEEDED AMOUNT OF CYCLES WITH LIMIT & OFFSET TILL RETURN EMPTY
     fun tokenTransfers(
         contract: String,
         limit: Int = 100,

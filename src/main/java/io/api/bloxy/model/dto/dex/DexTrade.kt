@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.dex
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -30,5 +32,8 @@ data class DexTrade(
     val protocol: String = "",
     val buyAddress: String = "",
     val sellAddress: String = ""
-) {
+) : IModel {
+    override fun isEmpty(): Boolean {
+        return smart_contract_address.isEmpty() && protocol.isEmpty()
+    }
 }

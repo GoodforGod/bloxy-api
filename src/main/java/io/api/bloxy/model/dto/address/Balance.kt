@@ -15,7 +15,6 @@ class Balance(balances: List<CoinBalance>) : IModel {
         val empty: Balance = Balance(emptyList())
     }
 
-
     private val balances: Map<String, CoinBalance>
 
     init {

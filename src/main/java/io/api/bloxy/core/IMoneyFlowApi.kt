@@ -14,6 +14,7 @@ import java.time.LocalDateTime
  * @since 16.11.2018
  */
 interface IMoneyFlowApi {
+
     fun addressVolumes(
         addresses: List<String>,
         contract: String = "ETH",

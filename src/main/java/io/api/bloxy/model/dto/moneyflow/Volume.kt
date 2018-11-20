@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.moneyflow
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -15,5 +17,8 @@ data class Volume(
     val sent_amount: Double = .0,
     val sent_txs: Long = 0,
     val annotation: String = ""
-) {
+) : IModel {
+    override fun isEmpty(): Boolean {
+        return address.isEmpty() && address_type.isEmpty() && received_amount == .0 && sent_amount == .0
+    }
 }

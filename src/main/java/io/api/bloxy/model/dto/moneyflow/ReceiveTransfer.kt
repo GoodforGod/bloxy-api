@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.moneyflow
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -16,5 +18,8 @@ data class ReceiveTransfer(
     val token_address: String = "",
     val sender_type: String = "",
     val sender_annotation: String = ""
-) {
+): IModel {
+    override fun isEmpty(): Boolean {
+        return tx_hash.isEmpty() && tx_time.isEmpty()
+    }
 }

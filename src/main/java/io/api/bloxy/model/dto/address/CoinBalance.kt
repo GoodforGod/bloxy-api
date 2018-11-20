@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.address
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -15,5 +17,11 @@ data class CoinBalance(
     val received_txs: Long = 0,
     val received_amount: Double = .0,
     val balance: Double = .0
-) {
+) : IModel {
+
+    fun isEth() : Boolean = "ETH" == symbol
+
+    override fun isEmpty(): Boolean {
+        return symbol.isEmpty() && token_address.isEmpty()
+    }
 }

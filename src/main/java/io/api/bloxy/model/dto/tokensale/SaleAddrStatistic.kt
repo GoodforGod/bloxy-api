@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.tokensale
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -16,5 +18,8 @@ data class SaleAddrStatistic(
     val token_buyers: Int = 0,
     val from_time: String = "",
     val till_time: String =""
-) {
+): IModel {
+    override fun isEmpty(): Boolean {
+        return ether_receiver.isEmpty() && token_sender.isEmpty() && transactions == 0 && eth_amount == .0
+    }
 }

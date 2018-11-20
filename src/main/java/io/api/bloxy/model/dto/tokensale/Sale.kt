@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.tokensale
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -15,5 +17,8 @@ data class Sale(
     val eth_amount: Number = .0,
     val token_amount: Number = .0,
     val token_buyers: Long = 0
-) {
+) : IModel {
+    override fun isEmpty(): Boolean {
+        return token_address.isEmpty() && symbol.isEmpty() && transactions == 0L && eth_amount == .0
+    }
 }

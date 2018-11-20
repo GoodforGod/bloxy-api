@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.moneyflow
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -17,5 +19,8 @@ data class AddrTransfer(
     val token_address: String = "",
     val party_type: String = "",
     val party_annotation: String = ""
-) {
+) : IModel {
+    override fun isEmpty(): Boolean {
+        return tx_hash.isEmpty() && tx_time.isEmpty()
+    }
 }

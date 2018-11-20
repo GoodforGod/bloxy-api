@@ -13,6 +13,7 @@ import io.api.bloxy.model.dto.address.Balance
  * @since 16.11.2018
  */
 interface IAddressApi {
+
     fun details(
         addresses: List<String>
     ): List<AddrDetails>

@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto.dex
 
+import io.api.bloxy.model.IModel
+
 
 /**
  * ! NO DESCRIPTION !
@@ -15,5 +17,8 @@ data class DexPending(
     val arguments: DexPendingArg = DexPendingArg(),
     val tx_sender: String = "",
     val tx_hash: String = ""
-) {
+) : IModel{
+    override fun isEmpty(): Boolean {
+        return smart_contract_address.isEmpty() && protocol.isEmpty()
+    }
 }
