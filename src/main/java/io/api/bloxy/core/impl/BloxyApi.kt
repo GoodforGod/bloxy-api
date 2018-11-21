@@ -1,6 +1,7 @@
 package io.api.bloxy.core.impl
 
 import io.api.bloxy.core.*
+import io.api.bloxy.error.BloxyException
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.executor.impl.HttpClient
 import java.util.function.Supplier
@@ -22,6 +23,8 @@ class BloxyApi(key: String, supplier: Supplier<IHttpClient> = Supplier { HttpCli
     private val tokenSaleApi: ITokenSaleApi
 
     init {
+        if(key.isNullOrEmpty()) throw BloxyException("API key can not be null of empty")
+
         this.txApi = TransactionApiProvider(supplier.get(), key)
         this.dexApi = DexApiProvider(supplier.get(), key)
         this.tokenApi = TokenApiProvider(supplier.get(), key)

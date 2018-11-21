@@ -6,6 +6,7 @@ import io.api.bloxy.model.dto.address.AddrCorrelation
 import io.api.bloxy.model.dto.address.AddrDetails
 import io.api.bloxy.model.dto.address.AddrStatistic
 import io.api.bloxy.model.dto.address.Balance
+import java.util.stream.Collectors
 
 
 /**
@@ -17,7 +18,11 @@ import io.api.bloxy.model.dto.address.Balance
 class AddressApiProvider(client: IHttpClient, key: String) : IAddressApi, BasicProvider(client, "address", key) {
 
     override fun details(addresses: List<String>): List<AddrDetails> {
-        return if(addresses.isNullOrEmpty()) emptyList() else parse(get("address_diagnostics?${addressAsParam(addresses)}"))
+        if(addresses.isNullOrEmpty())
+            return emptyList()
+
+        val result:List<AddrDetails> = parse(get("address_diagnostics?${addressAsParam(addresses)}"))
+        return result.stream().filter{a -> "Address was never used" != a.note }.collect(Collectors.toList())
     }
 
     override fun statistics(addresses: List<String>): List<AddrStatistic> {

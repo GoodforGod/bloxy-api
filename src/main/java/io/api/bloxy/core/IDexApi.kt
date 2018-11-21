@@ -11,8 +11,18 @@ import io.api.bloxy.model.dto.dex.*
  */
 interface IDexApi {
 
+    /**
+     *
+     */
     fun protocols(): List<DexProtocol>
 
+    /**
+     *
+     * @param protocols
+     * @param limit
+     * @param offset
+     * @param timeSpanDays
+     */
     fun contracts(
         protocols: List<String>,
         limit: Int = 100,
@@ -20,6 +30,15 @@ interface IDexApi {
         timeSpanDays: Int = 30
     ): List<DexContract>
 
+    /**
+     *
+     * @param protocols
+     * @param dexContracts
+     * @param tokenAddresses
+     * @param limit
+     * @param offset
+     * @param timeSpanDays
+     */
     fun trades(
         protocols: List<String>,
         dexContracts: List<String> = emptyList(),
@@ -29,11 +48,24 @@ interface IDexApi {
         timeSpanDays: Int = 5
     ): List<DexTrade>
 
+    /**
+     *
+     * @param protocols
+     * @param dexContracts
+     */
     fun pendingTxs(
         protocols: List<String>,
         dexContracts: List<String> = emptyList()
     ): List<DexPending>
 
+    /**
+     *
+     * @param protocols
+     * @param dexContracts
+     * @param limit
+     * @param offset
+     * @param timeSpanDays
+     */
     fun tradesActive(
         protocols: List<String>,
         dexContracts: List<String> = emptyList(),
