@@ -24,7 +24,7 @@ interface IDexApi {
      * @param timeSpanDays
      */
     fun contracts(
-        protocols: List<String>,
+        protocols: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
         timeSpanDays: Int = 30
@@ -40,7 +40,7 @@ interface IDexApi {
      * @param timeSpanDays
      */
     fun trades(
-        protocols: List<String>,
+        protocols: List<String> = emptyList(),
         dexContracts: List<String> = emptyList(),
         tokenAddresses: List<String> = emptyList(),
         limit: Int = 100,
@@ -54,9 +54,9 @@ interface IDexApi {
      * @param dexContracts
      */
     fun pendingTxs(
-        protocols: List<String>,
+        protocols: List<String> = emptyList(),
         dexContracts: List<String> = emptyList()
-    ): List<DexPending>
+    ): List<DexTxPending>
 
     /**
      *
@@ -67,7 +67,7 @@ interface IDexApi {
      * @param timeSpanDays
      */
     fun tradesActive(
-        protocols: List<String>,
+        protocols: List<String> = emptyList(),
         dexContracts: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,

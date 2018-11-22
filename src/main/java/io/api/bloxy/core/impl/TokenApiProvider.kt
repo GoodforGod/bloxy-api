@@ -33,23 +33,23 @@ internal class TokenApiProvider(client: IHttpClient, key: String) : ITokenApi, B
     }
 
     override fun holderCorrelations(contracts: List<String>): List<TokenCorrelation> {
-        return parse(get("token_correlation?${tokenAsParam(contracts)}"))
+        return get("token_correlation?${tokenAsParamRequired(contracts)}")
     }
 
     override fun holderSimilar(contracts: String): List<HolderSimilar> {
-        return parse(get("similar_tokens?token=$contracts"))
+        return get("similar_tokens?token=$contracts")
     }
 
     override fun tokenByNameOrSymbol(nameOrSymbol: String, limit: Int, offset: Int): List<Token> {
-        return parse(get("token_search?search=$nameOrSymbol&limit=${toLimit(limit, 100000)}"))
+        return get("token_search?search=$nameOrSymbol&limit=${toLimit(limit, 100000)}")
     }
 
     override fun tokenDetails(contracts: List<String>): List<TokenDetails> {
-        return parse(get("token_info?${tokenAsParam(contracts)}"))
+        return get("token_info?${tokenAsParamRequired(contracts)}")
     }
 
     override fun tokenStatistic(contract: String): List<TokenStatistic> {
-        return parse(get("token_stat?token=$contract"))
+        return get("token_stat?token=$contract")
     }
 
     override fun tokenTransfers(

@@ -25,8 +25,8 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
     ): List<Volume> {
         val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
-        val params = "volumes?${addressAsParam(addresses)}$tokenParam$dateParams"
-        return if (addresses.isNullOrEmpty()) emptyList() else parse(get(params))
+        val params = "volumes?${addressAsParamRequired(addresses)}$tokenParam$dateParams"
+        return if (addresses.isNullOrEmpty()) emptyList() else get(params)
     }
 
     override fun topSenders(
@@ -154,7 +154,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDate
     ): List<AddrTransfer> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "transfers?${addressAsParam(addresses)}${tokenAsParam(contracts)}$dateParams"
+        val params = "transfers?${addressAsParamRequired(addresses)}${tokenAsParamRequired(contracts)}$dateParams"
         return if (addresses.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset)
     }
 
@@ -167,7 +167,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDate
     ): List<AddrTransfer> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "received?${addressAsParam(addresses)}${tokenAsParam(contracts)}$dateParams"
+        val params = "received?${addressAsParamRequired(addresses)}${tokenAsParamRequired(contracts)}$dateParams"
         return if (addresses.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset)
     }
 
@@ -180,7 +180,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDate
     ): List<AddrTransfer> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "sent?${addressAsParam(addresses)}${tokenAsParam(contracts)}$dateParams"
+        val params = "sent?${addressAsParamRequired(addresses)}${tokenAsParamRequired(contracts)}$dateParams"
         return if (addresses.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset)
     }
 

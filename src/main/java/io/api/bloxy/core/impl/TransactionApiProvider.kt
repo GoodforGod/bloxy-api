@@ -24,6 +24,6 @@ class TransactionApiProvider(client: IHttpClient, key: String) : ITransactionApi
     }
 
     override fun details(txHashes: List<String>): List<TxDetail> {
-        return if (txHashes.isNullOrEmpty()) emptyList() else parse(get("transactions?${hashAsParam(txHashes)}"))
+        return if (txHashes.isNullOrEmpty()) emptyList() else get("transactions?${hashAsParam(txHashes)}")
     }
 }

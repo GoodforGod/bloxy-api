@@ -1,6 +1,7 @@
 package io.api.bloxy.model.dto.dex
 
 import io.api.bloxy.model.IModel
+import io.api.bloxy.util.KlaxonArgs
 
 
 /**
@@ -9,16 +10,16 @@ import io.api.bloxy.model.IModel
  * @author GoodforGod
  * @since 18.11.2018
  */
-data class DexPending(
+data class DexTxPending(
     val smart_contract_address: String = "",
     val protocol: String = "",
     val method: String = "",
     val signature: String = "",
-    val arguments: DexPendingArg = DexPendingArg(),
+    @KlaxonArgs val arguments: Args = Args(),
     val tx_sender: String = "",
     val tx_hash: String = ""
-) : IModel{
+) : IModel {
     override fun isEmpty(): Boolean {
-        return smart_contract_address.isEmpty() && protocol.isEmpty()
+        return smart_contract_address.isEmpty() && protocol.isEmpty() && tx_hash.isEmpty()
     }
 }

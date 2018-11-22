@@ -21,7 +21,5 @@ data class CoinBalance(
 
     fun isEth() : Boolean = "ETH" == symbol
 
-    override fun isEmpty(): Boolean {
-        return symbol.isEmpty() && token_address.isEmpty()
-    }
+    override fun isEmpty(): Boolean = symbol.isEmpty() && token_address.isEmpty()
 }

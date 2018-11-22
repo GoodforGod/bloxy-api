@@ -31,15 +31,13 @@ class DetailsTests : Tester() {
     }
 
     @Test(expected = ParamException::class)
-    fun `invalid address param`() {
+    fun `invalid address param error`() {
         val list = listOf("0x1eAb08daA285183F9A04269747D4125F08e634B0", "0x6f05a632bBe3B4Ed51E3726b093FD33Aa55C6Df")
         val details = api.address().details(list)
     }
 
-    @Test
-    fun `empty param empty result`() {
+    @Test(expected = ParamException::class)
+    fun `empty param error`() {
         val details = api.address().details(emptyList())
-        assertNotNull(details)
-        assertTrue(details.isEmpty())
     }
 }

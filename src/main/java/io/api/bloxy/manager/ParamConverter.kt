@@ -32,7 +32,7 @@ open class ParamConverter : ParamValidator() {
     }
 
     fun asParam(values: List<String>, prefix: String, delim: String): String {
-        return values.stream().collect(Collectors.joining(delim, prefix, ""))
+        return if(values.isEmpty()) "" else values.stream().collect(Collectors.joining(delim, prefix, ""))
     }
 
     fun dateTimeAsParam(paramName: String, date: LocalDateTime): String {
@@ -43,8 +43,16 @@ open class ParamConverter : ParamValidator() {
         return if (date == LocalDate.MIN || date == LocalDate.MAX) "" else "&$paramName=$date"
     }
 
+    fun tokenAsParamRequired(contracts: List<String>): String {
+        return asParam(checkAddressRequired(contracts), "token[]=", "&token[]=")
+    }
+
     fun tokenAsParam(contracts: List<String>): String {
         return asParam(checkAddress(contracts), "token[]=", "&token[]=")
+    }
+
+    fun addressAsParamRequired(addresses: List<String>): String {
+        return asParam(checkAddressRequired(addresses), "address[]=", "&address[]=")
     }
 
     fun addressAsParam(addresses: List<String>): String {

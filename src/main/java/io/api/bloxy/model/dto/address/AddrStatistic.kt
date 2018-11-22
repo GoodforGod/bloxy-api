@@ -1,6 +1,6 @@
 package io.api.bloxy.model.dto.address
 
-import io.api.bloxy.model.IModel
+import io.api.bloxy.model.IValidModel
 
 
 /**
@@ -26,8 +26,9 @@ data class AddrStatistic(
     val first_tx_at: String = "",
     val last_tx_at: String = "",
     val annotation: String = ""
-) : IModel{
-    override fun isEmpty(): Boolean {
-        return address.isEmpty()
-    }
+) : IValidModel {
+
+    override fun isEmpty(): Boolean = address.isEmpty()
+
+    override fun isValid(): Boolean = "Address was never used" != note
 }

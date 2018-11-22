@@ -17,21 +17,21 @@ import java.time.LocalDateTime
 class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, BasicProvider(client, "tokensale", key) {
 
     override fun sales(contracts: List<String>, limit: Int, offset: Int, timeSpanDays: Int): List<Sale> {
-        val urlParam = "days=${toTimeSpan(timeSpanDays)}${tokenAsParam(contracts)}"
+        val urlParam = "days=${toTimeSpan(timeSpanDays)}${tokenAsParamRequired(contracts)}"
         return getOffset("tokens?$urlParam", limit, offset, 1000)
     }
 
     override fun saleTxs(contracts: List<String>, limit: Int, offset: Int, timeSpanDays: Int): List<SaleTx> {
-        val urlParam = "days=${toTimeSpan(timeSpanDays)}${tokenAsParam(contracts)}"
+        val urlParam = "days=${toTimeSpan(timeSpanDays)}${tokenAsParamRequired(contracts)}"
         return getOffset("transactions?$urlParam", limit, offset, 100)
     }
 
     override fun dailyStats(contract: String): List<SaleDaily> {
-        return if (contract.isNullOrEmpty()) emptyList() else parse(get("by_days?token_address=$contract"))
+        return if (contract.isNullOrEmpty()) emptyList() else get("by_days?token_address=$contract")
     }
 
     override fun addrStats(contract: String): List<SaleAddrStatistic> {
-        return if (contract.isNullOrEmpty()) emptyList() else parse(get("addresses?token_address=$contract"))
+        return if (contract.isNullOrEmpty()) emptyList() else get("addresses?token_address=$contract")
     }
 
     override fun buyers(contract: String, limit: Int, offset: Int): List<SaleBuyer> {
@@ -45,7 +45,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
 
     override fun wallets(contract: String, withIntermediary: Boolean): List<SaleWallet> {
         val params = "addresses?token_address=$contract&with_zero_balances=$withIntermediary"
-        return if (contract.isNullOrEmpty()) emptyList() else parse(get(params))
+        return if (contract.isNullOrEmpty()) emptyList() else get(params)
     }
 
     override fun moneyDistribution(

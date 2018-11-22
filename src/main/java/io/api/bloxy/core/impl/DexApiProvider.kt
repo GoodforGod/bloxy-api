@@ -13,16 +13,23 @@ import io.api.bloxy.model.dto.dex.*
  */
 class DexApiProvider(client: IHttpClient, key: String) : IDexApi, BasicProvider(client, "dex", key) {
 
+    companion object {
+        val errors = listOf(
+            "Protocols not found by names, check spelling case sensitive!",
+            "Not found any DEXes with these parameters"
+        )
+    }
+
     private fun protocolAsParam(values: List<String>): String {
         return asParam(values, "&protocol[]=", "protocol[]=")
     }
 
     private fun contractAsParam(values: List<String>): String {
-        return asParam(values, "&smart_contract_address[]=", "smart_contract_address[]=")
+        return asParam(checkAddress(values), "&smart_contract_address[]=", "smart_contract_address[]=")
     }
 
     override fun protocols(): List<DexProtocol> {
-        return parse(get("protocols"))
+        return get("protocols?")
     }
 
     override fun contracts(protocols: List<String>, limit: Int, offset: Int, timeSpanDays: Int): List<DexContract> {
@@ -39,13 +46,15 @@ class DexApiProvider(client: IHttpClient, key: String) : IDexApi, BasicProvider(
         timeSpanDays: Int
     ): List<DexTrade> {
         val paramsAddrs = "${contractAsParam(dexContracts)}${tokenAsParam(tokenAddresses)}"
-        val params = "trades?days=${toTimeSpan(timeSpanDays)}${protocolAsParam(protocols)}$paramsAddrs"
-        return getOffset(params, limit, offset)
+        val params = "trades?days=${toTimeSpan(timeSpanDays, 30)}${protocolAsParam(protocols)}$paramsAddrs"
+        return getOffset(params, limit, offset, skipErrors = errors)
     }
 
-    override fun pendingTxs(protocols: List<String>, dexContracts: List<String>): List<DexPending> {
-        val params = "pending?${protocolAsParam(dexContracts)}${contractAsParam(dexContracts)}"
-        return parse(get(params))
+    override fun pendingTxs(protocols: List<String>, dexContracts: List<String>): List<DexTxPending> {
+        val paramDex = contractAsParam(dexContracts)
+        val formattedDex = if (protocols.isEmpty()) paramDex.replace("&", "") else paramDex
+        val params = "pending?${protocolAsParam(protocols)}$formattedDex"
+        return get(params, errors)
     }
 
     override fun tradesActive(
@@ -56,7 +65,7 @@ class DexApiProvider(client: IHttpClient, key: String) : IDexApi, BasicProvider(
         timeSpanDays: Int
     ): List<DexTradeActive> {
         val paramsAddrs = "${protocolAsParam(protocols)}${contractAsParam(dexContracts)}"
-        val params = "trades?days=${toTimeSpan(timeSpanDays)}$paramsAddrs"
-        return getOffset(params, limit, offset)
+        val params = "traders?days=${toTimeSpan(timeSpanDays, 720)}$paramsAddrs"
+        return getOffset(params, limit, offset, skipErrors = errors)
     }
 }

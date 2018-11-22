@@ -1,6 +1,8 @@
 package io.api.bloxy.manager
 
 import io.api.bloxy.error.ParamException
+import io.api.bloxy.model.IValidModel
+import java.util.stream.Collectors
 
 
 /**
@@ -11,12 +13,16 @@ import io.api.bloxy.error.ParamException
  */
 open class ParamValidator {
 
-    private fun isAddressValid(address: String): Boolean {
+    fun isAddressValid(address: String): Boolean {
         return address.isNotEmpty() && address.matches("0x[a-zA-Z0-9]{40}".toRegex())
     }
 
-    private fun isTxHashValid(address: String): Boolean {
+    fun isTxHashValid(address: String): Boolean {
         return address.isNotEmpty() && address.matches("0x[a-zA-Z0-9]{60}".toRegex())
+    }
+
+    fun <T : IValidModel> validOnly(models: List<T>) : List<T> {
+        return models.stream().filter{m -> m.isValid()}.collect(Collectors.toList())
     }
 
     fun checkNonBlank(param: String): String {
@@ -24,12 +30,21 @@ open class ParamValidator {
     }
 
     fun checkNonBlank(params: List<String>): List<String> {
+        if(params.isNullOrEmpty()) throw ParamException("Params is null or empty")
+
         params.forEach { a -> if (a.isBlank()) throw ParamException("Param is blank : $a") }
         return params
     }
 
-    fun checkAddress(address: String): String {
+    fun checkAddressRequired(address: String): String {
         return if (isAddressValid(address)) address else throw ParamException("Address is not Ethereum format : $address")
+    }
+
+    fun checkAddressRequired(addresses: List<String>): List<String> {
+        if(addresses.isNullOrEmpty()) throw ParamException("Addresses is null or empty")
+
+        addresses.forEach { a -> if (!isAddressValid(a)) throw ParamException("Address is not Ethereum format : $a") }
+        return addresses
     }
 
     fun checkAddress(addresses: List<String>): List<String> {
@@ -37,8 +52,15 @@ open class ParamValidator {
         return addresses
     }
 
-    fun checkTxs(tx: String): String {
+    fun checkTxsRequired(tx: String): String {
         return if (isTxHashValid(tx)) tx else throw ParamException("TxHash is not Ethereum format : $tx")
+    }
+
+    fun checkTxsRequired(txs: List<String>): List<String> {
+        if(txs.isNullOrEmpty()) throw ParamException("TxHashs is null or empty")
+
+        txs.forEach { t -> if (!isTxHashValid(t)) throw ParamException("TxHash is not Ethereum format : $t") }
+        return txs
     }
 
     fun checkTxs(txs: List<String>): List<String> {
