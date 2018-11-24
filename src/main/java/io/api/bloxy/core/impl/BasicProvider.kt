@@ -1,7 +1,5 @@
 package io.api.bloxy.core.impl
 
-import com.beust.klaxon.Converter
-import com.beust.klaxon.JsonValue
 import com.beust.klaxon.Klaxon
 import io.api.bloxy.error.BloxyException
 import io.api.bloxy.error.HttpException
@@ -9,8 +7,8 @@ import io.api.bloxy.error.ParseException
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.manager.ParamConverter
 import io.api.bloxy.model.dto.BloxyError
-import io.api.bloxy.model.dto.dex.Args
 import io.api.bloxy.util.KlaxonArgs
+import io.api.bloxy.util.KlaxonConverters
 
 
 /**
@@ -26,14 +24,8 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
 
     protected val converter = Klaxon()
 
-    companion object {
-        val argsConverter = object : Converter {
-            override fun canConvert(cls: Class<*>) = cls == Args::class.java
-
-            override fun toJson(value: Any): String = ""
-
-            override fun fromJson(jv: JsonValue) = Args(jv.obj?.map ?: emptyMap())
-        }
+    init {
+        Klaxon().fieldConverter(KlaxonArgs::class, KlaxonConverters.argsConverter)
     }
 
     protected fun getData(urlParams: String): String {
@@ -48,17 +40,13 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         return parse(getData(urlParams), skipErrors)
     }
 
-
     protected inline fun <reified T> parse(json: String, skipErrors: List<String> = emptyList()): List<T> {
         return try {
-            if (json.isBlank())
-                emptyList()
-            else
-                converter.fieldConverter(KlaxonArgs::class, argsConverter).parseArray(json) ?: emptyList()
+            if (json.isBlank()) emptyList() else converter.parseArray(json) ?: emptyList()
         } catch (e: Exception) {
             try {
                 val bloxyError = converter.parse<BloxyError>(json) ?: throw ParseException(e.message, e.cause)
-                if (skipErrors.stream().anyMatch { er -> bloxyError.error == er })
+                if (skipErrors.stream().anyMatch { er -> er.toRegex().containsMatchIn(bloxyError.error)})
                     emptyList()
                 else
                     throw BloxyException(bloxyError.error)

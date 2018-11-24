@@ -18,7 +18,7 @@ open class ParamValidator {
     }
 
     fun isTxHashValid(address: String): Boolean {
-        return address.isNotEmpty() && address.matches("0x[a-zA-Z0-9]{60}".toRegex())
+        return address.isNotEmpty() && address.matches("0x[a-zA-Z0-9]{64}".toRegex())
     }
 
     fun <T : IValidModel> validOnly(models: List<T>) : List<T> {

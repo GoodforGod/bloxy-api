@@ -10,11 +10,11 @@ import io.api.bloxy.model.IModel
  * @since 16.11.2018
  */
 data class TokenCorrelation(
-    val symbol: String = "",
-    val address: String = "",
-    val transfers: Long = 0
+    val symbols: String = "",
+    val addresses: String = "",
+    val transfer_to_uniques: Long = 0
 ) : IModel {
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && address.isEmpty() && transfers == 0L
+        return addresses.isEmpty() && transfer_to_uniques == 0L
     }
 }

@@ -13,9 +13,33 @@ import java.util.stream.Collectors
  */
 open class ParamConverter : ParamValidator() {
 
+    companion object {
+        val MIN_DATE: LocalDate = LocalDate.of(2001, 1, 1)
+        val MAX_DATE: LocalDate = LocalDate.of(2099, 1, 1)
+
+        val MIN_DATETIME: LocalDateTime = LocalDateTime.of(2001, 1, 1, 1, 1, 1, 1)
+        val MAX_DATETIME: LocalDateTime = LocalDateTime.of(2099, 1, 1, 1, 1, 1, 1)
+    }
+
+    fun toZero(value: Int) = if (value < 0) 0 else value
+
+    fun toDate(value: LocalDate) : LocalDate {
+        if(value.isBefore(MIN_DATE))
+            return MIN_DATE
+
+        return if(value.isAfter(MAX_DATE)) MAX_DATE else value
+    }
+
+    fun toDateTime(value: LocalDateTime) : LocalDateTime {
+        if(value.isBefore(MIN_DATETIME))
+            return MIN_DATETIME
+
+        return if(value.isAfter(MAX_DATETIME)) MAX_DATETIME else value
+    }
+
     fun toNoZero(value: Int) = if (value < 1) 1 else value
 
-    fun toNoZero(value: Double) = if (value < 0) 0.001 else value
+    fun toNoZero(value: Double) = if (value < 0) 1.0e-6 else value
 
     fun toLimit(limit: Int, max: Int = 100000): Int = if (limit > max) max else if (limit < 1) 1 else limit
 
@@ -35,12 +59,12 @@ open class ParamConverter : ParamValidator() {
         return if(values.isEmpty()) "" else values.stream().collect(Collectors.joining(delim, prefix, ""))
     }
 
-    fun dateTimeAsParam(paramName: String, date: LocalDateTime): String {
-        return if (date == LocalDateTime.MIN || date == LocalDateTime.MAX) "" else "&$paramName=$date"
+    fun dateAsParam(paramName: String, date: LocalDateTime): String {
+        return if (date == MIN_DATETIME || date == MAX_DATETIME) "" else "&$paramName=${toDateTime(date)}"
     }
 
     fun dateAsParam(paramName: String, date: LocalDate): String {
-        return if (date == LocalDate.MIN || date == LocalDate.MAX) "" else "&$paramName=$date"
+        return if (date == MIN_DATE || date == MAX_DATE) "" else "&$paramName=${toDate(date)}"
     }
 
     fun tokenAsParamRequired(contracts: List<String>): String {

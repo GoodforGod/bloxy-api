@@ -19,11 +19,11 @@ class TransactionApiProvider(client: IHttpClient, key: String) : ITransactionApi
     }
 
     override fun transfers(txHashes: List<String>, limit: Int, offset: Int): List<TxTransfer> {
-        val param = "transactions?${hashAsParam(txHashes)}"
-        return if (txHashes.isNullOrEmpty()) emptyList() else getOffset(param, limit, offset, 100000)
+        val param = "transfers?${hashAsParam(checkTxsRequired(txHashes))}"
+        return getOffset(param, limit, offset)
     }
 
     override fun details(txHashes: List<String>): List<TxDetail> {
-        return if (txHashes.isNullOrEmpty()) emptyList() else get("transactions?${hashAsParam(txHashes)}")
+        return get("info?${hashAsParam(checkTxsRequired(txHashes))}")
     }
 }

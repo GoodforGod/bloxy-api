@@ -23,7 +23,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         since: LocalDateTime,
         till: LocalDateTime
     ): List<Volume> {
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}"
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
         val params = "volumes?${addressAsParamRequired(addresses)}$tokenParam$dateParams"
         return if (addresses.isNullOrEmpty()) emptyList() else get(params)
@@ -37,7 +37,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         since: LocalDateTime,
         till: LocalDateTime
     ): List<Sender> {
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}"
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
         val params = "senders?address=$address$tokenParam$dateParams"
         return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 1000)
@@ -51,7 +51,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         since: LocalDateTime,
         till: LocalDateTime
     ): List<Receiver> {
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}"
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
         val params = "receivers?address=$address$tokenParam$dateParams"
         return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 1000)
@@ -70,8 +70,8 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Address> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateTimeAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}$snapParam"
+        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
         val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
@@ -92,8 +92,8 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Tx> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateTimeAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}$snapParam"
+        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
         val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
@@ -114,8 +114,8 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Address> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateTimeAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}$snapParam"
+        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth, 10)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
         val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
@@ -136,8 +136,8 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Tx> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateTimeAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}$snapParam"
+        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth, 10)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
         val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
@@ -191,7 +191,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         since: LocalDateTime,
         till: LocalDateTime
     ): List<SenderSimple> {
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}"
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val params = "senders_by_count?address=$address$dateParams"
         return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 1000)
     }
@@ -203,7 +203,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         since: LocalDateTime,
         till: LocalDateTime
     ): List<ReceiverSimple> {
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}"
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val params = "receivers_by_count?address=$address$dateParams"
         return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 1000)
     }

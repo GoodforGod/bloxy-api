@@ -19,6 +19,17 @@ data class DexTxPending(
     val tx_sender: String = "",
     val tx_hash: String = ""
 ) : IModel {
+
+    val methodType = when (method) {
+        "cancelOrder" -> MethodType.CANCEL_ORDER
+        "withdrawToken" -> MethodType.WITHDRAW_TOKEN
+        "depositToken" -> MethodType.DEPOSIT_TOKEN
+        "withdraw" -> MethodType.WITHDRAW
+        "deposit" -> MethodType.DEPOSIT
+        "trade" -> MethodType.TRADE
+        else -> MethodType.UNKNOWN
+    }
+
     override fun isEmpty(): Boolean {
         return smart_contract_address.isEmpty() && protocol.isEmpty() && tx_hash.isEmpty()
     }

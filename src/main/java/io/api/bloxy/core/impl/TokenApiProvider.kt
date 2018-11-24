@@ -16,8 +16,15 @@ import java.time.LocalDateTime
  */
 internal class TokenApiProvider(client: IHttpClient, key: String) : ITokenApi, BasicProvider(client, "token", key) {
 
-    override fun holders(contract: String, limit: Int, offset:Int): List<Holder> {
-        return getOffset("token_holders_list?token=$contract", limit, offset)
+    companion object {
+        val errors = listOf(
+            "No currency found by token",
+            "Currency not found by"
+        )
+    }
+
+    override fun holders(contract: String, limit: Int): List<Holder> {
+        return get("token_holders_list?token=${checkAddressRequired(contract)}&limit=${toLimit(limit)}", errors)
     }
 
     override fun holderDetails(
@@ -28,28 +35,30 @@ internal class TokenApiProvider(client: IHttpClient, key: String) : ITokenApi, B
         minReceived: Int,
         minSend: Int
     ): List<HolderDetails> {
-        val urlParam = "token=$contract&min_balance=$minBalance&to_count_min=$minReceived&from_count_min=$minSend"
-        return getOffset("token_holders_details?$urlParam", limit, offset)
+        val txCountParam = "&to_count_min=${toNoZero(minReceived)}&from_count_min=${toZero(minSend)}"
+        val urlParam = "token=${checkAddressRequired(contract)}&min_balance=${toNoZero(minBalance)}$txCountParam"
+        return getOffset("token_holders_details?$urlParam", limit, offset, skipErrors = errors)
     }
 
     override fun holderCorrelations(contracts: List<String>): List<TokenCorrelation> {
-        return get("token_correlation?${tokenAsParamRequired(contracts)}")
+        val params = "token_correlation?${tokenAsParamRequired(contracts)}"
+        return if (contracts.size < 2) emptyList() else get(params, errors)
     }
 
     override fun holderSimilar(contracts: String): List<HolderSimilar> {
-        return get("similar_tokens?token=$contracts")
+        return get("similar_tokens?token=${checkAddressRequired(contracts)}", errors)
     }
 
     override fun tokenByNameOrSymbol(nameOrSymbol: String, limit: Int, offset: Int): List<Token> {
-        return get("token_search?search=$nameOrSymbol&limit=${toLimit(limit, 100000)}")
+        return get("token_search?search=$nameOrSymbol&limit=${toLimit(limit)}", errors)
     }
 
     override fun tokenDetails(contracts: List<String>): List<TokenDetails> {
-        return get("token_info?${tokenAsParamRequired(contracts)}")
+        return get("token_info?${tokenAsParamRequired(contracts)}", errors)
     }
 
     override fun tokenStatistic(contract: String): List<TokenStatistic> {
-        return get("token_stat?token=$contract")
+        return get("token_stat?token=${checkAddressRequired(contract)}", errors)
     }
 
     override fun tokenTransfers(
@@ -59,7 +68,8 @@ internal class TokenApiProvider(client: IHttpClient, key: String) : ITokenApi, B
         since: LocalDateTime,
         till: LocalDateTime
     ): List<TokenTransfer> {
-        val params = "token=$contract&from_time=$since&till_time=$till"
-        return getOffset("transfers?$params", limit, offset)
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val params = "token=${checkAddressRequired(contract)}$dateParams"
+        return getOffset("transfers?$params", limit, offset, skipErrors = errors)
     }
 }

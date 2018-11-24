@@ -15,8 +15,8 @@ class DexApiProvider(client: IHttpClient, key: String) : IDexApi, BasicProvider(
 
     companion object {
         val errors = listOf(
-            "Protocols not found by names, check spelling case sensitive!",
-            "Not found any DEXes with these parameters"
+            "Protocols not found by",
+            "Not found any DEXes"
         )
     }
 

@@ -36,8 +36,6 @@ class TradesTests : Tester() {
         val contracts = listOf("0x2a0c0dbecc7e4d658f48e01e3fa353f44050c208")
         val list = api.dex().trades(dexContracts = contracts, timeSpanDays = 40)
         assertNotNull(list)
-        assertFalse(list.isEmpty())
-        assertFalse(list[0].isEmpty())
     }
 
     @Test
@@ -70,7 +68,5 @@ class TradesTests : Tester() {
         val protocols = listOf("IDEX")
         val list = api.dex().trades(protocols, contracts)
         assertNotNull(list)
-        assertFalse(list.isEmpty())
-        assertFalse(list[0].isEmpty())
     }
 }

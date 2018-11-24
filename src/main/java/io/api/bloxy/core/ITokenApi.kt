@@ -1,5 +1,7 @@
 package io.api.bloxy.core
 
+import io.api.bloxy.manager.ParamConverter.Companion.MAX_DATETIME
+import io.api.bloxy.manager.ParamConverter.Companion.MIN_DATETIME
 import io.api.bloxy.model.dto.token.*
 import java.time.LocalDateTime
 
@@ -14,8 +16,7 @@ interface ITokenApi {
 
     fun holders(
         contract: String,
-        limit: Int = 100,
-        offset: Int = 0
+        limit: Int = 100
     ): List<Holder>
 
     fun holderDetails(
@@ -53,7 +54,7 @@ interface ITokenApi {
         contract: String,
         limit: Int = 100,
         offset: Int = 0,
-        since: LocalDateTime = LocalDateTime.MIN,
-        till: LocalDateTime = LocalDateTime.MAX
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
     ): List<TokenTransfer>
 }

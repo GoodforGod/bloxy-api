@@ -1,7 +1,6 @@
 package io.api.bloxy.core.dex
 
 import io.api.bloxy.core.Tester
-import io.api.bloxy.error.BloxyException
 import io.api.bloxy.error.ParamException
 import org.junit.Test
 
@@ -56,7 +55,7 @@ class TradesActiveTests : Tester() {
         assertTrue(list.isEmpty())
     }
 
-    @Test(expected = BloxyException::class)
+    @Test
     fun `dex protocol not exist`() {
         val protocols = listOf("IDEXIA")
         val list = api.dex().tradesActive(protocols)

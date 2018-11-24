@@ -60,8 +60,8 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Address> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateTimeAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}$snapParam"
+        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
         val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
         val params = "distribution?token_address=$contract$numParams$ignoreParam$dateParams"
@@ -79,8 +79,8 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Tx> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateTimeAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}$snapParam"
+        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth)}&min_tx_amount=$minTxAmount"
         val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
         val params = "distribution_transactions?token_address=$contract$numParams$ignoreParam$dateParams"
@@ -99,8 +99,8 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Address> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateTimeAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}$snapParam"
+        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
         val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
         val params = "source?token_address=$contract$numParams$ignoreParam$dateParams"
@@ -118,8 +118,8 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Tx> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateTimeAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}$snapParam"
+        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth)}&min_tx_amount=$minTxAmount"
         val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
         val params = "source_transactions?token_address=$contract$numParams$ignoreParam$dateParams"
@@ -133,7 +133,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
         since: LocalDateTime,
         till: LocalDateTime
     ): List<Tx> {
-        val dateParams = "${dateTimeAsParam("from_time", since)}${dateTimeAsParam("till_time", till)}"
+        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val params = "source_transactions?token_address=$contract$dateParams"
         return if (contract.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 10000, 200000)
     }
