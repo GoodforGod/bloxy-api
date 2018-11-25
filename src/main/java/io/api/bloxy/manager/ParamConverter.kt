@@ -23,18 +23,18 @@ open class ParamConverter : ParamValidator() {
 
     fun toZero(value: Int) = if (value < 0) 0 else value
 
-    fun toDate(value: LocalDate) : LocalDate {
-        if(value.isBefore(MIN_DATE))
+    fun toDate(value: LocalDate): LocalDate {
+        if (value.isBefore(MIN_DATE))
             return MIN_DATE
 
-        return if(value.isAfter(MAX_DATE)) MAX_DATE else value
+        return if (value.isAfter(MAX_DATE)) MAX_DATE else value
     }
 
-    fun toDateTime(value: LocalDateTime) : LocalDateTime {
-        if(value.isBefore(MIN_DATETIME))
+    fun toDateTime(value: LocalDateTime): LocalDateTime {
+        if (value.isBefore(MIN_DATETIME))
             return MIN_DATETIME
 
-        return if(value.isAfter(MAX_DATETIME)) MAX_DATETIME else value
+        return if (value.isAfter(MAX_DATETIME)) MAX_DATETIME else value
     }
 
     fun toNoZero(value: Int) = if (value < 1) 1 else value
@@ -55,8 +55,17 @@ open class ParamConverter : ParamValidator() {
         return if (ignoreAmount < 100) 100 else if (ignoreAmount > max) max else ignoreAmount
     }
 
+    fun asIgnored(ignoreAmount: Int, default: Int = 2000, max: Int = 10000): String {
+        return when {
+            ignoreAmount == default -> ""
+            ignoreAmount < 100 -> "ignore_addresses_with_transaction_limit=100"
+            ignoreAmount > max -> "ignore_addresses_with_transaction_limit=$max"
+            else -> "ignore_addresses_with_transaction_limit$ignoreAmount"
+        }
+    }
+
     fun asParam(values: List<String>, prefix: String, delim: String): String {
-        return if(values.isEmpty()) "" else values.stream().collect(Collectors.joining(delim, prefix, ""))
+        return if (values.isEmpty()) "" else values.stream().collect(Collectors.joining(delim, prefix, ""))
     }
 
     fun dateAsParam(paramName: String, date: LocalDateTime): String {
@@ -71,15 +80,15 @@ open class ParamConverter : ParamValidator() {
         return asParam(checkAddressRequired(contracts), "token[]=", "&token[]=")
     }
 
-    fun tokenAsParam(contracts: List<String>): String {
-        return asParam(checkAddress(contracts), "token[]=", "&token[]=")
+    fun tokenAsParam(contracts: List<String>, prefix: String = ""): String {
+        return asParam(checkAddress(contracts), "${prefix}token[]=", "&token[]=")
     }
 
     fun addressAsParamRequired(addresses: List<String>): String {
         return asParam(checkAddressRequired(addresses), "address[]=", "&address[]=")
     }
 
-    fun addressAsParam(addresses: List<String>): String {
-        return asParam(checkAddress(addresses), "address[]=", "&address[]=")
+    fun addressAsParam(addresses: List<String>, prefix: String = ""): String {
+        return asParam(checkAddress(addresses), "${prefix}address[]=", "&address[]=")
     }
 }

@@ -17,6 +17,13 @@ import java.time.LocalDateTime
  */
 class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, BasicProvider(client, "money_flow", key) {
 
+    companion object {
+        val errors = listOf(
+            "Token not found by",
+            "Tokens not found by"
+        )
+    }
+
     override fun addressVolumes(
         addresses: List<String>,
         contract: String,
@@ -24,9 +31,9 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime
     ): List<Volume> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
         val params = "volumes?${addressAsParamRequired(addresses)}$tokenParam$dateParams"
-        return if (addresses.isNullOrEmpty()) emptyList() else get(params)
+        return get(params, errors)
     }
 
     override fun topSenders(
@@ -38,9 +45,9 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime
     ): List<Sender> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
-        val params = "senders?address=$address$tokenParam$dateParams"
-        return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 1000)
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
+        val params = "senders?address=${checkAddressRequired(address)}$tokenParam$dateParams"
+        return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
     override fun topReceivers(
@@ -52,9 +59,9 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime
     ): List<Receiver> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
-        val params = "receivers?address=$address$tokenParam$dateParams"
-        return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 1000)
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
+        val params = "receivers?address=${checkAddressRequired(address)}$tokenParam$dateParams"
+        return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
     override fun moneyDistribution(
@@ -70,13 +77,13 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Address> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
-        val numParams = "&depth_limit=${toDepth(depth)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
-        val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
-        val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
-        val params = "distribution?address=$address$tokenParam$numParams$ignoreParam$dateParams"
-        return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 10000, 1000000)
+        val numParams = "&min_balance=${toNoZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
+        val ignoreParam = asIgnored(ignoreAddressWithTxs)
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
+        val params = "distribution?address=${checkAddressRequired(address)}$tokenParam$numParams$ignoreParam$dateParams"
+        return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
     override fun txsDistribution(
@@ -92,13 +99,13 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Tx> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
-        val numParams = "&depth_limit=${toDepth(depth)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
-        val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
-        val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
-        val params = "distribution_transactions?address=$address$tokenParam$numParams$ignoreParam$dateParams"
-        return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 10000, 200000)
+        val numParams = "&min_balance=${toNoZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
+        val ignoreParam = asIgnored(ignoreAddressWithTxs)
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
+        val params = "distribution_transactions?address=${checkAddressRequired(address)}$tokenParam$numParams$ignoreParam$dateParams"
+        return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
     override fun moneySource(
@@ -114,13 +121,13 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Address> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val snapParam = "&depth_limit=${toDepth(depth, 10)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
-        val numParams = "&depth_limit=${toDepth(depth, 10)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
-        val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
-        val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
-        val params = "sources?address=$address$tokenParam$numParams$ignoreParam$dateParams"
-        return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 10000, 1000000)
+        val numParams = "&min_balance=${toNoZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
+        val ignoreParam = asIgnored(ignoreAddressWithTxs, 1000)
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
+        val params = "sources?address=${checkAddressRequired(address)}$tokenParam$numParams$ignoreParam$dateParams"
+        return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
     override fun txsSource(
@@ -136,16 +143,16 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime,
         snapshot: LocalDateTime
     ): List<Tx> {
-        val snapParam = if (snapshot == LocalDateTime.MIN) "" else dateAsParam("snapshot_time", snapshot)
+        val snapParam = "&depth_limit=${toDepth(depth, 10)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
-        val numParams = "&depth_limit=${toDepth(depth, 10)}&min_balance$minBalance&min_tx_amount=$minTxAmount"
-        val ignoreParam = "&ignore_addresses_with_transaction_limit=${toIgnored(ignoreAddressWithTxs)}"
-        val tokenParam = if (contract == "ETH") "" else "&token_address=$contract"
-        val params = "source_transactions?address=$address$tokenParam$numParams$ignoreParam$dateParams"
-        return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 10000, 200000)
+        val numParams = "&min_balance=${toNoZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
+        val ignoreParam = asIgnored(ignoreAddressWithTxs, 1000)
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
+        val params = "source_transactions?address=${checkAddressRequired(address)}$tokenParam$numParams$ignoreParam$dateParams"
+        return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
-    override fun transfersAddr(
+    override fun transfersAll(
         addresses: List<String>,
         contracts: List<String>,
         limit: Int,
@@ -154,8 +161,8 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDate
     ): List<AddrTransfer> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "transfers?${addressAsParamRequired(addresses)}${tokenAsParamRequired(contracts)}$dateParams"
-        return if (addresses.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset)
+        val params = "transfers?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        return getOffset(params, limit, offset, skipErrors = errors)
     }
 
     override fun transfersReceived(
@@ -167,11 +174,11 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDate
     ): List<AddrTransfer> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "received?${addressAsParamRequired(addresses)}${tokenAsParamRequired(contracts)}$dateParams"
-        return if (addresses.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset)
+        val params = "received?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        return getOffset(params, limit, offset, skipErrors = errors)
     }
 
-    override fun transfersSent(
+    override fun transfersSend(
         addresses: List<String>,
         contracts: List<String>,
         limit: Int,
@@ -180,8 +187,8 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDate
     ): List<AddrTransfer> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "sent?${addressAsParamRequired(addresses)}${tokenAsParamRequired(contracts)}$dateParams"
-        return if (addresses.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset)
+        val params = "sent?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        return getOffset(params, limit, offset, skipErrors = errors)
     }
 
     override fun topSendersCount(
@@ -192,8 +199,8 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime
     ): List<SenderSimple> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val params = "senders_by_count?address=$address$dateParams"
-        return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 1000)
+        val params = "senders_by_count?address=${checkAddressRequired(address)}$dateParams"
+        return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
     override fun topReceiversCount(
@@ -204,7 +211,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, Bas
         till: LocalDateTime
     ): List<ReceiverSimple> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val params = "receivers_by_count?address=$address$dateParams"
-        return if (address.isNullOrEmpty()) emptyList() else getOffset(params, limit, offset, 1000)
+        val params = "receivers_by_count?address=${checkAddressRequired(address)}$dateParams"
+        return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 }

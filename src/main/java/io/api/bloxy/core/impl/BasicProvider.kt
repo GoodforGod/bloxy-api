@@ -3,6 +3,7 @@ package io.api.bloxy.core.impl
 import com.beust.klaxon.Klaxon
 import io.api.bloxy.error.BloxyException
 import io.api.bloxy.error.HttpException
+import io.api.bloxy.error.ParamException
 import io.api.bloxy.error.ParseException
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.manager.ParamConverter
@@ -46,12 +47,15 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         } catch (e: Exception) {
             try {
                 val bloxyError = converter.parse<BloxyError>(json) ?: throw ParseException(e.message, e.cause)
-                if (skipErrors.stream().anyMatch { er -> er.toRegex().containsMatchIn(bloxyError.error)})
+                if (skipErrors.stream().anyMatch { er -> er.toRegex().containsMatchIn(bloxyError.error) })
                     emptyList()
                 else
                     throw BloxyException(bloxyError.error)
             } catch (e: Exception) {
-                throw ParseException(e.message, e.cause)
+                when (e) {
+                    is BloxyException -> throw e
+                    else -> throw ParseException(e.message, e.cause)
+                }
             }
         }
     }
@@ -83,7 +87,10 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
 
             return result
         } catch (e: Exception) {
-            throw HttpException(e.message, e.cause)
+            when (e) {
+                is BloxyException, is HttpException, is ParseException, is ParamException -> throw e
+                else -> throw HttpException(e.message, e.cause)
+            }
         }
     }
 }

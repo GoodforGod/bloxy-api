@@ -100,7 +100,7 @@ interface IMoneyFlowApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx>
 
-    fun transfersAddr(
+    fun transfersAll(
         addresses: List<String>,
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
@@ -118,7 +118,7 @@ interface IMoneyFlowApi {
         till: LocalDate = MAX_DATE
     ): List<AddrTransfer>
 
-    fun transfersSent(
+    fun transfersSend(
         addresses: List<String>,
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
