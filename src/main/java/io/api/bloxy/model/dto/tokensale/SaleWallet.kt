@@ -10,16 +10,15 @@ import io.api.bloxy.model.IModel
  * @since 18.11.2018
  */
 data class SaleWallet(
-    val address: String = "",
-    val amount_received: Double = .0,
-    val transfers_received: Int = 0,
-    val amount_sent: Double = .0,
-    val transfers_sent: Int = 0,
-    val from_time: String = "",
-    val till_time: String = "",
-    val balance: Double = .0
+    val token_address: String = "",
+    val symbol: String = "",
+    val token_type: String = "",
+    val transactions: Long = 0,
+    val eth_amount: Double = .0,
+    val token_amount: Double = .0,
+    val token_buyers: Int = 0
 ) : IModel {
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && amount_received == .0 && amount_sent == .0 && amount_received == .0 && balance == .0
+        return token_address.isEmpty() && symbol.isEmpty() && transactions == 0L && token_buyers == 0
     }
 }

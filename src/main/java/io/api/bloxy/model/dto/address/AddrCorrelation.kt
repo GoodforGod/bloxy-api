@@ -13,6 +13,6 @@ data class AddrCorrelation(
     val address: String = "",
     val symbol: String = "",
     val likelihood: Double = .0
-) : IModel{
+) : IModel {
     override fun isEmpty(): Boolean = address.isEmpty()
 }

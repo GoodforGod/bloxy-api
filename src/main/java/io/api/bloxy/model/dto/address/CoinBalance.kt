@@ -19,7 +19,7 @@ data class CoinBalance(
     val balance: Double = .0
 ) : IModel {
 
-    fun isEth() : Boolean = "ETH" == symbol
+    fun isEth(): Boolean = "ETH" == symbol
 
     override fun isEmpty(): Boolean = symbol.isEmpty() && token_address.isEmpty()
 }

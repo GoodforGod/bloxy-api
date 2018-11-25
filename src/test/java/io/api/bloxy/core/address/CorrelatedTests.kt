@@ -11,7 +11,7 @@ import org.junit.Test
  * @author GoodforGod
  * @since 21.11.2018
  */
-class CorrelatedTests : Tester(){
+class CorrelatedTests : Tester() {
 
     @Test
     fun valid() {

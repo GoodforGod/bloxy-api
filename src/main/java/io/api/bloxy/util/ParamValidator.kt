@@ -1,4 +1,4 @@
-package io.api.bloxy.manager
+package io.api.bloxy.util
 
 import io.api.bloxy.error.ParamException
 import io.api.bloxy.model.IValidModel
@@ -21,8 +21,8 @@ open class ParamValidator {
         return address.isNotEmpty() && address.matches("0x[a-zA-Z0-9]{64}".toRegex())
     }
 
-    fun <T : IValidModel> validOnly(models: List<T>) : List<T> {
-        return models.stream().filter{m -> m.isValid()}.collect(Collectors.toList())
+    fun <T : IValidModel> validOnly(models: List<T>): List<T> {
+        return models.stream().filter { m -> m.isValid() }.collect(Collectors.toList())
     }
 
     fun checkNonBlank(param: String): String {
@@ -30,7 +30,7 @@ open class ParamValidator {
     }
 
     fun checkNonBlank(params: List<String>): List<String> {
-        if(params.isNullOrEmpty()) throw ParamException("Params is null or empty")
+        if (params.isNullOrEmpty()) throw ParamException("Params is null or empty")
 
         params.forEach { a -> if (a.isBlank()) throw ParamException("Param is blank : $a") }
         return params
@@ -41,7 +41,7 @@ open class ParamValidator {
     }
 
     fun checkAddressRequired(addresses: List<String>): List<String> {
-        if(addresses.isNullOrEmpty()) throw ParamException("Addresses is null or empty")
+        if (addresses.isNullOrEmpty()) throw ParamException("Addresses is null or empty")
 
         addresses.forEach { a -> if (!isAddressValid(a)) throw ParamException("Address is not Ethereum format : $a") }
         return addresses
@@ -57,7 +57,7 @@ open class ParamValidator {
     }
 
     fun checkTxsRequired(txs: List<String>): List<String> {
-        if(txs.isNullOrEmpty()) throw ParamException("TxHashs is null or empty")
+        if (txs.isNullOrEmpty()) throw ParamException("TxHashs is null or empty")
 
         txs.forEach { t -> if (!isTxHashValid(t)) throw ParamException("TxHash is not Ethereum format : $t") }
         return txs

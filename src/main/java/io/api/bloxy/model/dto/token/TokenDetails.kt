@@ -17,6 +17,6 @@ data class TokenDetails(
     val type: String = ""
 ) : IModel {
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && name.isEmpty() && symbol.isEmpty()  && decimals == 0
+        return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && decimals == 0
     }
 }

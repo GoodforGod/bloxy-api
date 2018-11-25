@@ -18,8 +18,8 @@ internal class TokenApiProvider(client: IHttpClient, key: String) : ITokenApi, B
 
     companion object {
         val errors = listOf(
-            "No currency found by token",
-            "Currency not found by"
+            "No currency found by token".toRegex(),
+            "Currency not found by".toRegex()
         )
     }
 

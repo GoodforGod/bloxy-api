@@ -1,8 +1,8 @@
 package io.api.bloxy.core
 
-import io.api.bloxy.manager.ParamConverter.Companion.MAX_DATETIME
-import io.api.bloxy.manager.ParamConverter.Companion.MIN_DATETIME
 import io.api.bloxy.model.dto.token.*
+import io.api.bloxy.util.ParamConverter.Companion.MAX_DATETIME
+import io.api.bloxy.util.ParamConverter.Companion.MIN_DATETIME
 import java.time.LocalDateTime
 
 

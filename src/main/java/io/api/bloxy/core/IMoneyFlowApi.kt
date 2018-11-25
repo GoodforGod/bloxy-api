@@ -1,12 +1,12 @@
 package io.api.bloxy.core
 
-import io.api.bloxy.manager.ParamConverter.Companion.MAX_DATE
-import io.api.bloxy.manager.ParamConverter.Companion.MAX_DATETIME
-import io.api.bloxy.manager.ParamConverter.Companion.MIN_DATE
-import io.api.bloxy.manager.ParamConverter.Companion.MIN_DATETIME
 import io.api.bloxy.model.dto.Address
 import io.api.bloxy.model.dto.Tx
 import io.api.bloxy.model.dto.moneyflow.*
+import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
+import io.api.bloxy.util.ParamConverter.Companion.MAX_DATETIME
+import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
+import io.api.bloxy.util.ParamConverter.Companion.MIN_DATETIME
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -24,7 +24,7 @@ interface IMoneyFlowApi {
         contract: String = "ETH",
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
-    ) : List<Volume>
+    ): List<Volume>
 
     fun topSenders(
         address: String,
@@ -33,7 +33,7 @@ interface IMoneyFlowApi {
         offset: Int = 0,
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
-    ) : List<Sender>
+    ): List<Sender>
 
     fun topReceivers(
         address: String,
@@ -42,7 +42,7 @@ interface IMoneyFlowApi {
         offset: Int = 0,
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
-    ) : List<Receiver>
+    ): List<Receiver>
 
     fun moneyDistribution(
         address: String,
@@ -133,7 +133,7 @@ interface IMoneyFlowApi {
         offset: Int = 0,
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
-    ) : List<SenderSimple>
+    ): List<SenderSimple>
 
     fun topReceiversCount(
         address: String,
@@ -141,5 +141,5 @@ interface IMoneyFlowApi {
         offset: Int = 0,
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
-    ) : List<ReceiverSimple>
+    ): List<ReceiverSimple>
 }

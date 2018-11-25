@@ -11,7 +11,7 @@ import org.junit.Test
  * @author GoodforGod
  * @since 25.11.2018
  */
-class TopSendersTests : Tester(){
+class TopSendersTests : Tester() {
 
     @Test
     fun valid() {

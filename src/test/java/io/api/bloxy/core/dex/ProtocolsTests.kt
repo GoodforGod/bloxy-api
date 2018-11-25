@@ -10,7 +10,7 @@ import org.junit.Test
  * @author GoodforGod
  * @since 21.11.2018
  */
-class ProtocolsTests : Tester(){
+class ProtocolsTests : Tester() {
 
     @Test
     fun valid() {

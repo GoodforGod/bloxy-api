@@ -12,7 +12,7 @@ import java.time.LocalDate
  * @author GoodforGod
  * @since 25.11.2018
  */
-class TransferAllTests : Tester(){
+class TransferAllTests : Tester() {
 
     @Test
     fun valid() {

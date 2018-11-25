@@ -3,6 +3,8 @@ package io.api.bloxy.core
 import io.api.bloxy.model.dto.Address
 import io.api.bloxy.model.dto.Tx
 import io.api.bloxy.model.dto.tokensale.*
+import io.api.bloxy.util.ParamConverter.Companion.MAX_DATETIME
+import io.api.bloxy.util.ParamConverter.Companion.MIN_DATETIME
 import java.time.LocalDateTime
 
 
@@ -28,13 +30,13 @@ interface ITokenSaleApi {
         timeSpanDays: Int = 30
     ): List<SaleTx>
 
-    fun dailyStats(
+    fun statsDaily(
         contract: String
     ): List<SaleDaily>
 
-    fun addrStats(
+    fun statsAddress(
         contract: String
-    ): List<SaleAddrStatistic>
+    ): List<SaleAddrStat>
 
     fun buyers(
         contract: String,
@@ -55,9 +57,9 @@ interface ITokenSaleApi {
         minTxAmount: Int = 0,
         minBalance: Double = .001,
         ignoreAddressWithTxs: Int = 2000,
-        since: LocalDateTime = LocalDateTime.MIN,
-        till: LocalDateTime = LocalDateTime.MAX,
-        snapshot: LocalDateTime = LocalDateTime.MIN
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address>
 
     fun txsDistribution(
@@ -67,9 +69,9 @@ interface ITokenSaleApi {
         offset: Int = 0,
         minTxAmount: Int = 0,
         ignoreAddressWithTxs: Int = 2000,
-        since: LocalDateTime = LocalDateTime.MIN,
-        till: LocalDateTime = LocalDateTime.MAX,
-        snapshot: LocalDateTime = LocalDateTime.MIN
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx>
 
     fun moneySources(
@@ -80,9 +82,9 @@ interface ITokenSaleApi {
         minTxAmount: Int = 0,
         minBalance: Double = .001,
         ignoreAddressWithTxs: Int = 2000,
-        since: LocalDateTime = LocalDateTime.MIN,
-        till: LocalDateTime = LocalDateTime.MAX,
-        snapshot: LocalDateTime = LocalDateTime.MIN
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address>
 
     fun txsSources(
@@ -92,16 +94,16 @@ interface ITokenSaleApi {
         offset: Int = 0,
         minTxAmount: Int = 0,
         ignoreAddressWithTxs: Int = 2000,
-        since: LocalDateTime = LocalDateTime.MIN,
-        till: LocalDateTime = LocalDateTime.MAX,
-        snapshot: LocalDateTime = LocalDateTime.MIN
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx>
 
     fun tokenDistribution(
         contract: String,
         limit: Int = 5000,
         offset: Int = 0,
-        since: LocalDateTime = LocalDateTime.MIN,
-        till: LocalDateTime = LocalDateTime.MAX
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
     ): List<Tx>
 }

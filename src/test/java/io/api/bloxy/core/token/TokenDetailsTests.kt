@@ -11,7 +11,7 @@ import org.junit.Test
  * @author GoodforGod
  * @since 24.11.2018
  */
-class TokenDetailsTests : Tester(){
+class TokenDetailsTests : Tester() {
 
     @Test
     fun valid() {

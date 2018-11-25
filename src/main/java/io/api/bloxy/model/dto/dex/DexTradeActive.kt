@@ -15,12 +15,12 @@ data class DexTradeActive(
     val taker_trades: Int = 0,
     val dexes: Int = 0,
     val currencies: Int = 0,
-    val from_time: String ="",
+    val from_time: String = "",
     val till_time: String = "",
     val contract_type: String = "",
     val address_type: String = "",
-    val address_annotation: String  =""
-): IModel {
+    val address_annotation: String = ""
+) : IModel {
     override fun isEmpty(): Boolean {
         return address.isEmpty()
     }

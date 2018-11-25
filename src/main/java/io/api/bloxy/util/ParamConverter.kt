@@ -1,4 +1,4 @@
-package io.api.bloxy.manager
+package io.api.bloxy.util
 
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -58,9 +58,9 @@ open class ParamConverter : ParamValidator() {
     fun asIgnored(ignoreAmount: Int, default: Int = 2000, max: Int = 10000): String {
         return when {
             ignoreAmount == default -> ""
-            ignoreAmount < 100 -> "ignore_addresses_with_transaction_limit=100"
-            ignoreAmount > max -> "ignore_addresses_with_transaction_limit=$max"
-            else -> "ignore_addresses_with_transaction_limit$ignoreAmount"
+            ignoreAmount < 100 -> "&ignore_addresses_with_transaction_limit=100"
+            ignoreAmount > max -> "&ignore_addresses_with_transaction_limit=$max"
+            else -> "&ignore_addresses_with_transaction_limit$ignoreAmount"
         }
     }
 

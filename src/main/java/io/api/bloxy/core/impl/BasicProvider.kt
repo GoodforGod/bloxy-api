@@ -6,10 +6,10 @@ import io.api.bloxy.error.HttpException
 import io.api.bloxy.error.ParamException
 import io.api.bloxy.error.ParseException
 import io.api.bloxy.executor.IHttpClient
-import io.api.bloxy.manager.ParamConverter
 import io.api.bloxy.model.dto.BloxyError
 import io.api.bloxy.util.KlaxonArgs
 import io.api.bloxy.util.KlaxonConverters
+import io.api.bloxy.util.ParamConverter
 
 
 /**
@@ -37,17 +37,17 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         }
     }
 
-    protected inline fun <reified T> get(urlParams: String, skipErrors: List<String> = emptyList()): List<T> {
+    protected inline fun <reified T> get(urlParams: String, skipErrors: List<Regex> = emptyList()): List<T> {
         return parse(getData(urlParams), skipErrors)
     }
 
-    protected inline fun <reified T> parse(json: String, skipErrors: List<String> = emptyList()): List<T> {
+    protected inline fun <reified T> parse(json: String, skipErrors: List<Regex> = emptyList()): List<T> {
         return try {
             if (json.isBlank()) emptyList() else converter.parseArray(json) ?: emptyList()
         } catch (e: Exception) {
             try {
                 val bloxyError = converter.parse<BloxyError>(json) ?: throw ParseException(e.message, e.cause)
-                if (skipErrors.stream().anyMatch { er -> er.toRegex().containsMatchIn(bloxyError.error) })
+                if (skipErrors.stream().anyMatch { er -> er.containsMatchIn(bloxyError.error) })
                     emptyList()
                 else
                     throw BloxyException(bloxyError.error)
@@ -66,7 +66,7 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         offset: Int,
         maxLimit: Int = 100000,
         maxOffset: Int = 100000,
-        skipErrors: List<String> = emptyList()
+        skipErrors: List<Regex> = emptyList()
     ): List<T> {
         if (limit < 1) return emptyList()
 

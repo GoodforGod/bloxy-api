@@ -15,7 +15,7 @@ data class Receiver(
     val amount: Double = .0,
     val transactions: Long = 0,
     val annotation: String = ""
-): IModel {
+) : IModel {
     override fun isEmpty(): Boolean {
         return receiver.isEmpty() && transactions == 0L && amount == .0
     }

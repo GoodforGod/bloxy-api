@@ -28,7 +28,7 @@ class Balance(balances: List<CoinBalance>) : IModel {
         return this.balances[symbol] != null
     }
 
-    fun getEth() : CoinBalance {
+    fun getEth(): CoinBalance {
         return this.balances["ETH"] ?: CoinBalance()
     }
 

@@ -15,12 +15,11 @@ import java.time.LocalDateTime
  * @author GoodforGod
  * @since 16.11.2018
  */
-class MoneyFlowApiProvider(client: IHttpClient, key:String) : IMoneyFlowApi, BasicProvider(client, "money_flow", key) {
+class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, BasicProvider(client, "money_flow", key) {
 
     companion object {
         val errors = listOf(
-            "Token not found by",
-            "Tokens not found by"
+            "Tokens? not found by".toRegex()
         )
     }
 

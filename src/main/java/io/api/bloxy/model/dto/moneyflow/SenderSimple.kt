@@ -14,7 +14,7 @@ data class SenderSimple(
     val sender_type: String = "",
     val transactions: Long = 0,
     val annotation: String = ""
-): IModel {
+) : IModel {
     override fun isEmpty(): Boolean {
         return sender.isEmpty() && transactions == 0L
     }

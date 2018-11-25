@@ -23,7 +23,7 @@ class BloxyApi(key: String, supplier: Supplier<IHttpClient> = Supplier { HttpCli
     private val tokenSaleApi: ITokenSaleApi
 
     init {
-        if(key.isNullOrEmpty()) throw BloxyException("API key can not be null of empty")
+        if (key.isNullOrEmpty()) throw BloxyException("API key can not be null of empty")
 
         this.txApi = TransactionApiProvider(supplier.get(), key)
         this.dexApi = DexApiProvider(supplier.get(), key)

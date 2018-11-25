@@ -12,7 +12,7 @@ import org.junit.Test
  * @author GoodforGod
  * @since 25.11.2018
  */
-class MoneySourceTests : Tester(){
+class MoneySourceTests : Tester() {
 
     @Test
     fun valid() {

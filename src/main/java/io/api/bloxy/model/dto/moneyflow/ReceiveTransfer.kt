@@ -18,7 +18,7 @@ data class ReceiveTransfer(
     val token_address: String = "",
     val sender_type: String = "",
     val sender_annotation: String = ""
-): IModel {
+) : IModel {
     override fun isEmpty(): Boolean {
         return tx_hash.isEmpty() && tx_time.isEmpty()
     }
