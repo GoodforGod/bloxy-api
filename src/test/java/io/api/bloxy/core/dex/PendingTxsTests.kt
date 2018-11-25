@@ -69,7 +69,5 @@ class PendingTxsTests : Tester() {
         val protocols = listOf("IDEX")
         val list = api.dex().pendingTxs(protocols, contracts)
         assertNotNull(list)
-        assertFalse(list.isEmpty())
-        assertFalse(list[0].isEmpty())
     }
 }

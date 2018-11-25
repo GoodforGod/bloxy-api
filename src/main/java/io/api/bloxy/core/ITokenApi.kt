@@ -38,8 +38,7 @@ interface ITokenApi {
 
     fun tokenByNameOrSymbol(
         nameOrSymbol: String,
-        limit: Int = 100,
-        offset: Int = 0
+        limit: Int = 100
     ): List<Token>
 
     fun tokenDetails(

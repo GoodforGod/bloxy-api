@@ -1,6 +1,5 @@
 package io.api.bloxy.core.impl
 
-import io.api.bloxy.core.ITokenSaleApi
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.Address
 import io.api.bloxy.model.dto.Tx
@@ -14,51 +13,78 @@ import java.time.LocalDateTime
  * @author GoodforGod
  * @since 16.11.2018
  */
-class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, BasicProvider(client, "tokensale", key) {
+class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "tokensale", key) {
 
     companion object {
-        val errors = listOf(
-            "Tokens? not found by".toRegex()
-        )
+        val errors = listOf("Tokens? not found by".toRegex())
     }
 
-    override fun sales(contracts: List<String>, limit: Int, offset: Int, timeSpanDays: Int): List<Sale> {
+    @JvmOverloads
+    fun sales(
+        contracts: List<String> = emptyList(),
+        limit: Int = 30,
+        offset: Int = 0,
+        timeSpanDays: Int = 30
+    ): List<Sale> {
         val params = "days=${toTimeSpan(timeSpanDays)}${tokenAsParam(contracts, "&")}"
         return getOffset("tokens?$params", limit, offset, 1000, skipErrors = errors)
     }
 
-    override fun saleTxs(contracts: List<String>, limit: Int, offset: Int, timeSpanDays: Int): List<SaleTx> {
+    @JvmOverloads
+    fun saleTxs(
+        contracts: List<String> = emptyList(),
+        limit: Int = 30,
+        offset: Int = 0,
+        timeSpanDays: Int = 30
+    ): List<SaleTx> {
         val params = "days=${toTimeSpan(timeSpanDays)}${tokenAsParam(contracts, "&")}"
         return getOffset("transactions?$params", limit, offset, 100, skipErrors = errors)
     }
 
-    override fun statsDaily(contract: String): List<SaleDaily> {
+    fun statsDaily(
+        contract: String
+    ): List<SaleDaily> {
         return get("by_days?token_address=${checkAddressRequired(contract)}", errors)
     }
 
-    override fun statsAddress(contract: String): List<SaleAddrStat> {
+    fun statsAddress(
+        contract: String
+    ): List<SaleAddrStat> {
         return get("addresses?token_address=${checkAddressRequired(contract)}", errors)
     }
 
-    override fun buyers(contract: String, limit: Int, offset: Int): List<SaleBuyer> {
+    @JvmOverloads
+    fun buyers(
+        contract: String,
+        limit: Int = 100,
+        offset: Int = 0
+    ): List<SaleBuyer> {
         return getOffset("buyers?token_address=${checkAddressRequired(contract)}", limit, offset, 1000, skipErrors = errors)
     }
 
-    override fun wallets(contract: String, withIntermediary: Boolean): List<SaleWallet> {
-        return get("addresses?token_address=${checkAddressRequired(contract)}&with_zero_balances=$withIntermediary", errors)
+    @JvmOverloads
+    fun wallets(
+        contract: String,
+        withIntermediary: Boolean = false
+    ): List<SaleWallet> {
+        return get(
+            "addresses?token_address=${checkAddressRequired(contract)}&with_zero_balances=$withIntermediary",
+            errors
+        )
     }
 
-    override fun moneyDistribution(
+    @JvmOverloads
+    fun moneyDistribution(
         contract: String,
-        depth: Int,
-        limit: Int,
-        offset: Int,
-        minTxAmount: Int,
-        minBalance: Double,
-        ignoreAddressWithTxs: Int,
-        since: LocalDateTime,
-        till: LocalDateTime,
-        snapshot: LocalDateTime
+        depth: Int = 10,
+        limit: Int = 100,
+        offset: Int = 0,
+        minTxAmount: Int = 0,
+        minBalance: Double = .001,
+        ignoreAddressWithTxs: Int = 2000,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
         val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
@@ -68,16 +94,17 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
-    override fun txsDistribution(
+    @JvmOverloads
+    fun txsDistribution(
         contract: String,
-        depth: Int,
-        limit: Int,
-        offset: Int,
-        minTxAmount: Int,
-        ignoreAddressWithTxs: Int,
-        since: LocalDateTime,
-        till: LocalDateTime,
-        snapshot: LocalDateTime
+        depth: Int = 10,
+        limit: Int = 5000,
+        offset: Int = 0,
+        minTxAmount: Int = 0,
+        ignoreAddressWithTxs: Int = 2000,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx> {
         val snapParam = asIgnored(ignoreAddressWithTxs) + dateAsParam("snapshot_time", snapshot)
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
@@ -86,17 +113,18 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
-    override fun moneySources(
+    @JvmOverloads
+    fun moneySources(
         contract: String,
-        depth: Int,
-        limit: Int,
-        offset: Int,
-        minTxAmount: Int,
-        minBalance: Double,
-        ignoreAddressWithTxs: Int,
-        since: LocalDateTime,
-        till: LocalDateTime,
-        snapshot: LocalDateTime
+        depth: Int = 5,
+        limit: Int = 100,
+        offset: Int = 0,
+        minTxAmount: Int = 0,
+        minBalance: Double = .001,
+        ignoreAddressWithTxs: Int = 2000,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
         val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
@@ -106,16 +134,17 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
-    override fun txsSources(
+    @JvmOverloads
+    fun txsSources(
         contract: String,
-        depth: Int,
-        limit: Int,
-        offset: Int,
-        minTxAmount: Int,
-        ignoreAddressWithTxs: Int,
-        since: LocalDateTime,
-        till: LocalDateTime,
-        snapshot: LocalDateTime
+        depth: Int = 5,
+        limit: Int = 5000,
+        offset: Int = 0,
+        minTxAmount: Int = 0,
+        ignoreAddressWithTxs: Int = 2000,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx> {
         val snapParam = asIgnored(ignoreAddressWithTxs) + dateAsParam("snapshot_time", snapshot)
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
@@ -124,12 +153,13 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : ITokenSaleApi, Ba
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
-    override fun tokenDistribution(
+    @JvmOverloads
+    fun tokenDistribution(
         contract: String,
-        limit: Int,
-        offset: Int,
-        since: LocalDateTime,
-        till: LocalDateTime
+        limit: Int = 5000,
+        offset: Int = 0,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
     ): List<Tx> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val params = "source_transactions?token_address=${checkAddressRequired(contract)}$dateParams"

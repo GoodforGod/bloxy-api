@@ -32,7 +32,7 @@ open class ParamValidator {
     fun checkNonBlank(params: List<String>): List<String> {
         if (params.isNullOrEmpty()) throw ParamException("Params is null or empty")
 
-        params.forEach { a -> if (a.isBlank()) throw ParamException("Param is blank : $a") }
+        params.forEach { p -> checkNonBlank(p) }
         return params
     }
 
@@ -41,14 +41,12 @@ open class ParamValidator {
     }
 
     fun checkAddressRequired(addresses: List<String>): List<String> {
-        if (addresses.isNullOrEmpty()) throw ParamException("Addresses is null or empty")
-
-        addresses.forEach { a -> if (!isAddressValid(a)) throw ParamException("Address is not Ethereum format : $a") }
-        return addresses
+        if (addresses.isNullOrEmpty()) throw ParamException("Addresses are null or empty")
+        return checkAddress(addresses)
     }
 
     fun checkAddress(addresses: List<String>): List<String> {
-        addresses.forEach { a -> if (!isAddressValid(a)) throw ParamException("Address is not Ethereum format : $a") }
+        addresses.forEach { a -> checkAddressRequired(a) }
         return addresses
     }
 
@@ -57,14 +55,12 @@ open class ParamValidator {
     }
 
     fun checkTxsRequired(txs: List<String>): List<String> {
-        if (txs.isNullOrEmpty()) throw ParamException("TxHashs is null or empty")
-
-        txs.forEach { t -> if (!isTxHashValid(t)) throw ParamException("TxHash is not Ethereum format : $t") }
-        return txs
+        if (txs.isNullOrEmpty()) throw ParamException("TxHashs are null or empty")
+        return checkTxs(txs)
     }
 
     fun checkTxs(txs: List<String>): List<String> {
-        txs.forEach { t -> if (!isTxHashValid(t)) throw ParamException("TxHash is not Ethereum format : $t") }
+        txs.forEach { tx -> checkTxsRequired(tx)}
         return txs
     }
 }

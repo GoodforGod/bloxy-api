@@ -24,10 +24,10 @@ interface IDexApi {
      * @param timeSpanDays
      */
     fun contracts(
-        protocols: List<String> = emptyList(),
-        limit: Int = 100,
-        offset: Int = 0,
-        timeSpanDays: Int = 30
+        protocols: List<String>,
+        limit: Int,
+        offset: Int,
+        timeSpanDays: Int
     ): List<DexContract>
 
     /**

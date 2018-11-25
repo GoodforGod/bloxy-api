@@ -15,27 +15,27 @@ open class ParamConverter : ParamValidator() {
 
     companion object {
         val MIN_DATE: LocalDate = LocalDate.of(2001, 1, 1)
-        val MAX_DATE: LocalDate = LocalDate.of(2099, 1, 1)
+        val MAX_DATE: LocalDate = LocalDate.of(2098, 1, 1)
 
         val MIN_DATETIME: LocalDateTime = LocalDateTime.of(2001, 1, 1, 1, 1, 1, 1)
-        val MAX_DATETIME: LocalDateTime = LocalDateTime.of(2099, 1, 1, 1, 1, 1, 1)
+        val MAX_DATETIME: LocalDateTime = LocalDateTime.of(2098, 1, 1, 1, 1, 1, 1)
     }
 
-    fun toZero(value: Int) = if (value < 0) 0 else value
-
-    fun toDate(value: LocalDate): LocalDate {
+    private fun toDate(value: LocalDate): LocalDate {
         if (value.isBefore(MIN_DATE))
             return MIN_DATE
 
         return if (value.isAfter(MAX_DATE)) MAX_DATE else value
     }
 
-    fun toDateTime(value: LocalDateTime): LocalDateTime {
+    private fun toDateTime(value: LocalDateTime): LocalDateTime {
         if (value.isBefore(MIN_DATETIME))
             return MIN_DATETIME
 
         return if (value.isAfter(MAX_DATETIME)) MAX_DATETIME else value
     }
+
+    fun toZero(value: Int) = if (value < 0) 0 else value
 
     fun toNoZero(value: Int) = if (value < 1) 1 else value
 

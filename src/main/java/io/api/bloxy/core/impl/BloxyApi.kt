@@ -1,6 +1,5 @@
 package io.api.bloxy.core.impl
 
-import io.api.bloxy.core.*
 import io.api.bloxy.error.BloxyException
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.executor.impl.HttpClient
@@ -15,15 +14,15 @@ import java.util.function.Supplier
  */
 class BloxyApi(key: String, supplier: Supplier<IHttpClient> = Supplier { HttpClient() }) {
 
-    private val txApi: ITransactionApi
-    private val dexApi: IDexApi
-    private val tokenApi: ITokenApi
-    private val addressApi: IAddressApi
-    private val moneyFlowApi: IMoneyFlowApi
-    private val tokenSaleApi: ITokenSaleApi
+    private val txApi: TransactionApiProvider
+    private val dexApi: DexApiProvider
+    private val tokenApi: TokenApiProvider
+    private val addressApi: AddressApiProvider
+    private val moneyFlowApi: MoneyFlowApiProvider
+    private val tokenSaleApi: TokenSaleApiProvider
 
     init {
-        if (key.isNullOrEmpty()) throw BloxyException("API key can not be null of empty")
+        if (key.isEmpty()) throw BloxyException("API key can not be null or empty")
 
         this.txApi = TransactionApiProvider(supplier.get(), key)
         this.dexApi = DexApiProvider(supplier.get(), key)
@@ -33,15 +32,15 @@ class BloxyApi(key: String, supplier: Supplier<IHttpClient> = Supplier { HttpCli
         this.tokenSaleApi = TokenSaleApiProvider(supplier.get(), key)
     }
 
-    fun address(): IAddressApi = addressApi
+    fun address(): AddressApiProvider = addressApi
 
-    fun token(): ITokenApi = tokenApi
+    fun token(): TokenApiProvider = tokenApi
 
-    fun dex(): IDexApi = dexApi
+    fun dex(): DexApiProvider = dexApi
 
-    fun tokenSale(): ITokenSaleApi = tokenSaleApi
+    fun tokenSale(): TokenSaleApiProvider = tokenSaleApi
 
-    fun moneyFlow(): IMoneyFlowApi = moneyFlowApi
+    fun moneyFlow(): MoneyFlowApiProvider = moneyFlowApi
 
-    fun tx(): ITransactionApi = txApi
+    fun tx(): TransactionApiProvider = txApi
 }

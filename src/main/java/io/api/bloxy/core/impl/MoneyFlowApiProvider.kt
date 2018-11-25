@@ -1,6 +1,5 @@
 package io.api.bloxy.core.impl
 
-import io.api.bloxy.core.IMoneyFlowApi
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.Address
 import io.api.bloxy.model.dto.Tx
@@ -15,7 +14,7 @@ import java.time.LocalDateTime
  * @author GoodforGod
  * @since 16.11.2018
  */
-class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, BasicProvider(client, "money_flow", key) {
+class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "money_flow", key) {
 
     companion object {
         val errors = listOf(
@@ -23,11 +22,12 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, Ba
         )
     }
 
-    override fun addressVolumes(
+    @JvmOverloads
+    fun addressVolumes(
         addresses: List<String>,
-        contract: String,
-        since: LocalDateTime,
-        till: LocalDateTime
+        contract: String = "ETH",
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
     ): List<Volume> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
@@ -35,13 +35,14 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, Ba
         return get(params, errors)
     }
 
-    override fun topSenders(
+    @JvmOverloads
+    fun topSenders(
         address: String,
-        contract: String,
-        limit: Int,
-        offset: Int,
-        since: LocalDateTime,
-        till: LocalDateTime
+        contract: String = "ETH",
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
     ): List<Sender> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
@@ -49,13 +50,14 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, Ba
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
-    override fun topReceivers(
+    @JvmOverloads
+    fun topReceivers(
         address: String,
-        contract: String,
-        limit: Int,
-        offset: Int,
-        since: LocalDateTime,
-        till: LocalDateTime
+        contract: String = "ETH",
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
     ): List<Receiver> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
@@ -63,18 +65,19 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, Ba
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
-    override fun moneyDistribution(
+    @JvmOverloads
+    fun moneyDistribution(
         address: String,
-        contract: String,
-        depth: Int,
-        limit: Int,
-        offset: Int,
-        minTxAmount: Int,
-        minBalance: Double,
-        ignoreAddressWithTxs: Int,
-        since: LocalDateTime,
-        till: LocalDateTime,
-        snapshot: LocalDateTime
+        contract: String = "ETH",
+        depth: Int = 10,
+        limit: Int = 1000,
+        offset: Int = 0,
+        minTxAmount: Int = 0,
+        minBalance: Double = .001,
+        ignoreAddressWithTxs: Int = 2000,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
         val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
@@ -85,18 +88,19 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, Ba
         return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
-    override fun txsDistribution(
+    @JvmOverloads
+    fun txsDistribution(
         address: String,
-        contract: String,
-        depth: Int,
-        limit: Int,
-        offset: Int,
-        minTxAmount: Int,
-        minBalance: Double,
-        ignoreAddressWithTxs: Int,
-        since: LocalDateTime,
-        till: LocalDateTime,
-        snapshot: LocalDateTime
+        contract: String = "ETH",
+        depth: Int = 10,
+        limit: Int = 5000,
+        offset: Int = 0,
+        minTxAmount: Int = 0,
+        minBalance: Double = .001,
+        ignoreAddressWithTxs: Int = 2000,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx> {
         val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
@@ -107,18 +111,19 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, Ba
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
-    override fun moneySource(
+    @JvmOverloads
+    fun moneySource(
         address: String,
-        contract: String,
-        depth: Int,
-        limit: Int,
-        offset: Int,
-        minTxAmount: Int,
-        minBalance: Double,
-        ignoreAddressWithTxs: Int,
-        since: LocalDateTime,
-        till: LocalDateTime,
-        snapshot: LocalDateTime
+        contract: String = "ETH",
+        depth: Int = 5,
+        limit: Int = 1000,
+        offset: Int = 0,
+        minTxAmount: Int = 0,
+        minBalance: Double = .001,
+        ignoreAddressWithTxs: Int = 1000,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
         val snapParam = "&depth_limit=${toDepth(depth, 10)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
@@ -129,18 +134,19 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, Ba
         return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
-    override fun txsSource(
+    @JvmOverloads
+    fun txsSource(
         address: String,
-        contract: String,
-        depth: Int,
-        limit: Int,
-        offset: Int,
-        minTxAmount: Int,
-        minBalance: Double,
-        ignoreAddressWithTxs: Int,
-        since: LocalDateTime,
-        till: LocalDateTime,
-        snapshot: LocalDateTime
+        contract: String = "ETH",
+        depth: Int = 5,
+        limit: Int = 5000,
+        offset: Int = 0,
+        minTxAmount: Int = 0,
+        minBalance: Double = .001,
+        ignoreAddressWithTxs: Int = 1000,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME,
+        snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx> {
         val snapParam = "&depth_limit=${toDepth(depth, 10)}${dateAsParam("snapshot_time", snapshot)}"
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
@@ -151,63 +157,68 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : IMoneyFlowApi, Ba
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
-    override fun transfersAll(
+    @JvmOverloads
+    fun transfersAll(
         addresses: List<String>,
-        contracts: List<String>,
-        limit: Int,
-        offset: Int,
-        since: LocalDate,
-        till: LocalDate
+        contracts: List<String> = emptyList(),
+        limit: Int = 1000,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ): List<AddrTransfer> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
         val params = "transfers?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
-    override fun transfersReceived(
+    @JvmOverloads
+    fun transfersReceived(
         addresses: List<String>,
-        contracts: List<String>,
-        limit: Int,
-        offset: Int,
-        since: LocalDate,
-        till: LocalDate
+        contracts: List<String> = emptyList(),
+        limit: Int = 1000,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ): List<AddrTransfer> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
         val params = "received?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
-    override fun transfersSend(
+    @JvmOverloads
+    fun transfersSend(
         addresses: List<String>,
-        contracts: List<String>,
-        limit: Int,
-        offset: Int,
-        since: LocalDate,
-        till: LocalDate
+        contracts: List<String> = emptyList(),
+        limit: Int = 1000,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ): List<AddrTransfer> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
         val params = "sent?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
-    override fun topSendersCount(
+    @JvmOverloads
+    fun topSendersCount(
         address: String,
-        limit: Int,
-        offset: Int,
-        since: LocalDateTime,
-        till: LocalDateTime
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
     ): List<SenderSimple> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val params = "senders_by_count?address=${checkAddressRequired(address)}$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
-    override fun topReceiversCount(
+    @JvmOverloads
+    fun topReceiversCount(
         address: String,
-        limit: Int,
-        offset: Int,
-        since: LocalDateTime,
-        till: LocalDateTime
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
     ): List<ReceiverSimple> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val params = "receivers_by_count?address=${checkAddressRequired(address)}$dateParams"

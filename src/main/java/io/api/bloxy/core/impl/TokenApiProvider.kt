@@ -14,7 +14,7 @@ import java.time.LocalDateTime
  * @author GoodforGod
  * @since 16.11.2018
  */
-internal class TokenApiProvider(client: IHttpClient, key: String) : ITokenApi, BasicProvider(client, "token", key) {
+class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "token", key) {
 
     companion object {
         val errors = listOf(
@@ -23,50 +23,68 @@ internal class TokenApiProvider(client: IHttpClient, key: String) : ITokenApi, B
         )
     }
 
-    override fun holders(contract: String, limit: Int): List<Holder> {
+    @JvmOverloads
+    fun holders(
+        contract: String,
+        limit: Int = 100
+    ): List<Holder> {
         return get("token_holders_list?token=${checkAddressRequired(contract)}&limit=${toLimit(limit)}", errors)
     }
 
-    override fun holderDetails(
+    @JvmOverloads
+    fun holderDetails(
         contract: String,
-        limit: Int,
-        offset: Int,
-        minBalance: Double,
-        minReceived: Int,
-        minSend: Int
+        limit: Int = 100,
+        offset: Int = 0,
+        minBalance: Double = 1.0e-6,
+        minReceived: Int = 1,
+        minSend: Int = 0
     ): List<HolderDetails> {
         val txCountParam = "&to_count_min=${toNoZero(minReceived)}&from_count_min=${toZero(minSend)}"
         val urlParam = "token=${checkAddressRequired(contract)}&min_balance=${toNoZero(minBalance)}$txCountParam"
         return getOffset("token_holders_details?$urlParam", limit, offset, skipErrors = errors)
     }
 
-    override fun holderCorrelations(contracts: List<String>): List<TokenCorrelation> {
+    fun holderCorrelations(
+        contracts: List<String>
+    ): List<TokenCorrelation> {
         val params = "token_correlation?${tokenAsParamRequired(contracts)}"
         return if (contracts.size < 2) emptyList() else get(params, errors)
     }
 
-    override fun holderSimilar(contracts: String): List<HolderSimilar> {
+    fun holderSimilar(
+        contracts: String
+    ): List<HolderSimilar> {
         return get("similar_tokens?token=${checkAddressRequired(contracts)}", errors)
     }
 
-    override fun tokenByNameOrSymbol(nameOrSymbol: String, limit: Int, offset: Int): List<Token> {
+    @JvmOverloads
+    fun tokenByNameOrSymbol(
+        nameOrSymbol: String,
+        limit: Int = 100
+    ): List<Token> {
         return get("token_search?search=$nameOrSymbol&limit=${toLimit(limit)}", errors)
     }
 
-    override fun tokenDetails(contracts: List<String>): List<TokenDetails> {
+    fun tokenDetails(
+        contracts: List<String>
+    ): List<TokenDetails> {
         return get("token_info?${tokenAsParamRequired(contracts)}", errors)
     }
 
-    override fun tokenStatistic(contract: String): List<TokenStatistic> {
+    fun tokenStatistic(
+        contract: String
+    ): List<TokenStatistic> {
         return get("token_stat?token=${checkAddressRequired(contract)}", errors)
     }
 
-    override fun tokenTransfers(
+    @JvmOverloads
+    fun tokenTransfers(
         contract: String,
-        limit: Int,
-        offset: Int,
-        since: LocalDateTime,
-        till: LocalDateTime
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
     ): List<TokenTransfer> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val params = "token=${checkAddressRequired(contract)}$dateParams"

@@ -1,6 +1,5 @@
 package io.api.bloxy.core.impl
 
-import io.api.bloxy.core.IDexApi
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.dex.*
 
@@ -11,7 +10,7 @@ import io.api.bloxy.model.dto.dex.*
  * @author GoodforGod
  * @since 16.11.2018
  */
-class DexApiProvider(client: IHttpClient, key: String) : IDexApi, BasicProvider(client, "dex", key) {
+class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "dex", key) {
 
     companion object {
         val errors = listOf(
@@ -20,49 +19,65 @@ class DexApiProvider(client: IHttpClient, key: String) : IDexApi, BasicProvider(
         )
     }
 
-    private fun protocolAsParam(values: List<String>): String {
+    private fun protocolAsParam(
+        values: List<String>
+    ): String {
         return asParam(values, "&protocol[]=", "protocol[]=")
     }
 
-    private fun contractAsParam(values: List<String>): String {
+    private fun contractAsParam(
+        values: List<String>
+    ): String {
         return asParam(checkAddress(values), "&smart_contract_address[]=", "smart_contract_address[]=")
     }
 
-    override fun protocols(): List<DexProtocol> {
+    fun protocols(): List<DexProtocol> {
         return get("protocols?")
     }
 
-    override fun contracts(protocols: List<String>, limit: Int, offset: Int, timeSpanDays: Int): List<DexContract> {
+    @JvmOverloads
+    fun contracts(
+        protocols: List<String> = emptyList(),
+        limit: Int = 100,
+        offset: Int = 0,
+        timeSpanDays: Int = 30
+    ): List<DexContract> {
         val params = "smart_contracts?days=${toTimeSpan(timeSpanDays)}${protocolAsParam(protocols)}"
         return getOffset(params, limit, offset)
     }
 
-    override fun trades(
-        protocols: List<String>,
-        dexContracts: List<String>,
-        tokenAddresses: List<String>,
-        limit: Int,
-        offset: Int,
-        timeSpanDays: Int
+    @JvmOverloads
+    fun trades(
+        protocols: List<String> = emptyList(),
+        dexContracts: List<String> = emptyList(),
+        tokenAddresses: List<String> = emptyList(),
+        limit: Int = 100,
+        offset: Int = 0,
+        timeSpanDays: Int = 5
     ): List<DexTrade> {
         val paramsAddrs = "${contractAsParam(dexContracts)}${tokenAsParam(tokenAddresses)}"
         val params = "trades?days=${toTimeSpan(timeSpanDays, 30)}${protocolAsParam(protocols)}$paramsAddrs"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
-    override fun pendingTxs(protocols: List<String>, dexContracts: List<String>): List<DexTxPending> {
+    @JvmOverloads
+    fun pendingTxs(
+        protocols: List<String> = emptyList(),
+        dexContracts: List<String> = emptyList()
+    ): List<DexTxPending> {
         val paramDex = contractAsParam(dexContracts)
         val formattedDex = if (protocols.isEmpty()) paramDex.replace("&", "") else paramDex
         val params = "pending?${protocolAsParam(protocols)}$formattedDex"
         return get(params, errors)
     }
 
-    override fun tradesActive(
-        protocols: List<String>,
-        dexContracts: List<String>,
-        limit: Int,
-        offset: Int,
-        timeSpanDays: Int
+    @JvmOverloads
+    fun tradesActive(
+        protocols: List<String> = emptyList(),
+        dexContracts: List<String> = emptyList(),
+        limit: Int = 100,
+        offset: Int = 0,
+        timeSpanDays: Int = 30
     ): List<DexTradeActive> {
         val paramsAddrs = "${protocolAsParam(protocols)}${contractAsParam(dexContracts)}"
         val params = "traders?days=${toTimeSpan(timeSpanDays, 720)}$paramsAddrs"
