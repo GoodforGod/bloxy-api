@@ -3,6 +3,7 @@ package io.api.bloxy.core.impl
 import io.api.bloxy.core.ITokenApi
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.token.*
+import org.jetbrains.annotations.NotNull
 import java.time.LocalDateTime
 
 
@@ -23,6 +24,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         )
     }
 
+    @NotNull
     @JvmOverloads
     fun holders(
         contract: String,
@@ -31,6 +33,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return get("token_holders_list?token=${checkAddressRequired(contract)}&limit=${toLimit(limit)}", errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun holderDetails(
         contract: String,
@@ -45,6 +48,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return getOffset("token_holders_details?$urlParam", limit, offset, skipErrors = errors)
     }
 
+    @NotNull
     fun holderCorrelations(
         contracts: List<String>
     ): List<TokenCorrelation> {
@@ -52,12 +56,14 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return if (contracts.size < 2) emptyList() else get(params, errors)
     }
 
+    @NotNull
     fun holderSimilar(
         contracts: String
     ): List<HolderSimilar> {
         return get("similar_tokens?token=${checkAddressRequired(contracts)}", errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun tokenByNameOrSymbol(
         nameOrSymbol: String,
@@ -66,18 +72,21 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return get("token_search?search=$nameOrSymbol&limit=${toLimit(limit)}", errors)
     }
 
+    @NotNull
     fun tokenDetails(
         contracts: List<String>
     ): List<TokenDetails> {
         return get("token_info?${tokenAsParamRequired(contracts)}", errors)
     }
 
+    @NotNull
     fun tokenStatistic(
         contract: String
     ): List<TokenStatistic> {
         return get("token_stat?token=${checkAddressRequired(contract)}", errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun tokenTransfers(
         contract: String,

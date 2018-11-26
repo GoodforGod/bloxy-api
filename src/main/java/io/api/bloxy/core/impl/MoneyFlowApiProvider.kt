@@ -4,6 +4,7 @@ import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.Address
 import io.api.bloxy.model.dto.Tx
 import io.api.bloxy.model.dto.moneyflow.*
+import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -22,6 +23,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         )
     }
 
+    @NotNull
     @JvmOverloads
     fun addressVolumes(
         addresses: List<String>,
@@ -35,6 +37,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return get(params, errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun topSenders(
         address: String,
@@ -50,6 +53,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun topReceivers(
         address: String,
@@ -65,6 +69,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun moneyDistribution(
         address: String,
@@ -88,6 +93,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun txsDistribution(
         address: String,
@@ -111,6 +117,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun moneySource(
         address: String,
@@ -134,6 +141,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun txsSource(
         address: String,
@@ -157,6 +165,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun transfersAll(
         addresses: List<String>,
@@ -171,6 +180,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun transfersReceived(
         addresses: List<String>,
@@ -185,6 +195,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun transfersSend(
         addresses: List<String>,
@@ -199,6 +210,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun topSendersCount(
         address: String,
@@ -212,6 +224,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun topReceiversCount(
         address: String,

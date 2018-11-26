@@ -2,6 +2,7 @@ package io.api.bloxy.core.impl
 
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.dex.*
+import org.jetbrains.annotations.NotNull
 
 
 /**
@@ -15,16 +16,19 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
     companion object {
         val errors = listOf(
             "Protocols not found by".toRegex(),
-            "Not found any DEXes".toRegex()
+            "Not found any DEXes".toRegex(),
+            "^Got status 500".toRegex()
         )
     }
 
+    @NotNull
     private fun protocolAsParam(
         values: List<String>
     ): String {
         return asParam(values, "&protocol[]=", "protocol[]=")
     }
 
+    @NotNull
     private fun contractAsParam(
         values: List<String>
     ): String {
@@ -35,6 +39,7 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
         return get("protocols?")
     }
 
+    @NotNull
     @JvmOverloads
     fun contracts(
         protocols: List<String> = emptyList(),
@@ -46,6 +51,7 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
         return getOffset(params, limit, offset)
     }
 
+    @NotNull
     @JvmOverloads
     fun trades(
         protocols: List<String> = emptyList(),
@@ -60,6 +66,7 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun pendingTxs(
         protocols: List<String> = emptyList(),
@@ -71,6 +78,7 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
         return get(params, errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun tradesActive(
         protocols: List<String> = emptyList(),

@@ -4,6 +4,7 @@ import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.Address
 import io.api.bloxy.model.dto.Tx
 import io.api.bloxy.model.dto.tokensale.*
+import org.jetbrains.annotations.NotNull
 import java.time.LocalDateTime
 
 
@@ -19,6 +20,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         val errors = listOf("Tokens? not found by".toRegex())
     }
 
+    @NotNull
     @JvmOverloads
     fun sales(
         contracts: List<String> = emptyList(),
@@ -30,6 +32,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset("tokens?$params", limit, offset, 1000, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun saleTxs(
         contracts: List<String> = emptyList(),
@@ -41,18 +44,21 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset("transactions?$params", limit, offset, 100, skipErrors = errors)
     }
 
+    @NotNull
     fun statsDaily(
         contract: String
     ): List<SaleDaily> {
         return get("by_days?token_address=${checkAddressRequired(contract)}", errors)
     }
 
+    @NotNull
     fun statsAddress(
         contract: String
     ): List<SaleAddrStat> {
         return get("addresses?token_address=${checkAddressRequired(contract)}", errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun buyers(
         contract: String,
@@ -62,6 +68,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset("buyers?token_address=${checkAddressRequired(contract)}", limit, offset, 1000, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun wallets(
         contract: String,
@@ -73,6 +80,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         )
     }
 
+    @NotNull
     @JvmOverloads
     fun moneyDistribution(
         contract: String,
@@ -94,6 +102,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun txsDistribution(
         contract: String,
@@ -113,6 +122,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun moneySources(
         contract: String,
@@ -134,6 +144,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun txsSources(
         contract: String,
@@ -153,6 +164,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
+    @NotNull
     @JvmOverloads
     fun tokenDistribution(
         contract: String,

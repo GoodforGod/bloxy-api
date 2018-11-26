@@ -7,6 +7,7 @@ import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
 import io.api.bloxy.util.ParamConverter.Companion.MAX_DATETIME
 import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
 import io.api.bloxy.util.ParamConverter.Companion.MIN_DATETIME
+import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -19,6 +20,7 @@ import java.time.LocalDateTime
  */
 interface IMoneyFlowApi {
 
+    @NotNull
     fun addressVolumes(
         addresses: List<String>,
         contract: String = "ETH",
@@ -26,6 +28,7 @@ interface IMoneyFlowApi {
         till: LocalDateTime = MAX_DATETIME
     ): List<Volume>
 
+    @NotNull
     fun topSenders(
         address: String,
         contract: String = "ETH",
@@ -35,6 +38,7 @@ interface IMoneyFlowApi {
         till: LocalDateTime = MAX_DATETIME
     ): List<Sender>
 
+    @NotNull
     fun topReceivers(
         address: String,
         contract: String = "ETH",
@@ -44,6 +48,7 @@ interface IMoneyFlowApi {
         till: LocalDateTime = MAX_DATETIME
     ): List<Receiver>
 
+    @NotNull
     fun moneyDistribution(
         address: String,
         contract: String = "ETH",
@@ -58,6 +63,7 @@ interface IMoneyFlowApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address>
 
+    @NotNull
     fun txsDistribution(
         address: String,
         contract: String = "ETH",
@@ -72,6 +78,7 @@ interface IMoneyFlowApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx>
 
+    @NotNull
     fun moneySource(
         address: String,
         contract: String = "ETH",
@@ -86,6 +93,7 @@ interface IMoneyFlowApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address>
 
+    @NotNull
     fun txsSource(
         address: String,
         contract: String = "ETH",
@@ -100,6 +108,7 @@ interface IMoneyFlowApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx>
 
+    @NotNull
     fun transfersAll(
         addresses: List<String>,
         contracts: List<String> = emptyList(),
@@ -109,6 +118,7 @@ interface IMoneyFlowApi {
         till: LocalDate = MAX_DATE
     ): List<AddrTransfer>
 
+    @NotNull
     fun transfersReceived(
         addresses: List<String>,
         contracts: List<String> = emptyList(),
@@ -118,6 +128,7 @@ interface IMoneyFlowApi {
         till: LocalDate = MAX_DATE
     ): List<AddrTransfer>
 
+    @NotNull
     fun transfersSend(
         addresses: List<String>,
         contracts: List<String> = emptyList(),
@@ -127,6 +138,7 @@ interface IMoneyFlowApi {
         till: LocalDate = MAX_DATE
     ): List<AddrTransfer>
 
+    @NotNull
     fun topSendersCount(
         address: String,
         limit: Int = 100,
@@ -135,6 +147,7 @@ interface IMoneyFlowApi {
         till: LocalDateTime = MAX_DATETIME
     ): List<SenderSimple>
 
+    @NotNull
     fun topReceiversCount(
         address: String,
         limit: Int = 100,

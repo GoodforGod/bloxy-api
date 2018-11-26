@@ -3,6 +3,7 @@ package io.api.bloxy.core.impl
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.transaction.TxDetail
 import io.api.bloxy.model.dto.transaction.TxTransfer
+import org.jetbrains.annotations.NotNull
 
 
 /**
@@ -17,6 +18,7 @@ class TransactionApiProvider(client: IHttpClient, key: String) : BasicProvider(c
         return asParam(values, "&tx_hash[]=", "tx_hash[]=")
     }
 
+    @NotNull
     @JvmOverloads
     fun transfers(
         txHashes: List<String>,
@@ -27,6 +29,7 @@ class TransactionApiProvider(client: IHttpClient, key: String) : BasicProvider(c
         return getOffset(param, limit, offset)
     }
 
+    @NotNull
     fun details(
         txHashes: List<String>
     ): List<TxDetail> {

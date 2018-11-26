@@ -1,6 +1,7 @@
 package io.api.bloxy.core
 
 import io.api.bloxy.model.dto.dex.*
+import org.jetbrains.annotations.NotNull
 
 
 /**
@@ -14,6 +15,7 @@ interface IDexApi {
     /**
      *
      */
+    @NotNull
     fun protocols(): List<DexProtocol>
 
     /**
@@ -23,6 +25,7 @@ interface IDexApi {
      * @param offset
      * @param timeSpanDays
      */
+    @NotNull
     fun contracts(
         protocols: List<String>,
         limit: Int,
@@ -39,6 +42,7 @@ interface IDexApi {
      * @param offset
      * @param timeSpanDays
      */
+    @NotNull
     fun trades(
         protocols: List<String> = emptyList(),
         dexContracts: List<String> = emptyList(),
@@ -53,6 +57,7 @@ interface IDexApi {
      * @param protocols
      * @param dexContracts
      */
+    @NotNull
     fun pendingTxs(
         protocols: List<String> = emptyList(),
         dexContracts: List<String> = emptyList()
@@ -66,6 +71,7 @@ interface IDexApi {
      * @param offset
      * @param timeSpanDays
      */
+    @NotNull
     fun tradesActive(
         protocols: List<String> = emptyList(),
         dexContracts: List<String> = emptyList(),

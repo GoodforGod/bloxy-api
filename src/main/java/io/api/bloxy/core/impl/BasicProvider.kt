@@ -10,6 +10,7 @@ import io.api.bloxy.model.dto.BloxyError
 import io.api.bloxy.util.KlaxonArgs
 import io.api.bloxy.util.KlaxonConverters
 import io.api.bloxy.util.ParamConverter
+import org.jetbrains.annotations.NotNull
 
 
 /**
@@ -37,10 +38,12 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         }
     }
 
+    @NotNull
     protected inline fun <reified T> get(urlParams: String, skipErrors: List<Regex> = emptyList()): List<T> {
         return parse(getData(urlParams), skipErrors)
     }
 
+    @NotNull
     protected inline fun <reified T> parse(json: String, skipErrors: List<Regex> = emptyList()): List<T> {
         return try {
             if (json.isBlank()) emptyList() else converter.parseArray(json) ?: emptyList()
@@ -60,6 +63,7 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         }
     }
 
+    @NotNull
     protected inline fun <reified T> getOffset(
         params: String,
         limit: Int,
