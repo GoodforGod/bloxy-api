@@ -35,6 +35,6 @@ class WalletsTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contract = "0x1b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d"
-        val result = api.tokenSale().wallets(contract)
+        api.tokenSale().wallets(contract)
     }
 }

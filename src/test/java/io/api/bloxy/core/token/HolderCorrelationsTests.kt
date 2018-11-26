@@ -41,6 +41,6 @@ class HolderCorrelationsTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contracts = listOf("0x97048628DB6B661D4C2aA833e95Dbe1A905B280")
-        val result = api.token().holderCorrelations(contracts)
+        api.token().holderCorrelations(contracts)
     }
 }

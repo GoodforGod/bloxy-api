@@ -12,7 +12,7 @@ import java.util.stream.Collectors
  * @author GoodforGod
  * @since 16.11.2018
  */
-class HttpClient(
+class HttpClient @JvmOverloads constructor(
     private val connectTimeout: Int = 8000,
     private val readTimeout: Int = 0
 ) : IHttpClient {

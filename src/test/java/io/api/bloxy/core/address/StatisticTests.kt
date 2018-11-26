@@ -34,13 +34,12 @@ class StatisticTests : Tester() {
 
     @Test(expected = ParamException::class)
     fun `invalid address param`() {
-        val addresses =
-            listOf("0x1eAb08daA285183F9A04269747D4125F08e634B0", "0x6f05a632bBe3B4Ed51E3726b093FD33Aa55C6Df")
-        val list = api.address().statistics(addresses)
+        val addresses = listOf("0x1eAb08daA285183F9A04269747D4125F08e634B0", "0x6f05a632bBe3B4Ed51E3726b093FD33Aa55C6Df")
+        api.address().statistics(addresses)
     }
 
     @Test(expected = ParamException::class)
     fun `empty param error`() {
-        val list = api.address().statistics(emptyList())
+        api.address().statistics(emptyList())
     }
 }

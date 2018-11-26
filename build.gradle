@@ -20,7 +20,7 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 repositories {
-    maven { url "http://repo.maven.apache.org/maven2" }
+    mavenCentral()
     jcenter()
 }
 
@@ -30,14 +30,11 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
 }
 
-compileKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
+jar {
+    manifest {
+        attributes('Main-Class': 'io.service.money.AppStarter')
     }
-}
 
-compileTestKotlin {
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }

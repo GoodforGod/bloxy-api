@@ -33,6 +33,6 @@ class CorrelatedTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param`() {
         val address = "0xeAb08daA285183F9A04269747D4125F08e634B0"
-        val details = api.address().correlated(address)
+        api.address().correlated(address)
     }
 }

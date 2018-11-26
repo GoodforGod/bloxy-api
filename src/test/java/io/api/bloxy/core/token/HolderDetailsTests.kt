@@ -33,6 +33,6 @@ class HolderDetailsTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contract = "0x97048628DB6B661D4C2aA833e95Dbe1A905B280"
-        val result = api.token().holderDetails(contract)
+        api.token().holderDetails(contract)
     }
 }

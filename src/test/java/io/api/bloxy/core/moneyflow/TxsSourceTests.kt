@@ -52,6 +52,6 @@ class TxsSourceTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val address = "0xCea08A2d404d3172d2AdD29A45be56dA40e2949"
-        val result = api.moneyFlow().txsSource(address)
+        api.moneyFlow().txsSource(address)
     }
 }

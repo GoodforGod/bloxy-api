@@ -53,6 +53,6 @@ class SalesTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contracts = listOf("0x1b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d")
-        val result = api.tokenSale().sales(contracts)
+        api.tokenSale().sales(contracts)
     }
 }

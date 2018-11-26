@@ -53,6 +53,6 @@ class TransfersReceivedTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val addresses = listOf("0x0ea08A2d404d3172d2AdD29A45be56dA40e2949")
-        val result = api.moneyFlow().transfersReceived(addresses)
+        api.moneyFlow().transfersReceived(addresses)
     }
 }

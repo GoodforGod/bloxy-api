@@ -11,11 +11,11 @@ import io.api.bloxy.model.IModel
  */
 data class Holder(
     val address: String = "",
-    val symbol: String = "",
-    val common_holders: Long = 0,
-    val percentage: Double = .0
+    val address_type: String = "",
+    val annotation: String = "",
+    val balance: Double = .0
 ) : IModel {
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && common_holders == 0L
+        return address.isEmpty() && balance == .0
     }
 }

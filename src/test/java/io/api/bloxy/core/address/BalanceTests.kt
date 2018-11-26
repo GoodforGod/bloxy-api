@@ -33,6 +33,6 @@ class BalanceTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param`() {
         val address = "01eAb08daA285183F9A04269747D4125F08e634B0"
-        val balance = api.address().balance(address)
+        api.address().balance(address)
     }
 }
