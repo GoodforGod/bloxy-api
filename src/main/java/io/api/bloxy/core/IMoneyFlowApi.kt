@@ -13,13 +13,21 @@ import java.time.LocalDateTime
 
 
 /**
- * ! NO DESCRIPTION !
+ * API for Money Flow Analysis between wallets. Supports Ether and any tokens
+ * More information - https://bloxy.info/api_methods#money_flow
  *
  * @author GoodforGod
  * @since 16.11.2018
  */
 interface IMoneyFlowApi {
 
+    /**
+     * Aggregates amount of receive and sent amounts for each from the list of addresses
+     * @param addresses to look for
+     * @param contract to filter (ETH default)
+     * @param since timestamp
+     * @param till timestamp
+     */
     @NotNull
     fun addressVolumes(
         addresses: List<String>,
@@ -28,6 +36,15 @@ interface IMoneyFlowApi {
         till: LocalDateTime = MAX_DATETIME
     ): List<Volume>
 
+    /**
+     * Aggregates amount of receive transactions for specific currency and select top senders ( by amount )
+     * @param address to look for
+     * @param contract to filter (ETH default)
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param since timestamp
+     * @param till timestamp
+     */
     @NotNull
     fun topSenders(
         address: String,
@@ -38,6 +55,15 @@ interface IMoneyFlowApi {
         till: LocalDateTime = MAX_DATETIME
     ): List<Sender>
 
+    /**
+     * Aggregates amount of sent transactions for specific currency and select top receivers ( by amount )
+     * @param address to look for
+     * @param contract to filter (ETH default)
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param since timestamp
+     * @param till timestamp
+     */
     @NotNull
     fun topReceivers(
         address: String,
@@ -48,6 +74,20 @@ interface IMoneyFlowApi {
         till: LocalDateTime = MAX_DATETIME
     ): List<Receiver>
 
+    /**
+     * Analyses the full graph of money transactions and calculates the money distribution from the given address
+     * @param address to look for
+     * @param contract to filter (ETH default)
+     * @param depth how deep should look in the transaction tree
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param minBalance ignore addresses with this amount or less
+     * @param minTxAmount minimum amount of transactions
+     * @param ignoreAddressWithTxs ignore distribution from addresses with txs more than
+     * @param since timestamp
+     * @param till timestamp
+     * @param snapshot take into account only transfers till this time
+     */
     @NotNull
     fun moneyDistribution(
         address: String,
@@ -63,6 +103,21 @@ interface IMoneyFlowApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address>
 
+    /**
+     * Analyses the full graph of money transactions
+     * Outputs the transactions of the flow how money distributed from the given address
+     * @param address to look for
+     * @param contract to filter (ETH default)
+     * @param depth how deep should look in the transaction tree
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param minBalance ignore addresses with this amount or less
+     * @param minTxAmount minimum amount of transactions
+     * @param ignoreAddressWithTxs ignore distribution from addresses with txs more than
+     * @param since timestamp
+     * @param till timestamp
+     * @param snapshot take into account only transfers till this time
+     */
     @NotNull
     fun txsDistribution(
         address: String,
@@ -78,6 +133,20 @@ interface IMoneyFlowApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx>
 
+    /**
+     * Analyses the full graph of money transactions and calculates the money sources for the given address
+     * @param address to look for
+     * @param contract to filter (ETH default)
+     * @param depth how deep should look in the transaction tree
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param minBalance ignore addresses with this amount or less
+     * @param minTxAmount minimum amount of transactions
+     * @param ignoreAddressWithTxs ignore distribution from addresses with txs more than
+     * @param since timestamp
+     * @param till timestamp
+     * @param snapshot take into account only transfers till this time
+     */
     @NotNull
     fun moneySource(
         address: String,
@@ -93,6 +162,21 @@ interface IMoneyFlowApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address>
 
+    /**
+     * Analyses the full graph of money transactions.
+     * Outputs the transactions of the flow how money come into given address
+     * @param address to look for
+     * @param contract to filter (ETH default)
+     * @param depth how deep should look in the transaction tree
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param minBalance ignore addresses with this amount or less
+     * @param minTxAmount minimum amount of transactions
+     * @param ignoreAddressWithTxs ignore distribution from addresses with txs more than
+     * @param since timestamp
+     * @param till timestamp
+     * @param snapshot take into account only transfers till this time
+     */
     @NotNull
     fun txsSource(
         address: String,
@@ -108,6 +192,15 @@ interface IMoneyFlowApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx>
 
+    /**
+     * List of all transfers to/from the given address
+     * @param addresses to look for
+     * @param contracts to filter
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param since timestamp
+     * @param till timestamp
+     */
     @NotNull
     fun transfersAll(
         addresses: List<String>,
@@ -118,6 +211,15 @@ interface IMoneyFlowApi {
         till: LocalDate = MAX_DATE
     ): List<AddrTransfer>
 
+    /**
+     * List of transfers to the given address
+     * @param addresses to look for
+     * @param contracts to filter
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param since timestamp
+     * @param till timestamp
+     */
     @NotNull
     fun transfersReceived(
         addresses: List<String>,
@@ -128,6 +230,15 @@ interface IMoneyFlowApi {
         till: LocalDate = MAX_DATE
     ): List<AddrTransfer>
 
+    /**
+     * List of transfers from the given address
+     * @param addresses to look for
+     * @param contracts to filter
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param since timestamp
+     * @param till timestamp
+     */
     @NotNull
     fun transfersSend(
         addresses: List<String>,
@@ -138,6 +249,14 @@ interface IMoneyFlowApi {
         till: LocalDate = MAX_DATE
     ): List<AddrTransfer>
 
+    /**
+     * Aggregates amount of receive transactions and select top senders ( by Transfer Count )
+     * @param address to look for
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param since timestamp
+     * @param till timestamp
+     */
     @NotNull
     fun topSendersCount(
         address: String,
@@ -147,6 +266,14 @@ interface IMoneyFlowApi {
         till: LocalDateTime = MAX_DATETIME
     ): List<SenderSimple>
 
+    /**
+     * Aggregates amount of sent transactions and select top receivers ( by Transfer Count )
+     * @param address to look for
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param since timestamp
+     * @param till timestamp
+     */
     @NotNull
     fun topReceiversCount(
         address: String,

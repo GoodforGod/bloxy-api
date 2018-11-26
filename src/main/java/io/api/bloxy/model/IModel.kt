@@ -2,7 +2,7 @@ package io.api.bloxy.model
 
 
 /**
- * ! NO DESCRIPTION !
+ * Basic models funcs
  *
  * @author GoodforGod
  * @since 17.11.2018

@@ -7,7 +7,7 @@ import java.util.stream.Collectors
 
 
 /**
- * ! NO DESCRIPTION !
+ * @see IHttpClient
  *
  * @author GoodforGod
  * @since 16.11.2018
@@ -27,7 +27,6 @@ class HttpClient @JvmOverloads constructor(
         )
     }
 
-    // Think that cookie will be needed, so this magic won't work
     override fun get(url: String): String {
         try {
             URL(url).openConnection().apply {

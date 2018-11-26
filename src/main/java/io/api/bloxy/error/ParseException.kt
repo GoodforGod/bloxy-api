@@ -2,7 +2,7 @@ package io.api.bloxy.error
 
 
 /**
- * ! NO DESCRIPTION !
+ * Server response parse exception
  *
  * @author GoodforGod
  * @since 17.11.2018

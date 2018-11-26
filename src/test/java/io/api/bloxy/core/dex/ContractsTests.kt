@@ -16,7 +16,7 @@ class ContractsTests : Tester() {
     @Test
     fun valid() {
         val protocols = listOf("IDEX")
-        val list = api.dex().contracts(protocols)
+        val list = api.dex.contracts(protocols)
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
@@ -25,14 +25,14 @@ class ContractsTests : Tester() {
     @Test(expected = BloxyException::class)
     fun `dex protocol not exist`() {
         val protocols = listOf("IDEXIA")
-        val list = api.dex().contracts(protocols)
+        val list = api.dex.contracts(protocols)
         assertNotNull(list)
         assertTrue(list.isEmpty())
     }
 
     @Test
     fun `valid empty params`() {
-        val list = api.dex().contracts(emptyList())
+        val list = api.dex.contracts(emptyList())
         assertNotNull(list)
         assertFalse(list.isEmpty())
     }

@@ -9,13 +9,17 @@ import org.jetbrains.annotations.NotNull
 
 
 /**
- * ! NO DESCRIPTION !
+ * API for Analysis of addresses, their activities and statistics
+ * Full information - https://bloxy.info/api_methods#address
+ *
+ * @see io.api.bloxy.core.IAddressApi
  *
  * @author GoodforGod
  * @since 16.11.2018
  */
 class AddressApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "address", key) {
 
+    /** @see io.api.bloxy.core.IAddressApi.details */
     @NotNull
     fun details(
         addresses: List<String>
@@ -23,6 +27,7 @@ class AddressApiProvider(client: IHttpClient, key: String) : BasicProvider(clien
         return validOnly(get("address_diagnostics?${addressAsParamRequired(addresses)}"))
     }
 
+    /** @see io.api.bloxy.core.IAddressApi.statistics */
     @NotNull
     fun statistics(
         addresses: List<String>
@@ -30,6 +35,8 @@ class AddressApiProvider(client: IHttpClient, key: String) : BasicProvider(clien
         return validOnly(get("address_stat?${addressAsParamRequired(addresses)}"))
     }
 
+
+    /** @see io.api.bloxy.core.IAddressApi.correlated */
     @NotNull
     fun correlated(
         address: String
@@ -37,6 +44,7 @@ class AddressApiProvider(client: IHttpClient, key: String) : BasicProvider(clien
         return get("correlated_address_tokens?address=${checkAddressRequired(address)}")
     }
 
+    /** @see io.api.bloxy.core.IAddressApi.balance */
     @NotNull
     fun balance(
         address: String

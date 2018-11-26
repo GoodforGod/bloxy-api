@@ -18,6 +18,7 @@ class TransactionApiProvider(client: IHttpClient, key: String) : BasicProvider(c
         return asParam(values, "&tx_hash[]=", "tx_hash[]=")
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.tokenDistribution */
     @NotNull
     @JvmOverloads
     fun transfers(
@@ -29,6 +30,7 @@ class TransactionApiProvider(client: IHttpClient, key: String) : BasicProvider(c
         return getOffset(param, limit, offset)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.tokenDistribution */
     @NotNull
     fun details(
         txHashes: List<String>

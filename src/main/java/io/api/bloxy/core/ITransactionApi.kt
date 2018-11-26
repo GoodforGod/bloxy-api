@@ -6,13 +6,20 @@ import org.jetbrains.annotations.NotNull
 
 
 /**
- * ! NO DESCRIPTION !
+ * API for reading transaction information
+ * More information - https://bloxy.info/api_methods#tx
  *
  * @author GoodforGod
  * @since 16.11.2018
  */
 interface ITransactionApi {
 
+    /**
+     * List of all transfers in the given transaction
+     * @param txHashes to filter
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     */
     @NotNull
     fun transfers(
         txHashes: List<String>,
@@ -20,6 +27,10 @@ interface ITransactionApi {
         offset: Int = 0
     ): List<TxTransfer>
 
+    /**
+     * Transaction information by hash
+     * @param txHashes to filter
+     */
     @NotNull
     fun details(
         txHashes: List<String>

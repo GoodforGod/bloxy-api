@@ -16,7 +16,7 @@ class SalesTests : Tester() {
 
     companion object {
         fun getRandomTokenSale(api: BloxyApi): String {
-            val result = api.tokenSale().sales()
+            val result = api.tokenSale.sales()
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
@@ -34,7 +34,7 @@ class SalesTests : Tester() {
         val sale = getRandomTokenSale(api)
         if (!sale.isEmpty()) {
             val contracts = listOf(sale)
-            val result = api.tokenSale().sales(contracts)
+            val result = api.tokenSale.sales(contracts)
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
@@ -44,7 +44,7 @@ class SalesTests : Tester() {
     @Test
     fun `non exist address empty result`() {
         val contracts = listOf("0xf1b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d")
-        val result = api.tokenSale().sales(contracts)
+        val result = api.tokenSale.sales(contracts)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -53,6 +53,6 @@ class SalesTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contracts = listOf("0x1b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d")
-        api.tokenSale().sales(contracts)
+        api.tokenSale.sales(contracts)
     }
 }

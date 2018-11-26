@@ -6,7 +6,7 @@ import java.util.stream.Collectors
 
 
 /**
- * ! NO DESCRIPTION !
+ * API provider extension to validate parameters
  *
  * @author GoodforGod
  * @since 21.11.2018

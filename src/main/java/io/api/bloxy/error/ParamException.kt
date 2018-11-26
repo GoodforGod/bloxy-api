@@ -2,7 +2,7 @@ package io.api.bloxy.error
 
 
 /**
- * ! NO DESCRIPTION !
+ * Invalid API parameter error
  *
  * @author GoodforGod
  * @since 21.11.2018

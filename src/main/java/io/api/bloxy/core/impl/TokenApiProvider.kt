@@ -24,6 +24,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         )
     }
 
+    /** @see io.api.bloxy.core.ITokenApi.holders */
     @NotNull
     @JvmOverloads
     fun holders(
@@ -33,6 +34,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return get("token_holders_list?token=${checkAddressRequired(contract)}&limit=${toLimit(limit)}", errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenApi.holderDetails */
     @NotNull
     @JvmOverloads
     fun holderDetails(
@@ -48,6 +50,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return getOffset("token_holders_details?$urlParam", limit, offset, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenApi.holderCorrelations */
     @NotNull
     fun holderCorrelations(
         contracts: List<String>
@@ -56,6 +59,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return if (contracts.size < 2) emptyList() else get(params, errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenApi.holderSimilar */
     @NotNull
     fun holderSimilar(
         contracts: String
@@ -63,6 +67,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return get("similar_tokens?token=${checkAddressRequired(contracts)}", errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenApi.tokenByNameOrSymbol */
     @NotNull
     @JvmOverloads
     fun tokenByNameOrSymbol(
@@ -72,6 +77,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return get("token_search?search=$nameOrSymbol&limit=${toLimit(limit)}", errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenApi.tokenDetails */
     @NotNull
     fun tokenDetails(
         contracts: List<String>
@@ -79,6 +85,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return get("token_info?${tokenAsParamRequired(contracts)}", errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenApi.tokenStatistic */
     @NotNull
     fun tokenStatistic(
         contract: String
@@ -86,6 +93,7 @@ class TokenApiProvider(client: IHttpClient, key: String) : BasicProvider(client,
         return get("token_stat?token=${checkAddressRequired(contract)}", errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenApi.tokenTransfers */
     @NotNull
     @JvmOverloads
     fun tokenTransfers(

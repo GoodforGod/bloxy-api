@@ -20,6 +20,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         val errors = listOf("Tokens? not found by".toRegex())
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.sales */
     @NotNull
     @JvmOverloads
     fun sales(
@@ -32,6 +33,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset("tokens?$params", limit, offset, 1000, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.saleTxs */
     @NotNull
     @JvmOverloads
     fun saleTxs(
@@ -44,6 +46,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset("transactions?$params", limit, offset, 100, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.statsDaily */
     @NotNull
     fun statsDaily(
         contract: String
@@ -51,6 +54,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return get("by_days?token_address=${checkAddressRequired(contract)}", errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.statsAddress */
     @NotNull
     fun statsAddress(
         contract: String
@@ -58,6 +62,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return get("addresses?token_address=${checkAddressRequired(contract)}", errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.buyers */
     @NotNull
     @JvmOverloads
     fun buyers(
@@ -68,6 +73,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset("buyers?token_address=${checkAddressRequired(contract)}", limit, offset, 1000, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.wallets */
     @NotNull
     @JvmOverloads
     fun wallets(
@@ -80,6 +86,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         )
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.moneyDistribution */
     @NotNull
     @JvmOverloads
     fun moneyDistribution(
@@ -102,6 +109,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.txsDistribution */
     @NotNull
     @JvmOverloads
     fun txsDistribution(
@@ -122,6 +130,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.moneySources */
     @NotNull
     @JvmOverloads
     fun moneySources(
@@ -144,6 +153,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.txsSources */
     @NotNull
     @JvmOverloads
     fun txsSources(
@@ -164,6 +174,7 @@ class TokenSaleApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
+    /** @see io.api.bloxy.core.ITokenSaleApi.tokenDistribution */
     @NotNull
     @JvmOverloads
     fun tokenDistribution(

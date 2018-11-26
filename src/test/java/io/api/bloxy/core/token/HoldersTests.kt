@@ -17,7 +17,7 @@ class HoldersTests : Tester() {
     fun valid() {
         val contract = "0xB97048628DB6B661D4C2aA833e95Dbe1A905B280"
         Double.MAX_VALUE
-        val result = api.token().holders(contract)
+        val result = api.token.holders(contract)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -26,7 +26,7 @@ class HoldersTests : Tester() {
     @Test
     fun `non exist address empty result`() {
         val contract = "0xB17048628DB6B661D4C2aA833e95Dbe1A905B280"
-        val result = api.token().holders(contract)
+        val result = api.token.holders(contract)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
@@ -34,6 +34,6 @@ class HoldersTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contract = "0x97048628DB6B661D4C2aA833e95Dbe1A905B280"
-        api.token().holders(contract)
+        api.token.holders(contract)
     }
 }

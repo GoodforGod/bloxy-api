@@ -23,6 +23,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         )
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.addressVolumes */
     @NotNull
     @JvmOverloads
     fun addressVolumes(
@@ -37,6 +38,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return get(params, errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.topSenders */
     @NotNull
     @JvmOverloads
     fun topSenders(
@@ -53,6 +55,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.topReceivers */
     @NotNull
     @JvmOverloads
     fun topReceivers(
@@ -69,6 +72,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.moneyDistribution */
     @NotNull
     @JvmOverloads
     fun moneyDistribution(
@@ -93,6 +97,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.txsDistribution */
     @NotNull
     @JvmOverloads
     fun txsDistribution(
@@ -117,6 +122,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.moneySource */
     @NotNull
     @JvmOverloads
     fun moneySource(
@@ -141,6 +147,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.txsSource */
     @NotNull
     @JvmOverloads
     fun txsSource(
@@ -165,6 +172,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.transfersAll */
     @NotNull
     @JvmOverloads
     fun transfersAll(
@@ -180,6 +188,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.transfersReceived */
     @NotNull
     @JvmOverloads
     fun transfersReceived(
@@ -195,6 +204,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.transfersSend */
     @NotNull
     @JvmOverloads
     fun transfersSend(
@@ -210,6 +220,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.topSendersCount */
     @NotNull
     @JvmOverloads
     fun topSendersCount(
@@ -224,6 +235,7 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.IMoneyFlowApi.topReceiversCount */
     @NotNull
     @JvmOverloads
     fun topReceiversCount(

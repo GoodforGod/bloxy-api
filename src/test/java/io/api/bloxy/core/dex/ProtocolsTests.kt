@@ -14,7 +14,7 @@ class ProtocolsTests : Tester() {
 
     @Test
     fun valid() {
-        val details = api.dex().protocols()
+        val details = api.dex.protocols()
         assertNotNull(details)
         assertFalse(details.isEmpty())
         assertFalse(details[0].isEmpty())

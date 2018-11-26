@@ -16,7 +16,7 @@ class HolderCorrelationsTests : Tester() {
     @Test
     fun valid() {
         val contracts = listOf("0xB97048628DB6B661D4C2aA833e95Dbe1A905B280", "0x744d70FDBE2Ba4CF95131626614a1763DF805B9E")
-        val result = api.token().holderCorrelations(contracts)
+        val result = api.token.holderCorrelations(contracts)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -25,7 +25,7 @@ class HolderCorrelationsTests : Tester() {
     @Test
     fun `single contract empty correlation`() {
         val contracts = listOf("0xB97048628DB6B661D4C2aA833e95Dbe1A905B280")
-        val result = api.token().holderCorrelations(contracts)
+        val result = api.token.holderCorrelations(contracts)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
@@ -33,7 +33,7 @@ class HolderCorrelationsTests : Tester() {
     @Test
     fun `non exist address empty result`() {
         val contracts = listOf("0xB17048628DB6B661D4C2aA833e95Dbe1A905B280")
-        val result = api.token().holderCorrelations(contracts)
+        val result = api.token.holderCorrelations(contracts)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
@@ -41,6 +41,6 @@ class HolderCorrelationsTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contracts = listOf("0x97048628DB6B661D4C2aA833e95Dbe1A905B280")
-        api.token().holderCorrelations(contracts)
+        api.token.holderCorrelations(contracts)
     }
 }

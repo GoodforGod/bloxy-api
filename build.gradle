@@ -25,7 +25,9 @@ repositories {
 }
 
 dependencies {
+    compile group: 'org.jetbrains', name: 'annotations', version: '13.0'
     compile group: 'com.beust', name: 'klaxon', version:'3.0.11'
+    compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     testCompile "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"

@@ -2,7 +2,7 @@ package io.api.bloxy.error
 
 
 /**
- * ! NO DESCRIPTION !
+ * Bloxy Server Error
  *
  * @author GoodforGod
  * @since 17.11.2018

@@ -15,7 +15,7 @@ class SalesTxsTests : Tester() {
 
     @Test
     fun valid() {
-        val result = api.tokenSale().saleTxs()
+        val result = api.tokenSale.saleTxs()
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -26,7 +26,7 @@ class SalesTxsTests : Tester() {
         val sale = SalesTests.getRandomTokenSale(api)
         if (!sale.isEmpty()) {
             val contracts = listOf(sale)
-            val result = api.tokenSale().saleTxs(contracts)
+            val result = api.tokenSale.saleTxs(contracts)
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
@@ -36,7 +36,7 @@ class SalesTxsTests : Tester() {
     @Test
     fun `non exist address empty result`() {
         val contracts = listOf("0xf1b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d")
-        val result = api.tokenSale().saleTxs(contracts)
+        val result = api.tokenSale.saleTxs(contracts)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
     }
@@ -44,6 +44,6 @@ class SalesTxsTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contracts = listOf("0x1b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d")
-        api.tokenSale().sales(contracts)
+        api.tokenSale.sales(contracts)
     }
 }

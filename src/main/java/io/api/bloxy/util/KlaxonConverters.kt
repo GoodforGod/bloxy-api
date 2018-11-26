@@ -6,7 +6,7 @@ import io.api.bloxy.model.dto.dex.Args
 
 
 /**
- * ! NO DESCRIPTION !
+ * Klaxon JSON parser extensions
  *
  * @author GoodforGod
  * @since 22.11.2018

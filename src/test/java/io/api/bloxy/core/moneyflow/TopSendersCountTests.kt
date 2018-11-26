@@ -16,7 +16,7 @@ class TopSendersCountTests : Tester() {
     @Test
     fun valid() {
         val address = "0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949"
-        val result = api.moneyFlow().topSendersCount(address)
+        val result = api.moneyFlow.topSendersCount(address)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -25,7 +25,7 @@ class TopSendersCountTests : Tester() {
     @Test
     fun `non exist address empty result`() {
         val address = "0xC1ea08A2d404d3172d2AdD29A45be56dA40e2949"
-        val result = api.moneyFlow().topSendersCount(address)
+        val result = api.moneyFlow.topSendersCount(address)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
@@ -33,6 +33,6 @@ class TopSendersCountTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val address = "0xCea08A2d404d3172d2AdD29A45be56dA40e2949"
-        api.moneyFlow().topSendersCount(address)
+        api.moneyFlow.topSendersCount(address)
     }
 }

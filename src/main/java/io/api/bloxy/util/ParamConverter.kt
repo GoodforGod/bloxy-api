@@ -6,7 +6,7 @@ import java.util.stream.Collectors
 
 
 /**
- * ! NO DESCRIPTION !
+ * Functions for API provider to convert params to valid states
  *
  * @author GoodforGod
  * @since 21.11.2018

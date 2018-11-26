@@ -35,10 +35,13 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
         return asParam(checkAddress(values), "&smart_contract_address[]=", "smart_contract_address[]=")
     }
 
+    /** @see io.api.bloxy.core.IDexApi.protocols */
+    @NotNull
     fun protocols(): List<DexProtocol> {
-        return get("protocols?")
+        return get("protocols")
     }
 
+    /** @see io.api.bloxy.core.IDexApi.contracts */
     @NotNull
     @JvmOverloads
     fun contracts(
@@ -51,6 +54,7 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
         return getOffset(params, limit, offset)
     }
 
+    /** @see io.api.bloxy.core.IDexApi.trades */
     @NotNull
     @JvmOverloads
     fun trades(
@@ -66,6 +70,7 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
+    /** @see io.api.bloxy.core.IDexApi.pendingTxs */
     @NotNull
     @JvmOverloads
     fun pendingTxs(
@@ -78,6 +83,7 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
         return get(params, errors)
     }
 
+    /** @see io.api.bloxy.core.IDexApi.tradesActive */
     @NotNull
     @JvmOverloads
     fun tradesActive(

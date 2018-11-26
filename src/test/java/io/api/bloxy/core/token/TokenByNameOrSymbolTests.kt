@@ -15,7 +15,7 @@ class TokenByNameOrSymbolTests : Tester() {
     @Test
     fun `valid token symbol`() {
         val symbol = "PAY"
-        val result = api.token().tokenByNameOrSymbol(symbol)
+        val result = api.token.tokenByNameOrSymbol(symbol)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -24,7 +24,7 @@ class TokenByNameOrSymbolTests : Tester() {
     @Test
     fun `valid token name`() {
         val name = "TenX"
-        val result = api.token().tokenByNameOrSymbol(name)
+        val result = api.token.tokenByNameOrSymbol(name)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -33,7 +33,7 @@ class TokenByNameOrSymbolTests : Tester() {
     @Test
     fun `non exist token symbol empty result`() {
         val symbol = "PARIAPA"
-        val result = api.token().tokenByNameOrSymbol(symbol)
+        val result = api.token.tokenByNameOrSymbol(symbol)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }

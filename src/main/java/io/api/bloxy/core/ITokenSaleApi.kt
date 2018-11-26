@@ -10,13 +10,21 @@ import java.time.LocalDateTime
 
 
 /**
- * ! NO DESCRIPTION !
+ * API for Analysis of token sales (ICO)
+ * More information - https://bloxy.info/api_methods#tokensale
  *
  * @author GoodforGod
  * @since 16.11.2018
  */
 interface ITokenSaleApi {
 
+    /**
+     * Lists recent token sale aggregated statistics
+     * @param contracts to filter
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param timeSpanDays get info for period in days from today
+     */
     @NotNull
     fun sales(
         contracts: List<String> = emptyList(),
@@ -25,6 +33,13 @@ interface ITokenSaleApi {
         timeSpanDays: Int = 30
     ): List<Sale>
 
+    /**
+     * Lists recent token sale transactions
+     * @param contracts to filter
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param timeSpanDays get info for period in days from today
+     */
     @NotNull
     fun saleTxs(
         contracts: List<String> = emptyList(),
@@ -33,16 +48,30 @@ interface ITokenSaleApi {
         timeSpanDays: Int = 30
     ): List<SaleTx>
 
+    /**
+     * Aggregated statistics for a token sale by days
+     * @param contract to filter
+     */
     @NotNull
     fun statsDaily(
         contract: String
     ): List<SaleDaily>
 
+    /**
+     * Token sale smart contracts and wallets addresses
+     * @param contract to filter
+     */
     @NotNull
     fun statsAddress(
         contract: String
     ): List<SaleAddrStat>
 
+    /**
+     * Token sale buyers addresses
+     * @param contract to filter
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     */
     @NotNull
     fun buyers(
         contract: String,
@@ -50,12 +79,30 @@ interface ITokenSaleApi {
         offset: Int = 0
     ): List<SaleBuyer>
 
+    /**
+     * Shows the wallets, used to collect currency from buyers
+     * @param contract to filter
+     * @param withIntermediary
+     */
     @NotNull
     fun wallets(
         contract: String,
         withIntermediary: Boolean = false
     ): List<SaleWallet>
 
+    /**
+     * Calculates money distribution from the tokensale
+     * @param contract to filter
+     * @param depth how deep should look in the transaction tree
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param minBalance ignore addresses with this amount or less
+     * @param minTxAmount minimum amount of transactions
+     * @param ignoreAddressWithTxs ignore distribution from addresses with txs more than
+     * @param since timestamp
+     * @param till timestamp
+     * @param snapshot take into account only transfers till this time
+     */
     @NotNull
     fun moneyDistribution(
         contract: String,
@@ -70,6 +117,18 @@ interface ITokenSaleApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address>
 
+    /**
+     * Calculates the transactions of money distribution from the tokensale
+     * @param contract to filter
+     * @param depth how deep should look in the transaction tree
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param minTxAmount minimum amount of transactions
+     * @param ignoreAddressWithTxs ignore distribution from addresses with txs more than
+     * @param since timestamp
+     * @param till timestamp
+     * @param snapshot take into account only transfers till this time
+     */
     @NotNull
     fun txsDistribution(
         contract: String,
@@ -83,6 +142,19 @@ interface ITokenSaleApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx>
 
+    /**
+     * Calculates the money sources for the tokensale by analyzing the graph of transaction for the given depth
+     * @param contract to filter
+     * @param depth how deep should look in the transaction tree
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param minBalance ignore addresses with this amount or less
+     * @param minTxAmount minimum amount of transactions
+     * @param ignoreAddressWithTxs ignore distribution from addresses with txs more than
+     * @param since timestamp
+     * @param till timestamp
+     * @param snapshot take into account only transfers till this time
+     */
     @NotNull
     fun moneySources(
         contract: String,
@@ -97,6 +169,18 @@ interface ITokenSaleApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address>
 
+    /**
+     * Analyses the full graph of money transactions on tokensale
+     * @param contract to filter
+     * @param depth how deep should look in the transaction tree
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param minTxAmount minimum amount of transactions
+     * @param ignoreAddressWithTxs ignore distribution from addresses with txs more than
+     * @param since timestamp
+     * @param till timestamp
+     * @param snapshot take into account only transfers till this time
+     */
     @NotNull
     fun txsSources(
         contract: String,
@@ -110,6 +194,14 @@ interface ITokenSaleApi {
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx>
 
+    /**
+     * Builds the graph of the initial token distribution and calculates the list of token holders with the amounts
+     * @param contract to filter
+     * @param limit max result
+     * @param offset of the list from origin (0)
+     * @param since timestamp
+     * @param till timestamp
+     */
     @NotNull
     fun tokenDistribution(
         contract: String,

@@ -14,7 +14,11 @@ import org.jetbrains.annotations.NotNull
 
 
 /**
- * ! NO DESCRIPTION !
+ * Basic Bloxy API class with common functionality
+ *
+ * @param client http client
+ * @param module API module
+ * @param key API key
  *
  * @author GoodforGod
  * @since 17.11.2018
@@ -24,12 +28,12 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
     private val base = "https://bloxy.info/api/$module/"
     private val keyParam = "&key=$key&format=structure"
 
-    protected val converter = Klaxon()
+    protected val converter = Klaxon().fieldConverter(KlaxonArgs::class, KlaxonConverters.argsConverter)
 
-    init {
-        Klaxon().fieldConverter(KlaxonArgs::class, KlaxonConverters.argsConverter)
-    }
-
+    /**
+     * Perform GET HTTP request
+     * @param urlParams URL params for request
+     */
     protected fun getData(urlParams: String): String {
         try {
             return client.get(base + urlParams + keyParam)
@@ -38,11 +42,21 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         }
     }
 
+    /**
+     * Perform GET HTTP request and parse result
+     * @param urlParams URL params for request
+     * @param skipErrors errors messages to skip from BloxyServer
+     */
     @NotNull
     protected inline fun <reified T> get(urlParams: String, skipErrors: List<Regex> = emptyList()): List<T> {
         return parse(getData(urlParams), skipErrors)
     }
 
+    /**
+     * Parse json string to list of T
+     * @param json to parse
+     * @param skipErrors errors messages to skip from BloxyServer
+     */
     @NotNull
     protected inline fun <reified T> parse(json: String, skipErrors: List<Regex> = emptyList()): List<T> {
         return try {
@@ -63,6 +77,20 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         }
     }
 
+    /**
+     * Is used as GET fun for API endpoints with limit and offset
+     * Could cycle to get max amount and emulate single request
+     *
+     * Example (max limit 100, max offset 100000) with limit set to 20000
+     * Method will return all 20000 entries as single request
+     *
+     * @param params URL params for request
+     * @param limit user specified for API call
+     * @param offset user specified for API call
+     * @param maxLimit for API call
+     * @param maxOffset for API call
+     * @param skipErrors errors messages to skip from BloxyServer
+     */
     @NotNull
     protected inline fun <reified T> getOffset(
         params: String,

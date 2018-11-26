@@ -16,7 +16,7 @@ class TokenDetailsTests : Tester() {
     @Test
     fun valid() {
         val contracts = listOf("0xB97048628DB6B661D4C2aA833e95Dbe1A905B280")
-        val result = api.token().tokenDetails(contracts)
+        val result = api.token.tokenDetails(contracts)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -25,7 +25,7 @@ class TokenDetailsTests : Tester() {
     @Test
     fun `non exist address empty result`() {
         val contracts = listOf("0xB17048628DB6B661D4C2aA833e95Dbe1A905B280")
-        val result = api.token().tokenDetails(contracts)
+        val result = api.token.tokenDetails(contracts)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
@@ -33,6 +33,6 @@ class TokenDetailsTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contracts = listOf("0x97048628DB6B661D4C2aA833e95Dbe1A905B280")
-        api.token().tokenDetails(contracts)
+        api.token.tokenDetails(contracts)
     }
 }

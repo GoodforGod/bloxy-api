@@ -16,7 +16,7 @@ class TransfersTests : Tester() {
     @Test
     fun valid() {
         val list = listOf("0x52a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986")
-        val transfer = api.tx().transfers(list)
+        val transfer = api.tx.transfers(list)
         assertNotNull(transfer)
         assertFalse(transfer.isEmpty())
         assertFalse(transfer[0].isEmpty())
@@ -25,7 +25,7 @@ class TransfersTests : Tester() {
     @Test
     fun `non exist address empty result`() {
         val list = listOf("0x12a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986")
-        val transfer = api.tx().transfers(list)
+        val transfer = api.tx.transfers(list)
         assertNotNull(transfer)
         assertTrue(transfer.isEmpty())
     }
@@ -33,11 +33,11 @@ class TransfersTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val list = listOf("0x5a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986")
-        api.tx().transfers(list)
+        api.tx.transfers(list)
     }
 
     @Test(expected = ParamException::class)
     fun `empty param error`() {
-        api.tx().transfers(emptyList())
+        api.tx.transfers(emptyList())
     }
 }

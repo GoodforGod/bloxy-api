@@ -2,7 +2,7 @@ package io.api.bloxy.error
 
 
 /**
- * ! NO DESCRIPTION !
+ * Http Client Related Error
  *
  * @author GoodforGod
  * @since 17.11.2018

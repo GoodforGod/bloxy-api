@@ -17,7 +17,7 @@ class WalletsTests : Tester() {
     fun `valid with sale`() {
         val sale = SalesTests.getRandomTokenSale(api)
         if (!sale.isEmpty()) {
-            val result = api.tokenSale().wallets(sale)
+            val result = api.tokenSale.wallets(sale)
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
@@ -27,7 +27,7 @@ class WalletsTests : Tester() {
     @Test
     fun `non exist address empty result`() {
         val contract = "0xf1b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d"
-        val result = api.tokenSale().wallets(contract)
+        val result = api.tokenSale.wallets(contract)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
@@ -35,6 +35,6 @@ class WalletsTests : Tester() {
     @Test(expected = ParamException::class)
     fun `invalid address param error`() {
         val contract = "0x1b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d"
-        api.tokenSale().wallets(contract)
+        api.tokenSale.wallets(contract)
     }
 }
