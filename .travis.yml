@@ -1,8 +1,11 @@
 language: java
-install: true
+
+before_script:
+  - chmod +x gradlew
 
 script:
-  - "mvn cobertura:cobertura"
+  - ./gradlew check
+  - ./gradlew codeCoverageReport
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
