@@ -26,7 +26,7 @@ class StatisticTests : Tester() {
         assertNotNull(list[0].balance_eth)
         assertNotNull(list[0].last_tx_at)
         assertNotNull(list[0].first_tx_at)
-        assertNotNull(list[0].levelAsString)
+        assertNotNull(list[0].level_as_string)
         assertNotNull(list[0].note)
         assertNotNull(list[0].receive_eth_amount)
         assertNotNull(list[0].receive_from_count)

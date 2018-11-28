@@ -24,7 +24,7 @@ class TokenDetailsTests : Tester() {
         assertNotNull(result[0].decimals)
         assertNotNull(result[0].name)
         assertNotNull(result[0].symbol)
-        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].type_as_string)
         assertNotNull(result[0].tokenType)
     }
 

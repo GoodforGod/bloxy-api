@@ -30,6 +30,7 @@ class DetailsTests : Tester() {
         assertNotNull(result[0].tx_from)
         assertNotNull(result[0].tx_from_annotation)
         assertNotNull(result[0].tx_time)
+        assertNotNull(result[0].tx_time_as_string)
         assertNotNull(result[0].tx_hash)
         assertNotNull(result[0].tx_to)
         assertNotNull(result[0].tx_to_annotation)

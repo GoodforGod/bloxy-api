@@ -25,13 +25,14 @@ class TxsDistributionTests : Tester() {
             assertNotNull(result[0].amount)
             assertNotNull(result[0].receiver)
             assertNotNull(result[0].receiverType)
-            assertNotNull(result[0].receiverTypeAsString)
+            assertNotNull(result[0].receiver_type_as_string)
             assertNotNull(result[0].receiver_annotation)
             assertNotNull(result[0].sender)
             assertNotNull(result[0].senderType)
-            assertNotNull(result[0].senderTypeAsString)
+            assertNotNull(result[0].sender_type_as_string)
             assertNotNull(result[0].sender_annotation)
             assertNotNull(result[0].tx_hash)
+            assertNotNull(result[0].tx_time_as_string)
             assertNotNull(result[0].tx_time)
         }
     }

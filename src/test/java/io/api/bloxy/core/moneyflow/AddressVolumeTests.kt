@@ -26,7 +26,7 @@ class AddressVolumeTests : Tester() {
         assertNotNull(result[0].received_txs)
         assertNotNull(result[0].sent_amount)
         assertNotNull(result[0].sent_txs)
-        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].type_as_string)
         assertNotNull(result[0].addressType)
     }
 

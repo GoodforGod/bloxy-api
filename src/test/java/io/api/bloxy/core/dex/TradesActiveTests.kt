@@ -25,10 +25,12 @@ class TradesActiveTests : Tester() {
         assertNotNull(list[0].currencies)
         assertNotNull(list[0].dexes)
         assertNotNull(list[0].from_time)
+        assertNotNull(list[0].from_time_as_string)
         assertNotNull(list[0].maker_trades)
         assertNotNull(list[0].taker_trades)
         assertNotNull(list[0].till_time)
-        assertNotNull(list[0].typeAsString)
+        assertNotNull(list[0].till_time_as_string)
+        assertNotNull(list[0].type_as_string)
     }
 
     @Test

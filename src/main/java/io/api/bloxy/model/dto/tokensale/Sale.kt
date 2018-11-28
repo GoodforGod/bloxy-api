@@ -16,14 +16,14 @@ data class Sale(
     val token_address: String = "",
     val symbol: String = "",
     @Json(name = "token_type")
-    val typeAsString: String = "",
+    val type_as_string: String = "",
     val transactions: Long = 0,
     val eth_amount: Number = .0,
     val token_amount: Number = .0,
     val token_buyers: Long = 0
 ) : IModel, ITokenModel {
 
-    override val tokenType: TokenType = TokenType.parse(typeAsString)
+    override val tokenType: TokenType = TokenType.parse(type_as_string)
 
     override fun isEmpty(): Boolean {
         return token_address.isEmpty() && symbol.isEmpty() && transactions == 0L && eth_amount == .0

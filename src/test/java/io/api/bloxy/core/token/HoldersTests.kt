@@ -24,7 +24,7 @@ class HoldersTests : Tester() {
         assertNotNull(result[0].address)
         assertNotNull(result[0].annotation)
         assertNotNull(result[0].balance)
-        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].type_as_string)
         assertNotNull(result[0].addressType)
     }
 

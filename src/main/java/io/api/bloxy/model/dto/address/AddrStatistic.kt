@@ -17,7 +17,7 @@ import io.api.bloxy.model.dto.DangerLevel
 data class AddrStatistic(
     val address: String = "",
     @Json(name = "level")
-    val levelAsString: String = "",
+    val level_as_string: String = "",
     val note: String = "",
     val balance_eth: Double = .0,
     @Json(name = "type")
@@ -36,7 +36,7 @@ data class AddrStatistic(
 ) : IValidModel, IDangerModel, IAddressModel {
 
     @Json(ignored = true)
-    override val level: DangerLevel = DangerLevel.parse(levelAsString)
+    override val level: DangerLevel = DangerLevel.parse(level_as_string)
 
     override val addressType: AddressType = AddressType.parse(typeAsString)
 

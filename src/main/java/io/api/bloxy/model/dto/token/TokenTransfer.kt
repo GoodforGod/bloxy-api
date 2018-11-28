@@ -1,6 +1,8 @@
 package io.api.bloxy.model.dto.token
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
+import io.api.bloxy.util.ParamConverter
 
 
 /**
@@ -10,7 +12,8 @@ import io.api.bloxy.model.IModel
  * @since 17.11.2018
  */
 data class TokenTransfer(
-    val tx_time: String = "",
+    @Json(name = "tx_time")
+    val tx_time_as_string: String = "",
     val amount: Double = .0,
     val symbol: String = "",
     val token_sender: String = "",
@@ -23,6 +26,12 @@ data class TokenTransfer(
     val token_receiver_annotation: String = "",
     val tx_from_annotation: String = ""
 ) : IModel {
+
+    @Json(ignored = true)
+    val tx_time = ParamConverter.parseDateTime(tx_time_as_string)
+
+    fun haveDateTime() : Boolean = tx_time != null
+
     override fun isEmpty(): Boolean {
         return symbol.isEmpty() && tx_hash.isEmpty() && tx_from.isEmpty()
                 && token_sender.isEmpty() && token_receiver.isEmpty()

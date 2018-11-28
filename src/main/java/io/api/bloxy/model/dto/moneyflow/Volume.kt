@@ -15,7 +15,7 @@ import io.api.bloxy.model.dto.AddressType
 data class Volume(
     val address: String = "",
     @Json(name = "address_type")
-    val typeAsString: String = "",
+    val type_as_string: String = "",
     val received_amount: Double = .0,
     val received_txs: Long = 0,
     val sent_amount: Double = .0,
@@ -23,9 +23,9 @@ data class Volume(
     val annotation: String = ""
 ) : IModel, IAddressModel {
 
-    override val addressType: AddressType = AddressType.parse(typeAsString)
+    override val addressType: AddressType = AddressType.parse(type_as_string)
 
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && typeAsString.isEmpty() && received_amount == .0 && sent_amount == .0
+        return address.isEmpty() && type_as_string.isEmpty() && received_amount == .0 && sent_amount == .0
     }
 }

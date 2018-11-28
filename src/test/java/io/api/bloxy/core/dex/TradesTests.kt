@@ -34,10 +34,11 @@ class TradesTests : Tester() {
         assertNotNull(list[0].sellSymbol)
         assertNotNull(list[0].smart_contract_address)
         assertNotNull(list[0].smart_contract_id)
-        assertNotNull(list[0].tx_date)
         assertNotNull(list[0].tx_hash)
         assertNotNull(list[0].tx_sender)
-        assertNotNull(list[0].tx_time)
+        assertNotNull(list[0].tx_time_as_string)
+        assertNotNull(list[0].tx_date_as_string)
+        assertNotNull(list[0].tx_datetime)
     }
 
     @Test

@@ -20,6 +20,20 @@ class TransfersTests : Tester() {
         assertNotNull(transfer)
         assertFalse(transfer.isEmpty())
         assertFalse(transfer[0].isEmpty())
+        assertNotNull(transfer[0].amount)
+        assertNotNull(transfer[0].receiver)
+        assertNotNull(transfer[0].receiverType)
+        assertNotNull(transfer[0].receiver_annotation)
+        assertNotNull(transfer[0].receiver_type_as_string)
+        assertNotNull(transfer[0].sender)
+        assertNotNull(transfer[0].senderType)
+        assertNotNull(transfer[0].sender_annotation)
+        assertNotNull(transfer[0].sender_type_as_string)
+        assertNotNull(transfer[0].token_address)
+        assertNotNull(transfer[0].token_symbol)
+        assertNotNull(transfer[0].tx_hash)
+        assertNotNull(transfer[0].tx_time)
+        assertNotNull(transfer[0].tx_time_as_string)
     }
 
     @Test

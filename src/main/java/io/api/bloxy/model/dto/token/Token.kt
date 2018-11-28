@@ -4,6 +4,7 @@ import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 import io.api.bloxy.model.ITokenModel
 import io.api.bloxy.model.dto.TokenType
+import io.api.bloxy.util.ParamConverter
 
 
 /**
@@ -18,15 +19,20 @@ data class Token(
     val symbol: String = "",
     val decimals: Int = 0,
     @Json(name = "type")
-    val typeAsString: String = "",
+    val type_as_string: String = "",
     val created: String = "",
     val transactions: Long = 0,
-    val latest_tx: String = ""
+    @Json(name = "latest_tx")
+    val latest_tx_as_string: String = ""
 ) : IModel, ITokenModel {
 
-    override val tokenType: TokenType = TokenType.parse(typeAsString)
+    @Json(ignored = true) val latest_tx = ParamConverter.parseDateTime(latest_tx_as_string)
+
+    fun haveFirstTxTime() : Boolean = latest_tx != null
+
+    override val tokenType: TokenType = TokenType.parse(type_as_string)
 
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && typeAsString.isEmpty() && transactions == 0L
+        return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && type_as_string.isEmpty() && transactions == 0L
     }
 }

@@ -18,10 +18,10 @@ data class TokenDetails(
     val symbol: String = "",
     val decimals: Int = 0,
     @Json(name = "type")
-    val typeAsString: String = ""
+    val type_as_string: String = ""
 ) : IModel, ITokenModel {
 
-    override val tokenType: TokenType = TokenType.parse(typeAsString)
+    override val tokenType: TokenType = TokenType.parse(type_as_string)
 
     override fun isEmpty(): Boolean {
         return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && decimals == 0

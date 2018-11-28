@@ -26,7 +26,7 @@ class SalesTests : Tester() {
             assertNotNull(result[0].token_amount)
             assertNotNull(result[0].token_buyers)
             assertNotNull(result[0].transactions)
-            assertNotNull(result[0].typeAsString)
+            assertNotNull(result[0].type_as_string)
             assertNotNull(result[0].tokenType)
             return result[0].token_address
         }

@@ -15,13 +15,13 @@ import io.api.bloxy.model.dto.DangerLevel
 data class AddrDetails(
     val address: String = "",
     @Json(name = "level")
-    val levelAsString: String = "",
+    val level_as_string: String = "",
     val note: String = "",
     val annotation: String = ""
 ) : IValidModel, IDangerModel {
 
     @Json(ignored = true)
-    override val level: DangerLevel = DangerLevel.parse(levelAsString)
+    override val level: DangerLevel = DangerLevel.parse(level_as_string)
 
     override fun isEmpty(): Boolean = address.isEmpty()
 

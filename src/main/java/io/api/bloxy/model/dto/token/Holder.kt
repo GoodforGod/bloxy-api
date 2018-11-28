@@ -15,12 +15,12 @@ import io.api.bloxy.model.dto.AddressType
 data class Holder(
     val address: String = "",
     @Json(name = "address_type")
-    val typeAsString: String = "",
+    val type_as_string: String = "",
     val annotation: String = "",
     val balance: Double = .0
 ) : IModel, IAddressModel {
 
-    override val addressType: AddressType = AddressType.parse(typeAsString)
+    override val addressType: AddressType = AddressType.parse(type_as_string)
 
     override fun isEmpty(): Boolean {
         return address.isEmpty() && balance == .0

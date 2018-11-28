@@ -2,6 +2,7 @@ package io.api.bloxy.util
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
 
@@ -19,6 +20,22 @@ open class ParamConverter : ParamValidator() {
 
         val MIN_DATETIME: LocalDateTime = LocalDateTime.of(2001, 1, 1, 1, 1, 1, 1)
         val MAX_DATETIME: LocalDateTime = LocalDateTime.of(2098, 1, 1, 1, 1, 1, 1)
+
+        fun parseDateTime(value: String) : LocalDateTime? {
+            return try {
+                LocalDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+            } catch (e: Exception) {
+                return null
+            }
+        }
+
+        fun parseDate(value: String) : LocalDate? {
+            return try {
+                LocalDate.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+            } catch (e: Exception) {
+                return null
+            }
+        }
     }
 
     private fun toDate(value: LocalDate): LocalDate {

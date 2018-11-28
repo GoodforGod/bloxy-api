@@ -1,6 +1,8 @@
 package io.api.bloxy.model.dto.dex
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
+import io.api.bloxy.util.ParamConverter
 
 
 /**
@@ -11,8 +13,10 @@ import io.api.bloxy.model.IModel
  */
 data class DexTrade(
     val tx_hash: String = "",
-    val tx_time: String = "",
-    val tx_date: String = "",
+    @Json(name = "tx_time")
+    val tx_time_as_string: String = "",
+    @Json(name = "tx_date")
+    val tx_date_as_string: String = "",
     val tx_sender: String = "",
     val smart_contract_id: Long = 0,
     val smart_contract_address: String = "",
@@ -33,6 +37,12 @@ data class DexTrade(
     val buyAddress: String = "",
     val sellAddress: String = ""
 ) : IModel {
+
+    @Json(ignored = true)
+    val tx_datetime = ParamConverter.parseDateTime(tx_time_as_string)
+
+    fun haveDateTime() : Boolean = tx_datetime != null
+
     override fun isEmpty(): Boolean {
         return smart_contract_address.isEmpty() && protocol.isEmpty()
     }
