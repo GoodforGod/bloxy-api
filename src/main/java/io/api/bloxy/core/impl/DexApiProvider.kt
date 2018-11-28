@@ -38,7 +38,7 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
     /** @see io.api.bloxy.core.IDexApi.protocols */
     @NotNull
     fun protocols(): List<DexProtocol> {
-        return get("protocols")
+        return get("protocols?")
     }
 
     /** @see io.api.bloxy.core.IDexApi.contracts */
