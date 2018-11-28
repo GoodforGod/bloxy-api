@@ -19,6 +19,7 @@ class PendingTxsTests : Tester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
+        assertNotNull(list[0].method)
     }
 
     @Test
@@ -28,6 +29,7 @@ class PendingTxsTests : Tester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
+        assertNotNull(list[0].method)
     }
 
     @Test

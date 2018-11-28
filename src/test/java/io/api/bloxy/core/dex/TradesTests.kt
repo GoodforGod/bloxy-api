@@ -38,7 +38,7 @@ class TradesTests : Tester() {
     }
 
     @Test
-    fun `empty dex contract not exist`() {
+    fun `dex contract not exist empty result`() {
         val contracts = listOf("0x1a0c0dbecc7e4d658f48e01e3fa353f44050c208")
         val list = api.dex.trades(dexContracts = contracts)
         assertNotNull(list)

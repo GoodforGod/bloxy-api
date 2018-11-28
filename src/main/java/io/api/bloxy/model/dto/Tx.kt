@@ -1,5 +1,6 @@
 package io.api.bloxy.model.dto
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 
 
@@ -16,11 +17,17 @@ data class Tx(
     val sender: String = "",
     val receiver: String = "",
     val amount: Double = .0,
-    val sender_type: String = "",
+    @Json(name = "sender_type")
+    val senderTypeAsString: String = "",
+    @Json(name = "receiver_type")
+    val receiverTypeAsString: String = "",
     val sender_annotation: String = "",
-    val receiver_type: String = "",
     val receiver_annotation: String = ""
 ) : IModel {
+
+    val receiverType = AddressType.parse(receiverTypeAsString)
+    val senderType = AddressType.parse(senderTypeAsString)
+
     override fun isEmpty(): Boolean {
         return tx_hash.isEmpty() && receiver.isEmpty() && sender.isEmpty()
     }

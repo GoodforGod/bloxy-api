@@ -5,6 +5,8 @@
 
 Kotlin & Java Library for all available [Bloxy](https://bloxy.info) API endpoints.
 
+[Bloxy.info]((https://bloxy.info)) is as a source of open, reliable, verifiable and objective data about the blockchain. 
+
 [Readme Web Page](https://goodforgod.github.io/bloxy-api/)
 
 ## Dependency :rocket:
@@ -25,6 +27,7 @@ dependencies {
 ```
 
 ## Content
+- [Getting Started](#getting-started)
 - [Custom HttpClient](#custom-httpclient)
 - [API examples](#api-examples)
     - [Token](#token-api)
@@ -34,6 +37,20 @@ dependencies {
     - [Money Flow](#money-flow-api)
     - [Transaction](#transaction-api)
 - [Version History](#version-history)
+
+## Getting Started
+
+All you need to start is just to get *API key* to [Bloxy](https://bloxy.info/login/new), **key will be in the email (login link)**
+
+*Bloxy Client in Java*
+```java
+BloxyApi api = new BloxyApi("YourApiKey");
+```
+
+*Bloxy Client in Kotlin*
+```kotlin
+val api = BloxyApi("YourApiKey")
+```
 
 ## Custom HttpClient
 

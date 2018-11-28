@@ -1,6 +1,11 @@
 package io.api.bloxy.model.dto.address
 
+import com.beust.klaxon.Json
+import io.api.bloxy.model.IAddressModel
+import io.api.bloxy.model.IDangerModel
 import io.api.bloxy.model.IValidModel
+import io.api.bloxy.model.dto.AddressType
+import io.api.bloxy.model.dto.DangerLevel
 
 
 /**
@@ -11,10 +16,12 @@ import io.api.bloxy.model.IValidModel
  */
 data class AddrStatistic(
     val address: String = "",
-    val level: String = "",
+    @Json(name = "level")
+    val levelAsString: String = "",
     val note: String = "",
     val balance_eth: Double = .0,
-    val type: String = "",
+    @Json(name = "type")
+    val typeAsString: String = "",
     val send_tx_count: Long = 0,
     val send_to_count: Long = 0,
     val send_to_currencies: Long = 0,
@@ -26,7 +33,11 @@ data class AddrStatistic(
     val first_tx_at: String = "",
     val last_tx_at: String = "",
     val annotation: String = ""
-) : IValidModel {
+) : IValidModel, IDangerModel, IAddressModel {
+
+    override val level: DangerLevel = DangerLevel.parse(levelAsString)
+
+    override val addressType: AddressType = AddressType.parse(typeAsString)
 
     override fun isEmpty(): Boolean = address.isEmpty()
 

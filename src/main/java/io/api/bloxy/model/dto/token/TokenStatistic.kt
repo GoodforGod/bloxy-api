@@ -1,6 +1,9 @@
 package io.api.bloxy.model.dto.token
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
+import io.api.bloxy.model.ITokenModel
+import io.api.bloxy.model.dto.TokenType
 
 
 /**
@@ -21,10 +24,14 @@ data class TokenStatistic(
     val name: String = "",
     val symbol: String = "",
     val decimals: Int = 0,
-    val type: String = "",
+    @Json(name = "type")
+    val typeAsString: String = "",
     val holders_count: Long = 0,
     val circulating_supply: Double = .0
-) : IModel {
+) : IModel, ITokenModel {
+
+    override val tokenType: TokenType = TokenType.parse(typeAsString)
+
     override fun isEmpty(): Boolean {
         return address.isEmpty() && first_transfer.isEmpty() && latest_transfer.isEmpty()
                 && name.isEmpty() && symbol.isEmpty() && transfers == 0L && decimals == 0

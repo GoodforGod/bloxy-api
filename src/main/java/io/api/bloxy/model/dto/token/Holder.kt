@@ -1,6 +1,9 @@
 package io.api.bloxy.model.dto.token
 
+import com.beust.klaxon.Json
+import io.api.bloxy.model.IAddressModel
 import io.api.bloxy.model.IModel
+import io.api.bloxy.model.dto.AddressType
 
 
 /**
@@ -11,10 +14,14 @@ import io.api.bloxy.model.IModel
  */
 data class Holder(
     val address: String = "",
-    val address_type: String = "",
+    @Json(name = "address_type")
+    val typeAsString: String = "",
     val annotation: String = "",
     val balance: Double = .0
-) : IModel {
+) : IModel, IAddressModel {
+
+    override val addressType: AddressType = AddressType.parse(typeAsString)
+
     override fun isEmpty(): Boolean {
         return address.isEmpty() && balance == .0
     }

@@ -1,6 +1,9 @@
 package io.api.bloxy.model.dto.moneyflow
 
+import com.beust.klaxon.Json
+import io.api.bloxy.model.IAddressModel
 import io.api.bloxy.model.IModel
+import io.api.bloxy.model.dto.AddressType
 
 
 /**
@@ -16,9 +19,13 @@ data class SendTransfer(
     val amount: Double = .0,
     val token_symbol: String = "",
     val token_address: String = "",
-    val receiver_type: String = "",
+    @Json(name = "receiver_type")
+    val receiverTypeAsString: String = "",
     val receiver_annotation: String = ""
-) : IModel {
+) : IModel, IAddressModel {
+
+    override val addressType: AddressType = AddressType.parse(receiverTypeAsString)
+
     override fun isEmpty(): Boolean {
         return tx_hash.isEmpty() && tx_time.isEmpty()
     }

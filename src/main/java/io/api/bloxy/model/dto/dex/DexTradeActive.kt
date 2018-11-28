@@ -1,6 +1,9 @@
 package io.api.bloxy.model.dto.dex
 
+import com.beust.klaxon.Json
+import io.api.bloxy.model.IAddressModel
 import io.api.bloxy.model.IModel
+import io.api.bloxy.model.dto.AddressType
 
 
 /**
@@ -18,10 +21,14 @@ data class DexTradeActive(
     val from_time: String = "",
     val till_time: String = "",
     val contract_type: String = "",
-    val address_type: String = "",
+    @Json(name = "address_type")
+    val typeAsString: String = "",
     val address_annotation: String = ""
-) : IModel {
+) : IModel, IAddressModel {
+
+    override val addressType: AddressType = AddressType.parse(typeAsString)
+
     override fun isEmpty(): Boolean {
-        return address.isEmpty()
+        return address.isEmpty() && typeAsString.isEmpty()
     }
 }

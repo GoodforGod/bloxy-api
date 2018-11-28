@@ -24,6 +24,7 @@ data class TokenTransfer(
     val tx_from_annotation: String = ""
 ) : IModel {
     override fun isEmpty(): Boolean {
-        return symbol.isEmpty() && tx_hash.isEmpty() && tx_from.isEmpty() && token_sender.isEmpty() && token_receiver.isEmpty()
+        return symbol.isEmpty() && tx_hash.isEmpty() && tx_from.isEmpty()
+                && token_sender.isEmpty() && token_receiver.isEmpty()
     }
 }

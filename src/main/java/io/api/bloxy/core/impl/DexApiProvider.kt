@@ -15,9 +15,9 @@ class DexApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "
 
     companion object {
         val errors = listOf(
-            "Protocols not found by".toRegex(),
-            "Not found any DEXes".toRegex(),
-            "^Got status 500".toRegex()
+            "^Protocols not found".toRegex(),
+            "^Protocol can not be".toRegex(),
+            "^Not found any DEXes".toRegex()
         )
     }
 

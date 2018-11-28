@@ -12,7 +12,6 @@ buildscript {
 }
 
 group = 'io.api.bloxy'
-//archivesBaseName = 'bloxy-api'
 version = '1.0.0'
 
 apply plugin: 'maven'

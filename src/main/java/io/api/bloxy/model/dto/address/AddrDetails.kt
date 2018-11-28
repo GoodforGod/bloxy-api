@@ -1,6 +1,9 @@
 package io.api.bloxy.model.dto.address
 
+import com.beust.klaxon.Json
+import io.api.bloxy.model.IDangerModel
 import io.api.bloxy.model.IValidModel
+import io.api.bloxy.model.dto.DangerLevel
 
 
 /**
@@ -11,10 +14,13 @@ import io.api.bloxy.model.IValidModel
  */
 data class AddrDetails(
     val address: String = "",
-    val level: String = "",
+    @Json(name = "level")
+    val levelAsString: String = "",
     val note: String = "",
     val annotation: String = ""
-) : IValidModel {
+) : IValidModel, IDangerModel {
+
+    override val level: DangerLevel = DangerLevel.parse(levelAsString)
 
     override fun isEmpty(): Boolean = address.isEmpty()
 

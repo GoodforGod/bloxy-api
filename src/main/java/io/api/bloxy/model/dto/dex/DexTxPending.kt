@@ -1,5 +1,6 @@
 package io.api.bloxy.model.dto.dex
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 import io.api.bloxy.util.KlaxonArgs
 
@@ -13,22 +14,15 @@ import io.api.bloxy.util.KlaxonArgs
 data class DexTxPending(
     val smart_contract_address: String = "",
     val protocol: String = "",
-    val method: String = "",
+    @Json(name = "method")
+    val methodAsString: String = "",
     val signature: String = "",
     @KlaxonArgs val arguments: Args = Args(),
     val tx_sender: String = "",
     val tx_hash: String = ""
 ) : IModel {
 
-    val methodType = when (method) {
-        "cancelOrder" -> MethodType.CANCEL_ORDER
-        "withdrawToken" -> MethodType.WITHDRAW_TOKEN
-        "depositToken" -> MethodType.DEPOSIT_TOKEN
-        "withdraw" -> MethodType.WITHDRAW
-        "deposit" -> MethodType.DEPOSIT
-        "trade" -> MethodType.TRADE
-        else -> MethodType.UNKNOWN
-    }
+    val method = MethodType.parse(methodAsString)
 
     override fun isEmpty(): Boolean {
         return smart_contract_address.isEmpty() && protocol.isEmpty() && tx_hash.isEmpty()

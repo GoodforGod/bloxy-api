@@ -14,5 +14,19 @@ enum class MethodType {
     CANCEL_ORDER,
     DEPOSIT,
     DEPOSIT_TOKEN,
-    UNKNOWN
+    UNKNOWN;
+
+    companion object {
+        fun parse(value: String): MethodType {
+            return when (value) {
+                "cancelOrder" -> CANCEL_ORDER
+                "withdrawToken" -> WITHDRAW_TOKEN
+                "depositToken" -> DEPOSIT_TOKEN
+                "withdraw" -> WITHDRAW
+                "deposit" -> DEPOSIT
+                "trade" -> TRADE
+                else -> UNKNOWN
+            }
+        }
+    }
 }

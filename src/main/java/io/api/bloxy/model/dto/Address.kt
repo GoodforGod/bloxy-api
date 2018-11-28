@@ -1,5 +1,7 @@
 package io.api.bloxy.model.dto
 
+import com.beust.klaxon.Json
+import io.api.bloxy.model.IAddressModel
 import io.api.bloxy.model.IModel
 
 
@@ -11,10 +13,14 @@ import io.api.bloxy.model.IModel
  */
 data class Address(
     val address: String = "",
-    val address_type: String = "",
+    @Json(name = "address_type")
+    val typeAsString: String = "",
     val amount: Double = .0,
     val annotation: String = ""
-) : IModel {
+) : IModel, IAddressModel {
+
+    override val addressType: AddressType = AddressType.parse(typeAsString)
+
     override fun isEmpty(): Boolean {
         return address.isEmpty()
     }

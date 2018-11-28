@@ -1,6 +1,9 @@
 package io.api.bloxy.model.dto.token
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
+import io.api.bloxy.model.ITokenModel
+import io.api.bloxy.model.dto.TokenType
 
 
 /**
@@ -14,8 +17,12 @@ data class TokenDetails(
     val name: String = "",
     val symbol: String = "",
     val decimals: Int = 0,
-    val type: String = ""
-) : IModel {
+    @Json(name = "type")
+    val typeAsString: String = ""
+) : IModel, ITokenModel {
+
+    override val tokenType: TokenType = TokenType.parse(typeAsString)
+
     override fun isEmpty(): Boolean {
         return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && decimals == 0
     }
