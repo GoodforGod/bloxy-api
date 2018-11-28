@@ -21,6 +21,12 @@ class BuyersTests : Tester() {
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
+            assertNotNull(result[0].eth_amount)
+            assertNotNull(result[0].from_time)
+            assertNotNull(result[0].till_time)
+            assertNotNull(result[0].token_amount)
+            assertNotNull(result[0].token_buyer)
+            assertNotNull(result[0].transactions)
         }
     }
 

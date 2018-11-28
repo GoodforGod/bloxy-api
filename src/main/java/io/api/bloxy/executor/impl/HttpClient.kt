@@ -33,8 +33,7 @@ class HttpClient @JvmOverloads constructor(
                 readTimeout = this@HttpClient.readTimeout
                 connectTimeout = this@HttpClient.connectTimeout
                 headers.forEach { e -> setRequestProperty(e.key, e.value) }
-                if (!getHeaderField("Location").isNullOrEmpty())
-                    return get(getHeaderField("Location"))
+                getHeaderField("Location")?.let { return get(it) }
             }.getInputStream().use {
                 return it.bufferedReader().lines().collect(Collectors.joining())
             }

@@ -20,6 +20,10 @@ class HolderSimilarTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].address)
+        assertNotNull(result[0].common_holders)
+        assertNotNull(result[0].percentage)
+        assertNotNull(result[0].symbol)
     }
 
     @Test

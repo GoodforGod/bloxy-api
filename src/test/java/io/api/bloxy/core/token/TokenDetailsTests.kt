@@ -20,6 +20,12 @@ class TokenDetailsTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].address)
+        assertNotNull(result[0].decimals)
+        assertNotNull(result[0].name)
+        assertNotNull(result[0].symbol)
+        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].tokenType)
     }
 
     @Test

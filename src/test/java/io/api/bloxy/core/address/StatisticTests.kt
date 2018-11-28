@@ -35,6 +35,9 @@ class StatisticTests : Tester() {
         assertNotNull(list[0].send_to_count)
         assertNotNull(list[0].typeAsString)
         assertNotNull(list[0].addressType)
+        assertNotNull(list[0].receive_from_currencies)
+        assertNotNull(list[0].send_tx_count)
+        assertNotNull(list[0].send_to_currencies)
     }
 
     @Test

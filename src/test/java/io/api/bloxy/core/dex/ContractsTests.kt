@@ -20,6 +20,12 @@ class ContractsTests : Tester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
+        assertNotNull(list[0].annotation)
+        assertNotNull(list[0].latest_trade)
+        assertNotNull(list[0].protocol)
+        assertNotNull(list[0].protocol)
+        assertNotNull(list[0].smart_contract_address)
+        assertNotNull(list[0].trades)
     }
 
     @Test(expected = BloxyException::class)

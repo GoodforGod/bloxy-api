@@ -19,6 +19,16 @@ class TradesActiveTests : Tester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
+        assertNotNull(list[0].address)
+        assertNotNull(list[0].address_annotation)
+        assertNotNull(list[0].contract_type)
+        assertNotNull(list[0].currencies)
+        assertNotNull(list[0].dexes)
+        assertNotNull(list[0].from_time)
+        assertNotNull(list[0].maker_trades)
+        assertNotNull(list[0].taker_trades)
+        assertNotNull(list[0].till_time)
+        assertNotNull(list[0].typeAsString)
     }
 
     @Test

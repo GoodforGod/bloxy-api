@@ -18,5 +18,7 @@ class ProtocolsTests : Tester() {
         assertNotNull(details)
         assertFalse(details.isEmpty())
         assertFalse(details[0].isEmpty())
+        assertNotNull(details[0].protocol)
+        assertNotNull(details[0].smart_contracts)
     }
 }

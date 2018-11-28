@@ -21,6 +21,11 @@ class StatsDailyTests : Tester() {
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
+            assertNotNull(result[0].eth_amount)
+            assertNotNull(result[0].token_amount)
+            assertNotNull(result[0].token_buyers)
+            assertNotNull(result[0].transactions)
+            assertNotNull(result[0].tx_date)
         }
     }
 

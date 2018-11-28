@@ -27,6 +27,10 @@ class BalanceTests : Tester() {
         assertNotNull(balance.getAll()[0].sent_txs)
         assertNotNull(balance.getAll()[0].symbol)
         assertNotNull(balance.getAll()[0].token_address)
+        assertNotNull(balance.get("ETH"))
+        assertNotNull(balance.getEth())
+        assertNotNull(balance.exist("ETH"))
+        assertTrue(balance.getAll().any { it.isEth() })
     }
 
     @Test

@@ -29,7 +29,7 @@ class Balance(balances: List<CoinBalance>) : IModel {
     }
 
     fun getEth(): CoinBalance {
-        return this.balances["ETH"] ?: CoinBalance()
+        return get("ETH") ?: CoinBalance()
     }
 
     fun get(symbol: String): CoinBalance? {

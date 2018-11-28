@@ -19,6 +19,21 @@ class SalesTxsTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].eth_amount)
+        assertNotNull(result[0].symbol)
+        assertNotNull(result[0].token_address)
+        assertNotNull(result[0].token_amount)
+        assertNotNull(result[0].ether_receiver)
+        assertNotNull(result[0].gas_price)
+        assertNotNull(result[0].gas_value)
+        assertNotNull(result[0].token_amount)
+        assertNotNull(result[0].token_address)
+        assertNotNull(result[0].token_buyer)
+        assertNotNull(result[0].token_sender)
+        assertNotNull(result[0].tx_hash)
+        assertNotNull(result[0].tx_time)
+        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].tokenType)
     }
 
     @Test

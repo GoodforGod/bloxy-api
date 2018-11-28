@@ -20,6 +20,20 @@ class HolderDetailsTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].address)
+        assertNotNull(result[0].annotation)
+        assertNotNull(result[0].balance)
+        assertNotNull(result[0].first_tx_at)
+        assertNotNull(result[0].from_amount)
+        assertNotNull(result[0].from_count)
+        assertNotNull(result[0].from_count)
+        assertNotNull(result[0].last_tx_at)
+        assertNotNull(result[0].to_amount)
+        assertNotNull(result[0].to_count)
+        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].addressType)
+        assertNotNull(result[0].uniq_senders)
+        assertNotNull(result[0].uniq_receivers)
     }
 
     @Test

@@ -16,10 +16,24 @@ class DetailsTests : Tester() {
     @Test
     fun valid() {
         val list = listOf("0x52a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986")
-        val details = api.tx.details(list)
-        assertNotNull(details)
-        assertFalse(details.isEmpty())
-        assertFalse(details[0].isEmpty())
+        val result = api.tx.details(list)
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].amount)
+        assertNotNull(result[0].block)
+        assertNotNull(result[0].gas)
+        assertNotNull(result[0].gas_price)
+        assertNotNull(result[0].gas_value)
+        assertNotNull(result[0].method)
+        assertNotNull(result[0].receiver)
+        assertNotNull(result[0].tx_from)
+        assertNotNull(result[0].tx_from_annotation)
+        assertNotNull(result[0].tx_time)
+        assertNotNull(result[0].tx_hash)
+        assertNotNull(result[0].tx_to)
+        assertNotNull(result[0].tx_to_annotation)
+        assertNotNull(result[0].tx_to_type)
     }
 
     @Test

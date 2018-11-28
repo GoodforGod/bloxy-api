@@ -20,6 +20,14 @@ class SalesTests : Tester() {
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
+            assertNotNull(result[0].eth_amount)
+            assertNotNull(result[0].symbol)
+            assertNotNull(result[0].token_address)
+            assertNotNull(result[0].token_amount)
+            assertNotNull(result[0].token_buyers)
+            assertNotNull(result[0].transactions)
+            assertNotNull(result[0].typeAsString)
+            assertNotNull(result[0].tokenType)
             return result[0].token_address
         }
     }

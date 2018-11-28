@@ -20,6 +20,13 @@ class PendingTxsTests : Tester() {
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
         assertNotNull(list[0].method)
+        assertNotNull(list[0].arguments)
+        assertNotNull(list[0].methodAsString)
+        assertNotNull(list[0].protocol)
+        assertNotNull(list[0].signature)
+        assertNotNull(list[0].smart_contract_address)
+        assertNotNull(list[0].tx_hash)
+        assertNotNull(list[0].tx_sender)
     }
 
     @Test

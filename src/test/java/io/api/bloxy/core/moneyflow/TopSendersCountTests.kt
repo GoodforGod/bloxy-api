@@ -20,6 +20,11 @@ class TopSendersCountTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].annotation)
+        assertNotNull(result[0].sender)
+        assertNotNull(result[0].transactions)
+        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].addressType)
     }
 
     @Test

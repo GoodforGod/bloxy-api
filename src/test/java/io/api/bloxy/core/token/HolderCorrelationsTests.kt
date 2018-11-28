@@ -20,6 +20,9 @@ class HolderCorrelationsTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].addresses)
+        assertNotNull(result[0].symbols)
+        assertNotNull(result[0].transfer_to_uniques)
     }
 
     @Test

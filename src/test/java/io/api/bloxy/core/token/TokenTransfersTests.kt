@@ -20,6 +20,19 @@ class TokenTransfersTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].amount)
+        assertNotNull(result[0].gas_price)
+        assertNotNull(result[0].gas_value)
+        assertNotNull(result[0].symbol)
+        assertNotNull(result[0].token_receiver)
+        assertNotNull(result[0].symbol)
+        assertNotNull(result[0].token_receiver_annotation)
+        assertNotNull(result[0].token_sender)
+        assertNotNull(result[0].token_sender_annotation)
+        assertNotNull(result[0].tx_from)
+        assertNotNull(result[0].tx_from_annotation)
+        assertNotNull(result[0].tx_hash)
+        assertNotNull(result[0].tx_time)
     }
 
     @Test

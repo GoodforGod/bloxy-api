@@ -20,6 +20,21 @@ class TokenStatisticTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].address)
+        assertNotNull(result[0].circulating_supply)
+        assertNotNull(result[0].decimals)
+        assertNotNull(result[0].first_transfer)
+        assertNotNull(result[0].name)
+        assertNotNull(result[0].symbol)
+        assertNotNull(result[0].holders_count)
+        assertNotNull(result[0].latest_transfer)
+        assertNotNull(result[0].receivers)
+        assertNotNull(result[0].senders)
+        assertNotNull(result[0].token_annotation)
+        assertNotNull(result[0].transfered_amount)
+        assertNotNull(result[0].transfers)
+        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].tokenType)
     }
 
     @Test
