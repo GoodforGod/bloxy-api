@@ -60,7 +60,7 @@ open class ParamConverter : ParamValidator() {
             ignoreAmount == default -> ""
             ignoreAmount < 100 -> "&ignore_addresses_with_transaction_limit=100"
             ignoreAmount > max -> "&ignore_addresses_with_transaction_limit=$max"
-            else -> "&ignore_addresses_with_transaction_limit$ignoreAmount"
+            else -> "&ignore_addresses_with_transaction_limit=$ignoreAmount"
         }
     }
 

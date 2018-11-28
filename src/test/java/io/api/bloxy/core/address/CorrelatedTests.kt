@@ -20,6 +20,9 @@ class CorrelatedTests : Tester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
+        assertNotNull(list[0].address)
+        assertNotNull(list[0].symbol)
+        assertNotNull(list[0].likelihood)
     }
 
     @Test

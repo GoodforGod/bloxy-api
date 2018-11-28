@@ -20,6 +20,11 @@ class DetailsTests : Tester() {
         assertNotNull(details)
         assertFalse(details.isEmpty())
         assertFalse(details[0].isEmpty())
+        assertNotNull(details[0].address)
+        assertNotNull(details[0].annotation)
+        assertNotNull(details[0].levelAsString)
+        assertNotNull(details[0].level)
+        assertNotNull(details[0].note)
     }
 
     @Test

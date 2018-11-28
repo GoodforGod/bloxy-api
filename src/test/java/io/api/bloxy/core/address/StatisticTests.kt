@@ -21,6 +21,20 @@ class StatisticTests : Tester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
+        assertNotNull(list[0].address)
+        assertNotNull(list[0].annotation)
+        assertNotNull(list[0].balance_eth)
+        assertNotNull(list[0].last_tx_at)
+        assertNotNull(list[0].first_tx_at)
+        assertNotNull(list[0].levelAsString)
+        assertNotNull(list[0].note)
+        assertNotNull(list[0].receive_eth_amount)
+        assertNotNull(list[0].receive_from_count)
+        assertNotNull(list[0].receive_tx_count)
+        assertNotNull(list[0].send_eth_amount)
+        assertNotNull(list[0].send_to_count)
+        assertNotNull(list[0].typeAsString)
+        assertNotNull(list[0].addressType)
     }
 
     @Test

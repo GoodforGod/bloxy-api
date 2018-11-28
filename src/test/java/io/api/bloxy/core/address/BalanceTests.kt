@@ -20,6 +20,13 @@ class BalanceTests : Tester() {
         assertNotNull(balance)
         assertFalse(balance.isEmpty())
         assertFalse(balance.getAll()[0].isEmpty())
+        assertNotNull(balance.getAll()[0].balance)
+        assertNotNull(balance.getAll()[0].received_amount)
+        assertNotNull(balance.getAll()[0].received_txs)
+        assertNotNull(balance.getAll()[0].sent_amount)
+        assertNotNull(balance.getAll()[0].sent_txs)
+        assertNotNull(balance.getAll()[0].symbol)
+        assertNotNull(balance.getAll()[0].token_address)
     }
 
     @Test
