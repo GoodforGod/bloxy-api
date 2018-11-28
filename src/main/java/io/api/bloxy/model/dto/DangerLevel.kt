@@ -8,8 +8,8 @@ package io.api.bloxy.model.dto
  * @since 17.11.2018
  */
 enum class DangerLevel {
-    WARNING,
     SUCCESS,
+    WARNING,
     DANGER,
     UNKNOWN;
 

@@ -22,6 +22,7 @@ data class DexTxPending(
     val tx_hash: String = ""
 ) : IModel {
 
+    @Json(ignored = true)
     val method = MethodType.parse(methodAsString)
 
     override fun isEmpty(): Boolean {

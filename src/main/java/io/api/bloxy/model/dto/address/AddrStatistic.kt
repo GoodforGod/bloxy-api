@@ -35,6 +35,7 @@ data class AddrStatistic(
     val annotation: String = ""
 ) : IValidModel, IDangerModel, IAddressModel {
 
+    @Json(ignored = true)
     override val level: DangerLevel = DangerLevel.parse(levelAsString)
 
     override val addressType: AddressType = AddressType.parse(typeAsString)

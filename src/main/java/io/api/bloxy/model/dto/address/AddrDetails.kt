@@ -20,6 +20,7 @@ data class AddrDetails(
     val annotation: String = ""
 ) : IValidModel, IDangerModel {
 
+    @Json(ignored = true)
     override val level: DangerLevel = DangerLevel.parse(levelAsString)
 
     override fun isEmpty(): Boolean = address.isEmpty()
