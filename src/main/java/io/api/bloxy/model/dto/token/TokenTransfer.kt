@@ -12,28 +12,27 @@ import io.api.bloxy.util.ParamConverter
  * @since 17.11.2018
  */
 data class TokenTransfer(
-    @Json(name = "tx_time")
-    val tx_time_as_string: String = "",
     val amount: Double = .0,
     val symbol: String = "",
-    val token_sender: String = "",
-    val token_receiver: String = "",
-    val tx_from: String = "",
-    val gas_price: Double = .0,
-    val gas_value: Double = .0,
-    val tx_hash: String = "",
-    val token_sender_annotation: String = "",
-    val token_receiver_annotation: String = "",
-    val tx_from_annotation: String = ""
+    @Json(name = "tx_hash") val txHash: String = "",
+    @Json(name = "tx_from") val txFrom: String = "",
+    @Json(name = "gas_price") val gasPrice: Double = .0,
+    @Json(name = "gas_value") val gasValue: Double = .0,
+    @Json(name = "tx_time") val txTimeAsString: String = "",
+    @Json(name = "token_sender") val tokenSender: String = "",
+    @Json(name = "token_receiver") val tokenReceiver: String = "",
+    @Json(name = "tx_from_annotation") val txFromAnnotation: String = "",
+    @Json(name = "token_sender_annotation") val tokenSenderAnnotation: String = "",
+    @Json(name = "token_receiver_annotation") val tokenReceiverAnnotation: String = ""
 ) : IModel {
 
     @Json(ignored = true)
-    val tx_time = ParamConverter.parseDateTime(tx_time_as_string)
+    val txTime = ParamConverter.parseDateTime(txTimeAsString)
 
-    fun haveDateTime() : Boolean = tx_time != null
+    fun haveTxTime() : Boolean = txTime != null
 
     override fun isEmpty(): Boolean {
-        return symbol.isEmpty() && tx_hash.isEmpty() && tx_from.isEmpty()
-                && token_sender.isEmpty() && token_receiver.isEmpty()
+        return symbol.isEmpty() && txHash.isEmpty() && txFrom.isEmpty()
+                && tokenSender.isEmpty() && tokenReceiver.isEmpty()
     }
 }

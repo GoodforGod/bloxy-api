@@ -107,14 +107,14 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
             var temp: List<T>
             val realLimit = toLimit(limit, maxLimit + maxOffset)
             var cycleLimit = toLimit(limit, maxLimit)
-            var usedOffset = toOffset(offset, maxOffset)
+            var cycleOffset = toOffset(offset, maxOffset)
             do {
-                temp = get("$params&limit=$cycleLimit&offset=$usedOffset", skipErrors)
+                temp = get("$params&limit=$cycleLimit&offset=$cycleOffset", skipErrors)
                 result.addAll(temp)
 
-                val step = cycleLimit + usedOffset
+                val step = cycleLimit + cycleOffset
                 cycleLimit = realLimit - step
-                usedOffset += step
+                cycleOffset += step
             } while (cycleLimit > 0 && temp.isNotEmpty())
 
             return result

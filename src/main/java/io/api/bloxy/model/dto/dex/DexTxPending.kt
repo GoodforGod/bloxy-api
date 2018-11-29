@@ -12,20 +12,19 @@ import io.api.bloxy.util.KlaxonArgs
  * @since 18.11.2018
  */
 data class DexTxPending(
-    val smart_contract_address: String = "",
     val protocol: String = "",
-    @Json(name = "method")
-    val methodAsString: String = "",
     val signature: String = "",
     @KlaxonArgs val arguments: Args = Args(),
-    val tx_sender: String = "",
-    val tx_hash: String = ""
+    @Json(name = "method") val methodAsString: String = "",
+    @Json(name = "tx_hash") val txHash: String = "",
+    @Json(name = "tx_sender") val txSender: String = "",
+    @Json(name = "smart_contract_address") val smartContractAddress: String = ""
 ) : IModel {
 
     @Json(ignored = true)
     val method = MethodType.parse(methodAsString)
 
     override fun isEmpty(): Boolean {
-        return smart_contract_address.isEmpty() && protocol.isEmpty() && tx_hash.isEmpty()
+        return smartContractAddress.isEmpty() && protocol.isEmpty() && txHash.isEmpty()
     }
 }

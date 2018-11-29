@@ -22,7 +22,7 @@ class DetailsTests : Tester() {
         assertFalse(details[0].isEmpty())
         assertNotNull(details[0].address)
         assertNotNull(details[0].annotation)
-        assertNotNull(details[0].level_as_string)
+        assertNotNull(details[0].levelAsString)
         assertNotNull(details[0].level)
         assertNotNull(details[0].note)
     }

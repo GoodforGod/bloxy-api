@@ -14,30 +14,28 @@ import io.api.bloxy.util.ParamConverter
  * @since 18.11.2018
  */
 data class SaleTx(
-    @Json(name = "tx_time")
-    val tx_time_as_string: String = "",
-    val token_address: String = "",
     val symbol: String = "",
-    @Json(name = "token_type")
-    val type_as_string: String = "",
-    val eth_amount: Double = .0,
-    val token_amount: Double = .0,
-    val gas_price: Double = .0,
-    val gas_value: Double = .0,
-    val tx_hash: String = "",
-    val token_buyer: String = "",
-    val token_sender: String = "",
-    val ether_receiver: String = ""
+    @Json(name = "tx_time") val txTimeAsString: String = "",
+    @Json(name = "tx_hash") val txHash: String = "",
+    @Json(name = "gas_price") val gasPrice: Double = .0,
+    @Json(name = "gas_value") val gasValue: Double = .0,
+    @Json(name = "token_type") val typeAsString: String = "",
+    @Json(name = "eth_amount") val ethAmount: Double = .0,
+    @Json(name = "token_buyer") val tokenBuyer: String = "",
+    @Json(name = "token_sender") val tokenSender: String = "",
+    @Json(name = "token_amount") val tokenAmount: Double = .0,
+    @Json(name = "token_address") val tokenAddress: String = "",
+    @Json(name = "ether_receiver") val etherReceiver: String = ""
 ) : IModel, ITokenModel {
 
-    @Json(ignored = true) val tx_time = ParamConverter.parseDateTime(tx_time_as_string)
+    @Json(ignored = true) val txTime = ParamConverter.parseDateTime(txTimeAsString)
 
-    fun haveTxTime() : Boolean = tx_time != null
+    fun haveTxTime() : Boolean = txTime != null
 
-    override val tokenType: TokenType = TokenType.parse(type_as_string)
+    override val tokenType: TokenType = TokenType.parse(typeAsString)
 
     override fun isEmpty(): Boolean {
-        return token_buyer.isEmpty() && token_address.isEmpty() && symbol.isEmpty() && tx_hash.isEmpty()
-                && eth_amount == .0 && token_amount == .0
+        return tokenBuyer.isEmpty() && tokenAddress.isEmpty() && symbol.isEmpty() && txHash.isEmpty()
+                && ethAmount == .0 && tokenAmount == .0
     }
 }

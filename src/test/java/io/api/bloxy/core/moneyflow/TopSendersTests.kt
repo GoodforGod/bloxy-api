@@ -24,8 +24,8 @@ class TopSendersTests : Tester() {
         assertNotNull(result[0].sender)
         assertNotNull(result[0].transactions)
         assertNotNull(result[0].amount)
-        assertNotNull(result[0].type_as_string)
-        assertNotNull(result[0].addressType)
+        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].addrType)
     }
 
     @Test

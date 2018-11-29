@@ -22,12 +22,12 @@ class TokenByNameOrSymbolTests : Tester() {
         assertNotNull(result[0].address)
         assertNotNull(result[0].created)
         assertNotNull(result[0].decimals)
-        assertNotNull(result[0].latest_tx_as_string)
-        assertNotNull(result[0].latest_tx)
+        assertNotNull(result[0].latestTxAsString)
+        assertNotNull(result[0].latestTx)
         assertNotNull(result[0].name)
         assertNotNull(result[0].symbol)
         assertNotNull(result[0].transactions)
-        assertNotNull(result[0].type_as_string)
+        assertNotNull(result[0].typeAsString)
         assertNotNull(result[0].tokenType)
     }
 

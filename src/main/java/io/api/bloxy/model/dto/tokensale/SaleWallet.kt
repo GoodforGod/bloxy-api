@@ -13,19 +13,18 @@ import io.api.bloxy.model.dto.TokenType
  * @since 18.11.2018
  */
 data class SaleWallet(
-    val token_address: String = "",
     val symbol: String = "",
-    @Json(name = "token_type")
-    val type_as_string: String = "",
     val transactions: Long = 0,
-    val eth_amount: Double = .0,
-    val token_amount: Double = .0,
-    val token_buyers: Int = 0
+    @Json(name = "token_type") val typeAsString: String = "",
+    @Json(name = "eth_amount") val ethAmount: Double = .0,
+    @Json(name = "token_address") val tokenAddress: String = "",
+    @Json(name = "token_amount") val tokenAmount: Double = .0,
+    @Json(name = "token_buyers") val tokenBuyers: Int = 0
 ) : IModel, ITokenModel {
 
-    override val tokenType: TokenType = TokenType.parse(type_as_string)
+    override val tokenType: TokenType = TokenType.parse(typeAsString)
 
     override fun isEmpty(): Boolean {
-        return token_address.isEmpty() && symbol.isEmpty() && transactions == 0L && token_buyers == 0
+        return tokenAddress.isEmpty() && symbol.isEmpty() && transactions == 0L && tokenBuyers == 0
     }
 }

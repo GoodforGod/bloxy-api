@@ -21,11 +21,11 @@ class ContractsTests : Tester() {
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
         assertNotNull(list[0].annotation)
-        assertNotNull(list[0].latest_trade_as_string)
-        assertNotNull(list[0].latest_trade)
+        assertNotNull(list[0].latestTradeAsString)
+        assertNotNull(list[0].latestTrade)
         assertNotNull(list[0].protocol)
         assertNotNull(list[0].protocol)
-        assertNotNull(list[0].smart_contract_address)
+        assertNotNull(list[0].smartContractAddress)
         assertNotNull(list[0].trades)
     }
 

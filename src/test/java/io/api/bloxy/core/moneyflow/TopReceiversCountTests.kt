@@ -23,8 +23,8 @@ class TopReceiversCountTests : Tester() {
         assertNotNull(result[0].annotation)
         assertNotNull(result[0].receiver)
         assertNotNull(result[0].transactions)
-        assertNotNull(result[0].type_as_string)
-        assertNotNull(result[0].addressType)
+        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].addrType)
     }
 
     @Test

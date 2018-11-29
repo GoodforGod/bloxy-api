@@ -12,24 +12,23 @@ import io.api.bloxy.util.ParamConverter
  * @since 18.11.2018
  */
 data class AddrTransfer(
-    val tx_hash: String = "",
-    @Json(name = "tx_time")
-    val tx_time_as_string: String = "",
     val direction: String = "",
     val party: String = "",
     val amount: Double = .0,
-    val token_symbol: String = "",
-    val token_address: String = "",
-    val party_type: String = "",
-    val party_annotation: String = ""
+    @Json(name = "tx_hash") val txHash: String = "",
+    @Json(name = "tx_time") val txTimeAsString: String = "",
+    @Json(name = "party_type") val partyType: String = "",
+    @Json(name = "token_symbol") val tokenSymbol: String = "",
+    @Json(name = "token_address") val tokenAddress: String = "",
+    @Json(name = "party_annotation") val partyAnnotation: String = ""
 ) : IModel {
 
     @Json(ignored = true)
-    val tx_time = ParamConverter.parseDateTime(tx_time_as_string)
+    val txTime = ParamConverter.parseDateTime(txTimeAsString)
 
-    fun haveDateTime() : Boolean = tx_time != null
+    fun haveTxTime() : Boolean = txTime != null
 
     override fun isEmpty(): Boolean {
-        return tx_hash.isEmpty() && tx_time_as_string.isEmpty()
+        return txHash.isEmpty() && txTimeAsString.isEmpty()
     }
 }

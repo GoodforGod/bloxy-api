@@ -1,5 +1,6 @@
 package io.api.bloxy.model.dto.dex
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 
 
@@ -11,9 +12,9 @@ import io.api.bloxy.model.IModel
  */
 data class DexProtocol(
     val protocol: String = "",
-    val smart_contracts: Int = 0
+    @Json(name = "smart_contracts") val smartContracts: Int = 0
 ) : IModel {
     override fun isEmpty(): Boolean {
-        return smart_contracts == 0 && protocol.isEmpty()
+        return smartContracts == 0 && protocol.isEmpty()
     }
 }

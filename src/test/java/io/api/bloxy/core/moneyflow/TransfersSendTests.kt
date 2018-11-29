@@ -22,14 +22,14 @@ class TransfersSendTests : Tester() {
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         assertNotNull(result[0].amount)
-        assertNotNull(result[0].token_address)
+        assertNotNull(result[0].tokenAddress)
         assertNotNull(result[0].direction)
         assertNotNull(result[0].party)
-        assertNotNull(result[0].party_annotation)
-        assertNotNull(result[0].party_type)
-        assertNotNull(result[0].token_symbol)
-        assertNotNull(result[0].tx_hash)
-        assertNotNull(result[0].tx_time_as_string)
+        assertNotNull(result[0].partyAnnotation)
+        assertNotNull(result[0].partyType)
+        assertNotNull(result[0].tokenSymbol)
+        assertNotNull(result[0].txHash)
+        assertNotNull(result[0].txTimeAsString)
     }
 
     @Test

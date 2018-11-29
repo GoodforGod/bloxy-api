@@ -16,29 +16,27 @@ import io.api.bloxy.model.dto.DangerLevel
  */
 data class AddrStatistic(
     val address: String = "",
-    @Json(name = "level")
-    val level_as_string: String = "",
     val note: String = "",
-    val balance_eth: Double = .0,
-    @Json(name = "type")
-    val typeAsString: String = "",
-    val send_tx_count: Long = 0,
-    val send_to_count: Long = 0,
-    val send_to_currencies: Long = 0,
-    val send_eth_amount: Double = .0,
-    val receive_tx_count: Long = 0,
-    val receive_from_count: Long = 0,
-    val receive_from_currencies: Long = 0,
-    val receive_eth_amount: Double = .0,
-    val first_tx_at: String = "",
-    val last_tx_at: String = "",
+    @Json(name = "type") val addrTypeAsString: String = "",
+    @Json(name = "level") val levelAsString: String = "",
+    @Json(name = "balance_eth") val balanceEth: Double = .0,
+    @Json(name = "send_tx_count") val sendTxCount: Long = 0,
+    @Json(name = "send_to_count") val sendToCount: Long = 0,
+    @Json(name = "send_to_currencies") val sendToCurrencies: Long = 0,
+    @Json(name = "send_eth_amount") val sendEthAmount: Double = .0,
+    @Json(name = "receive_tx_count") val receiveTxCount: Long = 0,
+    @Json(name = "receive_from_count") val receiveFromCount: Long = 0,
+    @Json(name = "receive_from_currencies") val receiveFromCurrencies: Long = 0,
+    @Json(name = "receive_eth_amount") val receiveEthAmount: Double = .0,
+    @Json(name = "first_tx_at") val firstTxAt: String = "",
+    @Json(name = "last_tx_at") val lastTxAt: String = "",
     val annotation: String = ""
 ) : IValidModel, IDangerModel, IAddressModel {
 
     @Json(ignored = true)
-    override val level: DangerLevel = DangerLevel.parse(level_as_string)
+    override val level: DangerLevel = DangerLevel.parse(levelAsString)
 
-    override val addressType: AddressType = AddressType.parse(typeAsString)
+    override val addrType: AddressType = AddressType.parse(addrTypeAsString)
 
     override fun isEmpty(): Boolean = address.isEmpty()
 

@@ -15,29 +15,26 @@ import io.api.bloxy.util.ParamConverter
  */
 data class DexTradeActive(
     val address: String = "",
-    val maker_trades: Int = 0,
-    val taker_trades: Int = 0,
     val dexes: Int = 0,
     val currencies: Int = 0,
-    @Json(name = "from_time")
-    val from_time_as_string: String = "",
-    @Json(name = "till_time")
-    val till_time_as_string: String = "",
-    val contract_type: String = "",
-    @Json(name = "address_type")
-    val type_as_string: String = "",
-    val address_annotation: String = ""
+    @Json(name = "from_time") val fromTimeAsString: String = "",
+    @Json(name = "till_time") val tillTimeAsString: String = "",
+    @Json(name = "maker_trades") val makerTrades: Int = 0,
+    @Json(name = "taker_trades") val takerTrades: Int = 0,
+    @Json(name = "contract_type") val contractType: String = "",
+    @Json(name = "type_as_string") val typeAsString: String = "",
+    @Json(name = "address_annotation") val addressAnnotation: String = ""
 ) : IModel, IAddressModel {
 
-    @Json(ignored = true) val from_time = ParamConverter.parseDateTime(from_time_as_string)
-    @Json(ignored = true) val till_time = ParamConverter.parseDateTime(till_time_as_string)
+    @Json(ignored = true) val fromTime = ParamConverter.parseDateTime(fromTimeAsString)
+    @Json(ignored = true) val tillTime = ParamConverter.parseDateTime(tillTimeAsString)
 
-    fun haveFromTime() : Boolean = from_time != null
-    fun haveTillTime() : Boolean = till_time != null
+    fun haveFromTime() : Boolean = fromTime != null
+    fun haveTillTime() : Boolean = tillTime != null
 
-    override val addressType: AddressType = AddressType.parse(type_as_string)
+    override val addrType: AddressType = AddressType.parse(typeAsString)
 
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && type_as_string.isEmpty()
+        return address.isEmpty() && typeAsString.isEmpty()
     }
 }

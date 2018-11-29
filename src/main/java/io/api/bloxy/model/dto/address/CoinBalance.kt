@@ -1,5 +1,6 @@
 package io.api.bloxy.model.dto.address
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 
 
@@ -11,15 +12,15 @@ import io.api.bloxy.model.IModel
  */
 data class CoinBalance(
     val symbol: String = "",
-    val token_address: String = "",
-    val sent_txs: Long = 0,
-    val sent_amount: Double = .0,
-    val received_txs: Long = 0,
-    val received_amount: Double = .0,
+    @Json(name = "sent_txs") val sentTxs: Long = 0,
+    @Json(name = "sent_amount") val sentAmount: Double = .0,
+    @Json(name = "received_txs") val receivedTxs: Long = 0,
+    @Json(name = "token_address") val tokenAddress: String = "",
+    @Json(name = "received_amount") val receivedAmount: Double = .0,
     val balance: Double = .0
 ) : IModel {
 
     fun isEth(): Boolean = "ETH" == symbol
 
-    override fun isEmpty(): Boolean = symbol.isEmpty() && token_address.isEmpty()
+    override fun isEmpty(): Boolean = symbol.isEmpty() && tokenAddress.isEmpty()
 }

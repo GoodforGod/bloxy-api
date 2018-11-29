@@ -31,7 +31,7 @@ open class ParamConverter : ParamValidator() {
 
         fun parseDate(value: String) : LocalDate? {
             return try {
-                LocalDate.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+                LocalDate.parse(value)
             } catch (e: Exception) {
                 return null
             }

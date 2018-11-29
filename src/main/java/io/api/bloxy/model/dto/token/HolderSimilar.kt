@@ -1,5 +1,6 @@
 package io.api.bloxy.model.dto.token
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 
 
@@ -12,10 +13,11 @@ import io.api.bloxy.model.IModel
 data class HolderSimilar(
     val address: String = "",
     val symbol: String = "",
-    val common_holders: Long = 0,
+    @Json(name = "common_holders")
+    val commonHolders: Long = 0,
     val percentage: Double = .0
 ) : IModel {
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && symbol.isEmpty() && common_holders == 0L
+        return address.isEmpty() && symbol.isEmpty() && commonHolders == 0L
     }
 }

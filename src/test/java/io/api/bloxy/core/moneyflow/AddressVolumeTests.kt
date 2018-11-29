@@ -22,12 +22,12 @@ class AddressVolumeTests : Tester() {
         assertFalse(result[0].isEmpty())
         assertNotNull(result[0].address)
         assertNotNull(result[0].annotation)
-        assertNotNull(result[0].received_amount)
-        assertNotNull(result[0].received_txs)
-        assertNotNull(result[0].sent_amount)
-        assertNotNull(result[0].sent_txs)
-        assertNotNull(result[0].type_as_string)
-        assertNotNull(result[0].addressType)
+        assertNotNull(result[0].receivedAmount)
+        assertNotNull(result[0].receivedTxs)
+        assertNotNull(result[0].sentAmount)
+        assertNotNull(result[0].sentTxs)
+        assertNotNull(result[0].typeAsString)
+        assertNotNull(result[0].addrType)
     }
 
     @Test

@@ -1,6 +1,5 @@
 package io.api.bloxy.executor.impl
 
-import io.api.bloxy.error.HttpException
 import io.api.bloxy.executor.IHttpClient
 import java.net.URL
 import java.util.stream.Collectors
@@ -28,17 +27,13 @@ class HttpClient @JvmOverloads constructor(
     }
 
     override fun get(url: String): String {
-        try {
-            URL(url).openConnection().apply {
-                readTimeout = this@HttpClient.readTimeout
-                connectTimeout = this@HttpClient.connectTimeout
-                headers.forEach { e -> setRequestProperty(e.key, e.value) }
-                getHeaderField("Location")?.let { return get(it) }
-            }.getInputStream().use {
-                return it.bufferedReader().lines().collect(Collectors.joining())
-            }
-        } catch (e: Exception) {
-            throw HttpException(e.message, e.cause)
+        URL(url).openConnection().apply {
+            readTimeout = this@HttpClient.readTimeout
+            connectTimeout = this@HttpClient.connectTimeout
+            headers.forEach { e -> setRequestProperty(e.key, e.value) }
+            getHeaderField("Location")?.let { return get(it) }
+        }.getInputStream().use {
+            return it.bufferedReader().lines().collect(Collectors.joining())
         }
     }
 }

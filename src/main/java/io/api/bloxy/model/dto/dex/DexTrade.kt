@@ -12,15 +12,15 @@ import io.api.bloxy.util.ParamConverter
  * @since 18.11.2018
  */
 data class DexTrade(
-    val tx_hash: String = "",
-    @Json(name = "tx_time")
-    val tx_time_as_string: String = "",
-    @Json(name = "tx_date")
-    val tx_date_as_string: String = "",
-    val tx_sender: String = "",
-    val smart_contract_id: Long = 0,
-    val smart_contract_address: String = "",
-    val contract_type: String = "",
+    @Json(name = "tx_hash") val txHash: String = "",
+    @Json(name = "tx_time") val txTimeAsString: String = "",
+    @Json(name = "tx_date") val txDateAsString: String = "",
+    @Json(name = "tx_sender") val txSender: String = "",
+    @Json(name = "smart_contract_id") val smartContractId: Long = 0,
+    @Json(name = "smart_contract_address") val smartContractAddress: String = "",
+    @Json(name = "contract_type") val contractType: String = "",
+    @Json(name = "maker_annotation") val makerAnnotation: String = "",
+    @Json(name = "taker_annotation") val takerAnnotation: String = "",
     val maker: String = "",
     val taker: String = "",
     val amountBuy: Double = .0,
@@ -31,19 +31,17 @@ data class DexTrade(
     val takerFee: Double = .0,
     val sellCurrencyId: Long = 0,
     val sellSymbol: String = "",
-    val maker_annotation: String = "",
-    val taker_annotation: String = "",
     val protocol: String = "",
     val buyAddress: String = "",
     val sellAddress: String = ""
 ) : IModel {
 
     @Json(ignored = true)
-    val tx_datetime = ParamConverter.parseDateTime(tx_time_as_string)
+    val txTime = ParamConverter.parseDateTime(txTimeAsString)
 
-    fun haveDateTime() : Boolean = tx_datetime != null
+    fun haveTxTime() : Boolean = txTime != null
 
     override fun isEmpty(): Boolean {
-        return smart_contract_address.isEmpty() && protocol.isEmpty()
+        return smartContractAddress.isEmpty() && protocol.isEmpty()
     }
 }

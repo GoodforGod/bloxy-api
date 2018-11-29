@@ -1,5 +1,6 @@
 package io.api.bloxy.model.dto.token
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 
 
@@ -12,9 +13,10 @@ import io.api.bloxy.model.IModel
 data class TokenCorrelation(
     val symbols: String = "",
     val addresses: String = "",
-    val transfer_to_uniques: Long = 0
+    @Json(name = "transfer_to_uniques")
+    val transferToUniques: Long = 0
 ) : IModel {
     override fun isEmpty(): Boolean {
-        return addresses.isEmpty() && transfer_to_uniques == 0L
+        return addresses.isEmpty() && transferToUniques == 0L
     }
 }

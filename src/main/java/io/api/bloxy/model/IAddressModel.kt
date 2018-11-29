@@ -10,5 +10,5 @@ import io.api.bloxy.model.dto.AddressType
  * @since 28.11.2018
  */
 interface IAddressModel {
-    val addressType:AddressType
+    val addrType:AddressType
 }

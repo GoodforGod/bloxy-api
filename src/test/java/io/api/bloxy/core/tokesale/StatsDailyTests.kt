@@ -25,9 +25,9 @@ class StatsDailyTests : Tester() {
             assertNotNull(result[0].token_amount)
             assertNotNull(result[0].token_buyers)
             assertNotNull(result[0].transactions)
-            assertNotNull(result[0].tx_date_as_string)
-            if(result[0].tx_date_as_string.isNotEmpty()) {
-                assertNotNull(result[0].tx_date)
+            assertNotNull(result[0].txDateAsString)
+            if(result[0].txDateAsString.isNotEmpty()) {
+                assertNotNull(result[0].txDate)
             }
         }
     }

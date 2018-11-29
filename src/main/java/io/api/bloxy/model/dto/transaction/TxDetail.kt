@@ -12,28 +12,27 @@ import io.api.bloxy.util.ParamConverter
  * @since 18.11.2018
  */
 data class TxDetail(
-    val tx_hash: String = "",
-    @Json(name = "tx_time")
-    val tx_time_as_string: String = "",
-    val tx_from: String = "",
-    val tx_to: String = "",
     val receiver: String = "",
     val amount: Double = .0,
     val method: String = "",
     val block: Long = 0,
-    val tx_from_annotation: String = "",
-    val tx_to_annotation: String = "",
-    val tx_to_type: String = "",
-    val gas_price: Double = .0,
     val gas: Double = .0,
-    val gas_value: Double = .0
+    @Json(name = "tx_to") val txTo: String = "",
+    @Json(name = "tx_hash") val txHash: String = "",
+    @Json(name = "tx_time") val txTimeAsString: String = "",
+    @Json(name = "tx_from") val txFrom: String = "",
+    @Json(name = "gas_price") val gasPrice: Double = .0,
+    @Json(name = "gas_value") val gasValue: Double = .0,
+    @Json(name = "tx_to_type") val txToType: String = "",
+    @Json(name = "tx_to_annotation") val txToAnnotation: String = "",
+    @Json(name = "tx_from_annotation") val txFromAnnotation: String = ""
 ) : IModel {
 
-    @Json(ignored = true) val tx_time = ParamConverter.parseDateTime(tx_time_as_string)
+    @Json(ignored = true) val txTime = ParamConverter.parseDateTime(txTimeAsString)
 
-    fun haveTxTime() : Boolean = tx_time != null
+    fun haveTxTime() : Boolean = txTime != null
 
     override fun isEmpty(): Boolean {
-        return tx_hash.isEmpty() && tx_from.isEmpty() && tx_to.isEmpty()
+        return txHash.isEmpty() && txFrom.isEmpty() && txTo.isEmpty()
     }
 }

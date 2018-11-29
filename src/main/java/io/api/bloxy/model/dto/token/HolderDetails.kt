@@ -14,32 +14,29 @@ import io.api.bloxy.util.ParamConverter
  * @since 16.11.2018
  */
 data class HolderDetails(
+    @Json(name = "address_type") val typeAsString: String = "",
+    @Json(name = "uniq_senders") val uniqSenders: Long = 0,
+    @Json(name = "to_count") val toCount: Long = 0,
+    @Json(name = "to_amount") val toAmount: Double = .0,
+    @Json(name = "from_count") val fromCount: Long = 0,
+    @Json(name = "uniq_receivers") val uniqReceivers: Long = 0,
+    @Json(name = "from_amount") val fromAmount: Double = .0,
+    @Json(name = "first_tx_at") val firstTxAtAsString: String = "",
+    @Json(name = "last_tx_at") val lastTxAtAsString: String = "",
     val address: String = "",
-    @Json(name = "address_type")
-    val type_as_string: String = "",
-    val to_count: Long = 0,
-    val uniq_senders: Long = 0,
-    val from_count: Long = 0,
-    val uniq_receivers: Long = 0,
-    val to_amount: Double = .0,
-    val from_amount: Double = .0,
-    @Json(name = "first_tx_at")
-    val first_tx_at_as_string: String = "",
-    @Json(name = "last_tx_at")
-    val last_tx_at_as_string: String = "",
     val balance: Double = .0,
     val annotation: String = ""
 ) : IModel, IAddressModel {
 
-    @Json(ignored = true) val first_tx_at = ParamConverter.parseDateTime(first_tx_at_as_string)
-    @Json(ignored = true) val last_tx_at = ParamConverter.parseDateTime(last_tx_at_as_string)
+    @Json(ignored = true) val firstTxAt = ParamConverter.parseDateTime(firstTxAtAsString)
+    @Json(ignored = true) val lastTxAt = ParamConverter.parseDateTime(lastTxAtAsString)
 
-    fun haveFirstTxTime() : Boolean = first_tx_at != null
-    fun haveLastTxTime() : Boolean = last_tx_at != null
+    fun haveFirstTxTime() : Boolean = firstTxAt != null
+    fun haveLastTxTime() : Boolean = lastTxAt != null
 
-    override val addressType: AddressType = AddressType.parse(type_as_string)
+    override val addrType: AddressType = AddressType.parse(typeAsString)
 
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && type_as_string.isEmpty() && to_count == 0L && from_count == 0L
+        return address.isEmpty() && typeAsString.isEmpty() && toCount == 0L && fromCount == 0L
     }
 }

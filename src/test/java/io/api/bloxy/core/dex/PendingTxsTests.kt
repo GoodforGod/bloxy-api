@@ -24,9 +24,9 @@ class PendingTxsTests : Tester() {
         assertNotNull(list[0].methodAsString)
         assertNotNull(list[0].protocol)
         assertNotNull(list[0].signature)
-        assertNotNull(list[0].smart_contract_address)
-        assertNotNull(list[0].tx_hash)
-        assertNotNull(list[0].tx_sender)
+        assertNotNull(list[0].smartContractAddress)
+        assertNotNull(list[0].txHash)
+        assertNotNull(list[0].txSender)
     }
 
     @Test

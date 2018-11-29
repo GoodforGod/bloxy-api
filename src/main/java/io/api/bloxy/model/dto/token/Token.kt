@@ -19,20 +19,20 @@ data class Token(
     val symbol: String = "",
     val decimals: Int = 0,
     @Json(name = "type")
-    val type_as_string: String = "",
+    val typeAsString: String = "",
     val created: String = "",
     val transactions: Long = 0,
     @Json(name = "latest_tx")
-    val latest_tx_as_string: String = ""
+    val latestTxAsString: String = ""
 ) : IModel, ITokenModel {
 
-    @Json(ignored = true) val latest_tx = ParamConverter.parseDateTime(latest_tx_as_string)
+    @Json(ignored = true) val latestTx = ParamConverter.parseDateTime(latestTxAsString)
 
-    fun haveFirstTxTime() : Boolean = latest_tx != null
+    fun haveLastestTxTime() : Boolean = latestTx != null
 
-    override val tokenType: TokenType = TokenType.parse(type_as_string)
+    override val tokenType: TokenType = TokenType.parse(typeAsString)
 
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && type_as_string.isEmpty() && transactions == 0L
+        return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && typeAsString.isEmpty() && transactions == 0L
     }
 }

@@ -13,29 +13,26 @@ import io.api.bloxy.util.ParamConverter
  */
 data class Tx(
     val depth: Int = 0,
-    @Json(name = "tx_time")
-    val tx_time_as_string: String = "",
-    val tx_hash: String = "",
     val sender: String = "",
     val receiver: String = "",
     val amount: Double = .0,
-    @Json(name = "sender_type")
-    val sender_type_as_string: String = "",
-    @Json(name = "receiver_type")
-    val receiver_type_as_string: String = "",
-    val sender_annotation: String = "",
-    val receiver_annotation: String = ""
+    @Json(name = "tx_hash") val txHash: String = "",
+    @Json(name = "tx_time") val txTimeAsString: String = "",
+    @Json(name = "sender_type") val senderTypeAsString: String = "",
+    @Json(name = "receiver_type") val receiverTypeAsString: String = "",
+    @Json(name = "sender_annotation") val senderAnnotation: String = "",
+    @Json(name = "receiver_annotation") val receiverAnnotation: String = ""
 ) : IModel {
 
-    val receiverType = AddressType.parse(receiver_type_as_string)
-    val senderType = AddressType.parse(sender_type_as_string)
+    val receiverType = AddressType.parse(receiverTypeAsString)
+    val senderType = AddressType.parse(senderTypeAsString)
 
     @Json(ignored = true)
-    val tx_time = ParamConverter.parseDateTime(tx_time_as_string)
+    val txTime = ParamConverter.parseDateTime(txTimeAsString)
 
-    fun haveDateTime() : Boolean = tx_time != null
+    fun haveTxTime() : Boolean = txTime != null
 
     override fun isEmpty(): Boolean {
-        return tx_hash.isEmpty() && receiver.isEmpty() && sender.isEmpty()
+        return txHash.isEmpty() && receiver.isEmpty() && sender.isEmpty()
     }
 }

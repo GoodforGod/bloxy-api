@@ -12,25 +12,23 @@ import io.api.bloxy.util.ParamConverter
  * @since 18.11.2018
  */
 data class SaleAddrStat(
-    val ether_receiver: String = "",
-    val token_sender: String = "",
     val transactions: Int = 0,
-    val eth_amount: Double = .0,
-    val token_amount: Double = .0,
-    val token_buyers: Int = 0,
-    @Json(name = "from_time")
-    val from_time_as_string: String = "",
-    @Json(name = "till_time")
-    val till_time_as_string: String = ""
+    @Json(name = "ether_receiver") val etherReceiver: String = "",
+    @Json(name = "token_sender") val tokenSender: String = "",
+    @Json(name = "token_amount") val tokenAmount: Double = .0,
+    @Json(name = "token_buyers") val tokenBuyers: Int = 0,
+    @Json(name = "eth_amount") val ethAmount: Double = .0,
+    @Json(name = "from_time") val fromTimeAsString: String = "",
+    @Json(name = "till_time") val tillTimeAsString: String = ""
 ) : IModel {
 
-    @Json(ignored = true) val from_time = ParamConverter.parseDateTime(from_time_as_string)
-    @Json(ignored = true) val till_time = ParamConverter.parseDateTime(till_time_as_string)
+    @Json(ignored = true) val fromTime = ParamConverter.parseDateTime(fromTimeAsString)
+    @Json(ignored = true) val tillTime = ParamConverter.parseDateTime(tillTimeAsString)
 
-    fun haveFromTime() : Boolean = from_time != null
-    fun haveTillTime() : Boolean = till_time != null
+    fun haveFromTime() : Boolean = fromTime != null
+    fun haveTillTime() : Boolean = tillTime != null
 
     override fun isEmpty(): Boolean {
-        return ether_receiver.isEmpty() && token_sender.isEmpty() && transactions == 0 && eth_amount == .0
+        return etherReceiver.isEmpty() && tokenSender.isEmpty() && transactions == 0 && ethAmount == .0
     }
 }

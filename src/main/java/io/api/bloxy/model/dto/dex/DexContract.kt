@@ -12,20 +12,19 @@ import io.api.bloxy.util.ParamConverter
  * @since 18.11.2018
  */
 data class DexContract(
-    val smart_contract_address: String = "",
+    @Json(name = "smart_contract_address") val smartContractAddress: String = "",
+    @Json(name = "latest_trade") val latestTradeAsString: String = "",
     val trades: Long = 0,
-    @Json(name = "latest_trade")
-    val latest_trade_as_string: String = "",
     val protocol: String = "",
     val annotation: String = ""
 ) : IModel {
 
     @Json(ignored = true)
-    val latest_trade = ParamConverter.parseDateTime(latest_trade_as_string)
+    val latestTrade = ParamConverter.parseDateTime(latestTradeAsString)
 
-    fun haveDateTime() : Boolean = latest_trade != null
+    fun haveTradeTime() : Boolean = latestTrade != null
 
     override fun isEmpty(): Boolean {
-        return smart_contract_address.isEmpty() && protocol.isEmpty()
+        return smartContractAddress.isEmpty() && protocol.isEmpty()
     }
 }

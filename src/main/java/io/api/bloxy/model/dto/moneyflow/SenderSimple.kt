@@ -15,12 +15,12 @@ import io.api.bloxy.model.dto.AddressType
 data class SenderSimple(
     val sender: String = "",
     @Json(name = "sender_type")
-    val type_as_string: String = "",
+    val typeAsString: String = "",
     val transactions: Long = 0,
     val annotation: String = ""
 ) : IModel, IAddressModel {
 
-    override val addressType: AddressType = AddressType.parse(type_as_string)
+    override val addrType: AddressType = AddressType.parse(typeAsString)
 
     override fun isEmpty(): Boolean {
         return sender.isEmpty() && transactions == 0L
