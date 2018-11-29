@@ -2,7 +2,7 @@ package io.api.bloxy.model.dto
 
 
 /**
- * ! NO DESCRIPTION !
+ * Ethereum ERC token type
  *
  * @author GoodforGod
  * @since 28.11.2018

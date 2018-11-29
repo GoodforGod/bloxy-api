@@ -2,7 +2,7 @@ package io.api.bloxy.model.dto
 
 
 /**
- * ! NO DESCRIPTION !
+ * Possible address type
  *
  * @author GoodforGod
  * @since 17.11.2018

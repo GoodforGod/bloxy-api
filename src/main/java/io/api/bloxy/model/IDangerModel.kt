@@ -4,7 +4,9 @@ import io.api.bloxy.model.dto.DangerLevel
 
 
 /**
- * ! NO DESCRIPTION !
+ * Model have danger level
+ *
+ * @see DangerLevel
  *
  * @author GoodforGod
  * @since 28.11.2018

@@ -4,7 +4,9 @@ import io.api.bloxy.model.dto.AddressType
 
 
 /**
- * ! NO DESCRIPTION !
+ * Model have address type
+ *
+ * @see AddressType
  *
  * @author GoodforGod
  * @since 28.11.2018

@@ -2,7 +2,7 @@ package io.api.bloxy.model.dto
 
 
 /**
- * ! NO DESCRIPTION !
+ * Possible warning level (check model notes/annotation for more info)
  *
  * @author GoodforGod
  * @since 17.11.2018
