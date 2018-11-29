@@ -20,6 +20,7 @@ class TokenTransfersTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertTrue(result[0].haveTxTime())
         assertNotNull(result[0].amount)
         assertNotNull(result[0].gasPrice)
         assertNotNull(result[0].gasValue)

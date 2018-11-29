@@ -19,6 +19,8 @@ class TradesActiveTests : Tester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
+        assertTrue(list[0].haveFromTime())
+        assertTrue(list[0].haveTillTime())
         assertNotNull(list[0].address)
         assertNotNull(list[0].addressAnnotation)
         assertNotNull(list[0].contractType)

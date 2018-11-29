@@ -32,7 +32,6 @@ data class TokenTransfer(
     fun haveTxTime() : Boolean = txTime != null
 
     override fun isEmpty(): Boolean {
-        return symbol.isEmpty() && txHash.isEmpty() && txFrom.isEmpty()
-                && tokenSender.isEmpty() && tokenReceiver.isEmpty()
+        return symbol.isEmpty() && txHash.isEmpty() && txFrom.isEmpty() && tokenSender.isEmpty() && tokenReceiver.isEmpty()
     }
 }

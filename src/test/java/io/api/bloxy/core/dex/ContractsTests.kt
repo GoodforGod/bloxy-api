@@ -20,6 +20,7 @@ class ContractsTests : Tester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
+        assertTrue(list[0].haveTradeTime())
         assertNotNull(list[0].annotation)
         assertNotNull(list[0].latestTradeAsString)
         assertNotNull(list[0].latestTrade)

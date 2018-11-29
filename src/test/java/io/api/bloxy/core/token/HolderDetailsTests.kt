@@ -20,6 +20,8 @@ class HolderDetailsTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertTrue(result[0].haveFirstTxTime())
+        assertTrue(result[0].haveLastTxTime())
         assertNotNull(result[0].address)
         assertNotNull(result[0].annotation)
         assertNotNull(result[0].balance)

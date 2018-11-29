@@ -21,6 +21,7 @@ class TransferAllTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertTrue(result[0].haveTxTime())
         assertNotNull(result[0].amount)
         assertNotNull(result[0].tokenAddress)
         assertNotNull(result[0].direction)

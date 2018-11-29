@@ -12,6 +12,8 @@ enum class TokenType {
     ERC223,
     ERC621,
     ERC721,
+    ERC777,
+    ERC820,
     ERC827,
     UNKNOWN;
 
@@ -22,6 +24,8 @@ enum class TokenType {
                 "ERC223" -> ERC223
                 "ERC621" -> ERC621
                 "ERC721" -> ERC721
+                "ERC777" -> ERC777
+                "ERC820" -> ERC820
                 "ERC827" -> ERC827
                 else -> UNKNOWN
             }

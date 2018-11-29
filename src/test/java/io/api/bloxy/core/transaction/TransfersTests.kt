@@ -20,6 +20,7 @@ class TransfersTests : Tester() {
         assertNotNull(transfer)
         assertFalse(transfer.isEmpty())
         assertFalse(transfer[0].isEmpty())
+        assertTrue(transfer[0].haveTxTime())
         assertNotNull(transfer[0].amount)
         assertNotNull(transfer[0].receiver)
         assertNotNull(transfer[0].receiverType)

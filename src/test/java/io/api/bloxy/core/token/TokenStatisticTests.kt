@@ -35,10 +35,14 @@ class TokenStatisticTests : Tester() {
         assertNotNull(result[0].transfers)
         assertNotNull(result[0].typeAsString)
         assertNotNull(result[0].tokenType)
-        if (result[0].latestTransferAsString.isNotEmpty())
+        if (result[0].latestTransferAsString.isNotEmpty()) {
+            assertTrue(result[0].haveLastTransferTime())
             assertNotNull(result[0].latestTransfer)
-        if (result[0].firstTransferAsString.isNotEmpty())
+        }
+        if (result[0].firstTransferAsString.isNotEmpty()) {
+            assertTrue(result[0].haveFirstTransferTime())
             assertNotNull(result[0].firstTransfer)
+        }
     }
 
     @Test

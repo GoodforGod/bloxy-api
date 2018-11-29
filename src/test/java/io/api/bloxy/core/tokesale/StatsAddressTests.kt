@@ -21,6 +21,8 @@ class StatsAddressTests : Tester() {
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
+            assertTrue(result[0].haveFromTime())
+            assertTrue(result[0].haveTillTime())
             assertNotNull(result[0].ethAmount)
             assertNotNull(result[0].etherReceiver)
             assertNotNull(result[0].fromTimeAsString)

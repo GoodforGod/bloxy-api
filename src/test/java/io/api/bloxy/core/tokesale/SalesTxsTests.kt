@@ -19,6 +19,7 @@ class SalesTxsTests : Tester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
+        assertTrue(result[0].haveTxTime())
         assertNotNull(result[0].ethAmount)
         assertNotNull(result[0].symbol)
         assertNotNull(result[0].tokenAddress)

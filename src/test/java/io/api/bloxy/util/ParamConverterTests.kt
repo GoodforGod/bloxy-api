@@ -5,6 +5,7 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.LocalTime
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 
@@ -100,6 +101,11 @@ class ParamConverterTests : ParamConverter() {
     @Test
     fun `as ignored in range`() {
         assertTrue { asIgnored(1000).contains("limit=1000") }
+    }
+
+    @Test
+    fun `date parse null result`() {
+        assertNull(ParamConverter.parseDate("12411"))
     }
 
     @Test

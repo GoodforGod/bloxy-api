@@ -39,7 +39,6 @@ data class TokenStatistic(
     override val tokenType: TokenType = TokenType.parse(typeAsString)
 
     override fun isEmpty(): Boolean {
-        return address.isEmpty() && firstTransferAsString.isEmpty() && latestTransferAsString.isEmpty()
-                && name.isEmpty() && symbol.isEmpty() && transfers == 0L && decimals == 0
+        return address.isEmpty() && symbol.isEmpty() && transfers == 0L && decimals == 0
     }
 }

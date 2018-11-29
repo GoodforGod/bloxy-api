@@ -19,6 +19,7 @@ class TradesTests : Tester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
+        assertTrue(list[0].haveTxTime())
         assertNotNull(list[0].amountBuy)
         assertNotNull(list[0].amountSell)
         assertNotNull(list[0].buyAddress)
