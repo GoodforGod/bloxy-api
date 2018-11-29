@@ -11,7 +11,7 @@ buildscript {
     }
 }
 
-group = 'io.api.bloxy'
+group = 'com.github.goodforgod'
 version = '1.0.0'
 
 apply plugin: 'maven'
@@ -53,7 +53,7 @@ test {
 
 jar {
     manifest {
-        attributes('Main-Class': 'io.service.money.AppStarter')
+        attributes('Main-Class': 'io.api.bloxy.core.BloxyApi')
     }
 
     baseName = project.name
@@ -84,15 +84,15 @@ uploadArchives {
             beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
 
             repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
-                authentication(userName: System.properties['ossrhUsername'], password: System.properties['ossrhPassword'])
+                authentication(userName: ossrhUsername, password: ossrhPassword)
             }
 
             snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
-                authentication(userName: System.properties['ossrhUsername'], password: System.properties['ossrhPassword'])
+                authentication(userName: ossrhUsername, password: ossrhPassword)
             }
 
             pom.project {
-                name = 'bloxy-api'
+                name = group + rootProject.name
                 packaging = 'jar'
                 url = 'https://github.com/GoodforGod/bloxy-api'
                 description = 'Kotlin & Java Library for all available Bloxy API endpoints'
@@ -106,7 +106,7 @@ uploadArchives {
                 licenses {
                     license {
                         name = 'MIT License'
-                        url = 'https://github.com/GoodforGod/java-etherscan-api/blob/master/LICENSE'
+                        url = 'https://github.com/GoodforGod/bloxy-api/blob/master/LICENSE'
                         distribution = 'repo'
                     }
                 }
@@ -116,6 +116,7 @@ uploadArchives {
                         id = 'GoodforGod'
                         name = 'Anton Kurako'
                         email = 'goodforgod.dev@gmail.com'
+                        url = 'https://github.com/GoodforGod'
                     }
                 }
             }

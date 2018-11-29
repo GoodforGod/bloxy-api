@@ -24,12 +24,10 @@ class TokenStatisticTests : Tester() {
         assertNotNull(result[0].circulatingSupply)
         assertNotNull(result[0].decimals)
         assertNotNull(result[0].firstTransferAsString)
-        assertNotNull(result[0].firstTransfer)
         assertNotNull(result[0].name)
         assertNotNull(result[0].symbol)
         assertNotNull(result[0].holdersCount)
         assertNotNull(result[0].latestTransferAsString)
-        assertNotNull(result[0].latestTransfer)
         assertNotNull(result[0].receivers)
         assertNotNull(result[0].senders)
         assertNotNull(result[0].tokenAnnotation)
@@ -37,6 +35,10 @@ class TokenStatisticTests : Tester() {
         assertNotNull(result[0].transfers)
         assertNotNull(result[0].typeAsString)
         assertNotNull(result[0].tokenType)
+        if (result[0].latestTransferAsString.isNotEmpty())
+            assertNotNull(result[0].latestTransfer)
+        if (result[0].firstTransferAsString.isNotEmpty())
+            assertNotNull(result[0].firstTransfer)
     }
 
     @Test
