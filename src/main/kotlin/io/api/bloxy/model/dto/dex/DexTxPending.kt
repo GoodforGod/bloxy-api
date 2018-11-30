@@ -4,7 +4,6 @@ import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 import io.api.bloxy.util.KlaxonArgs
 
-
 /**
  * ! NO DESCRIPTION !
  *

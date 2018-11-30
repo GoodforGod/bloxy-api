@@ -10,17 +10,34 @@ Kotlin & Java Library for all available [Bloxy](https://bloxy.info) API endpoint
 [Readme Web Page](https://goodforgod.github.io/bloxy-api/)
 
 ## Dependency :rocket:
+
+Library depends on [Klaxon](https://github.com/cbeust/klaxon) so jcenter repository is required.
+
 **Maven**
 ```xml
-<dependency>
-    <groupId>com.github.goodforgod</groupId>
-    <artifactId>bloxy-api</artifactId>
-    <version>1.0.1</version>
-</dependency>
+<repositories>
+    <repository>
+        <id>jcenter</id>
+        <url>https://jcenter.bintray.com/</url>
+    </repository>
+</repositories>
+ 
+<dependencies>
+    <dependency>
+        <groupId>com.github.goodforgod</groupId>
+        <artifactId>bloxy-api</artifactId>
+        <version>1.0.1</version>
+    </dependency>
+</dependencies>
 ```
 
 **Gradle**
 ```groovy
+repositories {
+    mavenCentral()
+    jcenter()
+}
+ 
 dependencies {
     compile 'com.github.goodforgod:bloxy-api:1.0.1'
 }
@@ -28,6 +45,7 @@ dependencies {
 
 ## Content
 - [Getting Started](#getting-started)
+- [Java Project Dependency](#java-project-dependency)
 - [Custom HttpClient](#custom-httpclient)
 - [API examples](#api-examples)
     - [Token](#token-api)
@@ -51,6 +69,30 @@ BloxyApi api = new BloxyApi("YourApiKey");
 ```kotlin
 val api = BloxyApi("YourApiKey")
 ```
+
+## Java Project Dependency
+
+In case you are using library in *Java* project and have *ParseException*'s, mostly its Klaxon missing some kotlin dependencies.
+Try to manually add kotlin stdlib.
+
+**Maven**
+```xml
+<dependencies>
+    <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib-jdk8</artifactId>
+        <version>1.3.10</version> // Or your version
+    </dependency>
+</dependencies>
+```
+
+**Gradle**
+```groovy
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.10" // Or your version
+}
+```
+
 
 ## Custom HttpClient
 

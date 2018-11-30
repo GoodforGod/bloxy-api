@@ -110,7 +110,7 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
             val fullLimit = toLimit(limit, maxLimit + maxOffset)
             var resultLeft = fullLimit
             var cycleOffset = toOffset(offset, maxOffset)
-            var cycleLimit = if(fullLimit > maxLimit) toLimit(limit, maxLimit - cycleOffset) else toLimit(limit, maxLimit)
+            var cycleLimit = if (fullLimit > maxLimit) toLimit(limit, maxLimit - cycleOffset) else toLimit(limit, maxLimit)
             do {
                 temp = get("$params&limit=$cycleLimit&offset=$cycleOffset", skipErrors)
                 result.addAll(temp)
