@@ -52,8 +52,7 @@ class Balance(balances: List<CoinBalance>) : IModel {
      */
     fun getTopTenSend(): List<CoinBalance> {
         return ArrayList(this.balances.values).stream()
-            .filter{ b -> b.sentTxs != 0L}
-            .sorted { o1, o2 -> o1.sentTxs.compareTo(o2.sentTxs) }
+            .sorted { o1, o2 -> o2.sentTxs.compareTo(o1.sentTxs) }
             .limit(10)
             .collect(Collectors.toList())
     }
@@ -63,7 +62,7 @@ class Balance(balances: List<CoinBalance>) : IModel {
      */
     fun getTopTenReceived(): List<CoinBalance> {
         return ArrayList(this.balances.values).stream()
-            .sorted { o1, o2 -> o1.receivedTxs.compareTo(o2.receivedTxs) }
+            .sorted { o1, o2 -> o2.receivedTxs.compareTo(o1.receivedTxs) }
             .limit(10)
             .collect(Collectors.toList())
     }

@@ -75,7 +75,7 @@ publishing {
             artifact javadocJar
 
             pom {
-                name = group + ":" + rootProject.name
+                name = 'Bloxy API'
                 url = 'https://github.com/GoodforGod/bloxy-api'
                 description = 'Kotlin & Java Library for all available Bloxy API endpoints'
 

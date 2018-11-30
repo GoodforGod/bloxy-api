@@ -15,14 +15,14 @@ Kotlin & Java Library for all available [Bloxy](https://bloxy.info) API endpoint
 <dependency>
     <groupId>com.github.goodforgod</groupId>
     <artifactId>bloxy-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
 **Gradle**
 ```groovy
 dependencies {
-    compile 'com.github.goodforgod:bloxy-api:1.0.0'
+    compile 'com.github.goodforgod:bloxy-api:1.0.1'
 }
 ```
 
@@ -59,7 +59,7 @@ just implement **IHttpClient** by your self or initialize it with your values.
 
 *Java*
 ```java
-Supplier<IHttpExecutor> clientSupplier = () -> new HttpExecutor(10000, 40000);
+Supplier<IHttpClient> clientSupplier = () -> new HttpClient(10000, 40000);
 BloxyApi api = new BloxyApi("YourApiKey", supplier);
 ```
 
@@ -169,6 +169,8 @@ val transfers = api.tx.transfers(list)
 ```
 
 ## Version History
+
+**1.0.1** - Gradle/Kotlin dependency publish issue, BasicProvider getOffset fix, javadoc improvements.
 
 **1.0.0** - Initial project with all API functionality, with tests coverage for all cases.
 
