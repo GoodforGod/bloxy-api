@@ -28,11 +28,17 @@ data class Token(
 
     @Json(ignored = true) val latestTx = ParamConverter.parseDateTime(latestTxAsString)
 
-    fun haveLastestTxTime() : Boolean = latestTx != null
+    fun haveLatestTxTime() : Boolean = latestTx != null
 
     override val tokenType: TokenType = TokenType.parse(typeAsString)
 
     override fun isEmpty(): Boolean {
         return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && typeAsString.isEmpty() && transactions == 0L
+    }
+
+    override fun toString(): String {
+        return "Token(address='$address', name='$name', symbol='$symbol', decimals=$decimals," +
+                " typeAsString='$typeAsString', created='$created', transactions=$transactions, " +
+                "latestTxAsString='$latestTxAsString', latestTx=$latestTx, tokenType=$tokenType)"
     }
 }

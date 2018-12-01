@@ -13,4 +13,8 @@ data class Args(val map: Map<String, Any?> = emptyMap()) : IModel {
     override fun isEmpty(): Boolean {
         return map.isEmpty()
     }
+
+    override fun toString(): String {
+        return "Args(map=$map)"
+    }
 }

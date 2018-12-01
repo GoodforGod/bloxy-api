@@ -66,4 +66,8 @@ class Balance(balances: List<CoinBalance>) : IModel {
             .limit(10)
             .collect(Collectors.toList())
     }
+
+    override fun toString(): String {
+        return "Balance(balances=$balances)"
+    }
 }

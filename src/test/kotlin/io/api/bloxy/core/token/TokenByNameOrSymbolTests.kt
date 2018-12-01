@@ -20,7 +20,7 @@ class TokenByNameOrSymbolTests : BloxyTester() {
         assertFalse(result.isEmpty())
         assertFalse(result[0].isUnknown())
         assertFalse(result[0].isEmpty())
-        assertTrue(result[0].haveLastestTxTime())
+        assertTrue(result[0].haveLatestTxTime())
         assertNotNull(result[0].address)
         assertNotNull(result[0].created)
         assertNotNull(result[0].decimals)

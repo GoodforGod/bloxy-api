@@ -25,4 +25,9 @@ data class ReceiverSimple(
     override fun isEmpty(): Boolean {
         return receiver.isEmpty() && transactions == 0L
     }
+
+    override fun toString(): String {
+        return "ReceiverSimple(receiver='$receiver', typeAsString='$typeAsString', " +
+                "transactions=$transactions, annotation='$annotation', addrType=$addrType)"
+    }
 }

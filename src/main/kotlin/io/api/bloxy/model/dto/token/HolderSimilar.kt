@@ -20,4 +20,9 @@ data class HolderSimilar(
     override fun isEmpty(): Boolean {
         return address.isEmpty() && symbol.isEmpty() && commonHolders == 0L
     }
+
+    override fun toString(): String {
+        return "HolderSimilar(address='$address', symbol='$symbol', " +
+                "commonHolders=$commonHolders, percentage=$percentage)"
+    }
 }

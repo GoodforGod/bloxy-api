@@ -35,4 +35,11 @@ data class TxDetail(
     override fun isEmpty(): Boolean {
         return txHash.isEmpty() && txFrom.isEmpty() && txTo.isEmpty()
     }
+
+    override fun toString(): String {
+        return "TxDetail(receiver='$receiver', amount=$amount, method='$method', block=$block, " +
+                "gas=$gas, txTo='$txTo', txHash='$txHash', txTimeAsString='$txTimeAsString', " +
+                "txFrom='$txFrom', gasPrice=$gasPrice, gasValue=$gasValue, txToType='$txToType', " +
+                "txToAnnotation='$txToAnnotation', txFromAnnotation='$txFromAnnotation', txTime=$txTime)"
+    }
 }

@@ -27,4 +27,10 @@ data class Sale(
     override fun isEmpty(): Boolean {
         return tokenAddress.isEmpty() && symbol.isEmpty() && transactions == 0L && ethAmount == .0
     }
+
+    override fun toString(): String {
+        return "Sale(symbol='$symbol', transactions=$transactions, typeAsString='$typeAsString'," +
+                " ethAmount=$ethAmount, tokenAddress='$tokenAddress', tokenAmount=$tokenAmount," +
+                " tokenBuyers=$tokenBuyers, tokenType=$tokenType)"
+    }
 }

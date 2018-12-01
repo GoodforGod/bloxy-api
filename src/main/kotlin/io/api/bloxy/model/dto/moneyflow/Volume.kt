@@ -27,4 +27,10 @@ data class Volume(
     override fun isEmpty(): Boolean {
         return address.isEmpty() && typeAsString.isEmpty() && receivedAmount == .0 && sentAmount == .0
     }
+
+    override fun toString(): String {
+        return "Volume(typeAsString='$typeAsString', receivedAmount=$receivedAmount, " +
+                "receivedTxs=$receivedTxs, sentAmount=$sentAmount, sentTxs=$sentTxs, " +
+                "address='$address', annotation='$annotation', addrType=$addrType)"
+    }
 }

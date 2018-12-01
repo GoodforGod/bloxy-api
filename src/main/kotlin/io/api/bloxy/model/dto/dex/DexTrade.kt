@@ -44,4 +44,14 @@ data class DexTrade(
     override fun isEmpty(): Boolean {
         return smartContractAddress.isEmpty() && protocol.isEmpty()
     }
+
+    override fun toString(): String {
+        return "DexTrade(txHash='$txHash', txTimeAsString='$txTimeAsString', txDateAsString='$txDateAsString', " +
+                "txSender='$txSender', smartContractId=$smartContractId, smartContractAddress='$smartContractAddress', " +
+                "contractType='$contractType', makerAnnotation='$makerAnnotation', takerAnnotation='$takerAnnotation', " +
+                "maker='$maker', taker='$taker', amountBuy=$amountBuy, makerFee=$makerFee, buyCurrencyId=$buyCurrencyId, " +
+                "buySymbol='$buySymbol', amountSell=$amountSell, takerFee=$takerFee, sellCurrencyId=$sellCurrencyId, " +
+                "sellSymbol='$sellSymbol', protocol='$protocol', buyAddress='$buyAddress', sellAddress='$sellAddress', " +
+                "txTime=$txTime)"
+    }
 }

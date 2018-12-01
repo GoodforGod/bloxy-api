@@ -25,4 +25,9 @@ data class SenderSimple(
     override fun isEmpty(): Boolean {
         return sender.isEmpty() && transactions == 0L
     }
+
+    override fun toString(): String {
+        return "SenderSimple(sender='$sender', typeAsString='$typeAsString', " +
+                "transactions=$transactions, annotation='$annotation', addrType=$addrType)"
+    }
 }

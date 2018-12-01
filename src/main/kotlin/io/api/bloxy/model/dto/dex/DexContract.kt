@@ -27,4 +27,9 @@ data class DexContract(
     override fun isEmpty(): Boolean {
         return smartContractAddress.isEmpty() && protocol.isEmpty()
     }
+
+    override fun toString(): String {
+        return "DexContract(smartContractAddress='$smartContractAddress', latestTradeAsString='$latestTradeAsString', " +
+                "trades=$trades, protocol='$protocol', annotation='$annotation', latestTrade=$latestTrade)"
+    }
 }

@@ -39,4 +39,12 @@ data class HolderDetails(
     override fun isEmpty(): Boolean {
         return address.isEmpty() && typeAsString.isEmpty() && toCount == 0L && fromCount == 0L
     }
+
+    override fun toString(): String {
+        return "HolderDetails(typeAsString='$typeAsString', uniqSenders=$uniqSenders, " +
+                "toCount=$toCount, toAmount=$toAmount, fromCount=$fromCount, uniqReceivers=$uniqReceivers," +
+                " fromAmount=$fromAmount, firstTxAtAsString='$firstTxAtAsString', lastTxAtAsString='$lastTxAtAsString'," +
+                " address='$address', balance=$balance, annotation='$annotation', " +
+                "firstTxAt=$firstTxAt, lastTxAt=$lastTxAt, addrType=$addrType)"
+    }
 }

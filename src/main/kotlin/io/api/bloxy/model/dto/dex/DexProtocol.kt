@@ -17,4 +17,8 @@ data class DexProtocol(
     override fun isEmpty(): Boolean {
         return smartContracts == 0 && protocol.isEmpty()
     }
+
+    override fun toString(): String {
+        return "DexProtocol(protocol='$protocol', smartContracts=$smartContracts)"
+    }
 }

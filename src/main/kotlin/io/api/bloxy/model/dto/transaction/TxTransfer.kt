@@ -16,24 +16,34 @@ data class TxTransfer(
     val sender: String = "",
     val receiver: String = "",
     val amount: Double = .0,
-    @Json(name = "tx_time") val txHash: String = "",
+    @Json(name = "tx_hash") val txHash: String = "",
     @Json(name = "tx_time") val txTimeAsString: String = "",
-    @Json(name = "tx_time") val tokenSymbol: String = "",
-    @Json(name = "tx_time") val tokenAddress: String = "",
-    @Json(name = "tx_time") val senderAnnotation: String = "",
-    @Json(name = "tx_time") val receiverAnnotation: String = "",
     @Json(name = "sender_type") val senderTypeAsString: String = "",
-    @Json(name = "receiver_type") val receiverTypeAsString: String = ""
+    @Json(name = "token_symbol") val tokenSymbol: String = "",
+    @Json(name = "token_address") val tokenAddress: String = "",
+    @Json(name = "receiver_type") val receiverTypeAsString: String = "",
+    @Json(name = "sender_annotation") val senderAnnotation: String = "",
+    @Json(name = "receiver_annotation") val receiverAnnotation: String = ""
 ) : IModel {
+
+    @Json(ignored = true) val txTime = ParamConverter.parseDateTime(txTimeAsString)
 
     val receiverType = AddressType.parse(receiverTypeAsString)
     val senderType = AddressType.parse(senderTypeAsString)
 
-    @Json(ignored = true) val tx_time = ParamConverter.parseDateTime(txTimeAsString)
+    fun isEth() : Boolean = tokenSymbol == "ETH"
 
-    fun haveTxTime() : Boolean = tx_time != null
+    fun haveTxTime() : Boolean = txTime != null
 
     override fun isEmpty(): Boolean {
         return txHash.isEmpty() && sender.isEmpty() && receiver.isEmpty() && amount == .0
+    }
+
+    override fun toString(): String {
+        return "TxTransfer(sender='$sender', receiver='$receiver', amount=$amount, txHash='$txHash', " +
+                "txTimeAsString='$txTimeAsString', tokenSymbol='$tokenSymbol', tokenAddress='$tokenAddress', " +
+                "senderAnnotation='$senderAnnotation', receiverAnnotation='$receiverAnnotation', " +
+                "senderTypeAsString='$senderTypeAsString', receiverTypeAsString='$receiverTypeAsString', " +
+                "receiverType=$receiverType, senderType=$senderType, tx_time=$txTime)"
     }
 }

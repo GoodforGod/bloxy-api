@@ -33,8 +33,10 @@ class TransfersTests : BloxyTester() {
         assertNotNull(transfer[0].tokenAddress)
         assertNotNull(transfer[0].tokenSymbol)
         assertNotNull(transfer[0].txHash)
-        assertNotNull(transfer[0].tx_time)
+        assertNotNull(transfer[0].txTime)
         assertNotNull(transfer[0].txTimeAsString)
+        if(transfer[0].tokenSymbol == "ETH")
+            assertTrue(transfer[0].isEth())
     }
 
     @Test

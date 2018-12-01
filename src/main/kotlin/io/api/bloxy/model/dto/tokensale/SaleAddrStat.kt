@@ -31,4 +31,11 @@ data class SaleAddrStat(
     override fun isEmpty(): Boolean {
         return etherReceiver.isEmpty() && tokenSender.isEmpty() && transactions == 0 && ethAmount == .0
     }
+
+    override fun toString(): String {
+        return "SaleAddrStat(transactions=$transactions, etherReceiver='$etherReceiver', " +
+                "tokenSender='$tokenSender', tokenAmount=$tokenAmount, tokenBuyers=$tokenBuyers, " +
+                "ethAmount=$ethAmount, fromTimeAsString='$fromTimeAsString', " +
+                "tillTimeAsString='$tillTimeAsString', fromTime=$fromTime, tillTime=$tillTime)"
+    }
 }

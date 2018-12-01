@@ -29,4 +29,10 @@ data class SaleBuyer(
     override fun isEmpty(): Boolean {
         return tokenBuyer.isEmpty() && transactions == 0 && ethAmount == .0 && tokenAmount == .0
     }
+
+    override fun toString(): String {
+        return "SaleBuyer(transactions=$transactions, tokenAmount=$tokenAmount, tokenBuyer='$tokenBuyer', " +
+                "ethAmount=$ethAmount, fromTimeAsString='$fromTimeAsString', " +
+                "tillTimeAsString='$tillTimeAsString', fromTime=$fromTime, tillTime=$tillTime)"
+    }
 }

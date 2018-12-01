@@ -41,4 +41,13 @@ data class TokenStatistic(
     override fun isEmpty(): Boolean {
         return address.isEmpty() && symbol.isEmpty() && transfers == 0L && decimals == 0
     }
+
+    override fun toString(): String {
+        return "TokenStatistic(transfers=$transfers, receivers=$receivers, address='$address', " +
+                "symbol='$symbol', name='$name', senders=$senders, decimals=$decimals, " +
+                "typeAsString='$typeAsString', firstTransferAsString='$firstTransferAsString', " +
+                "latestTransferAsString='$latestTransferAsString', transferedAmount=$transferedAmount, " +
+                "tokenAnnotation='$tokenAnnotation', holdersCount=$holdersCount, circulatingSupply=$circulatingSupply, " +
+                "firstTransfer=$firstTransfer, latestTransfer=$latestTransfer, tokenType=$tokenType)"
+    }
 }

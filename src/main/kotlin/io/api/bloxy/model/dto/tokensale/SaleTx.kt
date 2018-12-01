@@ -38,4 +38,11 @@ data class SaleTx(
         return tokenBuyer.isEmpty() && tokenAddress.isEmpty() && symbol.isEmpty() && txHash.isEmpty()
                 && ethAmount == .0 && tokenAmount == .0
     }
+
+    override fun toString(): String {
+        return "SaleTx(symbol='$symbol', txTimeAsString='$txTimeAsString', txHash='$txHash', " +
+                "gasPrice=$gasPrice, gasValue=$gasValue, typeAsString='$typeAsString', ethAmount=$ethAmount, " +
+                "tokenBuyer='$tokenBuyer', tokenSender='$tokenSender', tokenAmount=$tokenAmount, " +
+                "tokenAddress='$tokenAddress', etherReceiver='$etherReceiver', txTime=$txTime, tokenType=$tokenType)"
+    }
 }

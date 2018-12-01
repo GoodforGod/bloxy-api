@@ -1,6 +1,6 @@
 package io.api.bloxy.core.impl
 
-import io.api.bloxy.error.BloxyException
+import io.api.bloxy.error.ParamException
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.executor.impl.HttpClient
 import java.util.function.Supplier
@@ -11,6 +11,10 @@ import java.util.function.Supplier
  *
  * @param key API key
  * @param supplier http client supplier
+ *
+ * @see io.api.bloxy.core.impl.BasicProvider
+ *
+ * @throws ParamException in case of blank API key
  *
  * @author GoodforGod
  * @since 17.11.2018
@@ -25,6 +29,6 @@ class BloxyApi @JvmOverloads constructor(key: String, supplier: Supplier<IHttpCl
     val tokenSale: TokenSaleApiProvider = TokenSaleApiProvider(supplier.get(), key)
 
     init {
-        if (key.isBlank()) throw BloxyException("API key can not be null or empty")
+        if (key.isBlank()) throw ParamException("API key can not be null or empty")
     }
 }

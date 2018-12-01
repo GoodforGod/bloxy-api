@@ -24,4 +24,9 @@ data class Address(
     override fun isEmpty(): Boolean {
         return address.isEmpty()
     }
+
+    override fun toString(): String {
+        return "Address(address='$address', typeAsString='$typeAsString', amount=$amount, " +
+                "annotation='$annotation', addrType=$addrType)"
+    }
 }

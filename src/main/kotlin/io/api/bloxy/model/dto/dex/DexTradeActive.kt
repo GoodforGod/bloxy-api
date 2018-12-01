@@ -37,4 +37,11 @@ data class DexTradeActive(
     override fun isEmpty(): Boolean {
         return address.isEmpty() && typeAsString.isEmpty()
     }
+
+    override fun toString(): String {
+        return "DexTradeActive(address='$address', dexes=$dexes, currencies=$currencies, " +
+                "fromTimeAsString='$fromTimeAsString', tillTimeAsString='$tillTimeAsString', makerTrades=$makerTrades, " +
+                "takerTrades=$takerTrades, contractType='$contractType', typeAsString='$typeAsString', " +
+                "addressAnnotation='$addressAnnotation', fromTime=$fromTime, tillTime=$tillTime, addrType=$addrType)"
+    }
 }

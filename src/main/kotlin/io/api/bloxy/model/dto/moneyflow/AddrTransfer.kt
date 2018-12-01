@@ -31,4 +31,10 @@ data class AddrTransfer(
     override fun isEmpty(): Boolean {
         return txHash.isEmpty() && txTimeAsString.isEmpty()
     }
+
+    override fun toString(): String {
+        return "AddrTransfer(direction='$direction', party='$party', amount=$amount, txHash='$txHash', " +
+                "txTimeAsString='$txTimeAsString', partyType='$partyType', tokenSymbol='$tokenSymbol', " +
+                "tokenAddress='$tokenAddress', partyAnnotation='$partyAnnotation', txTime=$txTime)"
+    }
 }

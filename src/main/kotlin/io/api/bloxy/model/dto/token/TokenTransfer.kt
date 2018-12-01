@@ -34,4 +34,12 @@ data class TokenTransfer(
     override fun isEmpty(): Boolean {
         return symbol.isEmpty() && txHash.isEmpty() && txFrom.isEmpty() && tokenSender.isEmpty() && tokenReceiver.isEmpty()
     }
+
+    override fun toString(): String {
+        return "TokenTransfer(amount=$amount, symbol='$symbol', txHash='$txHash', " +
+                "txFrom='$txFrom', gasPrice=$gasPrice, gasValue=$gasValue, txTimeAsString='$txTimeAsString', " +
+                "tokenSender='$tokenSender', tokenReceiver='$tokenReceiver', " +
+                "txFromAnnotation='$txFromAnnotation', tokenSenderAnnotation='$tokenSenderAnnotation', " +
+                "tokenReceiverAnnotation='$tokenReceiverAnnotation', txTime=$txTime)"
+    }
 }

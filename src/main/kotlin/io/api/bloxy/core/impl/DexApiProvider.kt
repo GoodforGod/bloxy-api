@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull
  * More information - https://bloxy.info/api_methods#dex
  *
  * @see io.api.bloxy.core.IDexApi
+ * @see io.api.bloxy.core.impl.BasicProvider
  *
  * @author GoodforGod
  * @since 16.11.2018

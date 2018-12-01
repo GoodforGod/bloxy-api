@@ -73,7 +73,7 @@ val api = BloxyApi("YourApiKey")
 ## Java Project Dependency
 
 In case you are using library in *Java* project and have *ParseException*'s, mostly its Klaxon missing some kotlin dependencies.
-Try to manually add kotlin stdlib.
+Try to manually add *kotlin stdlib*.
 
 **Maven**
 ```xml
@@ -92,7 +92,6 @@ dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.10" // Or your version
 }
 ```
-
 
 ## Custom HttpClient
 
@@ -212,7 +211,7 @@ val transfers = api.tx.transfers(list)
 
 ## Version History
 
-**1.0.1** - Gradle/Kotlin dependency publish issue, BasicProvider getOffset fix, javadoc improvements.
+**1.0.1** - Gradle/Kotlin dependency publish issue, BasicProvider getOffset fix, HttpClient decoding support, javadoc improvements.
 
 **1.0.0** - Initial project with all API functionality, with tests coverage for all cases.
 

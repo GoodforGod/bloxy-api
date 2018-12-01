@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull
  * More information - https://bloxy.info/api_methods#tx
  *
  * @see io.api.bloxy.core.ITransactionApi
+ * @see io.api.bloxy.core.impl.BasicProvider
  *
  * @author GoodforGod
  * @since 16.11.2018

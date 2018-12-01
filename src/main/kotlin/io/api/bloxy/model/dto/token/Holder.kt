@@ -25,4 +25,9 @@ data class Holder(
     override fun isEmpty(): Boolean {
         return address.isEmpty() && balance == .0
     }
+
+    override fun toString(): String {
+        return "Holder(address='$address', typeAsString='$typeAsString', " +
+                "annotation='$annotation', balance=$balance, addrType=$addrType)"
+    }
 }

@@ -15,4 +15,8 @@ data class AddrCorrelation(
     val likelihood: Double = .0
 ) : IModel {
     override fun isEmpty(): Boolean = address.isEmpty()
+
+    override fun toString(): String {
+        return "AddrCorrelation(address='$address', symbol='$symbol', likelihood=$likelihood)"
+    }
 }

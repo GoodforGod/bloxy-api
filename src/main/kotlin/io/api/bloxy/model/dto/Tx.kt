@@ -35,4 +35,12 @@ data class Tx(
     override fun isEmpty(): Boolean {
         return txHash.isEmpty() && receiver.isEmpty() && sender.isEmpty()
     }
+
+    override fun toString(): String {
+        return "Tx(depth=$depth, sender='$sender', receiver='$receiver', amount=$amount, txHash='$txHash', " +
+                "txTimeAsString='$txTimeAsString', senderTypeAsString='$senderTypeAsString', " +
+                "receiverTypeAsString='$receiverTypeAsString', senderAnnotation='$senderAnnotation', " +
+                "receiverAnnotation='$receiverAnnotation', receiverType=$receiverType, " +
+                "senderType=$senderType, txTime=$txTime)"
+    }
 }

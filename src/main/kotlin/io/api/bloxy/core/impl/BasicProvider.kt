@@ -3,7 +3,6 @@ package io.api.bloxy.core.impl
 import com.beust.klaxon.Klaxon
 import io.api.bloxy.error.BloxyException
 import io.api.bloxy.error.HttpException
-import io.api.bloxy.error.ParamException
 import io.api.bloxy.error.ParseException
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.BloxyError
@@ -33,6 +32,8 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
     /**
      * Perform GET HTTP request
      * @param urlParams URL params for request
+     *
+     * @throws io.api.bloxy.error.HttpException in case http connection errors
      */
     protected fun getData(urlParams: String): String {
         try {
@@ -46,6 +47,8 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
      * Perform GET HTTP request and parse result
      * @param urlParams URL params for request
      * @param skipErrors errors messages to skip from BloxyServer
+     *
+     * @throws io.api.bloxy.error.ParamException in case of invalid input params
      */
     @NotNull
     protected inline fun <reified T> get(urlParams: String, skipErrors: List<Regex> = emptyList()): List<T> {
@@ -56,6 +59,9 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
      * Parse json string to list of T
      * @param json to parse
      * @param skipErrors errors messages to skip from BloxyServer
+     *
+     * @throws io.api.bloxy.error.BloxyException (PARENT exception class) in case of Bloxy service errors
+     * @throws io.api.bloxy.error.ParamException in case of invalid input params
      */
     @NotNull
     protected inline fun <reified T> parse(json: String, skipErrors: List<Regex> = emptyList()): List<T> {
@@ -91,6 +97,10 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
      * @param maxLimit for API call
      * @param maxOffset for API call
      * @param skipErrors errors messages to skip from BloxyServer
+     *
+     * @throws io.api.bloxy.error.BloxyException (PARENT exception class) in case of Bloxy service errors
+     * @throws io.api.bloxy.error.ParseException in case of response parse exception
+     * @throws io.api.bloxy.error.HttpException in case http connection errors
      */
     @NotNull
     protected inline fun <reified T> getOffset(
@@ -124,7 +134,7 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
             return result
         } catch (e: Exception) {
             when (e) {
-                is BloxyException, is HttpException, is ParseException, is ParamException -> throw e
+                is BloxyException, is HttpException, is ParseException -> throw e
                 else -> throw HttpException(e.message, e.cause)
             }
         }

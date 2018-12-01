@@ -11,6 +11,7 @@ import java.time.LocalDateTime
  * More information - https://bloxy.info/api_methods#token
  *
  * @see io.api.bloxy.core.ITokenApi
+ * @see io.api.bloxy.core.impl.BasicProvider
  *
  * @author GoodforGod
  * @since 16.11.2018

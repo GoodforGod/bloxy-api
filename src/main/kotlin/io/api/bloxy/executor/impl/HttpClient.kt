@@ -1,12 +1,19 @@
 package io.api.bloxy.executor.impl
 
 import io.api.bloxy.executor.IHttpClient
+import java.io.BufferedReader
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import java.net.URL
 import java.util.stream.Collectors
+import java.util.zip.GZIPInputStream
+import java.util.zip.InflaterInputStream
 
 
 /**
  * @see IHttpClient
+ *
+ * Supports GZIP and deflate decoding
  *
  * @author GoodforGod
  * @since 16.11.2018
@@ -19,21 +26,29 @@ class HttpClient @JvmOverloads constructor(
     companion object {
         private val headers: Map<String, String> = hashMapOf(
             "Accept-Language" to "en",
-            "Accept-Encoding" to "deflate",
+            "Accept-Encoding" to "deflate, gzip",
             "Accept-Charset" to "UTF-8",
-            "User-Agent" to "Chrome/68.0.3440.105",
+            "User-Agent" to "Chrome/68.0.3440.106",
             "Content-Type" to "application/x-www-form-urlencoded"
         )
     }
 
+    private inline fun HttpURLConnection.getReader(): InputStreamReader {
+        return when (contentEncoding) {
+            "deflate" -> InputStreamReader(InflaterInputStream(this.inputStream), "UTF-8")
+            "gzip" -> InputStreamReader(GZIPInputStream(this.inputStream), "UTF-8")
+            else -> InputStreamReader(this.inputStream, "UTF-8")
+        }
+    }
+
     override fun get(url: String): String {
-        URL(url).openConnection().apply {
+        (URL(url).openConnection().apply {
             readTimeout = this@HttpClient.readTimeout
             connectTimeout = this@HttpClient.connectTimeout
-            headers.forEach { e -> setRequestProperty(e.key, e.value) }
+            HttpClient.headers.forEach { e -> setRequestProperty(e.key, e.value) }
             getHeaderField("Location")?.let { return get(it) }
-        }.getInputStream().use {
-            return it.bufferedReader().lines().collect(Collectors.joining())
+        } as HttpURLConnection).getReader().use {
+            return BufferedReader(it).lines().collect(Collectors.joining())
         }
     }
 }

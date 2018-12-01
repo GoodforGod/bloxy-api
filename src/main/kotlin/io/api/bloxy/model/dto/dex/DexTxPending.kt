@@ -26,4 +26,10 @@ data class DexTxPending(
     override fun isEmpty(): Boolean {
         return smartContractAddress.isEmpty() && protocol.isEmpty() && txHash.isEmpty()
     }
+
+    override fun toString(): String {
+        return "DexTxPending(protocol='$protocol', signature='$signature', arguments=$arguments, " +
+                "methodAsString='$methodAsString', txHash='$txHash', txSender='$txSender', " +
+                "smartContractAddress='$smartContractAddress', method=$method)"
+    }
 }

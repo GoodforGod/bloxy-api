@@ -13,6 +13,7 @@ import org.jetbrains.annotations.NotNull
  * Full information - https://bloxy.info/api_methods#address
  *
  * @see io.api.bloxy.core.IAddressApi
+ * @see io.api.bloxy.core.impl.BasicProvider
  *
  * @author GoodforGod
  * @since 16.11.2018

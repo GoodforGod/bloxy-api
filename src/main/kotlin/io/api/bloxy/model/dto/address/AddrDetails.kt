@@ -26,4 +26,9 @@ data class AddrDetails(
     override fun isEmpty(): Boolean = address.isEmpty()
 
     override fun isValid(): Boolean = "Address was never used" != note
+
+    override fun toString(): String {
+        return "AddrDetails(address='$address', levelAsString='$levelAsString', " +
+                "note='$note', annotation='$annotation', level=$level)"
+    }
 }

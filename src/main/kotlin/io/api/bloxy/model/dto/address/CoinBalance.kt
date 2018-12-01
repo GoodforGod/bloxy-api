@@ -23,4 +23,9 @@ data class CoinBalance(
     fun isEth(): Boolean = "ETH" == symbol
 
     override fun isEmpty(): Boolean = symbol.isEmpty() && tokenAddress.isEmpty()
+
+    override fun toString(): String {
+        return "CoinBalance(symbol='$symbol', sentTxs=$sentTxs, sentAmount=$sentAmount, receivedTxs=$receivedTxs, " +
+                "tokenAddress='$tokenAddress', receivedAmount=$receivedAmount, balance=$balance)"
+    }
 }

@@ -19,4 +19,8 @@ data class TokenCorrelation(
     override fun isEmpty(): Boolean {
         return addresses.isEmpty() && transferToUniques == 0L
     }
+
+    override fun toString(): String {
+        return "TokenCorrelation(symbols='$symbols', addresses='$addresses', transferToUniques=$transferToUniques)"
+    }
 }

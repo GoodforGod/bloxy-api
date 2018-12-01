@@ -14,6 +14,7 @@ import java.time.LocalDateTime
  * More information - https://bloxy.info/api_methods#money_flow
  *
  * @see io.api.bloxy.core.IMoneyFlowApi
+ * @see io.api.bloxy.core.impl.BasicProvider
  *
  * @author GoodforGod
  * @since 16.11.2018

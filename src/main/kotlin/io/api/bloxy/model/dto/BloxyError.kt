@@ -7,5 +7,4 @@ package io.api.bloxy.model.dto
  * @author GoodforGod
  * @since 22.11.2018
  */
-data class BloxyError(val error: String = "") {
-}
+data class BloxyError(val error: String = "")
