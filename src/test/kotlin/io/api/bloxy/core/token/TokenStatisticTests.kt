@@ -35,6 +35,7 @@ class TokenStatisticTests : BloxyTester() {
         assertNotNull(result[0].transfers)
         assertNotNull(result[0].typeAsString)
         assertNotNull(result[0].tokenType)
+        assertNotNull(result[0].toString())
         if (result[0].latestTransferAsString.isNotEmpty()) {
             assertTrue(result[0].haveLastTransferTime())
             assertNotNull(result[0].latestTransfer)

@@ -33,7 +33,7 @@ class HttpClient @JvmOverloads constructor(
         )
     }
 
-    private inline fun HttpURLConnection.getReader(): InputStreamReader {
+    private fun HttpURLConnection.getReader(): InputStreamReader {
         return when (contentEncoding) {
             "deflate" -> InputStreamReader(InflaterInputStream(this.inputStream), "UTF-8")
             "gzip" -> InputStreamReader(GZIPInputStream(this.inputStream), "UTF-8")

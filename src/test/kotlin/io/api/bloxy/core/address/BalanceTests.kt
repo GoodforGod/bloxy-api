@@ -35,6 +35,8 @@ class BalanceTests : BloxyTester() {
         assertFalse(balance.getSendOnly().isEmpty())
         assertFalse(balance.getTopTenReceived().isEmpty())
         assertFalse(balance.getTopTenSend().isEmpty())
+
+        assertNotNull(balance.toString())
     }
 
     @Test

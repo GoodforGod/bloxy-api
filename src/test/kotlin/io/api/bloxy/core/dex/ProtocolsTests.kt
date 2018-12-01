@@ -14,11 +14,12 @@ class ProtocolsTests : BloxyTester() {
 
     @Test
     fun valid() {
-        val details = api.dex.protocols()
-        assertNotNull(details)
-        assertFalse(details.isEmpty())
-        assertFalse(details[0].isEmpty())
-        assertNotNull(details[0].protocol)
-        assertNotNull(details[0].smartContracts)
+        val result = api.dex.protocols()
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        assertNotNull(result[0].protocol)
+        assertNotNull(result[0].smartContracts)
+        assertNotNull(result[0].toString())
     }
 }

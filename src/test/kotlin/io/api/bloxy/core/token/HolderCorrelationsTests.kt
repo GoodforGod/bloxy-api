@@ -23,6 +23,7 @@ class HolderCorrelationsTests : BloxyTester() {
         assertNotNull(result[0].addresses)
         assertNotNull(result[0].symbols)
         assertNotNull(result[0].transferToUniques)
+        assertNotNull(result[0].toString())
     }
 
     @Test

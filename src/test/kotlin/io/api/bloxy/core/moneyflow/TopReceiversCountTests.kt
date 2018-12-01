@@ -25,6 +25,7 @@ class TopReceiversCountTests : BloxyTester() {
         assertNotNull(result[0].transactions)
         assertNotNull(result[0].typeAsString)
         assertNotNull(result[0].addrType)
+        assertNotNull(result[0].toString())
     }
 
     @Test

@@ -20,6 +20,7 @@ class BuyersOffsetAndLimitTests : BloxyTester() {
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
+            assertNotNull(result[0].toString())
 
             val resultBeginning = api.tokenSale.buyers(sale, limit = 10)
             assertNotNull(resultBeginning)

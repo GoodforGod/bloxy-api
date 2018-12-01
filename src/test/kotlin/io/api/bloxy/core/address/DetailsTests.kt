@@ -25,6 +25,8 @@ class DetailsTests : BloxyTester() {
         assertNotNull(details[0].levelAsString)
         assertNotNull(details[0].level)
         assertNotNull(details[0].note)
+
+        assertNotNull(details[0].toString())
     }
 
     @Test

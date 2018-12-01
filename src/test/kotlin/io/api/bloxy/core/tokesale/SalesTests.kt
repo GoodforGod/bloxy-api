@@ -28,6 +28,7 @@ class SalesTests : BloxyTester() {
             assertNotNull(result[0].transactions)
             assertNotNull(result[0].typeAsString)
             assertNotNull(result[0].tokenType)
+            assertNotNull(result[0].toString())
             return result[0].tokenAddress
         }
     }

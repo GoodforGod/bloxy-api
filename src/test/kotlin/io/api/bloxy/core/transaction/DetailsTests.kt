@@ -36,6 +36,7 @@ class DetailsTests : BloxyTester() {
         assertNotNull(result[0].txTo)
         assertNotNull(result[0].txToAnnotation)
         assertNotNull(result[0].txToType)
+        assertNotNull(result[0].toString())
     }
 
     @Test

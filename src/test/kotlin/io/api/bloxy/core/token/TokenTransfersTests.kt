@@ -35,6 +35,7 @@ class TokenTransfersTests : BloxyTester() {
         assertNotNull(result[0].txHash)
         assertNotNull(result[0].txTimeAsString)
         assertNotNull(result[0].txTime)
+        assertNotNull(result[0].toString())
     }
 
     @Test

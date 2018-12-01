@@ -38,6 +38,7 @@ class HolderDetailsTests : BloxyTester() {
         assertNotNull(result[0].addrType)
         assertNotNull(result[0].uniqSenders)
         assertNotNull(result[0].uniqReceivers)
+        assertNotNull(result[0].toString())
     }
 
     @Test

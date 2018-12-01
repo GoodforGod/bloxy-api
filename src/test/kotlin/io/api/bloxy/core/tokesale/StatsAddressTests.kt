@@ -34,6 +34,7 @@ class StatsAddressTests : BloxyTester() {
             assertNotNull(result[0].tokenBuyers)
             assertNotNull(result[0].tokenAmount)
             assertNotNull(result[0].tokenSender)
+            assertNotNull(result[0].toString())
         }
     }
 

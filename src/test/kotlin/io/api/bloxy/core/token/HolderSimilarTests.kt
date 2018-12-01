@@ -24,6 +24,7 @@ class HolderSimilarTests : BloxyTester() {
         assertNotNull(result[0].commonHolders)
         assertNotNull(result[0].percentage)
         assertNotNull(result[0].symbol)
+        assertNotNull(result[0].toString())
     }
 
     @Test

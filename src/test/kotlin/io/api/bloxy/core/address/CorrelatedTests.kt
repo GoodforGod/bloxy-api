@@ -23,6 +23,8 @@ class CorrelatedTests : BloxyTester() {
         assertNotNull(list[0].address)
         assertNotNull(list[0].symbol)
         assertNotNull(list[0].likelihood)
+
+        assertNotNull(list[0].toString())
     }
 
     @Test

@@ -31,6 +31,7 @@ class BuyersTests : BloxyTester() {
             assertNotNull(result[0].tokenAmount)
             assertNotNull(result[0].tokenBuyer)
             assertNotNull(result[0].transactions)
+            assertNotNull(result[0].toString())
         }
     }
 

@@ -38,6 +38,8 @@ class StatisticTests : BloxyTester() {
         assertNotNull(list[0].receiveFromCurrencies)
         assertNotNull(list[0].sendTxCount)
         assertNotNull(list[0].sendToCurrencies)
+
+        assertNotNull(list[0].toString())
     }
 
     @Test

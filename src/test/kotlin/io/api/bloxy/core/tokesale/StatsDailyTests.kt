@@ -26,6 +26,7 @@ class StatsDailyTests : BloxyTester() {
             assertNotNull(result[0].token_buyers)
             assertNotNull(result[0].transactions)
             assertNotNull(result[0].txDateAsString)
+            assertNotNull(result[0].toString())
             if (result[0].txDateAsString.isNotEmpty()) {
                 assertTrue(result[0].haveDate())
                 assertNotNull(result[0].txDate)

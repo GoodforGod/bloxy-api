@@ -35,6 +35,7 @@ class TokenDistributionTests : BloxyTester() {
             assertNotNull(result[0].receiverType)
             assertNotNull(result[0].depth)
             assertNotNull(result[0].amount)
+            assertNotNull(result[0].toString())
         }
     }
 

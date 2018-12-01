@@ -36,6 +36,7 @@ class SalesTxsTests : BloxyTester() {
         assertNotNull(result[0].txTimeAsString)
         assertNotNull(result[0].typeAsString)
         assertNotNull(result[0].tokenType)
+        assertNotNull(result[0].toString())
     }
 
     @Test
