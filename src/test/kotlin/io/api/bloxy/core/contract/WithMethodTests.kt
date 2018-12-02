@@ -24,7 +24,7 @@ class WithMethodTests : BloxyTester() {
         assertNotNull(result[0].count)
         assertNotNull(result[0].signature)
         assertNotNull(result[0].annotation)
-        assertNotNull(result[0].smart_contract)
+        assertNotNull(result[0].smartContract)
         assertNotNull(result[0].toString())
     }
 

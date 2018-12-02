@@ -1,5 +1,6 @@
 package io.api.bloxy.model.dto.contract
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 
 
@@ -12,11 +13,11 @@ import io.api.bloxy.model.IModel
 data class ContractDetail(
     val name: String = "",
     val signature: String = "",
-    val smart_contract: String = "",
+    @Json(name = "smart_contract") val smartContract: String = "",
     val annotation: String = "",
     val count: Long = 0L
 ) : IModel {
     override fun isEmpty(): Boolean {
-        return smart_contract.isEmpty() && name.isEmpty() && signature.isEmpty()
+        return smartContract.isEmpty() && name.isEmpty() && signature.isEmpty()
     }
 }

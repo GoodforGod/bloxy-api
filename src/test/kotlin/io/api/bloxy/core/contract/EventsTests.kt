@@ -21,11 +21,15 @@ class EventsTests : BloxyTester(){
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         assertNotNull(result[0].count)
-        assertNotNull(result[0].first_tx_at)
-        assertNotNull(result[0].last_tx_at)
+        assertNotNull(result[0].firstTxAtAsString)
+        assertNotNull(result[0].lastTxAtAsString)
         assertNotNull(result[0].name)
         assertNotNull(result[0].signature)
-        assertNotNull(result[0].signature_hash)
+        assertNotNull(result[0].signatureHash)
+        assertNotNull(result[0].haveFirstTxAt())
+        assertNotNull(result[0].haveLastTxAt())
+        assertNotNull(result[0].lastTxAt)
+        assertNotNull(result[0].firstTxAt)
         assertNotNull(result[0].toString())
     }
 

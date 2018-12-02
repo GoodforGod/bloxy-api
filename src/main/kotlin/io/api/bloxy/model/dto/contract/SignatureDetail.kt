@@ -1,5 +1,6 @@
 package io.api.bloxy.model.dto.contract
 
+import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 
 
@@ -12,11 +13,16 @@ import io.api.bloxy.model.IModel
 data class SignatureDetail(
     val name: String = "",
     val signature: String = "",
-    val signature_hash: String = "",
+    @Json(name = "signature_hash") val signatureHash: String = "",
     val type: String = "",
     val abi: String = ""
 ) : IModel {
+
+    fun isEvent() : Boolean = type == "Event"
+
+    fun isFunc() : Boolean = type == "Function"
+
     override fun isEmpty(): Boolean {
-        return signature.isEmpty() && signature_hash.isEmpty() && name.isEmpty()
+        return signature.isEmpty() && signatureHash.isEmpty() && name.isEmpty()
     }
 }

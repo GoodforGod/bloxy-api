@@ -24,7 +24,8 @@ class SignatureByHashTests : BloxyTester() {
         assertNotNull(result[0].type)
         assertNotNull(result[0].name)
         assertNotNull(result[0].signature)
-        assertNotNull(result[0].signature_hash)
+        assertNotNull(result[0].signatureHash)
+        assertTrue(result[0].isFunc())
         assertNotNull(result[0].toString())
     }
 
