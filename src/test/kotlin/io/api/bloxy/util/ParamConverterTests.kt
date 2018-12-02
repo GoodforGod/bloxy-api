@@ -74,21 +74,6 @@ class ParamConverterTests : ParamConverter() {
     }
 
     @Test
-    fun `ignored less`() {
-        assertEquals(100, toIgnored(-1000))
-    }
-
-    @Test
-    fun `ignored more`() {
-        assertEquals(10000, toIgnored(20000))
-    }
-
-    @Test
-    fun `ignored in range`() {
-        assertEquals(1000, toIgnored(1000))
-    }
-
-    @Test
     fun `as ignored less`() {
         assertTrue { asIgnored(-1000).contains("limit=100") }
     }
@@ -105,7 +90,7 @@ class ParamConverterTests : ParamConverter() {
 
     @Test
     fun `date parse null result`() {
-        assertNull(ParamConverter.parseDate("12411"))
+        assertNull("12411".asDate())
     }
 
     @Test

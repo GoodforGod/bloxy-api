@@ -3,7 +3,7 @@ package io.api.bloxy.model.dto.transaction
 import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 import io.api.bloxy.model.dto.AddressType
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 
 
 /**
@@ -26,7 +26,7 @@ data class TxTransfer(
     @Json(name = "receiver_annotation") val receiverAnnotation: String = ""
 ) : IModel {
 
-    @Json(ignored = true) val txTime = ParamConverter.parseDateTime(txTimeAsString)
+    @Json(ignored = true) val txTime = txTimeAsString.asDateTime()
 
     val receiverType = AddressType.parse(receiverTypeAsString)
     val senderType = AddressType.parse(senderTypeAsString)

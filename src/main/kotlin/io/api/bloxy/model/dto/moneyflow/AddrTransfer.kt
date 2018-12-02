@@ -2,7 +2,7 @@ package io.api.bloxy.model.dto.moneyflow
 
 import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 
 
 /**
@@ -24,7 +24,7 @@ data class AddrTransfer(
 ) : IModel {
 
     @Json(ignored = true)
-    val txTime = ParamConverter.parseDateTime(txTimeAsString)
+    val txTime = txTimeAsString.asDateTime()
 
     fun haveTxTime() : Boolean = txTime != null
 

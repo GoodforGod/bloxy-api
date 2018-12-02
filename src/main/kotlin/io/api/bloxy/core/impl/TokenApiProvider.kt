@@ -19,7 +19,7 @@ import java.time.LocalDateTime
 class TokenApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "token", key) {
 
     companion object {
-        val errors = listOf(
+        private val errors = listOf(
             "No currency found by token".toRegex(),
             "Currency not found by".toRegex()
         )
