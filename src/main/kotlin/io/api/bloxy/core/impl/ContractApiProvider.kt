@@ -21,21 +21,25 @@ import io.api.bloxy.model.dto.contract.SignatureDetail
 class ContractApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "smart_contract", key) {
 
     companion object {
-        private val errors = listOf("^Protocols not found".toRegex())
+        private val errors = listOf(
+            "^Smart contract".toRegex(),
+            "^Event not found".toRegex(),
+            "^Function not found".toRegex()
+        )
     }
 
     private fun checkSigHashRequired(hashes: List<String>): List<String> {
-        if (hashes.isNullOrEmpty()) throw ParamException("Addresses are null or empty")
-        hashes.forEach { hash -> if (!isAddressValid(hash)) throw ParamException("Address is not Ethereum format : $hash") }
+        if (hashes.isNullOrEmpty()) throw ParamException("Hashes are null or empty")
+        hashes.forEach { hash -> if (hash.isBlank()) throw ParamException("Hash is not empty or blank: $hash") }
         return hashes
     }
 
-    private fun sigHashesAsParam(addresses: List<String>, prefix: String = ""): String {
-        return asParam(checkSigHashRequired(addresses), "${prefix}signature_hash[]=", "&signature_hash[]=")
+    private fun sigHashesAsParam(hashes: List<String>, prefix: String = ""): String {
+        return asParam(checkSigHashRequired(hashes), "${prefix}signature_hash[]=", "&signature_hash[]=")
     }
 
-    private fun sigNamesAsParam(addresses: List<String>, prefix: String = ""): String {
-        return asParam(checkNonBlank(addresses), "${prefix}name[]=", "&name[]=")
+    private fun sigNamesAsParam(hashes: List<String>, prefix: String = ""): String {
+        return asParam(checkNonBlank(hashes), "${prefix}name[]=", "&name[]=")
     }
 
     /**
