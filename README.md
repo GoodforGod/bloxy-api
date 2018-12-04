@@ -214,7 +214,7 @@ val result = api.moneyFlow.transfersAll(addresses)
 *Java*
 ```java
 BloxyApi api = new BloxyApi("YourApiKey");
-List<String> txhashs= Collections.singletonList("0x52a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986");
+List<String> txhashs = Arrays.asList("0x52a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986");
 List<TxTransfer> txTransfers = api.getTx().transfers(txhashs);
 ```
 
