@@ -2,7 +2,7 @@ package io.api.bloxy.model.dto.transaction
 
 import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 
 
 /**
@@ -28,7 +28,7 @@ data class TxDetail(
     @Json(name = "tx_from_annotation") val txFromAnnotation: String = ""
 ) : IModel {
 
-    @Json(ignored = true) val txTime = ParamConverter.parseDateTime(txTimeAsString)
+    @Json(ignored = true) val txTime = txTimeAsString.asDateTime()
 
     fun haveTxTime() : Boolean = txTime != null
 

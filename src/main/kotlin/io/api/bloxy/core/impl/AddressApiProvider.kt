@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull
 
 /**
  * API for Analysis of addresses, their activities and statistics
- * Full information - https://bloxy.info/api_methods#address
+ * More information - https://bloxy.info/api_methods#address
  *
  * @see io.api.bloxy.core.IAddressApi
  * @see io.api.bloxy.core.impl.BasicProvider

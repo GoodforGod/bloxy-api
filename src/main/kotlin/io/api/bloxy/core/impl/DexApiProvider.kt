@@ -18,24 +18,18 @@ import org.jetbrains.annotations.NotNull
 class DexApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "dex", key) {
 
     companion object {
-        val errors = listOf(
+        private val errors = listOf(
             "^Protocols not found".toRegex(),
             "^Protocol can not be".toRegex(),
             "^Not found any DEXes".toRegex()
         )
     }
 
-    @NotNull
-    private fun protocolAsParam(
-        values: List<String>
-    ): String {
+    private fun protocolAsParam(values: List<String>): String {
         return asParam(values, "&protocol[]=", "protocol[]=")
     }
 
-    @NotNull
-    private fun contractAsParam(
-        values: List<String>
-    ): String {
+    private fun contractAsParam(values: List<String>): String {
         return asParam(checkAddress(values), "&smart_contract_address[]=", "smart_contract_address[]=")
     }
 
@@ -58,7 +52,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         offset: Int = 0,
         timeSpanDays: Int = 30
     ): List<DexContract> {
-        val params = "smart_contracts?days=${toTimeSpan(timeSpanDays)}${protocolAsParam(protocols)}"
+        val params = "smart_contracts?days=${toDays(timeSpanDays)}${protocolAsParam(protocols)}"
         return getOffset(params, limit, offset)
     }
 
@@ -76,7 +70,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         timeSpanDays: Int = 5
     ): List<DexTrade> {
         val paramsAddrs = "${contractAsParam(dexContracts)}${tokenAsParam(tokenAddresses)}"
-        val params = "trades?days=${toTimeSpan(timeSpanDays, 30)}${protocolAsParam(protocols)}$paramsAddrs"
+        val params = "trades?days=${toDays(timeSpanDays, 30)}${protocolAsParam(protocols)}$paramsAddrs"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
@@ -108,7 +102,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         timeSpanDays: Int = 30
     ): List<DexTradeActive> {
         val paramsAddrs = "${protocolAsParam(protocols)}${contractAsParam(dexContracts)}"
-        val params = "traders?days=${toTimeSpan(timeSpanDays, 720)}$paramsAddrs"
+        val params = "traders?days=${toDays(timeSpanDays, 720)}$paramsAddrs"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 }

@@ -15,41 +15,43 @@ import java.util.stream.Collectors
 open class ParamConverter : ParamValidator() {
 
     companion object {
-        val MIN_DATE: LocalDate = LocalDate.of(2001, 1, 1)
-        val MAX_DATE: LocalDate = LocalDate.of(2098, 1, 1)
+        val MIN_DATE: LocalDate = LocalDate.of(2010, 1, 1)
+        val MAX_DATE: LocalDate = LocalDate.of(2080, 1, 1)
 
-        val MIN_DATETIME: LocalDateTime = LocalDateTime.of(2001, 1, 1, 1, 1, 1, 1)
-        val MAX_DATETIME: LocalDateTime = LocalDateTime.of(2098, 1, 1, 1, 1, 1, 1)
+        val MIN_DATETIME: LocalDateTime = LocalDateTime.of(2010, 1, 1, 1, 1, 1, 1)
+        val MAX_DATETIME: LocalDateTime = LocalDateTime.of(2080, 1, 1, 1, 1, 1, 1)
 
-        fun parseDateTime(value: String) : LocalDateTime? {
+        fun String.asDateTime() : LocalDateTime? {
             return try {
-                LocalDateTime.parse(value, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+                LocalDateTime.parse(this, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
             } catch (e: Exception) {
                 return null
             }
         }
 
-        fun parseDate(value: String) : LocalDate? {
+        fun String.asDate() : LocalDate? {
             return try {
-                LocalDate.parse(value)
+                LocalDate.parse(this)
             } catch (e: Exception) {
                 return null
             }
         }
     }
 
-    private fun toDate(value: LocalDate): LocalDate {
-        if (value.isBefore(MIN_DATE))
-            return MIN_DATE
-
-        return if (value.isAfter(MAX_DATE)) MAX_DATE else value
+    private fun toDate(date: LocalDate): LocalDate {
+        return when {
+            date.isBefore(MIN_DATE) -> MIN_DATE
+            date.isAfter(MAX_DATE) -> MAX_DATE
+            else -> date
+        }
     }
 
-    private fun toDateTime(value: LocalDateTime): LocalDateTime {
-        if (value.isBefore(MIN_DATETIME))
-            return MIN_DATETIME
-
-        return if (value.isAfter(MAX_DATETIME)) MAX_DATETIME else value
+    private fun toDateTime(dateTime: LocalDateTime): LocalDateTime {
+        return when {
+            dateTime.isBefore(MIN_DATETIME) -> MIN_DATETIME
+            dateTime.isAfter(MAX_DATETIME) -> MAX_DATETIME
+            else -> dateTime
+        }
     }
 
     fun toZero(value: Int) = if (value < 0) 0 else value
@@ -66,13 +68,7 @@ open class ParamConverter : ParamValidator() {
 
     fun toOffset(offset: Int, max: Int = 100000): Int = if (offset > max) max else if (offset < 0) 0 else offset
 
-    fun toTimeSpan(timeSpan: Int, maxDays: Int = 1000): Int {
-        return if (timeSpan > maxDays) maxDays else if (timeSpan < 1) 1 else timeSpan
-    }
-
-    fun toIgnored(ignoreAmount: Int, max: Int = 10000): Int {
-        return if (ignoreAmount < 100) 100 else if (ignoreAmount > max) max else ignoreAmount
-    }
+    fun toDays(days: Int, maxDays: Int = 1000): Int = if (days > maxDays) maxDays else if (days < 1) 1 else days
 
     fun asIgnored(ignoreAmount: Int, default: Int = 2000, max: Int = 10000): String {
         return when {

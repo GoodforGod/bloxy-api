@@ -4,7 +4,7 @@ import com.beust.klaxon.Json
 import io.api.bloxy.model.IAddressModel
 import io.api.bloxy.model.IModel
 import io.api.bloxy.model.dto.AddressType
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 
 
 /**
@@ -26,8 +26,8 @@ data class DexTradeActive(
     @Json(name = "address_annotation") val addressAnnotation: String = ""
 ) : IModel, IAddressModel {
 
-    @Json(ignored = true) val fromTime = ParamConverter.parseDateTime(fromTimeAsString)
-    @Json(ignored = true) val tillTime = ParamConverter.parseDateTime(tillTimeAsString)
+    @Json(ignored = true) val fromTime = fromTimeAsString.asDateTime()
+    @Json(ignored = true) val tillTime = tillTimeAsString.asDateTime()
 
     fun haveFromTime() : Boolean = fromTime != null
     fun haveTillTime() : Boolean = tillTime != null

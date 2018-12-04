@@ -22,7 +22,7 @@ import java.time.LocalDateTime
 class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "money_flow", key) {
 
     companion object {
-        val errors = listOf(
+        private val errors = listOf(
             "Tokens? not found by".toRegex()
         )
     }

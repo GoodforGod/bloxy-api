@@ -4,7 +4,7 @@ import com.beust.klaxon.Json
 import io.api.bloxy.model.IAddressModel
 import io.api.bloxy.model.IModel
 import io.api.bloxy.model.dto.AddressType
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 
 
 /**
@@ -28,8 +28,8 @@ data class HolderDetails(
     val annotation: String = ""
 ) : IModel, IAddressModel {
 
-    @Json(ignored = true) val firstTxAt = ParamConverter.parseDateTime(firstTxAtAsString)
-    @Json(ignored = true) val lastTxAt = ParamConverter.parseDateTime(lastTxAtAsString)
+    @Json(ignored = true) val firstTxAt = firstTxAtAsString.asDateTime()
+    @Json(ignored = true) val lastTxAt = lastTxAtAsString.asDateTime()
 
     fun haveFirstTxTime() : Boolean = firstTxAt != null
     fun haveLastTxTime() : Boolean = lastTxAt != null

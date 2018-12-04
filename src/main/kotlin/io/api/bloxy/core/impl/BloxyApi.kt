@@ -25,6 +25,7 @@ class BloxyApi @JvmOverloads constructor(key: String, supplier: Supplier<IHttpCl
     val dex: DexApiProvider = DexApiProvider(supplier.get(), key)
     val token: TokenApiProvider = TokenApiProvider(supplier.get(), key)
     val address: AddressApiProvider = AddressApiProvider(supplier.get(), key)
+    val contract: ContractApiProvider = ContractApiProvider(supplier.get(), key)
     val moneyFlow: MoneyFlowApiProvider = MoneyFlowApiProvider(supplier.get(), key)
     val tokenSale: TokenSaleApiProvider = TokenSaleApiProvider(supplier.get(), key)
 

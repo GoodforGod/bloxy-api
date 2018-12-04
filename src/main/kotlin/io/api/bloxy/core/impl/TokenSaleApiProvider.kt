@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "tokensale", key) {
 
     companion object {
-        val errors = listOf("Tokens? not found by".toRegex())
+        private val errors = listOf("Tokens? not found by".toRegex())
     }
 
     /**
@@ -35,7 +35,7 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         offset: Int = 0,
         timeSpanDays: Int = 30
     ): List<Sale> {
-        val params = "days=${toTimeSpan(timeSpanDays)}${tokenAsParam(contracts, "&")}"
+        val params = "days=${toDays(timeSpanDays)}${tokenAsParam(contracts, "&")}"
         return getOffset("tokens?$params", limit, offset, 1000, skipErrors = errors)
     }
 
@@ -50,7 +50,7 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         offset: Int = 0,
         timeSpanDays: Int = 30
     ): List<SaleTx> {
-        val params = "days=${toTimeSpan(timeSpanDays)}${tokenAsParam(contracts, "&")}"
+        val params = "days=${toDays(timeSpanDays)}${tokenAsParam(contracts, "&")}"
         return getOffset("transactions?$params", limit, offset, 100, skipErrors = errors)
     }
 

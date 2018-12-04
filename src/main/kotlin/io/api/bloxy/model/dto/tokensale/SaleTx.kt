@@ -4,7 +4,7 @@ import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 import io.api.bloxy.model.ITokenModel
 import io.api.bloxy.model.dto.TokenType
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 
 
 /**
@@ -28,7 +28,7 @@ data class SaleTx(
     @Json(name = "ether_receiver") val etherReceiver: String = ""
 ) : IModel, ITokenModel {
 
-    @Json(ignored = true) val txTime = ParamConverter.parseDateTime(txTimeAsString)
+    @Json(ignored = true) val txTime = txTimeAsString.asDateTime()
 
     fun haveTxTime() : Boolean = txTime != null
 

@@ -2,7 +2,7 @@ package io.api.bloxy.model.dto.tokensale
 
 import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.ParamConverter.Companion.asDate
 
 
 /**
@@ -20,7 +20,7 @@ data class SaleDaily(
 ) : IModel {
 
     @Json(ignored = true)
-    val txDate = ParamConverter.parseDate(txDateAsString)
+    val txDate = txDateAsString.asDate()
 
     fun haveDate() : Boolean = txDate != null
 

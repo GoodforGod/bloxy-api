@@ -26,7 +26,7 @@ Library depends on [Klaxon](https://github.com/cbeust/klaxon) so jcenter reposit
     <dependency>
         <groupId>com.github.goodforgod</groupId>
         <artifactId>bloxy-api</artifactId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </dependency>
 </dependencies>
 ```
@@ -39,7 +39,7 @@ repositories {
 }
  
 dependencies {
-    compile 'com.github.goodforgod:bloxy-api:1.0.1'
+    compile 'com.github.goodforgod:bloxy-api:1.0.2'
 }
 ```
 
@@ -50,6 +50,7 @@ dependencies {
 - [API examples](#api-examples)
     - [Token](#token-api)
     - [Address](#address-api)
+    - [Contract](#contract-api)
     - [DEX](#dex-api)
     - [Token Sale](#token-sale-api)
     - [Money Flow](#money-flow-api)
@@ -145,6 +146,21 @@ val api = BloxyApi("YourApiKey")
 val balance = api.address.balance("0x9eAb08daA285183F9A04269747D4125F08e634B0")
 ```
 
+### Contract Api
+**List of smart contract methods and call statistics**
+
+*Java*
+```java
+BloxyApi api = new BloxyApi("YourApiKey");
+Balance balance = api.getContract().methods("0xd26114cd6ee289accf82350c8d8487fedb8a0c07");
+```
+
+*Kotlin*
+```kotlin
+val api = BloxyApi("YourApiKey")
+val balance = api.contract.methods("0xd26114cd6ee289accf82350c8d8487fedb8a0c07")
+```
+
 ### DEX Api
 **Get DEX protocols**
 
@@ -161,7 +177,7 @@ val protocols = api.dex.protocols()
 ```
 
 ### Token Sale Api
-**Get current token sales**
+**Lists recent token sale aggregated statistics**
 
 *Java*
 ```java
@@ -176,7 +192,7 @@ val sales = api.tokenSale.sales()
 ```
 
 ### Money Flow Api
-**Get tx detailds with proxy endpoint**
+**List of all transfers to/from the given address**
 
 *Java*
 ```java
@@ -193,12 +209,12 @@ val result = api.moneyFlow.transfersAll(addresses)
 ```
 
 ### Transaction Api
-**Statistic about last price**
+**List of all transfers in the given transaction**
 
 *Java*
 ```java
 BloxyApi api = new BloxyApi("YourApiKey");
-List<String> txhashs= Collections.singletonList("0x52a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986");
+List<String> txhashs = Arrays.asList("0x52a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986");
 List<TxTransfer> txTransfers = api.getTx().transfers(txhashs);
 ```
 
@@ -210,6 +226,8 @@ val transfers = api.tx.transfers(list)
 ```
 
 ## Version History
+
+**1.0.2** - Contract API support.
 
 **1.0.1** - Gradle/Kotlin dependency publish issue, BasicProvider getOffset fix, HttpClient decoding support, javadoc improvements.
 
