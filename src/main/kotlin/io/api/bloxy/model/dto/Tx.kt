@@ -32,9 +32,7 @@ data class Tx(
 
     fun haveTxTime() : Boolean = txTime != null
 
-    override fun isEmpty(): Boolean {
-        return txHash.isEmpty() && receiver.isEmpty() && sender.isEmpty()
-    }
+    override fun isEmpty(): Boolean = txHash.isEmpty() && receiver.isEmpty() && sender.isEmpty()
 
     override fun toString(): String {
         return "Tx(depth=$depth, sender='$sender', receiver='$receiver', amount=$amount, txHash='$txHash', " +

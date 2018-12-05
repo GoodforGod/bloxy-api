@@ -17,7 +17,8 @@ data class SaleBuyer(
     @Json(name = "token_buyer") val tokenBuyer: String = "",
     @Json(name = "eth_amount") val ethAmount: Double = .0,
     @Json(name = "from_time") val fromTimeAsString: String = "",
-    @Json(name = "till_time") val tillTimeAsString: String = ""
+    @Json(name = "till_time") val tillTimeAsString: String = "",
+    @Json(name = "token_buyer_annotation") val tokenBuyerAnnotation: String = ""
 ) : IModel {
 
     @Json(ignored = true) val fromTime = fromTimeAsString.asDateTime()
@@ -26,13 +27,11 @@ data class SaleBuyer(
     fun haveFromTime() : Boolean = fromTime != null
     fun haveTillTime() : Boolean = tillTime != null
 
-    override fun isEmpty(): Boolean {
-        return tokenBuyer.isEmpty() && transactions == 0 && ethAmount == .0 && tokenAmount == .0
-    }
+    override fun isEmpty(): Boolean  = tokenBuyer.isEmpty() && transactions == 0 && ethAmount == .0 && tokenAmount == .0
 
     override fun toString(): String {
         return "SaleBuyer(transactions=$transactions, tokenAmount=$tokenAmount, tokenBuyer='$tokenBuyer', " +
-                "ethAmount=$ethAmount, fromTimeAsString='$fromTimeAsString', " +
-                "tillTimeAsString='$tillTimeAsString', fromTime=$fromTime, tillTime=$tillTime)"
+                "ethAmount=$ethAmount, fromTimeAsString='$fromTimeAsString', tillTimeAsString='$tillTimeAsString', " +
+                "tokenBuyerAnnotation='$tokenBuyerAnnotation', fromTime=$fromTime, tillTime=$tillTime)"
     }
 }
