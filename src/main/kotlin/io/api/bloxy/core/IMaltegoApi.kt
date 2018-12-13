@@ -21,7 +21,8 @@ import java.time.LocalDateTime
 
 
 /**
- * ! NO DESCRIPTION !
+ * API for Montego integration
+ * More information - https://bloxy.info/api_methods#maltego
  *
  * @author GoodforGod
  * @since 13.12.2018
@@ -33,7 +34,7 @@ interface IMaltegoApi {
      * @param addresses to check
      */
     @NotNull
-    fun details(
+    fun addrDetails(
         addresses: List<String>
     ): List<AddrDetails>
 
@@ -42,7 +43,7 @@ interface IMaltegoApi {
      * @param address to check
      */
     @NotNull
-    fun balance(
+    fun addrBalance(
         address: String
     ): Balance
 
@@ -56,7 +57,7 @@ interface IMaltegoApi {
      * @param till timestamp
      */
     @NotNull
-    fun topSenders(
+    fun addrTopSenders(
         address: String,
         contract: String = "ETH",
         limit: Int = 100,
@@ -75,7 +76,7 @@ interface IMaltegoApi {
      * @param till timestamp
      */
     @NotNull
-    fun topReceivers(
+    fun addrTopReceivers(
         address: String,
         contract: String = "ETH",
         limit: Int = 100,
@@ -94,7 +95,7 @@ interface IMaltegoApi {
      * @param till timestamp (default now)
      */
     @NotNull
-    fun transfersAll(
+    fun addrTransfersAll(
         addresses: List<String>,
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
@@ -118,7 +119,7 @@ interface IMaltegoApi {
      * @param snapshot take into account only transfers till this time
      */
     @NotNull
-    fun moneySource(
+    fun addrMoneySource(
         address: String,
         contract: String = "ETH",
         depth: Int = 5,
@@ -147,7 +148,7 @@ interface IMaltegoApi {
      * @param snapshot take into account only transfers till this time
      */
     @NotNull
-    fun moneyDistribution(
+    fun addrMoneyDistribution(
         address: String,
         contract: String = "ETH",
         depth: Int = 10,
