@@ -13,7 +13,7 @@ import io.api.bloxy.model.dto.dex.Args
  */
 internal class KlaxonConverters {
     companion object {
-        val argsConverter = object : Converter {
+        internal val argsConverter = object : Converter {
             override fun canConvert(cls: Class<*>) = cls == Args::class.java
 
             override fun toJson(value: Any): String = ""

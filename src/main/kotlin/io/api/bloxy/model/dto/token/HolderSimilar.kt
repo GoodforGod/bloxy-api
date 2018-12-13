@@ -17,9 +17,8 @@ data class HolderSimilar(
     val commonHolders: Long = 0,
     val percentage: Double = .0
 ) : IModel {
-    override fun isEmpty(): Boolean {
-        return address.isEmpty() && symbol.isEmpty() && commonHolders == 0L
-    }
+
+    override fun isEmpty(): Boolean = address.isEmpty() && symbol.isEmpty() && commonHolders == 0L
 
     override fun toString(): String {
         return "HolderSimilar(address='$address', symbol='$symbol', " +

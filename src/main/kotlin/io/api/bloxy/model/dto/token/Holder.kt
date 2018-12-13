@@ -22,9 +22,7 @@ data class Holder(
 
     override val addrType: AddressType = AddressType.parse(typeAsString)
 
-    override fun isEmpty(): Boolean {
-        return address.isEmpty() && balance == .0
-    }
+    override fun isEmpty(): Boolean = address.isEmpty() && balance == .0
 
     override fun toString(): String {
         return "Holder(address='$address', typeAsString='$typeAsString', " +

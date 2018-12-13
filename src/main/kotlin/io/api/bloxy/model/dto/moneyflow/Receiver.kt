@@ -23,9 +23,7 @@ data class Receiver(
 
     override val addrType: AddressType = AddressType.parse(typeAsString)
 
-    override fun isEmpty(): Boolean {
-        return receiver.isEmpty() && transactions == 0L && amount == .0
-    }
+    override fun isEmpty(): Boolean = receiver.isEmpty() && transactions == 0L && amount == .0
 
     override fun toString(): String {
         return "Receiver(receiver='$receiver', typeAsString='$typeAsString', amount=$amount, " +

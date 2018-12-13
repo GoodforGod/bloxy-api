@@ -27,7 +27,7 @@ data class SaleBuyer(
     fun haveFromTime() : Boolean = fromTime != null
     fun haveTillTime() : Boolean = tillTime != null
 
-    override fun isEmpty(): Boolean  = tokenBuyer.isEmpty() && transactions == 0 && ethAmount == .0 && tokenAmount == .0
+    override fun isEmpty(): Boolean = tokenBuyer.isEmpty() && transactions == 0 && ethAmount == .0 && tokenAmount == .0
 
     override fun toString(): String {
         return "SaleBuyer(transactions=$transactions, tokenAmount=$tokenAmount, tokenBuyer='$tokenBuyer', " +

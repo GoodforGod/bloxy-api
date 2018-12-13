@@ -32,9 +32,7 @@ data class Token(
 
     override val tokenType: TokenType = TokenType.parse(typeAsString)
 
-    override fun isEmpty(): Boolean {
-        return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && typeAsString.isEmpty()
-    }
+    override fun isEmpty(): Boolean = address.isEmpty() && name.isEmpty() && symbol.isEmpty() && typeAsString.isEmpty()
 
     override fun toString(): String {
         return "Token(address='$address', name='$name', symbol='$symbol', decimals=$decimals," +

@@ -36,9 +36,7 @@ data class HolderDetails(
 
     override val addrType: AddressType = AddressType.parse(typeAsString)
 
-    override fun isEmpty(): Boolean {
-        return address.isEmpty() && typeAsString.isEmpty() && toCount == 0L && fromCount == 0L
-    }
+    override fun isEmpty(): Boolean = address.isEmpty() && typeAsString.isEmpty() && toCount == 0L && fromCount == 0L
 
     override fun toString(): String {
         return "HolderDetails(typeAsString='$typeAsString', uniqSenders=$uniqSenders, " +

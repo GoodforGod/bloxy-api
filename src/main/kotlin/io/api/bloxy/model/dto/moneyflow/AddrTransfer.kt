@@ -15,9 +15,11 @@ data class AddrTransfer(
     val direction: String = "",
     val party: String = "",
     val amount: Double = .0,
+    val address: String = "",
     @Json(name = "tx_hash") val txHash: String = "",
     @Json(name = "tx_time") val txTimeAsString: String = "",
     @Json(name = "party_type") val partyType: String = "",
+    @Json(name = "party_flag") val partyFlag: String = "",
     @Json(name = "token_symbol") val tokenSymbol: String = "",
     @Json(name = "token_address") val tokenAddress: String = "",
     @Json(name = "party_annotation") val partyAnnotation: String = ""
@@ -26,11 +28,12 @@ data class AddrTransfer(
     @Json(ignored = true)
     val txTime = txTimeAsString.asDateTime()
 
+    fun isOutgoing() : Boolean = direction == "from"
+    fun isIncoming() : Boolean = direction == "to"
+
     fun haveTxTime() : Boolean = txTime != null
 
-    override fun isEmpty(): Boolean {
-        return txHash.isEmpty() && txTimeAsString.isEmpty()
-    }
+    override fun isEmpty(): Boolean = txHash.isEmpty() && txTimeAsString.isEmpty()
 
     override fun toString(): String {
         return "AddrTransfer(direction='$direction', party='$party', amount=$amount, txHash='$txHash', " +
