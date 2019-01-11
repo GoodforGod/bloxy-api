@@ -1,19 +1,17 @@
-package io.api.bloxy.core
+package io.api.bloxy.core.impl
 
+import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.makerdao.Poke
-import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
-import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
 import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 
 /**
- * API for Analysis of addresses, their activities and statistics
- * More information - https://bloxy.info/api_methods#daomaker
+ * "default comment"
  *
  * @author GoodforGod
  * @since 10.01.2019
  */
-interface MakerDaoApi {
+class MakerDaoApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "daomaker", key){
 
     /**
      * Lists smart contracts with users and volume statistics
@@ -29,5 +27,7 @@ interface MakerDaoApi {
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<Poke>
+    ) : List<Poke> {
+
+    }
 }

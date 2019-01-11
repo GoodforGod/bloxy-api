@@ -4,12 +4,12 @@ import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 
 /**
- * "default comment"
+ * DApp Statistic
  *
  * @author GoodforGod
  * @since 10.01.2019
  */
-data class AppStatistic(
+data class DAppStats(
     @Json(name = "smart_contract_address") val contractAddress: String = "",
     @Json(name = "contract_type") val contractType: String = "",
     val annotation: String = "",

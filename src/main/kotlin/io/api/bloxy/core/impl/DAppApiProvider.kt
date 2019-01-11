@@ -1,21 +1,16 @@
-package io.api.bloxy.core
+package io.api.bloxy.core.impl
 
-import io.api.bloxy.model.dto.dapp.DAppStats
-import io.api.bloxy.model.dto.dapp.DAppUser
-import io.api.bloxy.model.dto.dapp.MultiSource
-import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
-import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
+import io.api.bloxy.executor.IHttpClient
 import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 
 /**
- * API for Analysis of addresses, their activities and statistics
- * More information - https://bloxy.info/api_methods#dapp
+ * "default comment"
  *
  * @author GoodforGod
  * @since 10.01.2019
  */
-interface IDAppApi {
+class DAppApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "dapp", key) {
 
     /**
      * Lists smart contracts with users and volume statistics
@@ -26,11 +21,11 @@ interface IDAppApi {
      */
     @NotNull
     fun statistics(
-            limit: Int = 100,
-            offset: Int = 0,
-            since: LocalDate = MIN_DATE,
-            till: LocalDate = MAX_DATE
-    ) : List<DAppStats>
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    )
 
     /**
      * Lists smart contract addresses, which called or transfered money to smart contract
@@ -41,11 +36,11 @@ interface IDAppApi {
      */
     @NotNull
     fun users(
-            contract: String,
-            multiSource: String = "",
-            limit: Int = 10000,
-            offset: Int = 0
-    ) : List<DAppUser>
+        contract: String,
+        multiSource: String = "",
+        limit: Int = 10000,
+        offset: Int = 0
+    )
 
     /**
      * Lists addresses, which created more than one address, which send money or called smart contract
@@ -55,8 +50,8 @@ interface IDAppApi {
      */
     @NotNull
     fun sources(
-            contract: String,
-            limit: Int = 10000,
-            offset: Int = 0
-    ) : List<MultiSource>
+        contract: String,
+        limit: Int = 10000,
+        offset: Int = 0
+    )
 }
