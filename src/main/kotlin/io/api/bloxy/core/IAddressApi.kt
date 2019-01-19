@@ -61,7 +61,7 @@ internal interface IAddressApi {
     fun annotationStatistic(
             limit: Int = 1000,
             offset: Int = 0
-    ) : Map<String, Long>
+    ) : Map<String, Int>
 
     /**
      * Lists the words used in address annotations per address

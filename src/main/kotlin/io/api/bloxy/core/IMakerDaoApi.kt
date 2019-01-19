@@ -13,7 +13,7 @@ import java.time.LocalDate
  * @author GoodforGod
  * @since 10.01.2019
  */
-interface MakerDaoApi {
+interface IMakerDaoApi {
 
     /**
      * Lists smart contracts with users and volume statistics

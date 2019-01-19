@@ -1,11 +1,18 @@
 package io.api.bloxy.core.impl
 
 import io.api.bloxy.executor.IHttpClient
+import io.api.bloxy.model.dto.dapp.DAppStats
+import io.api.bloxy.model.dto.dapp.DAppUser
+import io.api.bloxy.model.dto.dapp.MultiSource
 import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 
 /**
- * "default comment"
+ * Smart Contracts with high volume and users ( DApps)
+ * More information - https://bloxy.info/api_methods#dapp
+ *
+ * @see io.api.bloxy.core.IDAppApi
+ * @see io.api.bloxy.core.impl.BasicProvider
  *
  * @author GoodforGod
  * @since 10.01.2019
@@ -13,11 +20,7 @@ import java.time.LocalDate
 class DAppApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "dapp", key) {
 
     /**
-     * Lists smart contracts with users and volume statistics
-     * @param since timestamp (default 30 days ago)
-     * @param till timestamp (default now)
-     * @param limit max result (MAX 100100)
-     * @param offset of the list from origin (0) (MAX 100000)
+     * @see io.api.bloxy.core.IDAppApi.statistics
      */
     @NotNull
     fun statistics(
@@ -25,14 +28,13 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    )
+    ) : List<DAppStats> {
+        val params = "annotated_addresses?${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
+        return getOffset(params, limit, offset)
+    }
 
     /**
-     * Lists smart contract addresses, which called or transfered money to smart contract
-     * @param contract to look for
-     * @param multiSource Common source address used for filtering
-     * @param limit max result (MAX 110000)
-     * @param offset of the list from origin (0) (MAX 100000)
+     * @see io.api.bloxy.core.IDAppApi.users
      */
     @NotNull
     fun users(
@@ -40,18 +42,22 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
         multiSource: String = "",
         limit: Int = 10000,
         offset: Int = 0
-    )
+    ) : List<DAppUser> {
+        val sourceParam = if (contract.isEmpty()) "" else "&multi_source=${checkAddressRequired(multiSource)}"
+        val params = "users?smart_contract_address=${checkAddressRequired(contract)}$sourceParam"
+        return getOffset(params, limit, offset)
+    }
 
     /**
-     * Lists addresses, which created more than one address, which send money or called smart contract
-     * @param contract to look for
-     * @param limit max result (MAX 110000)
-     * @param offset of the list from origin (0) (MAX 100000)
+     * @see io.api.bloxy.core.IDAppApi.sources
      */
     @NotNull
     fun sources(
         contract: String,
         limit: Int = 10000,
         offset: Int = 0
-    )
+    ) : List<MultiSource> {
+        val params = "multi?smart_contract_address=${checkAddressRequired(contract)}"
+        return getOffset(params, limit, offset)
+    }
 }

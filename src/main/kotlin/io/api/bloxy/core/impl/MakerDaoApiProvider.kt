@@ -6,7 +6,11 @@ import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 
 /**
- * "default comment"
+ * API for Analysis of addresses, their activities and statistics
+ * More information - https://bloxy.info/api_methods#daomaker
+ *
+ * @see io.api.bloxy.core.IMakerDaoApi
+ * @see io.api.bloxy.core.impl.BasicProvider
  *
  * @author GoodforGod
  * @since 10.01.2019
@@ -14,11 +18,7 @@ import java.time.LocalDate
 class MakerDaoApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "daomaker", key){
 
     /**
-     * Lists smart contracts with users and volume statistics
-     * @param since timestamp (default 5 days ago)
-     * @param till timestamp (default now)
-     * @param limit max result (MAX 100100)
-     * @param offset of the list from origin (0) (MAX 100000)
+     * @see io.api.bloxy.core.IDAppApi.statistics
      */
     @NotNull
     fun poke(
@@ -28,6 +28,8 @@ class MakerDaoApiProvider internal constructor(client: IHttpClient, key: String)
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ) : List<Poke> {
-
+        val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
+        val params = "poke?smart_contract=${checkAddressRequired(contract)}$datesParam"
+        return getOffset(params, limit, offset)
     }
 }
