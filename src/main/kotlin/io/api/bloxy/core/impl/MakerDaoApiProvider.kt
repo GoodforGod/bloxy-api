@@ -30,6 +30,6 @@ class MakerDaoApiProvider internal constructor(client: IHttpClient, key: String)
     ) : List<Poke> {
         val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
         val params = "poke?smart_contract=${checkAddressRequired(contract)}$datesParam"
-        return getOffset(params, limit, offset)
+        return getOffset(params, limit, offset, 100)
     }
 }

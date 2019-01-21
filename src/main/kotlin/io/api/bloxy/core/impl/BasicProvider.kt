@@ -128,7 +128,6 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
                 resultLeft -= cycleLimit
                 cycleOffset = toOffset(cycleLimit + cycleOffset, maxOffset)
                 cycleLimit = toLimit(resultLeft, maxLimit)
-
             } while (resultLeft > 0 && temp.isNotEmpty() && temp.size == cycleLimit)
 
             return result

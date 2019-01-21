@@ -29,7 +29,7 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ) : List<DAppStats> {
-        val params = "annotated_addresses?${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
+        val params = "stat?${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
         return getOffset(params, limit, offset)
     }
 
@@ -43,7 +43,7 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
         limit: Int = 10000,
         offset: Int = 0
     ) : List<DAppUser> {
-        val sourceParam = if (contract.isEmpty()) "" else "&multi_source=${checkAddressRequired(multiSource)}"
+        val sourceParam = if (multiSource.isEmpty()) "" else "&multi_source=${checkAddressRequired(multiSource)}"
         val params = "users?smart_contract_address=${checkAddressRequired(contract)}$sourceParam"
         return getOffset(params, limit, offset)
     }
