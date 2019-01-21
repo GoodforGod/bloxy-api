@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 
 /**
- * API for Analysis of addresses, their activities and statistics
+ * API for Analysis of MakerDAO smart contracts
  * More information - https://bloxy.info/api_methods#daomaker
  *
  * @see io.api.bloxy.core.IMakerDaoApi
@@ -21,6 +21,7 @@ class MakerDaoApiProvider internal constructor(client: IHttpClient, key: String)
      * @see io.api.bloxy.core.IDAppApi.statistics
      */
     @NotNull
+    @JvmOverloads
     fun poke(
         contract: String,
         limit: Int = 30,

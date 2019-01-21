@@ -62,6 +62,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
      * @see io.api.bloxy.core.IAddressApi.annotationStatistic
      */
     @NotNull
+    @JvmOverloads
     fun annotationStatistic(
         limit: Int = 1000,
         offset: Int = 0
@@ -74,12 +75,13 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
      * @see io.api.bloxy.core.IAddressApi.annotations
      */
     @NotNull
+    @JvmOverloads
     fun annotations(
         words: List<String>,
         limit: Int = 1000,
         offset: Int = 0
     ): Map<String, List<String>> {
-        val params = "annotated_addresses?${asParam(checkAddressRequired(words), "word[]=", "&word[]=")}"
+        val params = "annotated_addresses?${asParam(checkNonBlank(words), "word[]=", "&word[]=")}"
         val wordsList: List<WordCounter> = getOffset(params, limit, offset)
         return wordsList.groupBy({ it.word }, { it.address })
     }

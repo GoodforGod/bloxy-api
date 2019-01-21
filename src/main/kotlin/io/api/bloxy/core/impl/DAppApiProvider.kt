@@ -23,6 +23,7 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
      * @see io.api.bloxy.core.IDAppApi.statistics
      */
     @NotNull
+    @JvmOverloads
     fun statistics(
         limit: Int = 100,
         offset: Int = 0,
@@ -37,6 +38,7 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
      * @see io.api.bloxy.core.IDAppApi.users
      */
     @NotNull
+    @JvmOverloads
     fun users(
         contract: String,
         multiSource: String = "",
@@ -52,6 +54,7 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
      * @see io.api.bloxy.core.IDAppApi.sources
      */
     @NotNull
+    @JvmOverloads
     fun sources(
         contract: String,
         limit: Int = 10000,

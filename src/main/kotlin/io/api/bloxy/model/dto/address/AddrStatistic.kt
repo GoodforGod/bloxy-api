@@ -16,23 +16,25 @@ import io.api.bloxy.model.dto.DangerLevel
  */
 data class AddrStatistic(
     val address: String = "",
-    val note: String = "",
-    @Json(name = "type") val addrTypeAsString: String = "",
-    @Json(name = "level") val levelAsString: String = "",
-    @Json(name = "balance_eth") val balanceEth: Double = .0,
-    @Json(name = "send_tx_count") val sendTxCount: Long = 0,
-    @Json(name = "send_to_count") val sendToCount: Long = 0,
-    @Json(name = "send_to_currencies") val sendToCurrencies: Long = 0,
-    @Json(name = "send_eth_amount") val sendEthAmount: Double = .0,
-    @Json(name = "receive_tx_count") val receiveTxCount: Long = 0,
-    @Json(name = "receive_from_count") val receiveFromCount: Long = 0,
-    @Json(name = "receive_from_currencies") val receiveFromCurrencies: Long = 0,
-    @Json(name = "receive_eth_amount") val receiveEthAmount: Double = .0,
-    @Json(name = "first_tx_at") val firstTxAt: String = "",
-    @Json(name = "last_tx_at") val lastTxAt: String = "",
+    @Json("note") private val noteParsed: String? = null,
+    @Json("type") val addrTypeAsString: String = "",
+    @Json("level") val levelAsString: String = "",
+    @Json("balance_eth") val balanceEth: Double = .0,
+    @Json("send_tx_count") val sendTxCount: Long = 0,
+    @Json("send_to_count") val sendToCount: Long = 0,
+    @Json("send_to_currencies") val sendToCurrencies: Long = 0,
+    @Json("send_eth_amount") val sendEthAmount: Double = .0,
+    @Json("receive_tx_count") val receiveTxCount: Long = 0,
+    @Json("receive_from_count") val receiveFromCount: Long = 0,
+    @Json("receive_from_currencies") val receiveFromCurrencies: Long = 0,
+    @Json("receive_eth_amount") val receiveEthAmount: Double = .0,
+    @Json("first_tx_at") val firstTxAt: String = "",
+    @Json("last_tx_at") val lastTxAt: String = "",
     val annotation: String = ""
 ) : IValidModel, IDangerModel, IAddressModel {
 
+    @Json(ignored = true)
+    val note: String = noteParsed ?: ""
     @Json(ignored = true)
     override val level: DangerLevel = DangerLevel.parse(levelAsString)
 

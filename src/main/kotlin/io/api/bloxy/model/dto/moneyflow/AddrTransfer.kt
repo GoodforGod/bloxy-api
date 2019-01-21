@@ -17,9 +17,9 @@ data class AddrTransfer(
     val amount: Double = .0,
     val address: String = "",
     @Json(name = "tx_hash") val txHash: String = "",
-    @Json(name = "tx_time") val txTimeAsString: String = "",
+    @Json(name = "tx_time") private val txTimeAsString: String = "",
     @Json(name = "party_type") val partyType: String = "",
-    @Json(name = "party_flag") val partyFlag: String = "",
+    @Json(name = "party_flag") val partyFlag: Int = 0,
     @Json(name = "token_symbol") val tokenSymbol: String = "",
     @Json(name = "token_address") val tokenAddress: String = "",
     @Json(name = "party_annotation") val partyAnnotation: String = ""

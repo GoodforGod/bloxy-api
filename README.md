@@ -26,7 +26,7 @@ Library depends on [Klaxon](https://github.com/cbeust/klaxon) so jcenter reposit
     <dependency>
         <groupId>com.github.goodforgod</groupId>
         <artifactId>bloxy-api</artifactId>
-        <version>1.0.2</version>
+        <version>1.0.3</version>
     </dependency>
 </dependencies>
 ```
@@ -39,7 +39,7 @@ repositories {
 }
  
 dependencies {
-    compile 'com.github.goodforgod:bloxy-api:1.0.2'
+    compile 'com.github.goodforgod:bloxy-api:1.0.3'
 }
 ```
 
@@ -50,10 +50,12 @@ dependencies {
 - [API examples](#api-examples)
     - [Token](#token-api)
     - [Address](#address-api)
-    - [Contract](#contract-api)
+    - [Smart Contract](#smart-contract-api)
     - [DEX](#dex-api)
+    - [DApp](#dapp-api)
     - [Token Sale](#token-sale-api)
     - [Money Flow](#money-flow-api)
+    - [MakerDAO](#makerdao-api)
     - [Transaction](#transaction-api)
 - [Version History](#version-history)
 
@@ -146,7 +148,7 @@ val api = BloxyApi("YourApiKey")
 val balance = api.address.balance("0x9eAb08daA285183F9A04269747D4125F08e634B0")
 ```
 
-### Contract Api
+### Smart Contract Api
 **List of smart contract methods and call statistics**
 
 *Java*
@@ -174,6 +176,21 @@ List<DexProtocol> protocols = api.getDex().protocols();
 ```kotlin
 val api = BloxyApi("YourApiKey")
 val protocols = api.dex.protocols()
+```
+
+### DApp Api
+**Lists smart contracts with users and volume statistics**
+
+*Java*
+```java
+BloxyApi api = new BloxyApi("YourApiKey");
+List<DAppStats> appStats = api.getDapp().statistics();
+```
+
+*Kotlin*
+```kotlin
+val api = BloxyApi("YourApiKey")
+val appStats = api.dapp.statistics()
 ```
 
 ### Token Sale Api
@@ -208,6 +225,23 @@ val addresses = listOf("0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949")
 val result = api.moneyFlow.transfersAll(addresses)
 ```
 
+### MakerDAO Api
+**Query poke transaction and values**
+
+Poke **DOES NOT** provide *value* field for JSON object, due to Klaxon errors, this will be fixed in upcoming releases.
+
+*Java*
+```java
+BloxyApi api = new BloxyApi("YourApiKey");
+List<Poke> pokes = api.getMakerDao().poke("0x729d19f657bd0614b4985cf1d82531c67569197b");
+```
+
+*Kotlin*
+```kotlin
+val api = BloxyApi("YourApiKey")
+val pokes = api.makerDao.poke("0x729d19f657bd0614b4985cf1d82531c67569197b")
+```
+
 ### Transaction Api
 **List of all transfers in the given transaction**
 
@@ -226,6 +260,8 @@ val transfers = api.tx.transfers(list)
 ```
 
 ## Version History
+
+**1.0.3** - DApp, MakerDAO API support & Address API extension support.
 
 **1.0.2** - Contract API support.
 

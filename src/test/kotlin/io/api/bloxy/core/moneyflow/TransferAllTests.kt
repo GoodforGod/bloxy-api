@@ -30,7 +30,8 @@ class TransferAllTests : BloxyTester() {
         assertNotNull(result[0].partyType)
         assertNotNull(result[0].tokenSymbol)
         assertNotNull(result[0].txHash)
-        assertNotNull(result[0].txTimeAsString)
+        assertNotNull(result[0].txTime)
+        assertTrue(result[0].isIncoming() || result[0].isOutgoing())
         assertNotNull(result[0].toString())
     }
 
