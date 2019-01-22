@@ -15,8 +15,7 @@ import org.jetbrains.annotations.NotNull
  * @author GoodforGod
  * @since 16.11.2018
  */
-class AddressApiProvider internal constructor(client: IHttpClient, key: String) :
-    BasicProvider(client, "address", key) {
+class AddressApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "address", key) {
 
     /**
      * @see io.api.bloxy.core.IAddressApi.details
