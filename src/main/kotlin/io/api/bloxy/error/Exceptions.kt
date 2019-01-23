@@ -2,7 +2,7 @@ package io.api.bloxy.error
 
 
 /**
- * ! NO DESCRIPTION !
+ * Bloxy API Exceptions types
  *
  * @author GoodforGod
  * @since 22.01.2019

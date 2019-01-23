@@ -56,6 +56,7 @@ internal interface IAddressApi {
      * Lists the words used in address annotations with counters
      * @param limit max result (MAX 110000)
      * @param offset of the list from origin (0) (MAX 100000)
+     * @return map with word as KEY, number of annotated addresses as VALUE
      */
     @NotNull
     fun annotationStatistic(
@@ -67,6 +68,7 @@ internal interface IAddressApi {
      * Lists the words used in address annotations per address
      * @param limit max result (MAX 110000)
      * @param offset of the list from origin (0) (MAX 100000)
+     * @return map with word as KEY, list of addresses as VALUE
      */
     @NotNull
     fun annotations(
