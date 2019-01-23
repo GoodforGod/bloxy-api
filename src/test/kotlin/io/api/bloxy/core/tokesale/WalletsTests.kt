@@ -22,6 +22,7 @@ class WalletsTests : BloxyTester() {
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
             assertNotNull(result[0].ethAmount)
+            assertNotNull(result[0].annotation)
             assertNotNull(result[0].symbol)
             assertNotNull(result[0].tokenAddress)
             assertNotNull(result[0].tokenAmount)

@@ -24,9 +24,7 @@ data class Volume(
 
     override val addrType: AddressType = AddressType.parse(typeAsString)
 
-    override fun isEmpty(): Boolean {
-        return address.isEmpty() && typeAsString.isEmpty() && receivedAmount == .0 && sentAmount == .0
-    }
+    override fun isEmpty(): Boolean = address.isEmpty() && typeAsString.isEmpty() && receivedAmount == .0 && sentAmount == .0
 
     override fun toString(): String {
         return "Volume(typeAsString='$typeAsString', receivedAmount=$receivedAmount, " +

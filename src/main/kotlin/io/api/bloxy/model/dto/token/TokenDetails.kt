@@ -23,9 +23,7 @@ data class TokenDetails(
 
     override val tokenType: TokenType = TokenType.parse(typeAsString)
 
-    override fun isEmpty(): Boolean {
-        return address.isEmpty() && name.isEmpty() && symbol.isEmpty() && decimals == 0
-    }
+    override fun isEmpty(): Boolean = address.isEmpty() && name.isEmpty() && symbol.isEmpty() && decimals == 0
 
     override fun toString(): String {
         return "TokenDetails(address='$address', name='$name', symbol='$symbol', " +

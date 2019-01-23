@@ -24,9 +24,7 @@ data class SaleDaily(
 
     fun haveDate() : Boolean = txDate != null
 
-    override fun isEmpty(): Boolean {
-        return txDateAsString.isEmpty() && transactions == 0 && eth_amount == .0 && token_amount == .0
-    }
+    override fun isEmpty(): Boolean = txDateAsString.isEmpty() && transactions == 0 && token_amount == .0
 
     override fun toString(): String {
         return "SaleDaily(transactions=$transactions, txDateAsString='$txDateAsString', eth_amount=$eth_amount, " +

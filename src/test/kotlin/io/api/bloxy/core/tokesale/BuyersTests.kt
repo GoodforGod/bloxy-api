@@ -24,6 +24,7 @@ class BuyersTests : BloxyTester() {
             assertTrue(result[0].haveFromTime())
             assertTrue(result[0].haveTillTime())
             assertNotNull(result[0].ethAmount)
+            assertNotNull(result[0].tokenBuyerAnnotation)
             assertNotNull(result[0].fromTime)
             assertNotNull(result[0].fromTimeAsString)
             assertNotNull(result[0].tillTime)

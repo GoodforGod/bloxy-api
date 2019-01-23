@@ -16,10 +16,12 @@ data class AddrDetails(
     val address: String = "",
     @Json(name = "level")
     val levelAsString: String = "",
-    val note: String = "",
-    val annotation: String = ""
+    val annotation: String = "",
+    @Json("note") private val noteParsed: String? = null
 ) : IValidModel, IDangerModel {
 
+    @Json(ignored = true)
+    val note: String = noteParsed ?: ""
     @Json(ignored = true)
     override val level: DangerLevel = DangerLevel.parse(levelAsString)
 

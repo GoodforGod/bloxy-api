@@ -51,4 +51,29 @@ internal interface IAddressApi {
     fun balance(
         address: String
     ): Balance
+
+    /**
+     * Lists the words used in address annotations with counters
+     * @param limit max result (MAX 110000)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @return map with word as KEY, number of annotated addresses as VALUE
+     */
+    @NotNull
+    fun annotationStatistic(
+            limit: Int = 1000,
+            offset: Int = 0
+    ) : Map<String, Int>
+
+    /**
+     * Lists the words used in address annotations per address
+     * @param limit max result (MAX 110000)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @return map with word as KEY, list of addresses as VALUE
+     */
+    @NotNull
+    fun annotations(
+            words: List<String>,
+            limit: Int = 1000,
+            offset: Int = 0
+    ) : Map<String, List<String>>
 }

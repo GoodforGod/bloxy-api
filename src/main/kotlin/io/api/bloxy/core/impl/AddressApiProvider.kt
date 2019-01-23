@@ -1,10 +1,7 @@
 package io.api.bloxy.core.impl
 
 import io.api.bloxy.executor.IHttpClient
-import io.api.bloxy.model.dto.address.AddrCorrelation
-import io.api.bloxy.model.dto.address.AddrDetails
-import io.api.bloxy.model.dto.address.AddrStatistic
-import io.api.bloxy.model.dto.address.Balance
+import io.api.bloxy.model.dto.address.*
 import org.jetbrains.annotations.NotNull
 
 
@@ -58,5 +55,33 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
         address: String
     ): Balance {
         return Balance(get("balance?address=${checkAddressRequired(address)}"))
+    }
+
+    /**
+     * @see io.api.bloxy.core.IAddressApi.annotationStatistic
+     */
+    @NotNull
+    @JvmOverloads
+    fun annotationStatistic(
+        limit: Int = 1000,
+        offset: Int = 0
+    ): Map<String, Int> {
+        val wordsList: List<WordCounter> = getOffset("annotation_words?", limit, offset)
+        return wordsList.map { it.word to it.count }.toMap()
+    }
+
+    /**
+     * @see io.api.bloxy.core.IAddressApi.annotations
+     */
+    @NotNull
+    @JvmOverloads
+    fun annotations(
+        words: List<String>,
+        limit: Int = 1000,
+        offset: Int = 0
+    ): Map<String, List<String>> {
+        val params = "annotated_addresses?${asParam(checkNonBlank(words), "word[]=", "&word[]=")}"
+        val wordsList: List<WordCounter> = getOffset(params, limit, offset)
+        return wordsList.groupBy({ it.word }, { it.address })
     }
 }

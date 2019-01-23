@@ -13,13 +13,15 @@ import io.api.bloxy.util.ParamConverter.Companion.asDateTime
  */
 data class SaleAddrStat(
     val transactions: Int = 0,
-    @Json(name = "ether_receiver") val etherReceiver: String = "",
+    @Json(name = "from_time") val fromTimeAsString: String = "",
+    @Json(name = "till_time") val tillTimeAsString: String = "",
+    @Json(name = "eth_amount") val ethAmount: Double = .0,
     @Json(name = "token_sender") val tokenSender: String = "",
     @Json(name = "token_amount") val tokenAmount: Double = .0,
     @Json(name = "token_buyers") val tokenBuyers: Int = 0,
-    @Json(name = "eth_amount") val ethAmount: Double = .0,
-    @Json(name = "from_time") val fromTimeAsString: String = "",
-    @Json(name = "till_time") val tillTimeAsString: String = ""
+    @Json(name = "ether_receiver") val etherReceiver: String = "",
+    @Json(name = "token_sender_annotation") val tokenSenderAnnotation: String = "",
+    @Json(name = "ether_receiver_annotation") val etherReceiverAnnotation: String = ""
 ) : IModel {
 
     @Json(ignored = true) val fromTime = fromTimeAsString.asDateTime()
@@ -28,14 +30,13 @@ data class SaleAddrStat(
     fun haveFromTime() : Boolean = fromTime != null
     fun haveTillTime() : Boolean = tillTime != null
 
-    override fun isEmpty(): Boolean {
-        return etherReceiver.isEmpty() && tokenSender.isEmpty() && transactions == 0 && ethAmount == .0
-    }
+    override fun isEmpty(): Boolean = etherReceiver.isEmpty() && tokenSender.isEmpty() && transactions == 0
 
     override fun toString(): String {
-        return "SaleAddrStat(transactions=$transactions, etherReceiver='$etherReceiver', " +
-                "tokenSender='$tokenSender', tokenAmount=$tokenAmount, tokenBuyers=$tokenBuyers, " +
-                "ethAmount=$ethAmount, fromTimeAsString='$fromTimeAsString', " +
-                "tillTimeAsString='$tillTimeAsString', fromTime=$fromTime, tillTime=$tillTime)"
+        return "SaleAddrStat(transactions=$transactions, fromTimeAsString='$fromTimeAsString', " +
+                "tillTimeAsString='$tillTimeAsString', ethAmount=$ethAmount, tokenSender='$tokenSender', " +
+                "tokenAmount=$tokenAmount, tokenBuyers=$tokenBuyers, etherReceiver='$etherReceiver', " +
+                "tokenSenderAnnotation='$tokenSenderAnnotation', etherReceiverAnnotation='$etherReceiverAnnotation', " +
+                "fromTime=$fromTime, tillTime=$tillTime)"
     }
 }

@@ -16,9 +16,7 @@ data class TokenCorrelation(
     @Json(name = "transfer_to_uniques")
     val transferToUniques: Long = 0
 ) : IModel {
-    override fun isEmpty(): Boolean {
-        return addresses.isEmpty() && transferToUniques == 0L
-    }
+    override fun isEmpty(): Boolean = addresses.isEmpty() && transferToUniques == 0L
 
     override fun toString(): String {
         return "TokenCorrelation(symbols='$symbols', addresses='$addresses', transferToUniques=$transferToUniques)"

@@ -4,6 +4,7 @@ import com.beust.klaxon.Klaxon
 import io.api.bloxy.error.BloxyException
 import io.api.bloxy.error.HttpException
 import io.api.bloxy.error.ParseException
+import io.api.bloxy.error.SubscriptionException
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.BloxyError
 import io.api.bloxy.util.KlaxonArgs
@@ -70,10 +71,11 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         } catch (e: Exception) {
             try {
                 val bloxyError = converter.parse<BloxyError>(json) ?: throw ParseException(e.message, e.cause)
-                if (skipErrors.stream().anyMatch { er -> er.containsMatchIn(bloxyError.error) })
-                    emptyList()
-                else
-                    throw BloxyException(bloxyError.error)
+                when {
+                    skipErrors.stream().anyMatch { er -> er.containsMatchIn(bloxyError.error) } -> emptyList()
+                    bloxyError.error.startsWith("Your subscription is") -> throw SubscriptionException(bloxyError.error)
+                    else -> throw BloxyException(bloxyError.error)
+                }
             } catch (e: Exception) {
                 when (e) {
                     is BloxyException -> throw e
@@ -128,7 +130,6 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
                 resultLeft -= cycleLimit
                 cycleOffset = toOffset(cycleLimit + cycleOffset, maxOffset)
                 cycleLimit = toLimit(resultLeft, maxLimit)
-
             } while (resultLeft > 0 && temp.isNotEmpty() && temp.size == cycleLimit)
 
             return result

@@ -21,9 +21,7 @@ data class Address(
 
     override val addrType: AddressType = AddressType.parse(typeAsString)
 
-    override fun isEmpty(): Boolean {
-        return address.isEmpty()
-    }
+    override fun isEmpty(): Boolean = address.isEmpty()
 
     override fun toString(): String {
         return "Address(address='$address', typeAsString='$typeAsString', amount=$amount, " +

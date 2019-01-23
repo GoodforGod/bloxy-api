@@ -29,7 +29,7 @@ class TransfersSendTests : BloxyTester() {
         assertNotNull(result[0].partyType)
         assertNotNull(result[0].tokenSymbol)
         assertNotNull(result[0].txHash)
-        assertNotNull(result[0].txTimeAsString)
+        assertNotNull(result[0].txTime)
         assertNotNull(result[0].toString())
     }
 

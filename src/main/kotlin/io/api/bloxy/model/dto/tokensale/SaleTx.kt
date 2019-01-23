@@ -25,7 +25,10 @@ data class SaleTx(
     @Json(name = "token_sender") val tokenSender: String = "",
     @Json(name = "token_amount") val tokenAmount: Double = .0,
     @Json(name = "token_address") val tokenAddress: String = "",
-    @Json(name = "ether_receiver") val etherReceiver: String = ""
+    @Json(name = "ether_receiver") val etherReceiver: String = "",
+    @Json(name = "token_buyer_annotation") val tokenBuyerAnnotation: String = "",
+    @Json(name = "token_sender_annotation") val tokenSenderAnnotation: String = "",
+    @Json(name = "ether_receiver_annotation") val etherReceiverAnnotation: String = ""
 ) : IModel, ITokenModel {
 
     @Json(ignored = true) val txTime = txTimeAsString.asDateTime()
@@ -34,15 +37,14 @@ data class SaleTx(
 
     override val tokenType: TokenType = TokenType.parse(typeAsString)
 
-    override fun isEmpty(): Boolean {
-        return tokenBuyer.isEmpty() && tokenAddress.isEmpty() && symbol.isEmpty() && txHash.isEmpty()
-                && ethAmount == .0 && tokenAmount == .0
-    }
+    override fun isEmpty(): Boolean = tokenBuyer.isEmpty() && tokenAddress.isEmpty() && txHash.isEmpty()
 
     override fun toString(): String {
-        return "SaleTx(symbol='$symbol', txTimeAsString='$txTimeAsString', txHash='$txHash', " +
-                "gasPrice=$gasPrice, gasValue=$gasValue, typeAsString='$typeAsString', ethAmount=$ethAmount, " +
-                "tokenBuyer='$tokenBuyer', tokenSender='$tokenSender', tokenAmount=$tokenAmount, " +
-                "tokenAddress='$tokenAddress', etherReceiver='$etherReceiver', txTime=$txTime, tokenType=$tokenType)"
+        return "SaleTx(symbol='$symbol', txTimeAsString='$txTimeAsString', txHash='$txHash', gasPrice=$gasPrice, " +
+                "gasValue=$gasValue, typeAsString='$typeAsString', ethAmount=$ethAmount, tokenBuyer='$tokenBuyer', " +
+                "tokenSender='$tokenSender', tokenAmount=$tokenAmount, tokenAddress='$tokenAddress', " +
+                "etherReceiver='$etherReceiver', tokenBuyerAnnotation='$tokenBuyerAnnotation', " +
+                "tokenSenderAnnotation='$tokenSenderAnnotation', etherReceiverAnnotation='$etherReceiverAnnotation', " +
+                "txTime=$txTime, tokenType=$tokenType)"
     }
 }

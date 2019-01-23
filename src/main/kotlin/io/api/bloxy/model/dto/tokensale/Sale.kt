@@ -24,9 +24,7 @@ data class Sale(
 
     override val tokenType: TokenType = TokenType.parse(typeAsString)
 
-    override fun isEmpty(): Boolean {
-        return tokenAddress.isEmpty() && symbol.isEmpty() && transactions == 0L && ethAmount == .0
-    }
+    override fun isEmpty(): Boolean = tokenAddress.isEmpty() && symbol.isEmpty() && transactions == 0L && ethAmount == .0
 
     override fun toString(): String {
         return "Sale(symbol='$symbol', transactions=$transactions, typeAsString='$typeAsString'," +

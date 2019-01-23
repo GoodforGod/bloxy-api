@@ -35,9 +35,7 @@ data class TxTransfer(
 
     fun haveTxTime() : Boolean = txTime != null
 
-    override fun isEmpty(): Boolean {
-        return txHash.isEmpty() && sender.isEmpty() && receiver.isEmpty() && amount == .0
-    }
+    override fun isEmpty(): Boolean = txHash.isEmpty() && sender.isEmpty() && receiver.isEmpty() && amount == .0
 
     override fun toString(): String {
         return "TxTransfer(sender='$sender', receiver='$receiver', amount=$amount, txHash='$txHash', " +
