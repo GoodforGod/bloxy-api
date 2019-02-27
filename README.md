@@ -48,15 +48,9 @@ dependencies {
 - [Java Project Dependency](#java-project-dependency)
 - [Custom HttpClient](#custom-httpclient)
 - [API examples](#api-examples)
-    - [Token](#token-api)
-    - [Address](#address-api)
     - [Smart Contract](#smart-contract-api)
     - [DEX](#dex-api)
     - [DApp](#dapp-api)
-    - [Token Sale](#token-sale-api)
-    - [Money Flow](#money-flow-api)
-    - [MakerDAO](#makerdao-api)
-    - [Transaction](#transaction-api)
 - [Version History](#version-history)
 
 ## Getting Started
@@ -103,7 +97,7 @@ just implement **IHttpClient** by your self or initialize it with your values.
 
 *Java*
 ```java
-Supplier<IHttpClient> clientSupplier = () -> new HttpClient(10000, 40000);
+Supplier<IHttpClient> supplier = () -> new HttpClient(10000, 40000);
 BloxyApi api = new BloxyApi("YourApiKey", supplier);
 ```
 
@@ -113,44 +107,26 @@ val supplier = Supplier { HttpClient(10000, 40000) }
 val api = BloxyApi("YourApiKey", supplier)
 ```
 
+## API Modules
+
+Library supports those API [modules](https://bloxy.info/api_methods) with all endpoints support:
+* *Address*
+* *DApp*
+* *MakerDAO*
+* *Smart Contract*
+* *DEX*
+* *Money Flow*
+* *Token*
+* *Tokensale*
+* *Transaction*
+
 ## API Examples
 
-Below there are examples for each API module.
+Below there are examples for **some** API modules.
 
 You can read about all API available [here at Bloxy](https://bloxy.info/api_methods)
 
-### Token Api
-**Get token holders**
-
-*Java*
-```java
-BloxyApi api = new BloxyApi("YourApiKey");
-List<Holder> holders = api.getToken().holders("0xB97048628DB6B661D4C2aA833e95Dbe1A905B280");
-```
-
-*Kotlin*
-```kotlin
-val api = BloxyApi("YourApiKey")
-val holders = api.token.holders("0xB97048628DB6B661D4C2aA833e95Dbe1A905B280")
-```
-
-### Address Api
-**Get address balance**
-
-*Java*
-```java
-BloxyApi api = new BloxyApi("YourApiKey");
-Balance balance = api.getAddress().balance("0xB97048628DB6B661D4C2aA833e95Dbe1A905B280");
-```
-
-*Kotlin*
-```kotlin
-val api = BloxyApi("YourApiKey")
-val balance = api.address.balance("0x9eAb08daA285183F9A04269747D4125F08e634B0")
-```
-
-### Smart Contract Api
-**List of smart contract methods and call statistics**
+#### Smart Contract Api
 
 *Java*
 ```java
@@ -164,8 +140,7 @@ val api = BloxyApi("YourApiKey")
 val balance = api.contract.methods("0xd26114cd6ee289accf82350c8d8487fedb8a0c07")
 ```
 
-### DEX Api
-**Get DEX protocols**
+#### DEX Api
 
 *Java*
 ```java
@@ -179,8 +154,7 @@ val api = BloxyApi("YourApiKey")
 val protocols = api.dex.protocols()
 ```
 
-### DApp Api
-**Lists smart contracts with users and volume statistics**
+#### DApp Api
 
 *Java*
 ```java
@@ -194,73 +168,9 @@ val api = BloxyApi("YourApiKey")
 val appStats = api.dapp.statistics()
 ```
 
-### Token Sale Api
-**Lists recent token sale aggregated statistics**
-
-*Java*
-```java
-BloxyApi api = new BloxyApi("YourApiKey");
-List<Sale> sales = api.getTokenSale().sales();
-```
-
-*Kotlin*
-```kotlin
-val api = BloxyApi("YourApiKey")
-val sales = api.tokenSale.sales()
-```
-
-### Money Flow Api
-**List of all transfers to/from the given address**
-
-*Java*
-```java
-BloxyApi api = new BloxyApi("YourApiKey");
-List<String> addresses = Collections.singletonList("0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949");
-List<AddrTransfer> transfers = api.getMoneyFlow().transfersAll(addresses);
-```
-
-*Kotlin*
-```kotlin
-val api = BloxyApi("YourApiKey")
-val addresses = listOf("0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949")
-val result = api.moneyFlow.transfersAll(addresses)
-```
-
-### MakerDAO Api
-**Query poke transaction and values**
-
-Poke **DOES NOT** provide *value* field for JSON object, due to Klaxon errors, this will be fixed in upcoming releases.
-
-*Java*
-```java
-BloxyApi api = new BloxyApi("YourApiKey");
-List<Poke> pokes = api.getMakerDao().poke("0x729d19f657bd0614b4985cf1d82531c67569197b");
-```
-
-*Kotlin*
-```kotlin
-val api = BloxyApi("YourApiKey")
-val pokes = api.makerDao.poke("0x729d19f657bd0614b4985cf1d82531c67569197b")
-```
-
-### Transaction Api
-**List of all transfers in the given transaction**
-
-*Java*
-```java
-BloxyApi api = new BloxyApi("YourApiKey");
-List<String> txhashs = Arrays.asList("0x52a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986");
-List<TxTransfer> txTransfers = api.getTx().transfers(txhashs);
-```
-
-*Kotlin*
-```kotlin
-val api = BloxyApi("YourApiKey")
-val txhashs = listOf("0x52a9a7dfe6f002b7d7deb5555e356e319839fc4dc280a68de55778524a41f986")
-val transfers = api.tx.transfers(list)
-```
-
 ## Version History
+
+**1.0.4** - dYdY & Maltego API modules support.
 
 **1.0.3** - DApp, MakerDAO API support & Address API extension support.
 
