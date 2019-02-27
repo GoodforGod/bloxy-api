@@ -1,15 +1,14 @@
 package io.api.bloxy.core
 
 import io.api.bloxy.model.dto.Address
-import io.api.bloxy.model.dto.address.AddrDetails
+import io.api.bloxy.model.dto.address.AddrStatistic
 import io.api.bloxy.model.dto.address.Balance
-import io.api.bloxy.model.dto.moneyflow.AddrTransfer
-import io.api.bloxy.model.dto.moneyflow.Receiver
-import io.api.bloxy.model.dto.moneyflow.Sender
+import io.api.bloxy.model.dto.moneyflow.*
 import io.api.bloxy.model.dto.token.Holder
 import io.api.bloxy.model.dto.token.TokenDetails
 import io.api.bloxy.model.dto.token.TokenStatistic
 import io.api.bloxy.model.dto.token.TokenTransfer
+import io.api.bloxy.model.dto.tokensale.SaleAddrStat
 import io.api.bloxy.model.dto.transaction.TxDetail
 import io.api.bloxy.model.dto.transaction.TxTransfer
 import io.api.bloxy.util.ParamConverter
@@ -30,15 +29,6 @@ import java.time.LocalDateTime
 interface IMaltegoApi {
 
     /**
-     * Basic check that address is suitable for token transfer distribution.
-     * @param addresses to check
-     */
-    @NotNull
-    fun addrDetails(
-        addresses: List<String>
-    ): List<AddrDetails>
-
-    /**
      * Lists the balance of all currency/tokens for this address
      * @param address to check
      */
@@ -46,6 +36,15 @@ interface IMaltegoApi {
     fun addrBalance(
         address: String
     ): Balance
+
+    /**
+     * Counts and aggregates basic statistic on addresses
+     * @param addresses to check
+     */
+    @NotNull
+    fun addrStatistics(
+        addresses: List<String>
+    ): List<AddrStatistic>
 
     /**
      * Aggregates amount of receive transactions for specific currency and select top senders ( by amount )
@@ -103,6 +102,44 @@ interface IMaltegoApi {
         since: LocalDate = ParamConverter.MIN_DATE,
         till: LocalDate = ParamConverter.MAX_DATE
     ): List<AddrTransfer>
+
+    /**
+     * List of transfers to the given address
+     * @param addresses to look for
+     * @param contracts to filter
+     * @param limit max result (MAX 200000)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @param since timestamp (default is 100 days ago)
+     * @param till timestamp (default now)
+     */
+    @NotNull
+    fun addrTransfersReceived(
+        addresses: List<String>,
+        contracts: List<String> = emptyList(),
+        limit: Int = 1000,
+        offset: Int = 0,
+        since: LocalDate = ParamConverter.MIN_DATE,
+        till: LocalDate = ParamConverter.MAX_DATE
+    ): List<AddrReceived>
+
+    /**
+     * List of transfers from the given address
+     * @param addresses to look for
+     * @param contracts to filter
+     * @param limit max result (MAX 200000)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @param since timestamp (default is 100 days ago)
+     * @param till timestamp (default now)
+     */
+    @NotNull
+    fun addrTransfersSent(
+        addresses: List<String>,
+        contracts: List<String> = emptyList(),
+        limit: Int = 1000,
+        offset: Int = 0,
+        since: LocalDate = ParamConverter.MIN_DATE,
+        till: LocalDate = ParamConverter.MAX_DATE
+    ): List<AddrSent>
 
     /**
      * Analyses the full graph of money transactions and calculates the money sources for the given address
@@ -229,4 +266,13 @@ interface IMaltegoApi {
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<TokenTransfer>
+
+    /**
+     * Token sale smart contracts and wallets addresses
+     * @param contract token smart contract to filter
+     */
+    @NotNull
+    fun tokenSaleStatsAddress(
+        contract: String
+    ) : List<SaleAddrStat>
 }

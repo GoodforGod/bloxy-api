@@ -220,25 +220,25 @@ class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(cli
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ): List<AddrTransfer> {
+    ): List<AddrReceived> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
         val params = "received?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
     /**
-     * @see io.api.bloxy.core.IMoneyFlowApi.transfersSend
+     * @see io.api.bloxy.core.IMoneyFlowApi.transfersSent
      */
     @NotNull
     @JvmOverloads
-    fun transfersSend(
+    fun transfersSent(
         addresses: List<String>,
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ): List<AddrTransfer> {
+    ): List<AddrSent> {
         val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
         val params = "sent?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)

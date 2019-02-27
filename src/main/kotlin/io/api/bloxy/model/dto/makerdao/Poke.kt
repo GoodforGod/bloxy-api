@@ -3,6 +3,7 @@ package io.api.bloxy.model.dto.makerdao
 import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 import io.api.bloxy.util.ParamConverter.Companion.asDateTime
+import java.math.BigInteger
 
 /**
  * "default comment"
@@ -15,8 +16,8 @@ data class Poke(
     val from: String = "",
     val sender: String = "",
     @Json("tx_time") val txTimeAsString: String = "",
-    @Json("tx_hash") val txHash: String = ""
-//    @Json("val") val value: Double = .0
+    @Json("tx_hash") val txHash: String = "",
+    @Json("val") val value: BigInteger = BigInteger.ZERO
 ) : IModel {
 
     @Json(ignored = true)
