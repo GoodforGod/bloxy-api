@@ -79,6 +79,10 @@ open class ParamConverter : ParamValidator() {
         }
     }
 
+    fun asParam(value: String, prefix: String, delim: String): String {
+        return if (value.isEmpty()) "" else prefix + value + delim
+    }
+
     fun asParam(values: List<String>, prefix: String, delim: String): String {
         return if (values.isEmpty()) "" else values.stream().collect(Collectors.joining(delim, prefix, ""))
     }
@@ -105,5 +109,9 @@ open class ParamConverter : ParamValidator() {
 
     fun addressAsParam(addresses: List<String>, prefix: String = ""): String {
         return asParam(checkAddress(addresses), "${prefix}address[]=", "&address[]=")
+    }
+
+    fun addressAsParam(address: String, prefix: String = ""): String {
+        return asParam(address, "${prefix}address[]=", "&address[]=")
     }
 }

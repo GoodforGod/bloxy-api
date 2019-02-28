@@ -27,7 +27,7 @@ import java.time.LocalDateTime
  * @author GoodforGod
  * @since 27.02.2019
  */
-class MaltegoApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "maltego", key) {
+class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "maltego", key) {
 
     companion object {
         private val errors = listOf(
@@ -38,7 +38,7 @@ class MaltegoApiProvider(client: IHttpClient, key: String) : BasicProvider(clien
     }
 
     private fun hashAsParam(values: List<String>): String {
-        return asParam(values, "&tx_hash[]=", "tx_hash[]=")
+        return asParam(values, "tx_hash[]=", "&tx_hash[]=")
     }
 
     /**

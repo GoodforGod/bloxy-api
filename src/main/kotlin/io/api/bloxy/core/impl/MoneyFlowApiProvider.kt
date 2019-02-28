@@ -19,7 +19,7 @@ import java.time.LocalDateTime
  * @author GoodforGod
  * @since 16.11.2018
  */
-class MoneyFlowApiProvider(client: IHttpClient, key: String) : BasicProvider(client, "money_flow", key) {
+class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "money_flow", key) {
 
     companion object {
         private val errors = listOf(
