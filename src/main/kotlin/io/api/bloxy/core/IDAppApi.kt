@@ -15,7 +15,7 @@ import java.time.LocalDate
  * @author GoodforGod
  * @since 10.01.2019
  */
-interface IDAppApi {
+internal interface IDAppApi {
 
     /**
      * Lists smart contracts with users and volume statistics

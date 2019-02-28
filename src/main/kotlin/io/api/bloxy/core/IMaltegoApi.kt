@@ -26,7 +26,7 @@ import java.time.LocalDateTime
  * @author GoodforGod
  * @since 13.12.2018
  */
-interface IMaltegoApi {
+internal interface IMaltegoApi {
 
     /**
      * Lists the balance of all currency/tokens for this address
