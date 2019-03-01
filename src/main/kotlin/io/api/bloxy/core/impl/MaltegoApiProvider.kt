@@ -42,7 +42,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.IAddressApi.balance
+     * @see io.api.bloxy.core.IMaltegoApi.addrBalance
      */
     @NotNull
     fun addrBalance(
@@ -52,7 +52,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.IAddressApi.statistics
+     * @see io.api.bloxy.core.IMaltegoApi.addrStatistics
      */
     @NotNull
     fun addrStatistics(
@@ -62,7 +62,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.IMoneyFlowApi.topSenders
+     * @see io.api.bloxy.core.IMaltegoApi.addrTopSenders
      */
     @NotNull
     @JvmOverloads
@@ -81,7 +81,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.IMoneyFlowApi.topReceivers
+     * @see io.api.bloxy.core.IMaltegoApi.addrTopReceivers
      */
     @NotNull
     @JvmOverloads
@@ -100,7 +100,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     *  @see io.api.bloxy.core.IMoneyFlowApi.transfersAll
+     *  @see io.api.bloxy.core.IMaltegoApi.addrTransfersAll
      */
     @NotNull
     @JvmOverloads
@@ -118,7 +118,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.IMoneyFlowApi.transfersReceived
+     * @see io.api.bloxy.core.IMaltegoApi.addrTransfersReceived
      */
     @NotNull
     @JvmOverloads
@@ -136,7 +136,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.IMoneyFlowApi.transfersSent
+     * @see io.api.bloxy.core.IMaltegoApi.addrTransfersSent
      */
     @NotNull
     @JvmOverloads
@@ -154,7 +154,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.IMoneyFlowApi.moneySource
+     * @see io.api.bloxy.core.IMaltegoApi.addrMoneySource
      */
     @NotNull
     @JvmOverloads
@@ -181,7 +181,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.IMoneyFlowApi.moneyDistribution
+     * @see io.api.bloxy.core.IMaltegoApi.addrMoneyDistribution
      */
     @NotNull
     @JvmOverloads
@@ -208,7 +208,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.ITokenSaleApi.tokenDistribution
+     * @see io.api.bloxy.core.IMaltegoApi.txTransfers
      */
     @NotNull
     @JvmOverloads
@@ -222,7 +222,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.ITokenSaleApi.tokenDistribution
+     * @see io.api.bloxy.core.IMaltegoApi.txDetails
      */
     @NotNull
     fun txDetails(
@@ -232,7 +232,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     *  @see io.api.bloxy.core.ITokenSaleApi.statsAddress
+     *  @see io.api.bloxy.core.IMaltegoApi.tokenSaleStatsAddress
      */
     @NotNull
     fun tokenSaleStatsAddress(
@@ -242,7 +242,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.ITokenApi.tokenDetails
+     * @see io.api.bloxy.core.IMaltegoApi.tokenDetails
      */
     @NotNull
     fun tokenDetails(
@@ -252,7 +252,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.ITokenApi.tokenStatistic
+     * @see io.api.bloxy.core.IMaltegoApi.tokenStatistic
      */
     @NotNull
     fun tokenStatistic(
@@ -262,7 +262,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     * @see io.api.bloxy.core.ITokenApi.holders
+     * @see io.api.bloxy.core.IMaltegoApi.tokenHolders
      */
     @NotNull
     @JvmOverloads
@@ -274,7 +274,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     }
 
     /**
-     *  @see io.api.bloxy.core.ITokenApi.tokenTransfers
+     *  @see io.api.bloxy.core.IMaltegoApi.tokenTransfers
      */
     @NotNull
     @JvmOverloads
