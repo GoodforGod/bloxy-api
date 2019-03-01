@@ -106,7 +106,7 @@ class ContractApiProvider internal constructor(client: IHttpClient, key: String)
     fun methods(
         contract: String
     ): List<Method> {
-        val params = "smart_contract_methods?smart_contract_address=${checkAddressRequired(contract)}"
+        val params = "smart_contract_methods?smart_contract_address=${checkAddrRequired(contract)}"
         return get(params, errors)
     }
 
@@ -117,7 +117,7 @@ class ContractApiProvider internal constructor(client: IHttpClient, key: String)
     fun events(
         contract: String
     ): List<Event> {
-        val params = "smart_contract_events?smart_contract_address=${checkAddressRequired(contract)}"
+        val params = "smart_contract_events?smart_contract_address=${checkAddrRequired(contract)}"
         return get(params, errors)
     }
 }

@@ -45,8 +45,8 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
         limit: Int = 10000,
         offset: Int = 0
     ) : List<DAppUser> {
-        val sourceParam = if (multiSource.isEmpty()) "" else "&multi_source=${checkAddressRequired(multiSource)}"
-        val params = "users?smart_contract_address=${checkAddressRequired(contract)}$sourceParam"
+        val sourceParam = if (multiSource.isEmpty()) "" else "&multi_source=${checkAddrRequired(multiSource)}"
+        val params = "users?smart_contract_address=${checkAddrRequired(contract)}$sourceParam"
         return getOffset(params, limit, offset)
     }
 
@@ -60,7 +60,7 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
         limit: Int = 10000,
         offset: Int = 0
     ) : List<MultiSource> {
-        val params = "multi?smart_contract_address=${checkAddressRequired(contract)}"
+        val params = "multi?smart_contract_address=${checkAddrRequired(contract)}"
         return getOffset(params, limit, offset)
     }
 }

@@ -5,7 +5,7 @@
 
 Kotlin & Java Library for all available [Bloxy](https://bloxy.info) API endpoints.
 
-[Bloxy.info]((https://bloxy.info)) is as a source of open, reliable, verifiable and objective data about the blockchain. 
+[Bloxy.info]((https://bloxy.info)) is a source of open, reliable, verifiable and objective data about the blockchain. 
 
 [Readme Web Page](https://goodforgod.github.io/bloxy-api/)
 
@@ -26,7 +26,7 @@ Library depends on [Klaxon](https://github.com/cbeust/klaxon) so jcenter reposit
     <dependency>
         <groupId>com.github.goodforgod</groupId>
         <artifactId>bloxy-api</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </dependency>
 </dependencies>
 ```
@@ -39,7 +39,7 @@ repositories {
 }
  
 dependencies {
-    compile 'com.github.goodforgod:bloxy-api:1.0.3'
+    compile 'com.github.goodforgod:bloxy-api:1.0.4'
 }
 ```
 
@@ -47,6 +47,7 @@ dependencies {
 - [Getting Started](#getting-started)
 - [Java Project Dependency](#java-project-dependency)
 - [Custom HttpClient](#custom-httpclient)
+- [API support](#api-modules)
 - [API examples](#api-examples)
     - [Smart Contract](#smart-contract-api)
     - [DEX](#dex-api)
@@ -109,7 +110,7 @@ val api = BloxyApi("YourApiKey", supplier)
 
 ## API Modules
 
-Library supports those API [modules](https://bloxy.info/api_methods) with all endpoints support:
+Library supports all API [modules](https://bloxy.info/api_methods) with all endpoints support for each module:
 * *Address*
 * *DApp*
 * *MakerDAO*
@@ -118,7 +119,9 @@ Library supports those API [modules](https://bloxy.info/api_methods) with all en
 * *Money Flow*
 * *Token*
 * *Tokensale*
+* *dYdX*
 * *Transaction*
+* *Maltego*
 
 ## API Examples
 

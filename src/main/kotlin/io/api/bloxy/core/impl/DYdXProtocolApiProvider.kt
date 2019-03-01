@@ -18,18 +18,17 @@ import java.time.LocalDate
  */
 class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "dydx", key) {
 
-    private fun contractAsParam(contract: String): String  {
-        return if (contract.isEmpty()) "" else "&smart_contract=${checkAddressRequired(contract)}"
-    }
+    private fun contractAsParam(addr: String): String  = if (addr.isEmpty()) "" else "&smart_contract=${checkAddrRequired(addr)}"
 
-    private fun positionAsParam(positions: List<String>): String = asParam(positions, "&positions[]=", "&positions[]=")
+    private fun positionAsParam(pos: List<String>): String = asParam(pos, "&positions[]=", "&positions[]=")
 
-    private fun tradersAsParam(positions: List<String>): String = asParam(checkAddress(positions), "&traders[]=", "&traders[]=")
+    private fun tradersAsParam(pos: List<String>): String = asParam(checkAddr(pos), "&traders[]=", "&traders[]=")
 
     /**
      * @see io.api.bloxy.core.IdYdXProtocolApi.positions
      */
     @NotNull
+    @JvmOverloads
     fun positions(
         contract: String = "",
         positionsIdsOrTokens: List<String> = emptyList(),
@@ -47,6 +46,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
      * @see io.api.bloxy.core.IdYdXProtocolApi.positionsLS
      */
     @NotNull
+    @JvmOverloads
     fun positionsLS(
         contract: String = "",
         positionsIdsOrTokens: List<String> = emptyList(),
@@ -65,6 +65,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
      * @see io.api.bloxy.core.IdYdXProtocolApi.positionsDaily
      */
     @NotNull
+    @JvmOverloads
     fun positionsDaily(
         positionsIdsOrTokens: String,
         contract: String = "",
@@ -82,6 +83,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
      * @see io.api.bloxy.core.IdYdXProtocolApi.positionToken
      */
     @NotNull
+    @JvmOverloads
     fun positionToken(
         positionsTokens: String,
         contract: String = ""
@@ -94,6 +96,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
      * @see io.api.bloxy.core.IdYdXProtocolApi.tradersStats
      */
     @NotNull
+    @JvmOverloads
     fun tradersStats(
         contract: String = "",
         positionsIdsOrTokens: List<String> = emptyList(),
@@ -107,6 +110,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
      * @see io.api.bloxy.core.IdYdXProtocolApi.positionStats
      */
     @NotNull
+    @JvmOverloads
     fun positionStats(
         contract: String = "",
         positionsIdsOrTokens: List<String> = emptyList(),
@@ -123,6 +127,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
      * @see io.api.bloxy.core.IdYdXProtocolApi.withdrawals
      */
     @NotNull
+    @JvmOverloads
     fun withdrawals(
         contract: String = "",
         positionsIdsOrTokens: List<String> = emptyList(),

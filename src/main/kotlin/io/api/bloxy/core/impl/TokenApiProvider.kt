@@ -34,7 +34,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         contract: String,
         limit: Int = 100
     ): List<Holder> {
-        return get("token_holders_list?token=${checkAddressRequired(contract)}&limit=${toLimit(limit)}", errors)
+        return get("token_holders_list?token=${checkAddrRequired(contract)}&limit=${toLimit(limit)}", errors)
     }
 
     /**
@@ -51,7 +51,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         minSend: Int = 0
     ): List<HolderDetails> {
         val txCountParam = "&to_count_min=${toNoZero(minReceived)}&from_count_min=${toZero(minSend)}"
-        val urlParam = "token=${checkAddressRequired(contract)}&min_balance=${toNoZero(minBalance)}$txCountParam"
+        val urlParam = "token=${checkAddrRequired(contract)}&min_balance=${toNoZero(minBalance)}$txCountParam"
         return getOffset("token_holders_details?$urlParam", limit, offset, skipErrors = errors)
     }
 
@@ -73,7 +73,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     fun holderSimilar(
         contracts: String
     ): List<HolderSimilar> {
-        return get("similar_tokens?token=${checkAddressRequired(contracts)}", errors)
+        return get("similar_tokens?token=${checkAddrRequired(contracts)}", errors)
     }
 
     /**
@@ -105,7 +105,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     fun tokenStatistic(
         contract: String
     ): List<TokenStatistic> {
-        return get("token_stat?token=${checkAddressRequired(contract)}", errors)
+        return get("token_stat?token=${checkAddrRequired(contract)}", errors)
     }
 
     /**
@@ -121,7 +121,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         till: LocalDateTime = MAX_DATETIME
     ): List<TokenTransfer> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val params = "token=${checkAddressRequired(contract)}$dateParams"
+        val params = "token=${checkAddrRequired(contract)}$dateParams"
         return getOffset("transfers?$params", limit, offset, skipErrors = errors)
     }
 }

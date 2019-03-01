@@ -48,7 +48,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     fun addrBalance(
         address: String
     ): Balance {
-        return Balance(get("balance?address=${checkAddressRequired(address)}"))
+        return Balance(get("balance?address=${checkAddrRequired(address)}"))
     }
 
     /**
@@ -75,8 +75,8 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         till: LocalDateTime = MAX_DATETIME
     ): List<Sender> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
-        val params = "senders?address=${checkAddressRequired(address)}$tokenParam$dateParams"
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
+        val params = "senders?address=${checkAddrRequired(address)}$tokenParam$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
@@ -94,8 +94,8 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         till: LocalDateTime = MAX_DATETIME
     ): List<Receiver> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
-        val params = "receivers?address=${checkAddressRequired(address)}$tokenParam$dateParams"
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
+        val params = "receivers?address=${checkAddrRequired(address)}$tokenParam$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
 
@@ -175,8 +175,8 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs, 1000)
-        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
-        val params = "sources?address=${checkAddressRequired(address)}$tokenParam$numParams$ignoreParam$dateParams"
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
+        val params = "sources?address=${checkAddrRequired(address)}$tokenParam$numParams$ignoreParam$dateParams"
         return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
@@ -202,8 +202,8 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs)
-        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddressRequired(contract)}"
-        val params = "distribution?address=${checkAddressRequired(address)}$tokenParam$numParams$ignoreParam$dateParams"
+        val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
+        val params = "distribution?address=${checkAddrRequired(address)}$tokenParam$numParams$ignoreParam$dateParams"
         return getOffset(params, limit, offset, 10000, 1000000, errors)
     }
 
@@ -238,7 +238,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     fun tokenSaleStatsAddress(
         contract: String
     ): List<SaleAddrStat> {
-        return get("addresses?token_address=${checkAddressRequired(contract)}", errors)
+        return get("addresses?token_address=${checkAddrRequired(contract)}", errors)
     }
 
     /**
@@ -258,7 +258,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     fun tokenStatistic(
         contract: String
     ): List<TokenStatistic> {
-        return get("token_stat?token=${checkAddressRequired(contract)}", errors)
+        return get("token_stat?token=${checkAddrRequired(contract)}", errors)
     }
 
     /**
@@ -270,7 +270,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         contract: String,
         limit: Int = 100
     ): List<Holder> {
-        return get("token_holders_list?token=${checkAddressRequired(contract)}&limit=${toLimit(limit)}", errors)
+        return get("token_holders_list?token=${checkAddrRequired(contract)}&limit=${toLimit(limit)}", errors)
     }
 
     /**
@@ -286,7 +286,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         till: LocalDateTime = MAX_DATETIME
     ): List<TokenTransfer> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val params = "token=${checkAddressRequired(contract)}$dateParams"
+        val params = "token=${checkAddrRequired(contract)}$dateParams"
         return getOffset("transfers?$params", limit, offset, skipErrors = errors)
     }
 }
