@@ -32,6 +32,7 @@ class BloxyApi @JvmOverloads constructor(key: String, supplier: Supplier<IHttpCl
     val contract: ContractApiProvider = ContractApiProvider(supplier.get(), key)
     val moneyFlow: MoneyFlowApiProvider = MoneyFlowApiProvider(supplier.get(), key)
     val tokenSale: TokenSaleApiProvider = TokenSaleApiProvider(supplier.get(), key)
+    val livepeer: LivepeerApiProvider = LivepeerApiProvider(supplier.get(), key)
 
     init {
         if (key.isBlank()) throw ParamException("API key can not be null or empty")

@@ -39,7 +39,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
     ): List<Position> {
         val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
         val params = "positions?${contractAsParam(contract)}${positionAsParam(positionsIdsOrTokens)}$datesParam"
-        return getOffset(params, limit, offset, 100)
+        return getOffset(params, limit, offset, 10000)
     }
 
     /**
@@ -58,7 +58,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
     ): List<PositionLS> {
         val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}${tradersAsParam(traders)}"
         val params = "trades?${contractAsParam(contract)}${positionAsParam(positionsIdsOrTokens)}$datesParam"
-        return getOffset(params, limit, offset, 100)
+        return getOffset(params, limit, offset, 10000)
     }
 
     /**
@@ -76,7 +76,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
     ): List<PositionDaily> {
         val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
         val params = "daily?position=$positionsIdsOrTokens${contractAsParam(contract)}$datesParam"
-        return getOffset(params, limit, offset, 100)
+        return getOffset(params, limit, offset, 10000)
     }
 
     /**
@@ -136,6 +136,6 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
         offset: Int = 0
     ): List<MarginCall> {
         val params = "withdrawals?${contractAsParam(contract)}${positionAsParam(positionsIdsOrTokens)}${tradersAsParam(traders)}"
-        return getOffset(params, limit, offset, 100)
+        return getOffset(params, limit, offset, 10000)
     }
 }
