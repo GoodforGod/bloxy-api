@@ -173,7 +173,7 @@ val appStats = api.dapp.statistics()
 
 ## Version History
 
-**1.0.4** - dYdY & Maltego API modules support.
+**1.0.4** - Livepeer & dYdY & Maltego API modules support.
 
 **1.0.3** - DApp, MakerDAO API support & Address API extension support.
 
