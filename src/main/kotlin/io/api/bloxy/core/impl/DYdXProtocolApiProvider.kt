@@ -24,6 +24,12 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
 
     private fun tradersAsParam(pos: List<String>): String = asParam(checkAddr(pos), "&traders[]=", "&traders[]=")
 
+    companion object {
+        private val errors = listOf(
+            "^undefined method `currency'".toRegex()
+        )
+    }
+
     /**
      * @see io.api.bloxy.core.IdYdXProtocolApi.positions
      */
@@ -88,8 +94,8 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
         positionsTokens: String,
         contract: String = ""
     ): List<PositionToken> {
-        val params = "marketcap?token=$positionsTokens${contractAsParam(contract)}"
-        return get(params)
+        val params = "marketcap?token=${checkAddrRequired(positionsTokens)}${contractAsParam(contract)}"
+        return get(params, errors)
     }
 
     /**

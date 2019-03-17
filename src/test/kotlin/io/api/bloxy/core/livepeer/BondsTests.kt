@@ -13,7 +13,7 @@ class BondsTests : BloxyTester() {
 
     @Test
     fun valid() {
-        val address = ""
+        val address = "0xe9e284277648fcdb09b8efc1832c73c09b5ecf59"
         val list = api.livepeer.bonds(address)
         assertNotNull(list)
         assertFalse(list.isEmpty())
@@ -26,7 +26,7 @@ class BondsTests : BloxyTester() {
         assertNotNull(list[0].txHash)
         assertNotNull(list[0].txTime)
         assertNotNull(list[0].toString())
-        if(list.size > 1) {
+        if (list.size > 1) {
             assertNotEquals(list[0], list[1])
             assertNotEquals(list[0].hashCode(), list[1].hashCode())
         }
@@ -34,7 +34,7 @@ class BondsTests : BloxyTester() {
 
     @Test
     fun `address not exist`() {
-        val address = ""
+        val address = "0xe1e284277648fcdb09b8efc1832c73c09b5ecf59"
         val list = api.livepeer.bonds(address)
         assertNotNull(list)
         assertTrue(list.isEmpty())

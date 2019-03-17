@@ -217,7 +217,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         limit: Int = 1000,
         offset: Int = 0
     ): List<TxTransfer> {
-        val param = "transfers?${hashAsParam(checkTxsRequired(txHashes))}"
+        val param = "tx_transfers?${hashAsParam(checkTxsRequired(txHashes))}"
         return getOffset(param, limit, offset)
     }
 
@@ -228,7 +228,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     fun txDetails(
         txHashes: List<String>
     ): List<TxDetail> {
-        return get("info?${hashAsParam(checkTxsRequired(txHashes))}")
+        return get("tx_info?${hashAsParam(checkTxsRequired(txHashes))}")
     }
 
     /**
@@ -238,7 +238,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     fun tokenSaleStatsAddress(
         contract: String
     ): List<SaleAddrStat> {
-        return get("addresses?token_address=${checkAddrRequired(contract)}", errors)
+        return get("tokensale_addresses?token_address=${checkAddrRequired(contract)}", errors)
     }
 
     /**
@@ -287,6 +287,6 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     ): List<TokenTransfer> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
         val params = "token=${checkAddrRequired(contract)}$dateParams"
-        return getOffset("transfers?$params", limit, offset, skipErrors = errors)
+        return getOffset("token_transfers?$params", limit, offset, skipErrors = errors)
     }
 }

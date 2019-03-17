@@ -16,7 +16,7 @@ data class Event(
     val delegator: String = "",
     val amount: Double = .0,
     val block: Long = -1L,
-    val round: Long = 0L,
+    val round: Double = .0,
     @Json(name = "tx_time") val txTime: String = "",
     @Json(name = "tx_hash") val txHash: String = "",
     @Json(name = "tx_from") val txFrom: String = "",

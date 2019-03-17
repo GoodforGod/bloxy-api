@@ -43,19 +43,62 @@ class LivepeerApiProvider internal constructor(client: IHttpClient, key: String)
     }
 
     /**
-     * @see io.api.bloxy.core.ILivepeerApi.unbonds
+     * @see io.api.bloxy.core.ILivepeerApi.bondEvents
      */
     @NotNull
     @JvmOverloads
-    fun unbonds(
-        address: String,
+    fun bondEvents(
+        delegate: String = "",
+        delegator: String = "",
+        managerProxy: String = "",
+        roundManagerProxy: String = "",
+        limit: Int = 1000,
+        offset: Int = 0
+    ): List<Event> {
+        val delegateParam = if(delegate.isEmpty()) "" else "&delegate=$delegate"
+        val delegatorParam = if(delegator.isEmpty()) "" else "&delegator=$delegator"
+        val managersParam = "${managerAsParam(managerProxy)}${managerRoundAsParam(roundManagerProxy)}"
+        val params = "events?$delegateParam$delegatorParam$managersParam"
+        return getOffset(params, limit, offset)
+    }
+
+    /**
+     * @see io.api.bloxy.core.ILivepeerApi.unbondEvents
+     */
+    @NotNull
+    @JvmOverloads
+    fun unbondsEvents(
+        delegate: String = "",
+        delegator: String = "",
         managerProxy: String = "",
         roundManagerProxy: String = "",
         limit: Int = 1000,
         offset: Int = 0
     ): List<Bond> {
+        val delegateParam = if(delegate.isEmpty()) "" else "&delegate=$delegate"
+        val delegatorParam = if(delegator.isEmpty()) "" else "&delegator=$delegator"
         val managersParam = "${managerAsParam(managerProxy)}${managerRoundAsParam(roundManagerProxy)}"
-        val params = "unbonds?address=$address$managersParam"
+        val params = "unbonds?$delegateParam$delegatorParam$managersParam"
+        return getOffset(params, limit, offset)
+    }
+
+    /**
+     * @see io.api.bloxy.core.ILivepeerApi.rebondEvents
+     */
+    @NotNull
+    @JvmOverloads
+    fun rebondEvents(
+        delegate: String = "",
+        delegator: String = "",
+        managerProxy: String = "",
+        roundManagerProxy: String = "",
+        limit: Int = 1000,
+        offset: Int = 0
+    ): List<Event> {
+        val delegateParam = if(delegate.isEmpty()) "" else "&delegate=$delegate"
+        val delegatorParam = if(delegator.isEmpty()) "" else "&delegator=$delegator"
+        val managersParam = "${managerAsParam(managerProxy)}${managerRoundAsParam(roundManagerProxy)}"
+        val params = "rebonds?$delegateParam$delegatorParam$managersParam"
         return getOffset(params, limit, offset)
     }
 
@@ -70,7 +113,7 @@ class LivepeerApiProvider internal constructor(client: IHttpClient, key: String)
         limit: Int = 1000,
         offset: Int = 0
     ): List<Reward> {
-        val params = "rewards?address=$address$${managerRoundAsParam(roundManagerProxy)}"
+        val params = "rewards?address=$address${managerRoundAsParam(roundManagerProxy)}"
         return getOffset(params, limit, offset)
     }
 
@@ -88,25 +131,6 @@ class LivepeerApiProvider internal constructor(client: IHttpClient, key: String)
         return getOffset(params, limit, offset)
     }
 
-    /**
-     * @see io.api.bloxy.core.ILivepeerApi.events
-     */
-    @NotNull
-    @JvmOverloads
-    fun events(
-        delegate: String = "",
-        delegator: String = "",
-        managerProxy: String = "",
-        roundManagerProxy: String = "",
-        limit: Int = 1000,
-        offset: Int = 0
-    ): List<Event> {
-        val delegateParam = if(delegate.isEmpty()) "" else "&delegate=$delegate"
-        val delegatorParam = if(delegator.isEmpty()) "" else "&delegator=$delegator"
-        val managersParam = "${managerAsParam(managerProxy)}${managerRoundAsParam(roundManagerProxy)}"
-        val params = "events?$delegateParam$delegatorParam$managersParam"
-        return getOffset(params, limit, offset)
-    }
 
     /**
      * @see io.api.bloxy.core.ILivepeerApi.delegates

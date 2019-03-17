@@ -17,7 +17,7 @@ data class Bond(
     @Json(name = "tx_from_annotation") val txFromAnnotation: String = "",
     val amount: Double = .0,
     val block: Long = -1L,
-    val round: Long = 0L
+    val round: Double = .0
 ) : IModel {
     override fun isEmpty(): Boolean = block == -1L && txHash.isEmpty() && txFrom.isEmpty()
 }

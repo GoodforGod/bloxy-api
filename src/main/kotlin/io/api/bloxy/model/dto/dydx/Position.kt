@@ -2,6 +2,7 @@ package io.api.bloxy.model.dto.dydx
 
 import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
+import io.api.bloxy.util.KlaxonDouble
 import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 
 
@@ -20,11 +21,11 @@ data class Position(
     @Json(name = "depositTokenSymbol") val depositTokenSymbol: String = "",
     @Json(name = "owedTokenSymbol") val owedTokenSymbol: String = "",
     @Json(name = "heldTokenSymbol") val heldTokenSymbol: String = "",
-    @Json(name = "depositAmount") val depositAmount: Double = .0,
-    @Json(name = "principalAmount") val principalAmount: Double = .0,
-    @Json(name = "heldTokenFromSell") val heldTokenFromSell: Double = .0,
-    @Json(name = "interestRate") val interestRate: Int = 0,
-    @Json(name = "priceFactor") val priceFactor: Double = .0,
+    @KlaxonDouble @Json(name = "depositAmount") val depositAmount: Double = .0,
+    @KlaxonDouble @Json(name = "principalAmount") val principalAmount: Double = .0,
+    @KlaxonDouble @Json(name = "heldTokenFromSell") val heldTokenFromSell: Double = .0,
+    @KlaxonDouble @Json(name = "interestRate") val interestRate: Double = .0,
+    @KlaxonDouble @Json(name = "priceFactor") val priceFactor: Double = .0,
     @Json(name = "priceFormula") val priceFormula: String = "",
     val lender: String = "",
     val trader: String = "",

@@ -12,11 +12,11 @@ import io.api.bloxy.model.IModel
  */
 data class Round(
     val block: Long = -1L,
-    val round: Long = 0L,
+    val round: Double = .0,
     @Json(name = "tx_time") val txTime: String = "",
     @Json(name = "tx_hash") val txHash: String = "",
     @Json(name = "currentMintableTokens") val currentMintableTokens: Double = .0,
-    @Json(name = "currentInflation") val currentInflation: Long = 0L
+    @Json(name = "currentInflation") val currentInflation: Double = .0
 ) : IModel {
-    override fun isEmpty(): Boolean = txHash.isEmpty() && block == -1L && round == 0L
+    override fun isEmpty(): Boolean = txHash.isEmpty() && block == -1L && round == .0
 }

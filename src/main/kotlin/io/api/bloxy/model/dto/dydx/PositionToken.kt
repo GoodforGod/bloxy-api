@@ -2,7 +2,7 @@ package io.api.bloxy.model.dto.dydx
 
 import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
-import io.api.bloxy.util.ParamConverter.Companion.asDate
+import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 
 
 /**
@@ -24,7 +24,7 @@ data class PositionToken(
     @Json(name = "owed_price") val owedPrice: Double = .0
 ) : IModel {
 
-    @Json(ignored = true) val time = timeAsString.asDate()
+    @Json(ignored = true) val time = timeAsString.asDateTime()
 
     fun haveTime(): Boolean = time != null
 

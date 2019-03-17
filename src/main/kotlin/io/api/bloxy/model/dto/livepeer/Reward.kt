@@ -17,7 +17,7 @@ data class Reward(
     val recipient: String = "",
     val amount: Double = .0,
     val block: Long = -1L,
-    val round: Long = 0L
+    val round: Double = .0
 ) : IModel {
     override fun isEmpty(): Boolean = txTime.isEmpty() && amount == .0 && block == -1L
 }
