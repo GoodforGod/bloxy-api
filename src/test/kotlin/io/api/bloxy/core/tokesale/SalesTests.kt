@@ -3,6 +3,7 @@ package io.api.bloxy.core.tokesale
 import io.api.bloxy.core.BloxyTester
 import io.api.bloxy.core.impl.BloxyApi
 import io.api.bloxy.error.ParamException
+import io.api.bloxy.model.dto.tokensale.Sale
 import org.junit.Test
 
 
@@ -15,8 +16,17 @@ import org.junit.Test
 class SalesTests : BloxyTester() {
 
     companion object {
+
+        private var sales: List<Sale> = emptyList()
+
         fun getRandomTokenSale(api: BloxyApi): String {
-            val result = api.tokenSale.sales()
+            val result = if(sales.isEmpty()) {
+                sales = api.tokenSale.sales()
+                sales
+            } else {
+                sales
+            }
+
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
