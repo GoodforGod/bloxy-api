@@ -120,6 +120,7 @@ Library supports all API [modules](https://bloxy.info/api_methods) with all endp
 * *Token*
 * *Tokensale*
 * *dYdX*
+* *Livepeer*
 * *Transaction*
 * *Maltego*
 

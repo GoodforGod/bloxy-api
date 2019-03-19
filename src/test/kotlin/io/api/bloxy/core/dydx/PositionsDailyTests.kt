@@ -32,6 +32,7 @@ class PositionsDailyTests : BloxyTester() {
         assertNotNull(list[0].principalAmountChange)
         assertNotNull(list[0].txDate)
         assertNotNull(list[0].txDateAsString)
+        assertNotNull(list[0].haveDate())
         assertNotNull(list[0].toString())
         if (list.size > 1) {
             assertNotEquals(list[0], list[1])
