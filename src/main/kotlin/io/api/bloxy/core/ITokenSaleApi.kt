@@ -59,7 +59,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Token sale smart contracts and wallets addresses
-     * @param contract to filter
+     * @param contract token smart contract to filter
      */
     @NotNull
     fun statsAddress(

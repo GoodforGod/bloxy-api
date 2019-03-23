@@ -1,7 +1,9 @@
 package io.api.bloxy.model.dto.moneyflow
 
 import com.beust.klaxon.Json
+import io.api.bloxy.model.IAddressModel
 import io.api.bloxy.model.IModel
+import io.api.bloxy.model.dto.AddressType
 import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 
 
@@ -23,7 +25,9 @@ data class AddrTransfer(
     @Json(name = "token_symbol") val tokenSymbol: String = "",
     @Json(name = "token_address") val tokenAddress: String = "",
     @Json(name = "party_annotation") val partyAnnotation: String = ""
-) : IModel {
+) : IModel, IAddressModel {
+
+    override val addrType = AddressType.parse(partyType)
 
     @Json(ignored = true)
     val txTime = txTimeAsString.asDateTime()

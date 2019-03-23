@@ -44,7 +44,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
     fun correlated(
         address: String
     ): List<AddrCorrelation> {
-        return get("correlated_address_tokens?address=${checkAddressRequired(address)}")
+        return get("correlated_address_tokens?address=${checkAddrRequired(address)}")
     }
 
     /**
@@ -54,7 +54,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
     fun balance(
         address: String
     ): Balance {
-        return Balance(get("balance?address=${checkAddressRequired(address)}"))
+        return Balance(get("balance?address=${checkAddrRequired(address)}"))
     }
 
     /**

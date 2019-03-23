@@ -79,6 +79,10 @@ open class ParamConverter : ParamValidator() {
         }
     }
 
+    fun asParam(value: String, prefix: String, delim: String): String {
+        return if (value.isEmpty()) "" else prefix + value + delim
+    }
+
     fun asParam(values: List<String>, prefix: String, delim: String): String {
         return if (values.isEmpty()) "" else values.stream().collect(Collectors.joining(delim, prefix, ""))
     }
@@ -92,18 +96,22 @@ open class ParamConverter : ParamValidator() {
     }
 
     fun tokenAsParamRequired(contracts: List<String>): String {
-        return asParam(checkAddressRequired(contracts), "token[]=", "&token[]=")
+        return asParam(checkAddrRequired(contracts), "token[]=", "&token[]=")
     }
 
     fun tokenAsParam(contracts: List<String>, prefix: String = ""): String {
-        return asParam(checkAddress(contracts), "${prefix}token[]=", "&token[]=")
+        return asParam(checkAddr(contracts), "${prefix}token[]=", "&token[]=")
     }
 
     fun addressAsParamRequired(addresses: List<String>): String {
-        return asParam(checkAddressRequired(addresses), "address[]=", "&address[]=")
+        return asParam(checkAddrRequired(addresses), "address[]=", "&address[]=")
     }
 
     fun addressAsParam(addresses: List<String>, prefix: String = ""): String {
-        return asParam(checkAddress(addresses), "${prefix}address[]=", "&address[]=")
+        return asParam(checkAddr(addresses), "${prefix}address[]=", "&address[]=")
+    }
+
+    fun addressAsParam(address: String, prefix: String = ""): String {
+        return asParam(address, "${prefix}address[]=", "&address[]=")
     }
 }

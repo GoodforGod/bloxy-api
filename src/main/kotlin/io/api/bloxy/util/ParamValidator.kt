@@ -35,17 +35,17 @@ open class ParamValidator {
         return params
     }
 
-    fun checkAddressRequired(address: String): String {
+    fun checkAddrRequired(address: String): String {
         return if (isAddressValid(address)) address else throw ParamException("Address is not Ethereum format : $address")
     }
 
-    fun checkAddressRequired(addresses: List<String>): List<String> {
+    fun checkAddrRequired(addresses: List<String>): List<String> {
         if (addresses.isNullOrEmpty()) throw ParamException("Addresses are null or empty")
-        return checkAddress(addresses)
+        return checkAddr(addresses)
     }
 
-    fun checkAddress(addresses: List<String>): List<String> {
-        addresses.forEach { a -> checkAddressRequired(a) }
+    fun checkAddr(addresses: List<String>): List<String> {
+        addresses.forEach { a -> checkAddrRequired(a) }
         return addresses
     }
 

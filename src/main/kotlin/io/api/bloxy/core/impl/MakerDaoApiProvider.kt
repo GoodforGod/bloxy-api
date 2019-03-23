@@ -18,7 +18,7 @@ import java.time.LocalDate
 class MakerDaoApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "daomaker", key){
 
     /**
-     * @see io.api.bloxy.core.IDAppApi.statistics
+     * @see io.api.bloxy.core.IMakerDaoApi.poke
      */
     @NotNull
     @JvmOverloads
@@ -30,7 +30,7 @@ class MakerDaoApiProvider internal constructor(client: IHttpClient, key: String)
         till: LocalDate = MAX_DATE
     ) : List<Poke> {
         val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "poke?smart_contract=${checkAddressRequired(contract)}$datesParam"
+        val params = "poke?smart_contract=${checkAddrRequired(contract)}$datesParam"
         return getOffset(params, limit, offset, 100)
     }
 }

@@ -7,9 +7,7 @@ import io.api.bloxy.error.ParseException
 import io.api.bloxy.error.SubscriptionException
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.BloxyError
-import io.api.bloxy.util.KlaxonArgs
-import io.api.bloxy.util.KlaxonConverters
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.*
 import org.jetbrains.annotations.NotNull
 
 
@@ -28,7 +26,11 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
     private val base = "https://bloxy.info/api/$module/"
     private val keyParam = "&key=$key&format=structure"
 
-    protected val converter = Klaxon().fieldConverter(KlaxonArgs::class, KlaxonConverters.argsConverter)
+    protected val converter = Klaxon()
+        .fieldConverter(KlaxonArgs::class, KlaxonConverters.argsConverter)
+        .fieldConverter(KlaxonStr::class, KlaxonConverters.nonNullStrConverter)
+        .fieldConverter(KlaxonDouble::class, KlaxonConverters.nonNullDoubleConverter)
+        .fieldConverter(KlaxonDecimal::class, KlaxonConverters.decimalConverter)
 
     /**
      * Perform GET HTTP request
@@ -74,6 +76,7 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
                 when {
                     skipErrors.stream().anyMatch { er -> er.containsMatchIn(bloxyError.error) } -> emptyList()
                     bloxyError.error.startsWith("Your subscription is") -> throw SubscriptionException(bloxyError.error)
+                    bloxyError.error.startsWith("To use this API") -> throw SubscriptionException(bloxyError.error)
                     else -> throw BloxyException(bloxyError.error)
                 }
             } catch (e: Exception) {

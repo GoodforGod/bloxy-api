@@ -228,7 +228,7 @@ internal interface IMoneyFlowApi {
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ): List<AddrTransfer>
+    ): List<AddrReceived>
 
     /**
      * List of transfers from the given address
@@ -240,14 +240,14 @@ internal interface IMoneyFlowApi {
      * @param till timestamp (default now)
      */
     @NotNull
-    fun transfersSend(
+    fun transfersSent(
         addresses: List<String>,
         contracts: List<String> = emptyList(),
         limit: Int = 1000,
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ): List<AddrTransfer>
+    ): List<AddrSent>
 
     /**
      * Aggregates amount of receive transactions and select top senders ( by Transfer Count )

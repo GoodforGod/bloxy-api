@@ -30,7 +30,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
     }
 
     private fun contractAsParam(values: List<String>): String {
-        return asParam(checkAddress(values), "&smart_contract_address[]=", "smart_contract_address[]=")
+        return asParam(checkAddr(values), "&smart_contract_address[]=", "smart_contract_address[]=")
     }
 
     /**

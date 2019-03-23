@@ -18,12 +18,10 @@ import org.jetbrains.annotations.NotNull
  */
 class TransactionApiProvider internal constructor(client: IHttpClient, key: String) : BasicProvider(client, "tx", key) {
 
-    private fun hashAsParam(values: List<String>): String {
-        return asParam(values, "&tx_hash[]=", "tx_hash[]=")
-    }
+    private fun hashAsParam(values: List<String>): String = asParam(values, "&tx_hash[]=", "tx_hash[]=")
 
     /**
-     * @see io.api.bloxy.core.ITokenSaleApi.tokenDistribution
+     * @see io.api.bloxy.core.ITransactionApi.transfers
      */
     @NotNull
     @JvmOverloads
@@ -37,7 +35,7 @@ class TransactionApiProvider internal constructor(client: IHttpClient, key: Stri
     }
 
     /**
-     * @see io.api.bloxy.core.ITokenSaleApi.tokenDistribution
+     * @see io.api.bloxy.core.ITransactionApi.details
      */
     @NotNull
     fun details(
