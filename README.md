@@ -1,6 +1,7 @@
 # ⚙️ Bloxy Api
 
 ![travis](https://travis-ci.org/GoodforGod/bloxy-api.svg?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8100bb9c81e48d0a90eb/maintainability)](https://codeclimate.com/github/GoodforGod/bloxy-api/maintainability)
 [![codecov](https://codecov.io/gh/GoodforGod/bloxy-api/branch/master/graph/badge.svg)](https://codecov.io/gh/GoodforGod/bloxy-api)
 
 Kotlin & Java Library for all available [Bloxy](https://bloxy.info) API endpoints.
