@@ -111,7 +111,7 @@ open class ParamConverter : ParamValidator() {
         return asParam(checkAddr(addresses), "${prefix}address[]=", "&address[]=")
     }
 
-    fun addressAsParam(address: String, prefix: String = ""): String {
+    fun addressAsParamRequired(address: String, prefix: String = ""): String {
         return asParam(address, "${prefix}address[]=", "&address[]=")
     }
 }

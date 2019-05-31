@@ -97,7 +97,7 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         withIntermediary: Boolean = false
     ): List<SaleWallet> {
         return get(
-            "addresses?token_address=${checkAddrRequired(contract)}&with_zero_balances=$withIntermediary",
+            "wallets?token_address=${checkAddrRequired(contract)}&with_zero_balances=$withIntermediary",
             errors
         )
     }
@@ -209,9 +209,9 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         offset: Int = 0,
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
-    ): List<Tx> {
+    ): List<SaleDistribution> {
         val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val params = "source_transactions?token_address=${checkAddrRequired(contract)}$dateParams"
+        val params = "initial_distribution?token_address=${checkAddrRequired(contract)}$dateParams"
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 }

@@ -16,24 +16,22 @@ class BuyersTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val sale = SalesTests.getRandomTokenSale(api)
-        if (!sale.isEmpty()) {
             val result = api.tokenSale.buyers(sale)
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
             assertTrue(result[0].haveFromTime())
             assertTrue(result[0].haveTillTime())
-            assertNotNull(result[0].ethAmount)
-            assertNotNull(result[0].tokenBuyerAnnotation)
-            assertNotNull(result[0].fromTime)
-            assertNotNull(result[0].fromTimeAsString)
-            assertNotNull(result[0].tillTime)
-            assertNotNull(result[0].tillTimeAsString)
-            assertNotNull(result[0].tokenAmount)
-            assertNotNull(result[0].tokenBuyer)
-            assertNotNull(result[0].transactions)
-            assertNotNull(result[0].toString())
-        }
+            ifValid(result[0].ethAmount)
+            ifValid(result[0].tokenBuyerAnnotation)
+            ifValid(result[0].fromTime)
+            ifValid(result[0].fromTimeAsString)
+            ifValid(result[0].tillTime)
+            ifValid(result[0].tillTimeAsString)
+            ifValid(result[0].tokenAmount)
+            ifValid(result[0].tokenBuyer)
+            ifValid(result[0].transactions)
+            ifValid(result[0].toString())
     }
 
     @Test

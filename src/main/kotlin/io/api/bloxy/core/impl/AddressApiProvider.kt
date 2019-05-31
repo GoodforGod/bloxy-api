@@ -3,6 +3,7 @@ package io.api.bloxy.core.impl
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.address.*
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDate
 
 
 /**
@@ -83,5 +84,33 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
         val params = "annotated_addresses?${asParam(checkNonBlank(words), "word[]=", "&word[]=")}"
         val wordsList: List<WordCounter> = getOffset(params, limit, offset)
         return wordsList.groupBy({ it.word }, { it.address })
+    }
+
+    /**
+     * @see io.api.bloxy.core.IAddressApi.all
+     */
+    @NotNull
+    fun all(
+        limit: Int = 1000,
+        offset: Int = 0
+    ) : List<AddrInfo> {
+        return getOffset("list_all?", limit, offset, 1000)
+    }
+
+    /**
+     * @see io.api.bloxy.core.IAddressApi.daily
+     */
+    @NotNull
+    fun daily(
+        address: String,
+        currency: Currency = Currency.USD,
+        worthless: Boolean = false,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<AddrDaily> {
+        val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
+        val additionalParam = "&valueless=$worthless&price_currency=${currency.name}"
+        val params = "daily?${addressAsParamRequired(address)}$dateParams$additionalParam"
+        return get(params)
     }
 }

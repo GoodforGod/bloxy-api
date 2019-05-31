@@ -277,4 +277,20 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         val params = "receivers_by_count?address=${checkAddrRequired(address)}$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
+
+    /**
+     *  @see io.api.bloxy.core.IMoneyFlowApi.daily
+     */
+    @NotNull
+    @JvmOverloads
+    fun daily(
+        addresses: List<String>,
+        contracts: List<String> = emptyList(),
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<FlowDaily> {
+        val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
+        val params = "daily?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        return get(params, skipErrors = errors)
+    }
 }

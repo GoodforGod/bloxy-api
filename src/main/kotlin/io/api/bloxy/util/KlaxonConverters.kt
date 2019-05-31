@@ -72,16 +72,5 @@ internal class KlaxonConverters {
 
             override fun fromJson(jv: JsonValue): Double = jv.double ?: .0
         }
-
-//        internal val bigDecimalConverter = object : Converter {
-//            override fun canConvert(cls: Class<*>) = cls == BigDecimal::class.java
-//
-//            override fun toJson(value: Any): String = ""
-//
-//            override fun fromJson(jv: JsonValue) : BigDecimal {
-//                print("kek")
-//                return BigDecimal("1")
-//            }
-//        }
     }
 }

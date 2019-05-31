@@ -2,6 +2,7 @@ package io.api.bloxy.core.tokesale
 
 import io.api.bloxy.core.BloxyTester
 import io.api.bloxy.error.ParamException
+import io.api.bloxy.model.dto.TokenType
 import org.junit.Test
 
 
@@ -16,22 +17,21 @@ class WalletsTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val sale = SalesTests.getRandomTokenSale(api)
-        if (!sale.isEmpty()) {
             val result = api.tokenSale.wallets(sale)
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
-            assertNotNull(result[0].ethAmount)
-            assertNotNull(result[0].annotation)
-            assertNotNull(result[0].symbol)
-            assertNotNull(result[0].tokenAddress)
-            assertNotNull(result[0].tokenAmount)
-            assertNotNull(result[0].tokenBuyers)
-            assertNotNull(result[0].transactions)
-            assertNotNull(result[0].typeAsString)
-            assertNotNull(result[0].tokenType)
-            assertNotNull(result[0].toString())
-        }
+            assertNotEquals(TokenType.UNKNOWN, result[0].tokenType)
+            ifValid(result[0].ethAmount)
+            ifValid(result[0].annotation)
+            ifValid(result[0].symbol)
+            ifValid(result[0].tokenAddress)
+            ifValid(result[0].tokenAmount)
+            ifValid(result[0].tokenBuyers)
+            ifValid(result[0].transactions)
+            ifValid(result[0].typeAsString)
+            ifValid(result[0].tokenType)
+            ifValid(result[0].toString())
     }
 
     @Test

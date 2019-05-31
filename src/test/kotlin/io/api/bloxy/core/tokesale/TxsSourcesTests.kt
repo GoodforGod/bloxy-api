@@ -16,26 +16,24 @@ class TxsSourcesTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val sale = SalesTests.getRandomTokenSale(api)
-        if (!sale.isEmpty()) {
             val result = api.tokenSale.txsSources(sale)
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
-            assertNotNull(result[0].depth)
-            assertNotNull(result[0].amount)
-            assertNotNull(result[0].receiver)
-            assertNotNull(result[0].receiverType)
-            assertNotNull(result[0].receiverTypeAsString)
-            assertNotNull(result[0].receiverAnnotation)
-            assertNotNull(result[0].sender)
-            assertNotNull(result[0].senderType)
-            assertNotNull(result[0].senderTypeAsString)
-            assertNotNull(result[0].senderAnnotation)
-            assertNotNull(result[0].txHash)
-            assertNotNull(result[0].txTimeAsString)
-            assertNotNull(result[0].txTime)
-            assertNotNull(result[0].toString())
-        }
+            ifValid(result[0].depth)
+            ifValid(result[0].amount)
+            ifValid(result[0].receiver)
+            ifValid(result[0].receiverType)
+            ifValid(result[0].receiverTypeAsString)
+            ifValid(result[0].receiverAnnotation)
+            ifValid(result[0].sender)
+            ifValid(result[0].senderType)
+            ifValid(result[0].senderTypeAsString)
+            ifValid(result[0].senderAnnotation)
+            ifValid(result[0].txHash)
+            ifValid(result[0].txTimeAsString)
+            ifValid(result[0].txTime)
+            ifValid(result[0].toString())
     }
 
     @Test

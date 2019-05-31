@@ -30,22 +30,26 @@ class SalesTests : BloxyTester() {
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
-            assertNotNull(result[0].ethAmount)
-            assertNotNull(result[0].symbol)
-            assertNotNull(result[0].tokenAddress)
-            assertNotNull(result[0].tokenAmount)
-            assertNotNull(result[0].tokenBuyers)
-            assertNotNull(result[0].transactions)
-            assertNotNull(result[0].typeAsString)
-            assertNotNull(result[0].tokenType)
-            assertNotNull(result[0].toString())
+            assertFalse(result[0].tokenAddress.isEmpty())
             return result[0].tokenAddress
         }
     }
 
     @Test
     fun valid() {
-        assertNotNull(getRandomTokenSale(api))
+        val result = api.tokenSale.sales()
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        ifValid(result[0].ethAmount)
+        ifValid(result[0].symbol)
+        ifValid(result[0].tokenAddress)
+        ifValid(result[0].tokenAmount)
+        ifValid(result[0].tokenBuyers)
+        ifValid(result[0].transactions)
+        ifValid(result[0].typeAsString)
+        ifValid(result[0].tokenType)
+        ifValid(result[0].toString())
     }
 
     @Test

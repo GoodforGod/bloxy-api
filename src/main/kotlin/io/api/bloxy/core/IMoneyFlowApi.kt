@@ -282,4 +282,19 @@ internal interface IMoneyFlowApi {
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<ReceiverSimple>
+
+    /**
+     * Show the number of transfers (ETH and token) an address has had over time (by day)
+     * @param addresses to look for
+     * @param contracts to filter
+     * @param since timestamp (default is 100 days ago)
+     * @param till timestamp (default now)
+     */
+    @NotNull
+    fun daily(
+        addresses: List<String>,
+        contracts: List<String> = emptyList(),
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<FlowDaily>
 }
