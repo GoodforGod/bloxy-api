@@ -11,6 +11,6 @@ import org.junit.Assert
  * @since 21.11.2018
  */
 open class BloxyTester : Assert() {
-    val apiKey by lazy { System.getenv("BLOXY_API").ifEmpty { throw NullPointerException("API KEY IS NULL") } }
-    val api by lazy { BloxyApi(apiKey) }
+    val key by lazy { System.getenv("BLOXY_API").ifEmpty { throw NullPointerException("API KEY IS NULL") } }
+    val api by lazy { BloxyApi(key) }
 }
