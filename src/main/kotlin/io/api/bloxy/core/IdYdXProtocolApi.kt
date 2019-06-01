@@ -1,7 +1,8 @@
 package io.api.bloxy.core
 
 import io.api.bloxy.model.dto.dydx.*
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
+import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
 import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 
@@ -30,8 +31,8 @@ internal interface IdYdXProtocolApi {
         positionsIdsOrTokens: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        since: LocalDate = ParamConverter.MIN_DATE,
-        till: LocalDate = ParamConverter.MAX_DATE
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ) : List<Position>
 
     /**
@@ -51,8 +52,8 @@ internal interface IdYdXProtocolApi {
         traders: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        since: LocalDate = ParamConverter.MIN_DATE,
-        till: LocalDate = ParamConverter.MAX_DATE
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ) : List<PositionLS>
 
     /**
@@ -70,8 +71,8 @@ internal interface IdYdXProtocolApi {
         contract: String = "",
         limit: Int = 100,
         offset: Int = 0,
-        since: LocalDate = ParamConverter.MIN_DATE,
-        till: LocalDate = ParamConverter.MAX_DATE
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ) : List<PositionDaily>
 
     /**
@@ -114,8 +115,8 @@ internal interface IdYdXProtocolApi {
         contract: String = "",
         positionsIdsOrTokens: List<String> = emptyList(),
         traders: List<String> = emptyList(),
-        since: LocalDate = ParamConverter.MIN_DATE,
-        till: LocalDate = ParamConverter.MAX_DATE
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ) : List<PositionStats>
 
     /**

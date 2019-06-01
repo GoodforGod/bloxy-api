@@ -30,7 +30,7 @@ class TransactionApiProvider internal constructor(client: IHttpClient, key: Stri
         limit: Int = 1000,
         offset: Int = 0
     ): List<TxTransfer> {
-        val param = "transfers?${hashAsParam(checkTxsRequired(txHashes))}"
+        val param = "transfers?${hashAsParam(checkTxRequired(txHashes))}"
         return getOffset(param, limit, offset)
     }
 
@@ -41,6 +41,6 @@ class TransactionApiProvider internal constructor(client: IHttpClient, key: Stri
     fun details(
         txHashes: List<String>
     ): List<TxDetail> {
-        return get("info?${hashAsParam(checkTxsRequired(txHashes))}")
+        return get("info?${hashAsParam(checkTxRequired(txHashes))}")
     }
 }

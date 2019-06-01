@@ -1,7 +1,11 @@
 package io.api.bloxy.core
 
+import io.api.bloxy.model.dto.address.Currency
 import io.api.bloxy.model.dto.dex.*
+import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
+import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDate
 
 
 /**
@@ -24,14 +28,16 @@ internal interface IDexApi {
      * @param protocols dex to filter
      * @param limit max result (MAX 200000)
      * @param offset of the list from origin (0) (MAX 100000)
-     * @param timeSpanDays get info for period in days from today (MAX 1000)
+     * @param since timestamp (default 30 days ago)
+     * @param till timestamp (default now)
      */
     @NotNull
     fun contracts(
         protocols: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        timeSpanDays: Int = 30
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ): List<DexContract>
 
     /**
@@ -41,7 +47,8 @@ internal interface IDexApi {
      * @param tokenAddresses to filter
      * @param limit max result (MAX 200000)
      * @param offset of the list from origin (0) (MAX 100000)
-     * @param timeSpanDays get info for period in days from today (MAX 30)
+     * @param since timestamp (default 30 days ago)
+     * @param till timestamp (default now)
      */
     @NotNull
     fun trades(
@@ -50,7 +57,8 @@ internal interface IDexApi {
         tokenAddresses: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        timeSpanDays: Int = 5
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ): List<DexTrade>
 
     /**
@@ -71,7 +79,8 @@ internal interface IDexApi {
      * @param dexContracts dex to filter
      * @param limit max result (MAX 101000)
      * @param offset of the list from origin (0) (MAX 100000)
-     * @param timeSpanDays get info for period in days from today (MAX 720)
+     * @param since timestamp (default 30 days ago)
+     * @param till timestamp (default now)
      */
     @NotNull
     fun tradesActive(
@@ -79,6 +88,78 @@ internal interface IDexApi {
         dexContracts: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        timeSpanDays: Int = 30
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ): List<DexTradeActive>
+
+    /**
+     * Lists trades, in a transaction
+     * @param txHash transaction hash
+     * @param currency for trades to view
+     */
+    @NotNull
+    fun tradesByHash(
+        txHash: String,
+        currency: Currency = Currency.ETH
+    ) : List<DexTrade>
+
+    /**
+     * Lists active traders ordered by number of trades, as maker or taker.
+     * @param trader trader address to filter
+     * @param symbol token to filter
+     * @param currency to view result (ETH,USD)
+     * @param limit max result (MAX 101000)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @param since timestamp (default 30 days ago)
+     * @param till timestamp (default now)
+     */
+    @NotNull
+    fun tradesArbitrage(
+        trader: String = "",
+        symbol: String = "",
+        currency: Currency = Currency.ETH,
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<DexArbitrage>
+
+    /**
+     * Lists active traders ordered by number of trades, as maker or taker.
+     * @param protocols dex to filter
+     * @param dexContracts dex to filter
+     * @param currency to view result (ETH,USD)
+     * @param tokenAddresses token addresses to filter
+     * @param limit max result (MAX 101000)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @param since timestamp (default 30 days ago)
+     * @param till timestamp (default now)
+     */
+    @NotNull
+    fun deposits(
+        protocols: List<String> = emptyList(),
+        dexContracts: List<String> = emptyList(),
+        tokenAddresses: List<String> = emptyList(),
+        currency: Currency = Currency.ETH,
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<DexDeposit>
+
+    /**
+     * Lists active traders ordered by number of trades, as maker or taker.
+     * @param tokenAddress token address to filter
+     * @param currency to view result (ETH,USD)
+     * @param limit max result (MAX 101000)
+     * @param since timestamp (default 30 days ago)
+     * @param till timestamp (default now)
+     */
+    @NotNull
+    fun tokenStats(
+        tokenAddress: String,
+        limit: Int = 100,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<DexTokenStat>
 }

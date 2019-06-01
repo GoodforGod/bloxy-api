@@ -30,7 +30,7 @@ class DAppApiProvider internal constructor(client: IHttpClient, key: String) : B
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ) : List<DAppStats> {
-        val params = "stat?${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
+        val params = "stat?${asDate("from_date", since)}${asDate("till_date", till)}"
         return getOffset(params, limit, offset)
     }
 

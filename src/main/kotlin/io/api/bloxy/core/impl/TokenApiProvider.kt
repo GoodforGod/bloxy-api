@@ -3,6 +3,7 @@ package io.api.bloxy.core.impl
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.token.*
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 
@@ -62,7 +63,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     fun holderCorrelations(
         contracts: List<String>
     ): List<TokenCorrelation> {
-        val params = "token_correlation?${tokenAsParamRequired(contracts)}"
+        val params = "token_correlation?${asTokenRequired(contracts)}"
         return if (contracts.size < 2) emptyList() else get(params, errors)
     }
 
@@ -95,7 +96,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     fun tokenDetails(
         contracts: List<String>
     ): List<TokenDetails> {
-        return get("token_info?${tokenAsParamRequired(contracts)}", errors)
+        return get("token_info?${asTokenRequired(contracts)}", errors)
     }
 
     /**
@@ -120,8 +121,78 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<TokenTransfer> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val params = "token=${checkAddrRequired(contract)}$dateParams"
         return getOffset("transfers?$params", limit, offset, skipErrors = errors)
+    }
+
+    /**
+     * Lists token transfer transactions ( most recent first )
+     * @param limit max result (MAX 1010000 minus offset, there will be N requests performed with MAX limit per one)
+     * @param offset of the list from origin (0) (MAX 100000)
+     */
+    @JvmOverloads
+    @NotNull
+    fun list(
+        limit: Int = 100,
+        offset: Int = 0
+    ) : List<TokenInfo> {
+        return getOffset("list?", limit, offset, skipErrors = errors)
+    }
+
+    /**
+     * Lists token transfer transactions ( most recent first ) with the origin detection
+     * @param contract to filter
+     * @param contracts tokens to filter
+     * @param depth max depth of origin detection.
+     * @param limit max result (MAX 101000 minus offset, there will be N requests performed with MAX limit per one)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @param since timestamp
+     * @param till timestamp
+     */
+    @NotNull
+    @JvmOverloads
+    fun tokenTransfersOrigin(
+        contract: String,
+        contracts: List<String> = emptyList(),
+        depth: Int = 5,
+        limit: Int = 10000,
+        offset: Int = 0,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
+    ) : List<TokenDistribution> {
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
+        val params = "token=${checkAddrRequired(contract)}$dateParams${checkAddr(contracts)}&max_depth=$depth"
+        return getOffset("transfers_with_origin?$params", limit, offset, skipErrors = errors)
+    }
+
+    /**
+     * Lists token amounts transfered between top groups of addresses
+     * @param contract to filter
+     * @param topCount limit to top addresse
+     * @param groupCount limit to count of address groups
+     * @param limitFlow to filter
+     * @param contract to filter
+     * @param limit max result (MAX 200000 minus offset, there will be N requests performed with MAX limit per one)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @param since timestamp
+     * @param till timestamp
+     */
+    @NotNull
+    @JvmOverloads
+    fun tokenFlow(
+        contract: String,
+        limit: Int = 1000,
+        offset: Int = 0,
+        limitFlow: Double = 3.0,
+        topCount: Int = 10,
+        groupCount: Int = 50,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<TokenGraph> {
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
+        val limitParam = "&limit_flow_ratio=$limitFlow&group_count=$groupCount&top_count=$topCount"
+        val params = "token=${checkAddrRequired(contract)}$dateParams$limitParam"
+        return getOffset("token_flow?$params", limit, offset, skipErrors = errors)
     }
 }

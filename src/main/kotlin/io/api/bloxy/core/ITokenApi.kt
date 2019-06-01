@@ -1,9 +1,12 @@
 package io.api.bloxy.core
 
 import io.api.bloxy.model.dto.token.*
+import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
 import io.api.bloxy.util.ParamConverter.Companion.MAX_DATETIME
+import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
 import io.api.bloxy.util.ParamConverter.Companion.MIN_DATETIME
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDate
 import java.time.LocalDateTime
 
 
@@ -96,7 +99,7 @@ internal interface ITokenApi {
     /**
      * Lists token transfer transactions ( most recent first )
      * @param contract to filter
-     * @param limit max result (MAX 101000 minus offset, there will be N requests performed with 1000 limit per one)
+     * @param limit max result (MAX 101000 minus offset, there will be N requests performed with MAX limit per one)
      * @param offset of the list from origin (0) (MAX 100000)
      * @param since timestamp
      * @param till timestamp
@@ -109,4 +112,75 @@ internal interface ITokenApi {
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<TokenTransfer>
+
+    /**
+     * Lists token transfer transactions ( most recent first )
+     * @param limit max result (MAX 1010000 minus offset, there will be N requests performed with MAX limit per one)
+     * @param offset of the list from origin (0) (MAX 100000)
+     */
+    @NotNull
+    fun list(
+        limit: Int = 100,
+        offset: Int = 0
+    ) : List<TokenInfo>
+
+    /**
+     * Lists token transfer transactions ( most recent first ) with the origin detection
+     * @param contract to filter
+     * @param contracts tokens to filter
+     * @param depth max depth of origin detection.
+     * @param limit max result (MAX 101000 minus offset, there will be N requests performed with MAX limit per one)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @param since timestamp
+     * @param till timestamp
+     */
+    @NotNull
+    fun tokenTransfersOrigin(
+        contract: String,
+        contracts: List<String> = emptyList(),
+        depth: Int = 5,
+        limit: Int = 10000,
+        offset: Int = 0,
+        since: LocalDateTime = MIN_DATETIME,
+        till: LocalDateTime = MAX_DATETIME
+    ) : List<TokenDistribution>
+
+    /**
+     * Lists token amounts transfered between top groups of addresses
+     * @param contract to filter
+     * @param topCount limit to top addresse
+     * @param groupCount limit to count of address groups
+     * @param limitFlow to filter
+     * @param contract to filter
+     * @param limit max result (MAX 200000 minus offset, there will be N requests performed with MAX limit per one)
+     * @param offset of the list from origin (0) (MAX 100000)
+     * @param since timestamp
+     * @param till timestamp
+     */
+    @NotNull
+    fun tokenFlow(
+        contract: String,
+        limit: Int = 1000,
+        offset: Int = 0,
+        limitFlow: Double = 3.0,
+        topCount: Int = 10,
+        groupCount: Int = 50,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<TokenGraph>
+
+    /**
+     * NOT WORKING AT TIME
+     */
+    @NotNull
+    fun tokenFlowGroup(
+        contract: String,
+        groupHash: String,
+        limit: Int = 100,
+        limitFlow: Double = 3.0,
+        topCount: Int = 10,
+        groupCount: Int = 50,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<TokenGraph>
 }

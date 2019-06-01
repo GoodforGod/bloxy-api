@@ -19,6 +19,21 @@ class SalesTests : BloxyTester() {
 
         private var sales: List<Sale> = emptyList()
 
+        fun getTokenSale(api: BloxyApi): List<String> {
+            val result = if(sales.isEmpty()) {
+                sales = api.tokenSale.sales()
+                sales
+            } else {
+                sales
+            }
+
+            assertNotNull(result)
+            assertFalse(result.isEmpty())
+            assertFalse(result[0].isEmpty())
+            assertFalse(result[0].tokenAddress.isEmpty())
+            return result.asSequence().map { it.tokenAddress }.toList()
+        }
+
         fun getRandomTokenSale(api: BloxyApi): String {
             val result = if(sales.isEmpty()) {
                 sales = api.tokenSale.sales()

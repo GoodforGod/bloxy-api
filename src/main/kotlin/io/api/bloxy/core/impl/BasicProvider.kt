@@ -88,6 +88,18 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
         }
     }
 
+    @NotNull
+    protected inline fun <reified T> getOffset(
+        params: String,
+        limit: Int,
+        offset: Int,
+        maxLimit: Int = 100000,
+        maxOffset: Int = 100000,
+        skipErrors: List<Regex> = emptyList()
+    ): List<T> {
+        return getOffset(params, limit.toLong(), offset.toLong(), maxLimit.toLong(), maxOffset.toLong(), skipErrors)
+    }
+
     /**
      * Is used as GET fun for API endpoints with limit and offset
      * Could cycle to get max amount and emulate single request
@@ -110,10 +122,10 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
     @NotNull
     protected inline fun <reified T> getOffset(
         params: String,
-        limit: Int,
-        offset: Int,
-        maxLimit: Int = 100000,
-        maxOffset: Int = 100000,
+        limit: Long,
+        offset: Long,
+        maxLimit: Long = 100000,
+        maxOffset: Long = 100000,
         skipErrors: List<Regex> = emptyList()
     ): List<T> {
         if (limit < 1) return emptyList()
@@ -128,12 +140,15 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
             var cycleLimit = if (fullLimit > maxLimit) toLimit(limit, maxLimit - cycleOffset) else toLimit(limit, maxLimit)
             do {
                 temp = get("$params&limit=$cycleLimit&offset=$cycleOffset", skipErrors)
+                if(result.size.toLong() + temp.size.toLong() > Int.MAX_VALUE)
+                    break
+
                 result.addAll(temp)
 
                 resultLeft -= cycleLimit
                 cycleOffset = toOffset(cycleLimit + cycleOffset, maxOffset)
                 cycleLimit = toLimit(resultLeft, maxLimit)
-            } while (resultLeft > 0 && temp.isNotEmpty() && temp.size == cycleLimit)
+            } while (resultLeft > 0 && temp.isNotEmpty() && temp.size.toLong() == cycleLimit)
 
             return result
         } catch (e: Exception) {

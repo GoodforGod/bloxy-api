@@ -43,7 +43,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<Position> {
-        val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
         val params = "positions?${contractAsParam(contract)}${positionAsParam(positionsIdsOrTokens)}$datesParam"
         return getOffset(params, limit, offset, 10000)
     }
@@ -62,7 +62,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<PositionLS> {
-        val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}${tradersAsParam(traders)}"
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}${tradersAsParam(traders)}"
         val params = "trades?${contractAsParam(contract)}${positionAsParam(positionsIdsOrTokens)}$datesParam"
         return getOffset(params, limit, offset, 10000)
     }
@@ -80,7 +80,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<PositionDaily> {
-        val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
         val params = "daily?position=$positionsIdsOrTokens${contractAsParam(contract)}$datesParam"
         return getOffset(params, limit, offset, 10000)
     }
@@ -124,7 +124,7 @@ class DYdXProtocolApiProvider internal constructor(client: IHttpClient, key: Str
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<PositionStats> {
-        val datesParam = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}${tradersAsParam(traders)}"
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}${tradersAsParam(traders)}"
         val params = "stat?${contractAsParam(contract)}${positionAsParam(positionsIdsOrTokens)}$datesParam"
         return get(params)
     }

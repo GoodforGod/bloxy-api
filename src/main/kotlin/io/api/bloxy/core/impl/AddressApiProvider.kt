@@ -25,7 +25,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
     fun details(
         addresses: List<String>
     ): List<AddrDetails> {
-        return validOnly(get("address_diagnostics?${addressAsParamRequired(addresses)}"))
+        return validOnly(get("address_diagnostics?${asAddressRequired(addresses)}"))
     }
 
     /**
@@ -35,7 +35,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
     fun statistics(
         addresses: List<String>
     ): List<AddrStatistic> {
-        return validOnly(get("address_stat?${addressAsParamRequired(addresses)}"))
+        return validOnly(get("address_stat?${asAddressRequired(addresses)}"))
     }
 
     /**
@@ -91,10 +91,10 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
      */
     @NotNull
     fun all(
-        limit: Int = 1000,
-        offset: Int = 0
+        limit: Long = 1000,
+        offset: Long = 0
     ) : List<AddrInfo> {
-        return getOffset("list_all?", limit, offset, 1000)
+        return getOffset("list_all?", limit, offset, 100000, 100000000000)
     }
 
     /**
@@ -108,9 +108,9 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ) : List<AddrDaily> {
-        val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
+        val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
         val additionalParam = "&valueless=$worthless&price_currency=${currency.name}"
-        val params = "daily?${addressAsParamRequired(address)}$dateParams$additionalParam"
+        val params = "daily?${asAddressRequired(address)}$dateParams$additionalParam"
         return get(params)
     }
 }

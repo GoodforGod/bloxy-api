@@ -47,5 +47,9 @@ data class AddrDaily(
 
 enum class Currency {
     USD,
-    ETH
+    ETH;
+
+    companion object {
+        fun default(): Currency = ETH
+    }
 }

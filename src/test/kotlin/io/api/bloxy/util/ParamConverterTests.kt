@@ -95,23 +95,23 @@ class ParamConverterTests : ParamConverter() {
 
     @Test
     fun `to date less`() {
-        assertTrue { dateAsParam("date", LocalDate.of(1920, 1, 1)).contains(ParamConverter.MIN_DATE.toString()) }
+        assertTrue { asDate("date", LocalDate.of(1920, 1, 1)).contains(ParamConverter.MIN_DATE.toString()) }
     }
 
     @Test
     fun `to date more`() {
-        assertTrue { dateAsParam("date", LocalDate.of(2120, 1, 1)).contains(ParamConverter.MAX_DATE.toString()) }
+        assertTrue { asDate("date", LocalDate.of(2120, 1, 1)).contains(ParamConverter.MAX_DATE.toString()) }
     }
 
     @Test
     fun `to date in range`() {
-        assertTrue { dateAsParam("date", LocalDate.of(2020, 1, 1)).contains("2020-01-01") }
+        assertTrue { asDate("date", LocalDate.of(2020, 1, 1)).contains("2020-01-01") }
     }
 
     @Test
     fun `to time less`() {
         assertTrue {
-            dateAsParam("date", LocalDateTime.of(LocalDate.of(1920, 1, 1), LocalTime.now()))
+            asDate("date", LocalDateTime.of(LocalDate.of(1920, 1, 1), LocalTime.now()))
                 .contains(ParamConverter.MIN_DATE.toString())
         }
     }
@@ -119,7 +119,7 @@ class ParamConverterTests : ParamConverter() {
     @Test
     fun `to time more`() {
         assertTrue {
-            dateAsParam("date", LocalDateTime.of(LocalDate.of(2120, 1, 1), LocalTime.now()))
+            asDate("date", LocalDateTime.of(LocalDate.of(2120, 1, 1), LocalTime.now()))
                 .contains(ParamConverter.MAX_DATE.toString())
         }
     }
@@ -127,7 +127,7 @@ class ParamConverterTests : ParamConverter() {
     @Test
     fun `to time in range`() {
         assertTrue {
-            dateAsParam("date", LocalDateTime.of(LocalDate.of(2020, 1, 1), LocalTime.now()))
+            asDate("date", LocalDateTime.of(LocalDate.of(2020, 1, 1), LocalTime.now()))
                 .contains("2020-01-01")
         }
     }

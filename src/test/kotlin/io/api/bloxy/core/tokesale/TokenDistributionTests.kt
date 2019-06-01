@@ -15,18 +15,22 @@ class TokenDistributionTests : BloxyTester() {
 
     @Test
     fun `valid with sale`() {
-        val sale = SalesTests.getRandomTokenSale(api)
-            val result = api.tokenSale.tokenDistribution(sale)
-            assertNotNull(result)
-            assertFalse(result.isEmpty())
-            assertFalse(result[0].isEmpty())
-            ifValid(result[0].address)
-            ifValid(result[0].amount)
-            ifValid(result[0].annotation)
-            ifValid(result[0].fromTime)
-            ifValid(result[0].tillTime)
-            ifValid(result[0].transactions)
-            ifValid(result[0].toString())
+        val result = SalesTests.getTokenSale(api).stream()
+            .limit(10)
+            .map { api.tokenSale.tokenDistribution(it) }
+            .filter { it.isNotEmpty() }
+            .findFirst().orElse(emptyList())
+
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        ifValid(result[0].address)
+        ifValid(result[0].amount)
+        mayValid(result[0].annotation)
+        mayValid(result[0].fromTime)
+        mayValid(result[0].tillTime)
+        mayValid(result[0].transactions)
+        ifValid(result[0].toString())
     }
 
     @Test

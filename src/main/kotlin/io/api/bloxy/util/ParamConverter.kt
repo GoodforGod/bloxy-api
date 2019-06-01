@@ -2,6 +2,7 @@ package io.api.bloxy.util
 
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
@@ -15,6 +16,9 @@ import java.util.stream.Collectors
 open class ParamConverter : ParamValidator() {
 
     companion object {
+        private val UTC_DATE: LocalDate = LocalDate.ofEpochDay(0)
+        private val UTC_DATETIME: LocalDateTime = LocalDateTime.of(UTC_DATE, LocalTime.of(0, 0, 1))
+
         val MIN_DATE: LocalDate = LocalDate.of(2010, 1, 1)
         val MAX_DATE: LocalDate = LocalDate.of(2080, 1, 1)
 
@@ -23,15 +27,17 @@ open class ParamConverter : ParamValidator() {
 
         fun String.asDateTime() : LocalDateTime? {
             return try {
-                LocalDateTime.parse(this, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+                val parsed = LocalDateTime.parse(this, DateTimeFormatter.ISO_OFFSET_DATE_TIME)
+                if(UTC_DATETIME == parsed) null else parsed
             } catch (e: Exception) {
-                return null
+                null
             }
         }
 
         fun String.asDate() : LocalDate? {
             return try {
-                LocalDate.parse(this)
+                val parsed = LocalDate.parse(this)
+                if(UTC_DATE == parsed) null else parsed
             } catch (e: Exception) {
                 return null
             }
@@ -64,9 +70,11 @@ open class ParamConverter : ParamValidator() {
 
     fun toLimit(limit: Int, max: Int = 100000): Int = if (limit > max) max else if (limit < 1) 1 else limit
 
+    fun toLimit(limit: Long, max: Long = 100000): Long = if (limit > max) max else if (limit < 1) 1 else limit
+
     fun toDepth(depth: Int, max: Int = 300): Int = if (depth > max) max else if (depth < 1) 1 else depth
 
-    fun toOffset(offset: Int, max: Int = 100000): Int = if (offset > max) max else if (offset < 0) 0 else offset
+    fun toOffset(offset: Long, max: Long = 100000): Long = if (offset > max) max else if (offset < 0) 0 else offset
 
     fun toDays(days: Int, maxDays: Int = 1000): Int = if (days > maxDays) maxDays else if (days < 1) 1 else days
 
@@ -79,7 +87,7 @@ open class ParamConverter : ParamValidator() {
         }
     }
 
-    fun asParam(value: String, prefix: String, delim: String): String {
+    fun asParam(value: String, prefix: String, delim: String = ""): String {
         return if (value.isEmpty()) "" else prefix + value + delim
     }
 
@@ -87,31 +95,35 @@ open class ParamConverter : ParamValidator() {
         return if (values.isEmpty()) "" else values.stream().collect(Collectors.joining(delim, prefix, ""))
     }
 
-    fun dateAsParam(paramName: String, date: LocalDateTime): String {
+    fun asDate(paramName: String, date: LocalDateTime): String {
         return if (date == MIN_DATETIME || date == MAX_DATETIME) "" else "&$paramName=${toDateTime(date)}"
     }
 
-    fun dateAsParam(paramName: String, date: LocalDate): String {
+    fun asDate(paramName: String, date: LocalDate): String {
         return if (date == MIN_DATE || date == MAX_DATE) "" else "&$paramName=${toDate(date)}"
     }
 
-    fun tokenAsParamRequired(contracts: List<String>): String {
-        return asParam(checkAddrRequired(contracts), "token[]=", "&token[]=")
-    }
-
-    fun tokenAsParam(contracts: List<String>, prefix: String = ""): String {
+    fun asToken(contracts: List<String>, prefix: String = ""): String {
         return asParam(checkAddr(contracts), "${prefix}token[]=", "&token[]=")
     }
 
-    fun addressAsParamRequired(addresses: List<String>): String {
-        return asParam(checkAddrRequired(addresses), "address[]=", "&address[]=")
+    fun asTokenRequired(contracts: List<String>): String {
+        return asToken(checkAddrRequired(contracts))
     }
 
-    fun addressAsParam(addresses: List<String>, prefix: String = ""): String {
+    fun asAddress(addresses: List<String>, prefix: String = ""): String {
         return asParam(checkAddr(addresses), "${prefix}address[]=", "&address[]=")
     }
 
-    fun addressAsParamRequired(address: String, prefix: String = ""): String {
-        return asParam(address, "${prefix}address[]=", "&address[]=")
+    fun asAddress(address: String, prefix: String): String {
+        return asParam(checkAddr(address), "${prefix}address[]=")
+    }
+
+    fun asAddressRequired(addresses: List<String>): String {
+        return asAddress(checkAddrRequired(addresses))
+    }
+
+    fun asAddressRequired(address: String, prefix: String = "address="): String {
+        return asAddress(checkAddrRequired(address), prefix)
     }
 }
