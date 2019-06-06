@@ -20,12 +20,12 @@ class TopSendersCountTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].annotation)
-        assertNotNull(result[0].sender)
-        assertNotNull(result[0].transactions)
-        assertNotNull(result[0].typeAsString)
-        assertNotNull(result[0].addrType)
-        assertNotNull(result[0].toString())
+        mayValid(result[0].annotation)
+        ifValid(result[0].sender)
+        ifValid(result[0].transactions)
+        ifValid(result[0].typeAsString)
+        ifValid(result[0].addrType)
+        ifValid(result[0].toString())
     }
 
     @Test

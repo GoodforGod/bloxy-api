@@ -3,6 +3,7 @@ package io.api.bloxy.model.dto.moneyflow
 import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
 import io.api.bloxy.util.ParamConverter.Companion.asDate
+import java.math.BigDecimal
 
 /**
  * FlowDaily model
@@ -17,10 +18,10 @@ data class FlowDaily(
     val token: String = "",
     val symbol: String = "",
     @Json(name = "receive_count") val receiveCount: Long = 0L,
-    @Json(name = "receive_amount") val receiveAmount: Long = 0L,
+    @Json(name = "receive_amount") val receiveAmount: BigDecimal = BigDecimal.ZERO,
     @Json(name = "unique_receivers") val uniqueReceivers: Long = 0L,
     @Json(name = "sent_count") val sentCount: Long = 0L,
-    @Json(name = "sent_amount") val sentAmount: Long = 0L,
+    @Json(name = "sent_amount") val sentAmount: BigDecimal = BigDecimal.ZERO,
     @Json(name = "unique_senders") val uniqueSenders: Long = 0L
 ) : IModel {
 

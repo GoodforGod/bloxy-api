@@ -21,12 +21,12 @@ class MoneySourceTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].address)
-        assertNotNull(result[0].amount)
-        assertNotNull(result[0].annotation)
-        assertNotNull(result[0].typeAsString)
-        assertNotNull(result[0].addrType)
-        assertNotNull(result[0].toString())
+        ifValid(result[0].address)
+        ifValid(result[0].amount)
+        mayValid(result[0].annotation)
+        ifValid(result[0].typeAsString)
+        ifValid(result[0].addrType)
+        ifValid(result[0].toString())
     }
 
     @Test(expected = BloxyException::class)

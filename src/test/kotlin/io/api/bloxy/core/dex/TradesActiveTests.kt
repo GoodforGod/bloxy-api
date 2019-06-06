@@ -3,6 +3,7 @@ package io.api.bloxy.core.dex
 import io.api.bloxy.core.BloxyTester
 import io.api.bloxy.error.ParamException
 import org.junit.Test
+import java.time.LocalDate
 
 
 /**
@@ -48,7 +49,7 @@ class TradesActiveTests : BloxyTester() {
     @Test
     fun `valid with contracts`() {
         val contracts = listOf("0x2a0c0dbecc7e4d658f48e01e3fa353f44050c208")
-        val list = api.dex.tradesActive(dexContracts = contracts, timeSpanDays = 800)
+        val list = api.dex.tradesActive(dexContracts = contracts, since = LocalDate.now().minusYears(1))
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
