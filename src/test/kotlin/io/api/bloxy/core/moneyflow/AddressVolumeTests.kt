@@ -20,15 +20,15 @@ class AddressVolumeTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        ifValid(result[0].address)
+        mustValid(result[0].address)
         mayValid(result[0].annotation)
-        ifValid(result[0].receivedAmount)
-        ifValid(result[0].receivedTxs)
-        ifValid(result[0].sentAmount)
-        ifValid(result[0].sentTxs)
-        ifValid(result[0].typeAsString)
-        ifValid(result[0].addrType)
-        ifValid(result[0].toString())
+        mustValid(result[0].receivedAmount)
+        mustValid(result[0].receivedTxs)
+        mustValid(result[0].sentAmount)
+        mustValid(result[0].sentTxs)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].addrType)
+        mustValid(result[0].toString())
     }
 
     @Test

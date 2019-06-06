@@ -2,7 +2,6 @@ package io.api.bloxy.core.tokesale
 
 import io.api.bloxy.core.BloxyTester
 import io.api.bloxy.error.ParamException
-import io.api.bloxy.model.dto.TokenType
 import org.junit.Test
 
 
@@ -16,22 +15,25 @@ class WalletsTests : BloxyTester() {
 
     @Test
     fun `valid with sale`() {
-        val sale = SalesTests.getRandomTokenSale(api)
-            val result = api.tokenSale.wallets(sale)
-            assertNotNull(result)
-            assertFalse(result.isEmpty())
-            assertFalse(result[0].isEmpty())
-            assertNotEquals(TokenType.UNKNOWN, result[0].tokenType)
-            ifValid(result[0].ethAmount)
-            ifValid(result[0].annotation)
-            ifValid(result[0].symbol)
-            ifValid(result[0].tokenAddress)
-            ifValid(result[0].tokenAmount)
-            ifValid(result[0].tokenBuyers)
-            ifValid(result[0].transactions)
-            ifValid(result[0].typeAsString)
-            ifValid(result[0].tokenType)
-            ifValid(result[0].toString())
+        val sales = SalesTests.getTokenSale(api)
+        val result = sales.asSequence()
+            .map { sale -> api.tokenSale.wallets(sale) }
+            .filter { result -> result.isNotEmpty() }
+            .first()
+
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        mustValid(result[0].address)
+        mustValid(result[0].balance)
+        mayValid(result[0].annotation)
+        mustValid(result[0].amountReceived)
+        mayValid(result[0].amountSent)
+        mustValid(result[0].transfersReceived)
+        mayValid(result[0].transfersSent)
+        mustValid(result[0].fromTime)
+        mustValid(result[0].tillTime)
+        mustValid(result[0].toString())
     }
 
     @Test

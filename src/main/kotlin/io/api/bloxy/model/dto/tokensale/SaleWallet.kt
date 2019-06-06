@@ -2,8 +2,8 @@ package io.api.bloxy.model.dto.tokensale
 
 import com.beust.klaxon.Json
 import io.api.bloxy.model.IModel
-import io.api.bloxy.model.ITokenModel
-import io.api.bloxy.model.dto.TokenType
+import io.api.bloxy.util.ParamConverter.Companion.asDateTime
+import java.math.BigDecimal
 
 
 /**
@@ -13,23 +13,27 @@ import io.api.bloxy.model.dto.TokenType
  * @since 18.11.2018
  */
 data class SaleWallet(
-    val symbol: String = "",
-    val transactions: Long = 0,
+    val address: String = "",
+    val balance: BigDecimal = BigDecimal.ZERO,
     val annotation: String = "",
-    @Json(name = "token_type") val typeAsString: String = "",
-    @Json(name = "eth_amount") val ethAmount: Double = .0,
-    @Json(name = "token_amount") val tokenAmount: Double = .0,
-    @Json(name = "token_buyers") val tokenBuyers: Int = 0,
-    @Json(name = "token_address") val tokenAddress: String = ""
-) : IModel, ITokenModel {
+    @Json(name = "amount_received") val amountReceived: BigDecimal = BigDecimal.ZERO,
+    @Json(name = "amount_sent") val amountSent: BigDecimal = BigDecimal.ZERO,
+    @Json(name = "transfers_received") val transfersReceived: Long = 0,
+    @Json(name = "transfers_sent") val transfersSent: Long = 0,
+    @Json(name = "from_time") val fromTimeAsString: String = "",
+    @Json(name = "till_time") val tillTimeAsString: String = ""
+) : IModel {
 
-    override val tokenType: TokenType = TokenType.parse(typeAsString)
+    @Json(ignored = true) val fromTime = fromTimeAsString.asDateTime()
+    @Json(ignored = true) val tillTime = tillTimeAsString.asDateTime()
 
-    override fun isEmpty(): Boolean = tokenAddress.isEmpty() && symbol.isEmpty() && transactions == 0L && tokenBuyers == 0
+    override fun isEmpty(): Boolean = address.isEmpty() && balance == BigDecimal.ZERO
+            && transfersSent == 0L && transfersReceived == 0L
 
     override fun toString(): String {
-        return "SaleWallet(symbol='$symbol', transactions=$transactions, annotation='$annotation', " +
-                "typeAsString='$typeAsString', ethAmount=$ethAmount, tokenAmount=$tokenAmount, " +
-                "tokenBuyers=$tokenBuyers, tokenAddress='$tokenAddress', tokenType=$tokenType)"
+        return "SaleWallet(address='$address', balance=$balance, annotation='$annotation', " +
+                "amount_received=$amountReceived, amount_sent=$amountSent, " +
+                "transfers_received=$transfersReceived, transfers_sent=$transfersSent, " +
+                "fromTimeAsString='$fromTimeAsString', tillTimeAsString='$tillTimeAsString')"
     }
 }

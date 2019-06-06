@@ -17,22 +17,22 @@ class TransferAllTests : BloxyTester() {
     @Test
     fun valid() {
         val addresses = listOf("0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949")
-        val result = api.moneyFlow.transfersAll(addresses, since = LocalDate.of(2016, 1, 1))
+        val result = api.moneyFlow.transfersAll(addresses, since = LocalDate.of(2016, 1, 1), limit = 10)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         assertTrue(result[0].haveTxTime())
-        ifValid(result[0].amount)
-        ifValid(result[0].tokenAddress)
-        ifValid(result[0].direction)
-        ifValid(result[0].party)
+        mustValid(result[0].amount)
+        mustValid(result[0].tokenAddress)
+        mustValid(result[0].direction)
+        mustValid(result[0].party)
         mayValid(result[0].partyAnnotation)
-        ifValid(result[0].partyType)
-        ifValid(result[0].tokenSymbol)
-        ifValid(result[0].txHash)
-        ifValid(result[0].txTime)
+        mustValid(result[0].partyType)
+        mustValid(result[0].tokenSymbol)
+        mustValid(result[0].txHash)
+        mustValid(result[0].txTime)
         assertTrue(result[0].isIncoming() || result[0].isOutgoing())
-        ifValid(result[0].toString())
+        mustValid(result[0].toString())
     }
 
     @Test

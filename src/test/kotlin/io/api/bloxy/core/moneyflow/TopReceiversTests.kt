@@ -21,12 +21,12 @@ class TopReceiversTests : BloxyTester() {
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         mayValid(result[0].annotation)
-        ifValid(result[0].receiver)
-        ifValid(result[0].transactions)
-        ifValid(result[0].amount)
-        ifValid(result[0].typeAsString)
-        ifValid(result[0].addrType)
-        ifValid(result[0].toString())
+        mustValid(result[0].receiver)
+        mustValid(result[0].transactions)
+        mustValid(result[0].amount)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].addrType)
+        mustValid(result[0].toString())
     }
 
     @Test

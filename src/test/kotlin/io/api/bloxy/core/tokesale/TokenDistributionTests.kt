@@ -16,7 +16,6 @@ class TokenDistributionTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val result = SalesTests.getTokenSale(api).stream()
-            .limit(10)
             .map { api.tokenSale.tokenDistribution(it) }
             .filter { it.isNotEmpty() }
             .findFirst().orElse(emptyList())
@@ -24,13 +23,13 @@ class TokenDistributionTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        ifValid(result[0].address)
-        ifValid(result[0].amount)
+        mustValid(result[0].address)
+        mustValid(result[0].amount)
         mayValid(result[0].annotation)
         mayValid(result[0].fromTime)
         mayValid(result[0].tillTime)
         mayValid(result[0].transactions)
-        ifValid(result[0].toString())
+        mustValid(result[0].toString())
     }
 
     @Test

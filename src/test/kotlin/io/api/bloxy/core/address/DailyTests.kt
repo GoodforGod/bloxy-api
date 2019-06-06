@@ -9,27 +9,41 @@ import org.junit.Test
  * ! NO DESCRIPTION !
  *
  * @author GoodforGod
- * @since 21.11.2018
+ * @since 07.06.2019
  */
-class CorrelatedTests : BloxyTester() {
+class DailyTests : BloxyTester() {
 
     @Test
     fun valid() {
         val address = "0x9eAb08daA285183F9A04269747D4125F08e634B0"
-        val list = api.address.correlated(address)
+        val list = api.address.daily(address)
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
-        mustValid(list[0].address)
+        mustValid(list[0].change)
         mustValid(list[0].symbol)
-        mustValid(list[0].likelihood)
+        mustValid(list[0].dailyBalance)
+        mustValid(list[0].dailyPrice)
+        mustValid(list[0].dailyProfit)
+        mustValid(list[0].dailyValue)
+        mustValid(list[0].date)
+        mustValid(list[0].dateAsString)
+        mustValid(list[0].deposit)
+        mustValid(list[0].depositValue)
+        mustValid(list[0].deposited)
+        mayValid(list[0].inDailyValue)
+        mustValid(list[0].profit)
+        mustValid(list[0].profitLifetime)
+        mayValid(list[0].realizedGain)
+        mustValid(list[0].roiDaily)
+        mayValid(list[0].tokenAddress)
         mustValid(list[0].toString())
     }
 
     @Test
     fun `non exist address empty result`() {
         val address = "0x1eAb08daA285183F9A04269747D4125F08e634B0"
-        val details = api.address.correlated(address)
+        val details = api.address.daily(address)
         assertNotNull(details)
         assertTrue(details.isEmpty())
     }
@@ -37,6 +51,6 @@ class CorrelatedTests : BloxyTester() {
     @Test(expected = ParamException::class)
     fun `invalid address param`() {
         val address = "0xeAb08daA285183F9A04269747D4125F08e634B0"
-        api.address.correlated(address)
+        api.address.daily(address)
     }
 }

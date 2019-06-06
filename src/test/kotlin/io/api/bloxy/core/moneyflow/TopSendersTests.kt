@@ -16,17 +16,17 @@ class TopSendersTests : BloxyTester() {
     @Test
     fun valid() {
         val address = "0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949"
-        val result = api.moneyFlow.topSenders(address)
+        val result = api.moneyFlow.topSenders(address, limit = 10)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         mayValid(result[0].annotation)
-        ifValid(result[0].sender)
-        ifValid(result[0].transactions)
-        ifValid(result[0].amount)
-        ifValid(result[0].typeAsString)
-        ifValid(result[0].addrType)
-        ifValid(result[0].toString())
+        mustValid(result[0].sender)
+        mustValid(result[0].transactions)
+        mustValid(result[0].amount)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].addrType)
+        mustValid(result[0].toString())
     }
 
     @Test

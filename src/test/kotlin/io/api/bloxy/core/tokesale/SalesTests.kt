@@ -20,8 +20,8 @@ class SalesTests : BloxyTester() {
         private var sales: List<Sale> = emptyList()
 
         fun getTokenSale(api: BloxyApi): List<String> {
-            val result = if(sales.isEmpty()) {
-                sales = api.tokenSale.sales()
+            val result = if (sales.isEmpty()) {
+                sales = api.tokenSale.sales(limit = 4)
                 sales
             } else {
                 sales
@@ -35,7 +35,7 @@ class SalesTests : BloxyTester() {
         }
 
         fun getRandomTokenSale(api: BloxyApi): String {
-            val result = if(sales.isEmpty()) {
+            val result = if (sales.isEmpty()) {
                 sales = api.tokenSale.sales()
                 sales
             } else {
@@ -56,27 +56,25 @@ class SalesTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        ifValid(result[0].ethAmount)
-        ifValid(result[0].symbol)
-        ifValid(result[0].tokenAddress)
-        ifValid(result[0].tokenAmount)
-        ifValid(result[0].tokenBuyers)
-        ifValid(result[0].transactions)
-        ifValid(result[0].typeAsString)
-        ifValid(result[0].tokenType)
-        ifValid(result[0].toString())
+        mustValid(result[0].ethAmount)
+        mustValid(result[0].symbol)
+        mustValid(result[0].tokenAddress)
+        mustValid(result[0].tokenAmount)
+        mustValid(result[0].tokenBuyers)
+        mustValid(result[0].transactions)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].tokenType)
+        mustValid(result[0].toString())
     }
 
     @Test
     fun `valid with sale`() {
         val sale = getRandomTokenSale(api)
-        if (!sale.isEmpty()) {
-            val contracts = listOf(sale)
-            val result = api.tokenSale.sales(contracts)
-            assertNotNull(result)
-            assertFalse(result.isEmpty())
-            assertFalse(result[0].isEmpty())
-        }
+        val contracts = listOf(sale)
+        val result = api.tokenSale.sales(contracts)
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
     }
 
     @Test

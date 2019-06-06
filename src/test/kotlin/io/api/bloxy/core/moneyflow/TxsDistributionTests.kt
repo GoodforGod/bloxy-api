@@ -16,25 +16,25 @@ class TxsDistributionTests : BloxyTester() {
     @Test
     fun valid() {
         val address = "0xe49C438d7Fee8F36cE95658AB875faf197952dD8"
-        val result = api.moneyFlow.txsDistribution(address)
+        val result = api.moneyFlow.txsDistribution(address, limit = 10, depth = 1)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         assertTrue(result[0].haveTxTime())
-        ifValid(result[0].depth)
-        ifValid(result[0].amount)
-        ifValid(result[0].receiver)
-        ifValid(result[0].receiverType)
-        ifValid(result[0].receiverTypeAsString)
+        mustValid(result[0].depth)
+        mustValid(result[0].amount)
+        mustValid(result[0].receiver)
+        mustValid(result[0].receiverType)
+        mustValid(result[0].receiverTypeAsString)
         mayValid(result[0].receiverAnnotation)
-        ifValid(result[0].sender)
-        ifValid(result[0].senderType)
-        ifValid(result[0].senderTypeAsString)
+        mustValid(result[0].sender)
+        mustValid(result[0].senderType)
+        mustValid(result[0].senderTypeAsString)
         mayValid(result[0].senderAnnotation)
-        ifValid(result[0].txHash)
-        ifValid(result[0].txTimeAsString)
-        ifValid(result[0].txTime)
-        ifValid(result[0].toString())
+        mustValid(result[0].txHash)
+        mustValid(result[0].txTimeAsString)
+        mustValid(result[0].txTime)
+        mustValid(result[0].toString())
     }
 
     @Test

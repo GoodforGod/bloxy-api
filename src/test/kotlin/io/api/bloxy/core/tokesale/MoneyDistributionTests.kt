@@ -16,16 +16,16 @@ class MoneyDistributionTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val sale = SalesTests.getRandomTokenSale(api)
-            val result = api.tokenSale.moneyDistribution(sale)
-            assertNotNull(result)
-            assertFalse(result.isEmpty())
-            assertFalse(result[0].isEmpty())
-            ifValid(result[0].address)
-            ifValid(result[0].amount)
-            ifValid(result[0].annotation)
-            ifValid(result[0].typeAsString)
-            ifValid(result[0].addrType)
-            ifValid(result[0].toString())
+        val result = api.tokenSale.moneyDistribution(sale, limit = 2, depth = 1)
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        mustValid(result[0].address)
+        mustValid(result[0].amount)
+        mayValid(result[0].annotation)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].addrType)
+        mustValid(result[0].toString())
     }
 
     @Test

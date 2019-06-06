@@ -16,16 +16,16 @@ class MoneyDistributionTests : BloxyTester() {
     @Test
     fun valid() {
         val address = "0xe49C438d7Fee8F36cE95658AB875faf197952dD8"
-        val result = api.moneyFlow.moneyDistribution(address)
+        val result = api.moneyFlow.moneyDistribution(address, limit = 5, depth = 1)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        ifValid(result[0].address)
-        ifValid(result[0].amount)
+        mustValid(result[0].address)
+        mustValid(result[0].amount)
         mayValid(result[0].annotation)
-        ifValid(result[0].typeAsString)
-        ifValid(result[0].addrType)
-        ifValid(result[0].toString())
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].addrType)
+        mustValid(result[0].toString())
     }
 
     @Test

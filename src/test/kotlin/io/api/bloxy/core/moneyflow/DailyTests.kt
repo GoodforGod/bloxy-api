@@ -20,17 +20,17 @@ class DailyTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        ifValid(result[0].address)
-        ifValid(result[0].date)
+        mustValid(result[0].address)
+        mustValid(result[0].date)
         mayValid(result[0].receiveAmount)
         mayValid(result[0].receiveCount)
         mayValid(result[0].sentAmount)
         mayValid(result[0].sentCount)
-        ifValid(result[0].symbol)
-        ifValid(result[0].token)
+        mustValid(result[0].symbol)
+        mustValid(result[0].token)
         mayValid(result[0].uniqueReceivers)
         mayValid(result[0].uniqueSenders)
-        ifValid(result[0].toString())
+        mustValid(result[0].toString())
     }
 
     @Test

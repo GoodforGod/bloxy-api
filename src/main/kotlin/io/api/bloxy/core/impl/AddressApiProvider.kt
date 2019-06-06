@@ -110,7 +110,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
     ) : List<AddrDaily> {
         val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
         val additionalParam = "&valueless=$worthless&price_currency=${currency.name}"
-        val params = "daily?${asAddressRequired(address)}$dateParams$additionalParam"
+        val params = "daily_value?${asAddressRequired(address)}$dateParams$additionalParam"
         return get(params)
     }
 }

@@ -16,20 +16,20 @@ class StatsDailyTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val sale = SalesTests.getRandomTokenSale(api)
-            val result = api.tokenSale.statsDaily(sale)
-            assertNotNull(result)
-            assertFalse(result.isEmpty())
-            assertFalse(result[0].isEmpty())
-            ifValid(result[0].eth_amount)
-            ifValid(result[0].token_amount)
-            ifValid(result[0].token_buyers)
-            ifValid(result[0].transactions)
-            ifValid(result[0].txDateAsString)
-            ifValid(result[0].toString())
-            if (result[0].txDateAsString.isNotEmpty()) {
-                ifValid(result[0].haveDate())
-                ifValid(result[0].txDate)
-            }
+        val result = api.tokenSale.statsDaily(sale)
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        mustValid(result[0].ethAmount)
+        mustValid(result[0].tokenAmount)
+        mustValid(result[0].tokenBuyers)
+        mustValid(result[0].transactions)
+        mustValid(result[0].txDateAsString)
+        mustValid(result[0].toString())
+        if (result[0].txDateAsString.isNotEmpty()) {
+            mustValid(result[0].haveDate())
+            mustValid(result[0].txDate)
+        }
     }
 
     @Test
