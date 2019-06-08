@@ -21,7 +21,7 @@ class DailyTests : BloxyTester() {
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
         mayValid(list[0].change)
-        mustValid(list[0].symbol)
+        mayValid(list[0].symbol)
         mustValid(list[0].dailyBalance)
         mustValid(list[0].dailyPrice)
         mustValid(list[0].dailyProfit)
