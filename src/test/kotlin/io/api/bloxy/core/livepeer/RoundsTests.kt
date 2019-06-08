@@ -13,17 +13,17 @@ class RoundsTests : BloxyTester() {
 
     @Test
     fun valid() {
-        val list = api.livepeer.rounds()
+        val list = api.livepeer.rounds(limit = 5)
         assertNotNull(list)
         assertFalse(list.isEmpty())
-        assertNotNull(list[0])
-        assertNotNull(list[0].currentInflation)
-        assertNotNull(list[0].currentMintableTokens)
-        assertNotNull(list[0].block)
-        assertNotNull(list[0].round)
-        assertNotNull(list[0].txHash)
-        assertNotNull(list[0].txTime)
-        assertNotNull(list[0].toString())
+        assertFalse(list[0].isEmpty())
+        mustValid(list[0].currentInflation)
+        mustValid(list[0].currentMintableTokens)
+        mustValid(list[0].block)
+        mustValid(list[0].round)
+        mustValid(list[0].txHash)
+        mustValid(list[0].txTime)
+        mustValid(list[0].toString())
         if (list.size > 1) {
             assertNotEquals(list[0], list[1])
             assertNotEquals(list[0].hashCode(), list[1].hashCode())

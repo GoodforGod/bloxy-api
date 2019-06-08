@@ -16,14 +16,14 @@ class TokenTransfersTests : BloxyTester() {
     @Test
     fun valid() {
         val contract = "0xB97048628DB6B661D4C2aA833e95Dbe1A905B280"
-        val result = api.token.transfers(contract)
+        val result = api.token.transfers(contract, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         mustValid(result[0].haveTxTime())
         mustValid(result[0].amount)
-        mustValid(result[0].gasPrice)
-        mustValid(result[0].gasValue)
+        mayValid(result[0].gasPrice)
+        mayValid(result[0].gasValue)
         mustValid(result[0].symbol)
         mustValid(result[0].tokenReceiver)
         mustValid(result[0].symbol)

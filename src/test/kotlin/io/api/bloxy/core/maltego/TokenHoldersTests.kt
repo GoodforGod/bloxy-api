@@ -16,16 +16,16 @@ class TokenHoldersTests : BloxyTester() {
     @Test
     fun valid() {
         val contract = "0xB97048628DB6B661D4C2aA833e95Dbe1A905B280"
-        val result = api.maltego.tokenHolders(contract)
+        val result = api.maltego.tokenHolders(contract, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].address)
-        assertNotNull(result[0].annotation)
-        assertNotNull(result[0].balance)
-        assertNotNull(result[0].typeAsString)
-        assertNotNull(result[0].addrType)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].address)
+        mayValid(result[0].annotation)
+        mustValid(result[0].balance)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].addrType)
+        mustValid(result[0].toString())
     }
 
     @Test

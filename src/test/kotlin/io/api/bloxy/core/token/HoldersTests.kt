@@ -16,7 +16,7 @@ class HoldersTests : BloxyTester() {
     @Test
     fun valid() {
         val contract = "0xB97048628DB6B661D4C2aA833e95Dbe1A905B280"
-        val result = api.token.holders(contract)
+        val result = api.token.holders(contract, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())

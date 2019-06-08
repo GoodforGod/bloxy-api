@@ -17,7 +17,7 @@ class TransfersSendTests : BloxyTester() {
     @Test
     fun valid() {
         val addresses = listOf("0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949")
-        val result = api.moneyFlow.transfersSent(addresses, since = LocalDate.of(2016, 1, 1), limit = 10)
+        val result = api.moneyFlow.transfersSent(addresses, since = LocalDate.of(2016, 1, 1), limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -27,7 +27,7 @@ class TransfersSendTests : BloxyTester() {
         mayValid(result[0].receiverAnnotation)
         mayValid(result[0].receiverFlag)
         mustValid(result[0].receiverType)
-        mustValid(result[0].tokenAddress)
+        mayValid(result[0].tokenAddress)
         mustValid(result[0].tokenSymbol)
         mustValid(result[0].txHash)
         mustValid(result[0].txTime)

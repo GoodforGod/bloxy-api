@@ -16,7 +16,7 @@ class TokenDistributionTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val result = SalesTests.getTokenSale(api).stream()
-            .map { api.tokenSale.tokenDistribution(it) }
+            .map { api.tokenSale.tokenDistribution(it, limit = 5) }
             .filter { it.isNotEmpty() }
             .findFirst().orElse(emptyList())
 

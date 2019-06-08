@@ -9,6 +9,7 @@ import io.api.bloxy.model.dto.address.CoinBalance
 import io.api.bloxy.model.dto.dex.MethodType
 import org.junit.Assert
 import java.math.BigDecimal
+import java.math.BigInteger
 import java.time.LocalDate
 import java.time.LocalDateTime
 
@@ -28,10 +29,11 @@ open class BloxyTester : Assert() {
 
     fun mustValid(value: String) = assertTrue(value.isNotBlank() && value != "-")
     fun mustValid(value: Boolean) = assertTrue(value)
-    fun mustValid(value: Long) = assertNotEquals(0L, value)
-    fun mustValid(value: Int) = assertNotEquals(0, value)
+    fun mustValid(value: Long) = listOf(0, -1).forEach { assertNotEquals(it, value) }
+    fun mustValid(value: Int) = listOf(0, -1).forEach { assertNotEquals(it, value) }
     fun mustValid(value: Double) = assertNotEquals(.0, value)
     fun mustValid(value: BigDecimal) = assertNotEquals(BigDecimal.ZERO, value)
+    fun mustValid(value: BigInteger) = assertNotEquals(BigInteger.ZERO, value)
     fun mustValid(value: LocalDate?) = assertNotNull(value)
     fun mustValid(value: LocalDateTime?) = assertNotNull(value)
     fun mustValid(value: AddressType) = assertNotEquals(AddressType.UNKNOWN, value)

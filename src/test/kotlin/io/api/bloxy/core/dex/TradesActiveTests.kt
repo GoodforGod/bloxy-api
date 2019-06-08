@@ -16,7 +16,7 @@ class TradesActiveTests : BloxyTester() {
 
     @Test
     fun `valid empty params`() {
-        val result = api.dex.tradesActive(emptyList())
+        val result = api.dex.tradesActive(emptyList(), limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())

@@ -15,7 +15,7 @@ class TokenByNameOrSymbolTests : BloxyTester() {
     @Test
     fun `valid token symbol`() {
         val symbol = "PAY"
-        val result = api.token.findToken(symbol)
+        val result = api.token.findToken(symbol, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isUnknown())

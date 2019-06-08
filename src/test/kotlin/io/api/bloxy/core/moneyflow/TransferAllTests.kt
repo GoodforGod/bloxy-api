@@ -17,7 +17,7 @@ class TransferAllTests : BloxyTester() {
     @Test
     fun valid() {
         val addresses = listOf("0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949")
-        val result = api.moneyFlow.transfersAll(addresses, since = LocalDate.of(2016, 1, 1), limit = 10)
+        val result = api.moneyFlow.transfersAll(addresses, since = LocalDate.of(2016, 1, 1), limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())

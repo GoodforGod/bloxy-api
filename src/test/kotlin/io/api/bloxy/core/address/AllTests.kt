@@ -14,7 +14,7 @@ class AllTests : BloxyTester() {
 
     @Test
     fun valid() {
-        val result = api.address.all(limit = 10)
+        val result = api.address.all(limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())

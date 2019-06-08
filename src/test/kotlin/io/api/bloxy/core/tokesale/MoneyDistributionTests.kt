@@ -16,7 +16,7 @@ class MoneyDistributionTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val sale = SalesTests.getRandomTokenSale(api)
-        val result = api.tokenSale.moneyDistribution(sale, limit = 2, depth = 1)
+        val result = api.tokenSale.moneyDistribution(sale, limit = 5, depth = 1)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())

@@ -21,7 +21,7 @@ class SalesTests : BloxyTester() {
 
         fun getTokenSale(api: BloxyApi): List<String> {
             val result = if (sales.isEmpty()) {
-                sales = api.tokenSale.sales(limit = 4)
+                sales = api.tokenSale.sales(limit = 5)
                 sales
             } else {
                 sales

@@ -16,7 +16,7 @@ class TxsSourceTests : BloxyTester() {
     @Test
     fun valid() {
         val address = "0xe49C438d7Fee8F36cE95658AB875faf197952dD8"
-        val result = api.moneyFlow.txsSource(address, limit = 10, depth = 1)
+        val result = api.moneyFlow.txsSource(address, limit = 5, depth = 1)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())

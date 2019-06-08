@@ -16,7 +16,7 @@ class ContractsTests : BloxyTester() {
     @Test
     fun valid() {
         val protocols = listOf("IDEX")
-        val result = api.dex.contracts(protocols)
+        val result = api.dex.contracts(protocols, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())

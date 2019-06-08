@@ -16,15 +16,15 @@ class SourcesTests : BloxyTester() {
     @Test
     fun valid() {
         val contract = "0x105631c6cddba84d12fa916f0045b1f97ec9c268"
-        val result = api.dapp.sources(contract)
+        val result = api.dapp.sources(contract, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].annotation)
-        assertNotNull(result[0].multiSource)
-        assertNotNull(result[0].sourceAmount)
-        assertNotNull(result[0].createdAddressCount)
-        assertNotNull(result[0].toString())
+        mayValid(result[0].annotation)
+        mustValid(result[0].multiSource)
+        mustValid(result[0].sourceAmount)
+        mustValid(result[0].createdAddressCount)
+        mustValid(result[0].toString())
     }
 
     @Test(expected = ParamException::class)

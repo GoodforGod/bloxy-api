@@ -15,7 +15,7 @@ class SalesTxsTests : BloxyTester() {
 
     @Test
     fun valid() {
-        val result = api.tokenSale.saleTxs(limit = 3)
+        val result = api.tokenSale.saleTxs(limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())

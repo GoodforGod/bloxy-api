@@ -16,7 +16,7 @@ class TopReceiversTests : BloxyTester() {
     @Test
     fun valid() {
         val address = "0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949"
-        val result = api.moneyFlow.topReceivers(address, limit = 2000)
+        val result = api.moneyFlow.topReceivers(address, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
