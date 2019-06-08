@@ -14,7 +14,6 @@ import io.api.bloxy.util.ParamConverter.Companion.asDateTime
 data class DexTrade(
     @Json(name = "tx_hash") val txHash: String = "",
     @Json(name = "tx_time") val txTimeAsString: String = "",
-    @Json(name = "tx_date") val txDateAsString: String = "",
     @Json(name = "tx_sender") val txSender: String = "",
     @Json(name = "smart_contract_id") val smartContractId: Long = 0,
     @Json(name = "smart_contract_address") val smartContractAddress: String = "",
@@ -46,7 +45,7 @@ data class DexTrade(
     }
 
     override fun toString(): String {
-        return "DexTrade(txHash='$txHash', txTimeAsString='$txTimeAsString', txDateAsString='$txDateAsString', " +
+        return "DexTrade(txHash='$txHash', txTimeAsString='$txTimeAsString', " +
                 "txSender='$txSender', smartContractId=$smartContractId, smartContractAddress='$smartContractAddress', " +
                 "contractType='$contractType', makerAnnotation='$makerAnnotation', takerAnnotation='$takerAnnotation', " +
                 "maker='$maker', taker='$taker', amountBuy=$amountBuy, makerFee=$makerFee, buyCurrencyId=$buyCurrencyId, " +

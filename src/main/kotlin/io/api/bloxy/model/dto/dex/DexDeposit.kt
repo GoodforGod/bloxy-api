@@ -18,7 +18,7 @@ data class DexDeposit(
     val protocol: String = "",
     val user: String = "",
     val token: String = "",
-    val opIndex: Int = 0,
+    val opIndex: String = "",
     @Json(name = "tx_time") val txTimeAsString: String = "",
     @Json(name = "amount_in_currency") val amountInCurrency: BigDecimal = BigDecimal.ZERO,
     @Json(name = "tx_hash") val txHash: String = "",

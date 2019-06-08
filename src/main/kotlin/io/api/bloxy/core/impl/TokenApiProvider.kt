@@ -21,8 +21,9 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
 
     companion object {
         private val errors = listOf(
-            "No currency found by token".toRegex(),
-            "Currency not found by".toRegex()
+            "^No currency found by token".toRegex(),
+            "^Currency not found by".toRegex(),
+            "^Token not found".toRegex()
         )
     }
 

@@ -23,6 +23,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         private val errors = listOf(
             "^Protocols not found".toRegex(),
             "^Protocol can not be".toRegex(),
+            "^Token not found by".toRegex(),
             "^Not found any DEXes".toRegex()
         )
     }
@@ -123,7 +124,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         txHash: String,
         currency: Currency = Currency.ETH
     ) : List<DexTrade> {
-       return get("tx_trades?trader=${checkTxRequired(txHash)}&price_currency=${currency.name}")
+       return get("tx_trades?tx_hash=${checkTxRequired(txHash)}&price_currency=${currency.name}")
     }
 
     /**
@@ -142,7 +143,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
     ) : List<DexArbitrage> {
         val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
         val additionalParam = asParam(symbol, "&symbol=")
-        val params = "arbitrage_trades?trader=${checkAddrRequired(trader)}&price_currency=${currency.name}$datesParam$additionalParam"
+        val params = "arbitrage_trades?price_currency=${currency.name}${asParam(trader, "trader", "&")}$datesParam$additionalParam"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
@@ -164,7 +165,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
         val paramsAddrs = "${asContract(dexContracts)}${asToken(tokenAddresses)}"
         val params = "deposits?price_currency=${currency.name}$datesParam${asProtocol(protocols)}$paramsAddrs"
-        return getOffset(params, limit, offset, skipErrors = errors)
+        return getOffset(params, limit, offset)
     }
 
     /**
@@ -180,6 +181,6 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
     ) : List<DexTokenStat> {
         val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
         val params = "token_stat?token=${checkAddrRequired(tokenAddress)}$datesParam"
-        return getOffset(params, limit, 200000000, skipErrors = errors)
+        return getOffset(params, limit, 0, skipErrors = errors)
     }
 }
