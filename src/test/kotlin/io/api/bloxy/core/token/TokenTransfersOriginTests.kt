@@ -9,32 +9,36 @@ import org.junit.Test
  * ! NO DESCRIPTION !
  *
  * @author GoodforGod
- * @since 24.11.2018
+ * @since 08.06.2019
  */
-class TokenTransfersTests : BloxyTester() {
+class TokenTransfersOriginTests : BloxyTester() {
 
     @Test
     fun valid() {
         val contract = "0xB97048628DB6B661D4C2aA833e95Dbe1A905B280"
-        val result = api.token.transfers(contract)
+        val result = api.token.transfersOrigin(contract, limit = 5, depth = 1)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        mustValid(result[0].haveTxTime())
         mustValid(result[0].amount)
         mustValid(result[0].gasPrice)
         mustValid(result[0].gasValue)
         mustValid(result[0].symbol)
         mustValid(result[0].tokenReceiver)
         mustValid(result[0].symbol)
-        mustValid(result[0].tokenSender)
-        mayValid(result[0].tokenReceiverAnnotation)
         mayValid(result[0].tokenSenderAnnotation)
         mayValid(result[0].txFromAnnotation)
+        mayValid(result[0].tokenBuyerAnnotation)
+        mayValid(result[0].tokenOriginAnnotation)
+        mayValid(result[0].tokenReceiverAnnotation)
+        mustValid(result[0].tokenSender)
         mustValid(result[0].txFrom)
         mustValid(result[0].txHash)
         mustValid(result[0].txTimeAsString)
         mustValid(result[0].txTime)
+        mustValid(result[0].tokenBuyer)
+        mustValid(result[0].tokenOrigin)
+        mustValid(result[0].tokenReceiver)
         mustValid(result[0].toString())
     }
 

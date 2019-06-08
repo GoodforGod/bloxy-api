@@ -82,7 +82,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
      */
     @NotNull
     @JvmOverloads
-    fun tokenByNameOrSymbol(
+    fun findToken(
         nameOrSymbol: String,
         limit: Int = 100
     ): List<Token> {
@@ -93,7 +93,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
      * @see io.api.bloxy.core.ITokenApi.tokenDetails
      */
     @NotNull
-    fun tokenDetails(
+    fun details(
         contracts: List<String>
     ): List<TokenDetails> {
         return get("token_info?${asTokenRequired(contracts)}", errors)
@@ -103,7 +103,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
      * @see io.api.bloxy.core.ITokenApi.tokenStatistic
      */
     @NotNull
-    fun tokenStatistic(
+    fun statistic(
         contract: String
     ): List<TokenStatistic> {
         return get("token_stat?token=${checkAddrRequired(contract)}", errors)
@@ -114,7 +114,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
      */
     @NotNull
     @JvmOverloads
-    fun tokenTransfers(
+    fun transfers(
         contract: String,
         limit: Int = 100,
         offset: Int = 0,
@@ -152,7 +152,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
      */
     @NotNull
     @JvmOverloads
-    fun tokenTransfersOrigin(
+    fun transfersOrigin(
         contract: String,
         contracts: List<String> = emptyList(),
         depth: Int = 5,
@@ -162,7 +162,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         till: LocalDateTime = MAX_DATETIME
     ) : List<TokenDistribution> {
         val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
-        val params = "token=${checkAddrRequired(contract)}$dateParams${checkAddr(contracts)}&max_depth=$depth"
+        val params = "token=${checkAddrRequired(contract)}$dateParams${asAddress(contracts)}&max_depth=$depth"
         return getOffset("transfers_with_origin?$params", limit, offset, skipErrors = errors)
     }
 
@@ -180,7 +180,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
      */
     @NotNull
     @JvmOverloads
-    fun tokenFlow(
+    fun flow(
         contract: String,
         limit: Int = 1000,
         offset: Int = 0,

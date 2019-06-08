@@ -72,6 +72,7 @@ abstract class BasicProvider(private val client: IHttpClient, module: String, ke
             if (json.isBlank()) emptyList() else converter.parseArray(json) ?: emptyList()
         } catch (e: Exception) {
             try {
+                println(json)
                 val bloxyError = converter.parse<BloxyError>(json) ?: throw ParseException(e.message, e.cause)
                 when {
                     skipErrors.stream().anyMatch { er -> er.containsMatchIn(bloxyError.error) } -> emptyList()

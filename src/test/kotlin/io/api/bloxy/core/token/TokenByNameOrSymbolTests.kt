@@ -15,29 +15,29 @@ class TokenByNameOrSymbolTests : BloxyTester() {
     @Test
     fun `valid token symbol`() {
         val symbol = "PAY"
-        val result = api.token.tokenByNameOrSymbol(symbol)
+        val result = api.token.findToken(symbol)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isUnknown())
         assertFalse(result[0].isEmpty())
         assertTrue(result[0].haveLatestTxTime())
-        assertNotNull(result[0].address)
-        assertNotNull(result[0].created)
-        assertNotNull(result[0].decimals)
-        assertNotNull(result[0].latestTxAsString)
-        assertNotNull(result[0].latestTx)
-        assertNotNull(result[0].name)
-        assertNotNull(result[0].symbol)
-        assertNotNull(result[0].transactions)
-        assertNotNull(result[0].typeAsString)
-        assertNotNull(result[0].tokenType)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].address)
+        mustValid(result[0].created)
+        mustValid(result[0].decimals)
+        mustValid(result[0].latestTxAsString)
+        mustValid(result[0].latestTx)
+        mustValid(result[0].name)
+        mustValid(result[0].symbol)
+        mustValid(result[0].transactions)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].tokenType)
+        mustValid(result[0].toString())
     }
 
     @Test
     fun `valid token name`() {
         val name = "TenX"
-        val result = api.token.tokenByNameOrSymbol(name)
+        val result = api.token.findToken(name)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -46,7 +46,7 @@ class TokenByNameOrSymbolTests : BloxyTester() {
     @Test
     fun `non exist token symbol empty result`() {
         val symbol = "PARIAPA"
-        val result = api.token.tokenByNameOrSymbol(symbol)
+        val result = api.token.findToken(symbol)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }

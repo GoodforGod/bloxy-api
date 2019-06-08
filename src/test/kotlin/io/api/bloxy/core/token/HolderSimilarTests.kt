@@ -20,11 +20,11 @@ class HolderSimilarTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].address)
-        assertNotNull(result[0].commonHolders)
-        assertNotNull(result[0].percentage)
-        assertNotNull(result[0].symbol)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].address)
+        mustValid(result[0].commonHolders)
+        mustValid(result[0].percentage)
+        mustValid(result[0].symbol)
+        mustValid(result[0].toString())
     }
 
     @Test

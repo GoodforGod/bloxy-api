@@ -54,7 +54,7 @@ class TransactionApiProvider internal constructor(client: IHttpClient, key: Stri
     fun callsByTx(
         txHash: String
     ) : List<TxTrace> {
-        return get("tx_calls?${checkTxRequired(txHash)}")
+        return get("tx_calls?tx_hash=${checkTxRequired(txHash)}")
     }
 
     /**
@@ -81,7 +81,7 @@ class TransactionApiProvider internal constructor(client: IHttpClient, key: Stri
     fun eventsByTx(
         txHash: String
     ) : List<TxEvent> {
-        return get("tx_events?${checkTxRequired(txHash)}")
+        return get("tx_events?tx_hash=${checkTxRequired(txHash)}")
     }
 
     /**

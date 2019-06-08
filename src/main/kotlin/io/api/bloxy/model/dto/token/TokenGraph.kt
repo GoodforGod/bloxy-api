@@ -29,29 +29,29 @@ data class TokenGraph(
     /**
      * Address -> Type
      */
-    val fromGroups: Map<String, String> = parseGroups(fromGroupAddressesAnnotations, fromGroupTypesAsString)
+    val fromGroups: Map<String, String> = parseGroups(fromGroupAddressesAsString, fromGroupTypesAsString)
     val toGroups: Map<String, String> = parseGroups(toGroupAddressesAsString, toGroupTypesAsString)
 
     private fun parseGroups(groupAddress: String, groupTypes: String) : Map<String, String> {
-        val addresses = fromGroupAddressesAnnotations.split(';')
+        val addresses = groupAddress.split(';')
         val types = groupTypes.split(';')
 
         val result: MutableMap<String, String> = mutableMapOf()
         for(i in 1..addresses.size)
-            result[addresses[i]] = if(types.size <= i) types[i] else ""
+            result[addresses[i]] = if(types.size >= i) types[i] else ""
         return result
     }
 
     override fun isEmpty(): Boolean = amount == BigDecimal.ZERO && txCount == 0L && groupFromHash.isEmpty()
 
-    override fun toString(): String {
-        return "TokenGraph(amount=$amount, groupFromHash='$groupFromHash', groupFromSize=$groupFromSize, " +
-                "groupToHash='$groupToHash', groupToSize=$groupToSize, txCount=$txCount, " +
-                "fromGroupAddressesAsString='$fromGroupAddressesAsString', " +
-                "toGroupAddressesAsString='$toGroupAddressesAsString', " +
-                "fromGroupAddressesAnnotations='$fromGroupAddressesAnnotations', " +
-                "toGroupAddressesAnnotations='$toGroupAddressesAnnotations', " +
-                "fromGroupTypesAsString='$fromGroupTypesAsString', " +
-                "toGroupTypesAsString='$toGroupTypesAsString', fromGroups=$fromGroups, toGroups=$toGroups)"
-    }
+//    override fun toString(): String {
+//        return "TokenGraph(amount=$amount, groupFromHash='$groupFromHash', groupFromSize=$groupFromSize, " +
+//                "groupToHash='$groupToHash', groupToSize=$groupToSize, txCount=$txCount, " +
+//                "fromGroupAddressesAsString='$fromGroupAddressesAsString', " +
+//                "toGroupAddressesAsString='$toGroupAddressesAsString', " +
+//                "fromGroupAddressesAnnotations='$fromGroupAddressesAnnotations', " +
+//                "toGroupAddressesAnnotations='$toGroupAddressesAnnotations', " +
+//                "fromGroupTypesAsString='$fromGroupTypesAsString', " +
+//                "toGroupTypesAsString='$toGroupTypesAsString', fromGroups=$fromGroups, toGroups=$toGroups)"
+//    }
 }

@@ -118,6 +118,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
      * @see io.api.bloxy.core.IDexApi.tradesActive
      */
     @NotNull
+    @JvmOverloads
     fun tradesByHash(
         txHash: String,
         currency: Currency = Currency.ETH
@@ -129,6 +130,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
      * @see io.api.bloxy.core.IDexApi.tradesArbitrage
      */
     @NotNull
+    @JvmOverloads
     fun tradesArbitrage(
         trader: String = "",
         symbol: String = "",
@@ -148,6 +150,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
      * @see io.api.bloxy.core.IDexApi.deposits
      */
     @NotNull
+    @JvmOverloads
     fun deposits(
         protocols: List<String> = emptyList(),
         dexContracts: List<String> = emptyList(),
@@ -168,6 +171,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
      * @see io.api.bloxy.core.IDexApi.tokenStats
      */
     @NotNull
+    @JvmOverloads
     fun tokenStats(
         tokenAddress: String,
         limit: Int = 100,

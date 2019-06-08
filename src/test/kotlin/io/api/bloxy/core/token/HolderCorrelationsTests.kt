@@ -20,10 +20,10 @@ class HolderCorrelationsTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].addresses)
-        assertNotNull(result[0].symbols)
-        assertNotNull(result[0].transferToUniques)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].addresses)
+        mustValid(result[0].symbols)
+        mustValid(result[0].transferToUniques)
+        mustValid(result[0].toString())
     }
 
     @Test

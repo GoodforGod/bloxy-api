@@ -90,6 +90,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
      * @see io.api.bloxy.core.IAddressApi.all
      */
     @NotNull
+    @JvmOverloads
     fun all(
         limit: Long = 1000,
         offset: Long = 0
@@ -101,6 +102,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
      * @see io.api.bloxy.core.IAddressApi.daily
      */
     @NotNull
+    @JvmOverloads
     fun daily(
         address: String,
         currency: Currency = Currency.USD,
