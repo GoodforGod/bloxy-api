@@ -25,7 +25,7 @@ internal interface IContractApi {
         hashes: List<String>,
         limit: Int = 100,
         offset: Int = 0
-    ) : List<SignatureDetail>
+    ): List<SignatureDetail>
 
     /**
      * List all methods/events with the specified name(s)
@@ -37,7 +37,7 @@ internal interface IContractApi {
         names: List<String>,
         limit: Int = 100,
         offset: Int = 0
-    ) : List<SignatureDetail>
+    ): List<SignatureDetail>
 
     /**
      * List of smart contracts where the method used
@@ -49,7 +49,7 @@ internal interface IContractApi {
         signatureHash: String,
         limit: Int = 100,
         offset: Int = 0
-    ) : List<ContractDetail>
+    ): List<ContractDetail>
 
     /**
      * List of smart contracts where the event used
@@ -61,7 +61,7 @@ internal interface IContractApi {
         signatureHash: String,
         limit: Int = 100,
         offset: Int = 0
-    ) : List<ContractDetail>
+    ): List<ContractDetail>
 
     /**
      * List of smart contract methods and call statistics
@@ -69,7 +69,7 @@ internal interface IContractApi {
      */
     fun methods(
         contract: String
-    ) : List<Method>
+    ): List<Method>
 
     /**
      * List of smart contract methods and call statistics
@@ -77,5 +77,5 @@ internal interface IContractApi {
      */
     fun events(
         contract: String
-    ) : List<Event>
+    ): List<Event>
 }

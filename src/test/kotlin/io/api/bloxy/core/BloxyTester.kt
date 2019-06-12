@@ -37,9 +37,9 @@ open class BloxyTester : Assert() {
     fun mustValid(value: LocalDate?) = assertNotNull(value)
     fun mustValid(value: LocalDateTime?) = assertNotNull(value)
     fun mustValid(value: AddressType) = assertNotEquals(AddressType.UNKNOWN, value)
-    fun mustValid(value: TokenType) = assertNotEquals(TokenType.UNKNOWN, value)
     fun mustValid(value: DangerLevel) = assertNotEquals(DangerLevel.UNKNOWN, value)
     fun mustValid(value: MethodType) = assertNotEquals(MethodType.UNKNOWN, value)
+    fun mustValid(value: TokenType) = assertNotEquals(TokenType.UNKNOWN, value)
     fun mustValid(value: IModel?): () -> Unit = {
         assertNotNull(value)
         assertFalse(value?.isEmpty() ?: CoinBalance().isEmpty())
@@ -51,6 +51,6 @@ open class BloxyTester : Assert() {
     fun mayValid(value: Double) = assertNotNull(value)
     fun mayValid(value: BigDecimal) = assertNotNull(value)
     fun mayValid(value: MethodType) = assertNotNull(value)
-    fun mayValid(value: LocalDate?) {}
-    fun mayValid(value: LocalDateTime?) {}
+    fun mayValid(value: LocalDate?) { assertTrue(value == null ?: true) }
+    fun mayValid(value: LocalDateTime?) { assertTrue(value == null ?: true)}
 }

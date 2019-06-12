@@ -26,11 +26,11 @@ internal interface IDAppApi {
      */
     @NotNull
     fun statistics(
-            limit: Int = 100,
-            offset: Int = 0,
-            since: LocalDate = MIN_DATE,
-            till: LocalDate = MAX_DATE
-    ) : List<DAppStats>
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<DAppStats>
 
     /**
      * Lists smart contract addresses, which called or transfered money to smart contract
@@ -41,11 +41,11 @@ internal interface IDAppApi {
      */
     @NotNull
     fun users(
-            contract: String,
-            multiSource: String = "",
-            limit: Int = 10000,
-            offset: Int = 0
-    ) : List<DAppUser>
+        contract: String,
+        multiSource: String = "",
+        limit: Int = 10000,
+        offset: Int = 0
+    ): List<DAppUser>
 
     /**
      * Lists addresses, which created more than one address, which send money or called smart contract
@@ -55,8 +55,8 @@ internal interface IDAppApi {
      */
     @NotNull
     fun sources(
-            contract: String,
-            limit: Int = 10000,
-            offset: Int = 0
-    ) : List<MultiSource>
+        contract: String,
+        limit: Int = 10000,
+        offset: Int = 0
+    ): List<MultiSource>
 }

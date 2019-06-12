@@ -79,7 +79,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     }
 
     /**
-     * @see io.api.bloxy.core.ITokenApi.tokenByNameOrSymbol
+     * @see io.api.bloxy.core.ITokenApi.findToken
      */
     @NotNull
     @JvmOverloads
@@ -91,7 +91,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     }
 
     /**
-     * @see io.api.bloxy.core.ITokenApi.tokenDetails
+     * @see io.api.bloxy.core.ITokenApi.details
      */
     @NotNull
     fun details(
@@ -101,7 +101,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     }
 
     /**
-     * @see io.api.bloxy.core.ITokenApi.tokenStatistic
+     * @see io.api.bloxy.core.ITokenApi.statistic
      */
     @NotNull
     fun statistic(
@@ -111,7 +111,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     }
 
     /**
-     *  @see io.api.bloxy.core.ITokenApi.tokenTransfers
+     * @see io.api.bloxy.core.ITokenApi.transfers
      */
     @NotNull
     @JvmOverloads
@@ -128,9 +128,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     }
 
     /**
-     * Lists token transfer transactions ( most recent first )
-     * @param limit max result (MAX 1010000 minus offset, there will be N requests performed with MAX limit per one)
-     * @param offset of the list from origin (0) (MAX 100000)
+     * @see io.api.bloxy.core.ITokenApi.list
      */
     @JvmOverloads
     @NotNull
@@ -142,14 +140,7 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     }
 
     /**
-     * Lists token transfer transactions ( most recent first ) with the origin detection
-     * @param contract to filter
-     * @param contracts tokens to filter
-     * @param depth max depth of origin detection.
-     * @param limit max result (MAX 101000 minus offset, there will be N requests performed with MAX limit per one)
-     * @param offset of the list from origin (0) (MAX 100000)
-     * @param since timestamp
-     * @param till timestamp
+     * @see io.api.bloxy.core.ITokenApi.transfersOrigin
      */
     @NotNull
     @JvmOverloads
@@ -168,23 +159,13 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
     }
 
     /**
-     * Lists token amounts transfered between top groups of addresses
-     * @param contract to filter
-     * @param topCount limit to top addresse
-     * @param groupCount limit to count of address groups
-     * @param limitFlow to filter
-     * @param contract to filter
-     * @param limit max result (MAX 200000 minus offset, there will be N requests performed with MAX limit per one)
-     * @param offset of the list from origin (0) (MAX 100000)
-     * @param since timestamp
-     * @param till timestamp
+     * @see io.api.bloxy.core.ITokenApi.flow
      */
     @NotNull
     @JvmOverloads
     fun flow(
         contract: String,
-        limit: Int = 1000,
-        offset: Int = 0,
+        limit: Int = 10000,
         limitFlow: Double = 3.0,
         topCount: Int = 10,
         groupCount: Int = 50,
@@ -194,6 +175,6 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val limitParam = "&limit_flow_ratio=$limitFlow&group_count=$groupCount&top_count=$topCount"
         val params = "token=${checkAddrRequired(contract)}$dateParams$limitParam"
-        return getOffset("token_flow?$params", limit, offset, skipErrors = errors)
+        return getOffset("token_flow?$params", limit, 0, skipErrors = errors)
     }
 }

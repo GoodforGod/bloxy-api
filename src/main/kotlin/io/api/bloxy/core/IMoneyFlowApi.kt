@@ -296,5 +296,5 @@ internal interface IMoneyFlowApi {
         contracts: List<String> = emptyList(),
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<FlowDaily>
+    ): List<FlowDaily>
 }

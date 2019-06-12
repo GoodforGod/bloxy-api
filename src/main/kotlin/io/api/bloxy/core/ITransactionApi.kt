@@ -47,7 +47,7 @@ internal interface ITransactionApi {
     @NotNull
     fun callsByTx(
         txHash: String
-    ) : List<TxTrace>
+    ): List<TxTrace>
 
     /**
      * All calls of smart contracts in transactions, initiated from the specified smart contract
@@ -65,7 +65,7 @@ internal interface ITransactionApi {
         offset: Int = 0,
         since: LocalDate = ParamConverter.MIN_DATE,
         till: LocalDate = ParamConverter.MAX_DATE
-    ) : List<TxTrace>
+    ): List<TxTrace>
 
     /**
      * All events, logged in transaction(s), including internal calls
@@ -74,7 +74,7 @@ internal interface ITransactionApi {
     @NotNull
     fun eventsByTx(
         txHash: String
-    ) : List<TxEvent>
+    ): List<TxEvent>
 
     /**
      * All events in transactions, initiated from the specified smart contract
@@ -91,5 +91,5 @@ internal interface ITransactionApi {
         offset: Int = 0,
         since: LocalDate = ParamConverter.MIN_DATE,
         till: LocalDate = ParamConverter.MAX_DATE
-    ) : List<TxEvent>
+    ): List<TxEvent>
 }

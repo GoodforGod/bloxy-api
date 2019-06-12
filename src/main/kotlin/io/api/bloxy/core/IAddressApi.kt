@@ -60,9 +60,9 @@ internal interface IAddressApi {
      */
     @NotNull
     fun annotationStatistic(
-            limit: Int = 1000,
-            offset: Int = 0
-    ) : Map<String, Int>
+        limit: Int = 1000,
+        offset: Int = 0
+    ): Map<String, Int>
 
     /**
      * Lists the words used in address annotations per address
@@ -72,10 +72,10 @@ internal interface IAddressApi {
      */
     @NotNull
     fun annotations(
-            words: List<String>,
-            limit: Int = 1000,
-            offset: Int = 0
-    ) : Map<String, List<String>>
+        words: List<String>,
+        limit: Int = 1000,
+        offset: Int = 0
+    ): Map<String, List<String>>
 
     /**
      * Lists the addresses, ordered by eth balance in batches
@@ -87,7 +87,7 @@ internal interface IAddressApi {
     fun all(
         limit: Int = 1000,
         offset: Int = 0
-    ) : List<AddrInfo>
+    ): List<AddrInfo>
 
     /**
      * Returns deposits/withdrawals,balances and value in USD/ETH by asset for given address
@@ -102,5 +102,5 @@ internal interface IAddressApi {
         worthless: Boolean = false,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<AddrDaily>
+    ): List<AddrDaily>
 }

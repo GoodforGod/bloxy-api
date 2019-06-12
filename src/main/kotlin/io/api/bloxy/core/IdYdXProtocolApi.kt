@@ -33,7 +33,7 @@ internal interface IdYdXProtocolApi {
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<Position>
+    ): List<Position>
 
     /**
      * Open/increase/close position transactions of dYdX Margin Tranding
@@ -54,7 +54,7 @@ internal interface IdYdXProtocolApi {
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<PositionLS>
+    ): List<PositionLS>
 
     /**
      * Daily position aggregates for dYdX Margin Tranding
@@ -73,7 +73,7 @@ internal interface IdYdXProtocolApi {
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<PositionDaily>
+    ): List<PositionDaily>
 
     /**
      * Tokenized position price/supply/holders/marketcap hourly. Source for the hourly Ether and DAI price:
@@ -85,7 +85,7 @@ internal interface IdYdXProtocolApi {
     fun positionToken(
         positionsTokens: String,
         contract: String = ""
-    ) : List<PositionToken>
+    ): List<PositionToken>
 
 
     /**
@@ -99,7 +99,7 @@ internal interface IdYdXProtocolApi {
         contract: String = "",
         positionsIdsOrTokens: List<String> = emptyList(),
         traders: List<String> = emptyList()
-    ) : List<TraderStats>
+    ): List<TraderStats>
 
 
     /**
@@ -117,7 +117,7 @@ internal interface IdYdXProtocolApi {
         traders: List<String> = emptyList(),
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<PositionStats>
+    ): List<PositionStats>
 
     /**
      * withdrawals events due to margin call
@@ -134,5 +134,5 @@ internal interface IdYdXProtocolApi {
         traders: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0
-    ) : List<MarginCall>
+    ): List<MarginCall>
 }

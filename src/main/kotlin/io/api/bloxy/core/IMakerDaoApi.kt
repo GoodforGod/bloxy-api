@@ -29,5 +29,5 @@ internal interface IMakerDaoApi {
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<Poke>
+    ): List<Poke>
 }

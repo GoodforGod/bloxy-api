@@ -101,7 +101,7 @@ internal interface IDexApi {
     fun tradesByHash(
         txHash: String,
         currency: Currency = Currency.ETH
-    ) : List<DexTrade>
+    ): List<DexTrade>
 
     /**
      * Lists active traders ordered by number of trades, as maker or taker.
@@ -122,7 +122,7 @@ internal interface IDexApi {
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<DexArbitrage>
+    ): List<DexArbitrage>
 
     /**
      * Lists active traders ordered by number of trades, as maker or taker.
@@ -145,7 +145,7 @@ internal interface IDexApi {
         offset: Int = 0,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<DexDeposit>
+    ): List<DexDeposit>
 
     /**
      * Lists active traders ordered by number of trades, as maker or taker.
@@ -161,5 +161,5 @@ internal interface IDexApi {
         limit: Int = 100,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<DexTokenStat>
+    ): List<DexTokenStat>
 }

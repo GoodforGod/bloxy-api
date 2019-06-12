@@ -274,5 +274,5 @@ internal interface IMaltegoApi {
     @NotNull
     fun tokenSaleStatsAddress(
         contract: String
-    ) : List<SaleAddrStat>
+    ): List<SaleAddrStat>
 }
