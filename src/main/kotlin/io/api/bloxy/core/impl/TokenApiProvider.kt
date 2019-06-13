@@ -177,4 +177,26 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         val params = "token=${checkAddrRequired(contract)}$dateParams$limitParam"
         return getOffset("token_flow?$params", limit, 0, skipErrors = errors)
     }
+
+    /**
+     * @see io.api.bloxy.core.ITokenApi.flowGroup
+     */
+    @NotNull
+    @JvmOverloads
+    fun flowGroup(
+        contract: String,
+        groupHash: String,
+        limit: Int = 1000,
+        offset: Int = 0,
+        limitFlow: Double = 3.0,
+        topCount: Int = 50,
+        groupCount: Int = 50,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<TokenGroupGraph> {
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
+        val limitParam = "&limit_flow_ratio=$limitFlow&group_count=$groupCount&top_count=$topCount"
+        val params = "token=${checkAddrRequired(contract)}&group_hash=${checkNonBlank(groupHash)}$dateParams$limitParam"
+        return getOffset("token_flow_group?$params", limit, offset, skipErrors = errors)
+    }
 }

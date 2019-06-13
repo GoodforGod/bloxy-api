@@ -185,9 +185,10 @@ internal interface ITokenApi {
         groupHash: String,
         limit: Int = 1000,
         offset: Int = 0,
+        limitFlow: Double = 3.0,
         topCount: Int = 50,
         groupCount: Int = 50,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ): List<TokenGraph>
+    ): List<TokenGroupGraph>
 }
