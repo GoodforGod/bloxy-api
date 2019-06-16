@@ -2,8 +2,11 @@ package io.api.bloxy.core.impl
 
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.transaction.TxDetail
+import io.api.bloxy.model.dto.transaction.TxEvent
+import io.api.bloxy.model.dto.transaction.TxTrace
 import io.api.bloxy.model.dto.transaction.TxTransfer
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDate
 
 
 /**
@@ -30,7 +33,7 @@ class TransactionApiProvider internal constructor(client: IHttpClient, key: Stri
         limit: Int = 1000,
         offset: Int = 0
     ): List<TxTransfer> {
-        val param = "transfers?${hashAsParam(checkTxsRequired(txHashes))}"
+        val param = "transfers?${hashAsParam(checkTxRequired(txHashes))}"
         return getOffset(param, limit, offset)
     }
 
@@ -41,6 +44,60 @@ class TransactionApiProvider internal constructor(client: IHttpClient, key: Stri
     fun details(
         txHashes: List<String>
     ): List<TxDetail> {
-        return get("info?${hashAsParam(checkTxsRequired(txHashes))}")
+        return get("info?${hashAsParam(checkTxRequired(txHashes))}")
+    }
+
+    /**
+     * @see io.api.bloxy.core.ITransactionApi.callsByTx
+     */
+    @NotNull
+    fun callsByTx(
+        txHash: String
+    ) : List<TxTrace> {
+        return get("tx_calls?tx_hash=${checkTxRequired(txHash)}")
+    }
+
+    /**
+     * @see io.api.bloxy.core.ITransactionApi.callsByContract
+     */
+    @NotNull
+    @JvmOverloads
+    fun callsByContract(
+        contract: String,
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<TxTrace> {
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
+        val params = "smart_contract_address=${checkAddrRequired(contract)}$dateParams"
+        return getOffset("sc_calls?$params", limit, offset)
+    }
+
+    /**
+     * @see io.api.bloxy.core.ITransactionApi.eventsByTx
+     */
+    @NotNull
+    fun eventsByTx(
+        txHash: String
+    ) : List<TxEvent> {
+        return get("tx_events?tx_hash=${checkTxRequired(txHash)}")
+    }
+
+    /**
+     * @see io.api.bloxy.core.ITransactionApi.eventsByContract
+     */
+    @NotNull
+    @JvmOverloads
+    fun eventsByContract(
+        contract: String,
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<TxEvent> {
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
+        val params = "smart_contract_address=${checkAddrRequired(contract)}$dateParams"
+        return getOffset("sc_events?$params", limit, offset)
     }
 }

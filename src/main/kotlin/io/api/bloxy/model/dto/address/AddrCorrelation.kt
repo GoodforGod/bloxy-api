@@ -16,7 +16,5 @@ data class AddrCorrelation(
 ) : IModel {
     override fun isEmpty(): Boolean = address.isEmpty()
 
-    override fun toString(): String {
-        return "AddrCorrelation(address='$address', symbol='$symbol', likelihood=$likelihood)"
-    }
+    override fun toString(): String = "AddrCorrelation(address='$address', symbol='$symbol', likelihood=$likelihood)"
 }

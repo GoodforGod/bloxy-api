@@ -1,10 +1,10 @@
 package io.api.bloxy.core
 
-import io.api.bloxy.model.dto.address.AddrCorrelation
-import io.api.bloxy.model.dto.address.AddrDetails
-import io.api.bloxy.model.dto.address.AddrStatistic
-import io.api.bloxy.model.dto.address.Balance
+import io.api.bloxy.model.dto.address.*
+import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
+import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDate
 
 
 /**
@@ -60,9 +60,9 @@ internal interface IAddressApi {
      */
     @NotNull
     fun annotationStatistic(
-            limit: Int = 1000,
-            offset: Int = 0
-    ) : Map<String, Int>
+        limit: Int = 1000,
+        offset: Int = 0
+    ): Map<String, Int>
 
     /**
      * Lists the words used in address annotations per address
@@ -72,8 +72,35 @@ internal interface IAddressApi {
      */
     @NotNull
     fun annotations(
-            words: List<String>,
-            limit: Int = 1000,
-            offset: Int = 0
-    ) : Map<String, List<String>>
+        words: List<String>,
+        limit: Int = 1000,
+        offset: Int = 0
+    ): Map<String, List<String>>
+
+    /**
+     * Lists the addresses, ordered by eth balance in batches
+     * @param limit max result (MAX 100001000000)
+     * @param offset of the list from origin (0) (MAX 100000000000)
+     * @return list of all addresses
+     */
+    @NotNull
+    fun all(
+        limit: Int = 1000,
+        offset: Int = 0
+    ): List<AddrInfo>
+
+    /**
+     * Returns deposits/withdrawals,balances and value in USD/ETH by asset for given address
+     * @param since timestamp (default is ~100 days ago or not)
+     * @param till timestamp (default now)
+     * @return list of daily address activity
+     */
+    @NotNull
+    fun daily(
+        address: String,
+        currency: Currency = Currency.USD,
+        worthless: Boolean = false,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<AddrDaily>
 }

@@ -16,18 +16,18 @@ class PokeTests : BloxyTester() {
     @Test
     fun valid() {
         val contract = "0x729d19f657bd0614b4985cf1d82531c67569197b"
-        val result = api.makerDao.poke(contract)
+        val result = api.makerDao.poke(contract, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].block)
-        assertNotNull(result[0].from)
-        assertNotNull(result[0].sender)
-        assertNotNull(result[0].txHash)
-        assertNotNull(result[0].txTime)
-        assertNotNull(result[0].txTimeAsString)
-        assertNotNull(result[0].value)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].block)
+        mustValid(result[0].from)
+        mustValid(result[0].sender)
+        mustValid(result[0].txHash)
+        mustValid(result[0].txTime)
+        mustValid(result[0].txTimeAsString)
+        mustValid(result[0].value)
+        mustValid(result[0].toString())
     }
 
     @Test(expected = ParamException::class)

@@ -1,8 +1,10 @@
 package io.api.bloxy.core.impl
 
 import io.api.bloxy.executor.IHttpClient
+import io.api.bloxy.model.dto.address.Currency
 import io.api.bloxy.model.dto.dex.*
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDate
 
 
 /**
@@ -21,15 +23,16 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         private val errors = listOf(
             "^Protocols not found".toRegex(),
             "^Protocol can not be".toRegex(),
+            "^Token not found by".toRegex(),
             "^Not found any DEXes".toRegex()
         )
     }
 
-    private fun protocolAsParam(values: List<String>): String {
+    private fun asProtocol(values: List<String>): String {
         return asParam(values, "&protocol[]=", "protocol[]=")
     }
 
-    private fun contractAsParam(values: List<String>): String {
+    private fun asContract(values: List<String>): String {
         return asParam(checkAddr(values), "&smart_contract_address[]=", "smart_contract_address[]=")
     }
 
@@ -50,9 +53,11 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         protocols: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        timeSpanDays: Int = 30
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ): List<DexContract> {
-        val params = "smart_contracts?days=${toDays(timeSpanDays)}${protocolAsParam(protocols)}"
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val params = "smart_contracts?$datesParam${asProtocol(protocols)}"
         return getOffset(params, limit, offset)
     }
 
@@ -67,10 +72,12 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         tokenAddresses: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        timeSpanDays: Int = 5
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ): List<DexTrade> {
-        val paramsAddrs = "${contractAsParam(dexContracts)}${tokenAsParam(tokenAddresses)}"
-        val params = "trades?days=${toDays(timeSpanDays, 30)}${protocolAsParam(protocols)}$paramsAddrs"
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val paramsAddrs = "${asContract(dexContracts)}${asToken(tokenAddresses)}"
+        val params = "trades?$datesParam${asProtocol(protocols)}$paramsAddrs"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
@@ -83,9 +90,9 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         protocols: List<String> = emptyList(),
         dexContracts: List<String> = emptyList()
     ): List<DexTxPending> {
-        val paramDex = contractAsParam(dexContracts)
+        val paramDex = asContract(dexContracts)
         val formattedDex = if (protocols.isEmpty()) paramDex.replace("&", "") else paramDex
-        val params = "pending?${protocolAsParam(protocols)}$formattedDex"
+        val params = "pending?${asProtocol(protocols)}$formattedDex"
         return get(params, errors)
     }
 
@@ -99,10 +106,81 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
         dexContracts: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        timeSpanDays: Int = 30
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
     ): List<DexTradeActive> {
-        val paramsAddrs = "${protocolAsParam(protocols)}${contractAsParam(dexContracts)}"
-        val params = "traders?days=${toDays(timeSpanDays, 720)}$paramsAddrs"
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val paramsAddrs = "${asProtocol(protocols)}${asContract(dexContracts)}"
+        val params = "traders?$datesParam$paramsAddrs"
         return getOffset(params, limit, offset, skipErrors = errors)
+    }
+
+    /**
+     * @see io.api.bloxy.core.IDexApi.tradesActive
+     */
+    @NotNull
+    @JvmOverloads
+    fun tradesByHash(
+        txHash: String,
+        currency: Currency = Currency.ETH
+    ) : List<DexTrade> {
+       return get("tx_trades?tx_hash=${checkTxRequired(txHash)}&price_currency=${currency.name}")
+    }
+
+    /**
+     * @see io.api.bloxy.core.IDexApi.tradesArbitrage
+     */
+    @NotNull
+    @JvmOverloads
+    fun tradesArbitrage(
+        trader: String = "",
+        symbol: String = "",
+        currency: Currency = Currency.ETH,
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<DexArbitrage> {
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val additionalParam = asParam(symbol, "&symbol=")
+        val params = "arbitrage_trades?price_currency=${currency.name}${asParam(trader, "trader", "&")}$datesParam$additionalParam"
+        return getOffset(params, limit, offset, skipErrors = errors)
+    }
+
+    /**
+     * @see io.api.bloxy.core.IDexApi.deposits
+     */
+    @NotNull
+    @JvmOverloads
+    fun deposits(
+        protocols: List<String> = emptyList(),
+        dexContracts: List<String> = emptyList(),
+        tokenAddresses: List<String> = emptyList(),
+        currency: Currency = Currency.ETH,
+        limit: Int = 100,
+        offset: Int = 0,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<DexDeposit> {
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val paramsAddrs = "${asContract(dexContracts)}${asToken(tokenAddresses)}"
+        val params = "deposits?price_currency=${currency.name}$datesParam${asProtocol(protocols)}$paramsAddrs"
+        return getOffset(params, limit, offset)
+    }
+
+    /**
+     * @see io.api.bloxy.core.IDexApi.tokenStats
+     */
+    @NotNull
+    @JvmOverloads
+    fun tokenStats(
+        tokenAddress: String,
+        limit: Int = 100,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<DexTokenStat> {
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val params = "token_stat?token=${checkAddrRequired(tokenAddress)}$datesParam"
+        return getOffset(params, limit, 0, skipErrors = errors)
     }
 }

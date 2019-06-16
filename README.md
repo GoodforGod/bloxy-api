@@ -27,7 +27,7 @@ Library depends on [Klaxon](https://github.com/cbeust/klaxon) so jcenter reposit
     <dependency>
         <groupId>com.github.goodforgod</groupId>
         <artifactId>bloxy-api</artifactId>
-        <version>1.0.4</version>
+        <version>1.1.0</version>
     </dependency>
 </dependencies>
 ```
@@ -40,7 +40,7 @@ repositories {
 }
  
 dependencies {
-    compile 'com.github.goodforgod:bloxy-api:1.0.4'
+    compile 'com.github.goodforgod:bloxy-api:1.1.0'
 }
 ```
 
@@ -80,7 +80,7 @@ Try to manually add *kotlin stdlib*.
     <dependency>
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-stdlib-jdk8</artifactId>
-        <version>1.3.10</version> // Or your version
+        <version>1.3.31</version> // Or your version
     </dependency>
 </dependencies>
 ```
@@ -88,7 +88,7 @@ Try to manually add *kotlin stdlib*.
 **Gradle**
 ```groovy
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.10" // Or your version
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.31" // Or your version
 }
 ```
 
@@ -174,6 +174,8 @@ val appStats = api.dapp.statistics()
 ```
 
 ## Version History
+
+**1.1.0** - Address, Transaction, Dex, Token, MoneyFlow, TokenSale APIs enchanted, tests were reinforced
 
 **1.0.4** - Livepeer & dYdY & Maltego API modules support.
 

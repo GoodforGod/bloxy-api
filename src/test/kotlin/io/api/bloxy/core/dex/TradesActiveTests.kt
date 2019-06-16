@@ -3,6 +3,7 @@ package io.api.bloxy.core.dex
 import io.api.bloxy.core.BloxyTester
 import io.api.bloxy.error.ParamException
 import org.junit.Test
+import java.time.LocalDate
 
 
 /**
@@ -15,25 +16,25 @@ class TradesActiveTests : BloxyTester() {
 
     @Test
     fun `valid empty params`() {
-        val result = api.dex.tradesActive(emptyList())
+        val result = api.dex.tradesActive(emptyList(), limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertTrue(result[0].haveFromTime())
-        assertTrue(result[0].haveTillTime())
-        assertNotNull(result[0].address)
-        assertNotNull(result[0].addressAnnotation)
-        assertNotNull(result[0].contractType)
-        assertNotNull(result[0].currencies)
-        assertNotNull(result[0].dexes)
-        assertNotNull(result[0].fromTime)
-        assertNotNull(result[0].fromTimeAsString)
-        assertNotNull(result[0].makerTrades)
-        assertNotNull(result[0].takerTrades)
-        assertNotNull(result[0].tillTime)
-        assertNotNull(result[0].tillTimeAsString)
-        assertNotNull(result[0].typeAsString)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].haveFromTime())
+        mustValid(result[0].haveTillTime())
+        mustValid(result[0].address)
+        mayValid(result[0].addressAnnotation)
+        mayValid(result[0].contractType)
+        mayValid(result[0].typeAsString)
+        mustValid(result[0].currencies)
+        mustValid(result[0].dexes)
+        mustValid(result[0].fromTime)
+        mustValid(result[0].fromTimeAsString)
+        mustValid(result[0].makerTrades)
+        mustValid(result[0].takerTrades)
+        mustValid(result[0].tillTime)
+        mustValid(result[0].tillTimeAsString)
+        mustValid(result[0].toString())
     }
 
     @Test
@@ -48,7 +49,7 @@ class TradesActiveTests : BloxyTester() {
     @Test
     fun `valid with contracts`() {
         val contracts = listOf("0x2a0c0dbecc7e4d658f48e01e3fa353f44050c208")
-        val list = api.dex.tradesActive(dexContracts = contracts, timeSpanDays = 800)
+        val list = api.dex.tradesActive(dexContracts = contracts, since = LocalDate.now().minusYears(1))
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())

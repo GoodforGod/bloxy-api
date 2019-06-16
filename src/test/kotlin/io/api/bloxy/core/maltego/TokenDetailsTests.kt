@@ -20,13 +20,13 @@ class TokenDetailsTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].address)
-        assertNotNull(result[0].decimals)
-        assertNotNull(result[0].name)
-        assertNotNull(result[0].symbol)
-        assertNotNull(result[0].typeAsString)
-        assertNotNull(result[0].tokenType)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].address)
+        mustValid(result[0].decimals)
+        mustValid(result[0].name)
+        mustValid(result[0].symbol)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].tokenType)
+        mustValid(result[0].toString())
     }
 
     @Test

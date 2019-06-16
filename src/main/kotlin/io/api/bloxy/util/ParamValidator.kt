@@ -49,7 +49,19 @@ open class ParamValidator {
         return addresses
     }
 
-    fun checkTxsRequired(txs: List<String>): List<String> {
+    fun checkAddr(address: String): String {
+        if(address.isEmpty())
+            return address
+
+        return if (isAddressValid(address)) address else throw ParamException("Address is not Ethereum format : $address")
+    }
+
+    fun checkTxRequired(tx: String): String {
+        if (tx.isEmpty()) throw ParamException("TxHash is null or empty")
+        return if (isTxHashValid(tx)) tx else throw ParamException("TxHash is not Ethereum format : $tx")
+    }
+
+    fun checkTxRequired(txs: List<String>): List<String> {
         if (txs.isNullOrEmpty()) throw ParamException("TxHashs are null or empty")
         txs.forEach { tx -> if (!isTxHashValid(tx)) throw ParamException("TxHash is not Ethereum format : $tx")}
         return txs

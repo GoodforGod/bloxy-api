@@ -209,5 +209,5 @@ internal interface ITokenSaleApi {
         offset: Int = 0,
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
-    ): List<Tx>
+    ): List<SaleDistribution>
 }

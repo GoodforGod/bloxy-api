@@ -16,16 +16,16 @@ class TopReceiversCountTests : BloxyTester() {
     @Test
     fun valid() {
         val address = "0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949"
-        val result = api.moneyFlow.topReceiversCount(address)
+        val result = api.moneyFlow.topReceiversCount(address, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].annotation)
-        assertNotNull(result[0].receiver)
-        assertNotNull(result[0].transactions)
-        assertNotNull(result[0].typeAsString)
-        assertNotNull(result[0].addrType)
-        assertNotNull(result[0].toString())
+        mayValid(result[0].annotation)
+        mustValid(result[0].receiver)
+        mustValid(result[0].transactions)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].addrType)
+        mustValid(result[0].toString())
     }
 
     @Test

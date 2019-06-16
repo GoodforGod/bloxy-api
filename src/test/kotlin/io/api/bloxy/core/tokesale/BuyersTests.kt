@@ -16,24 +16,22 @@ class BuyersTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val sale = SalesTests.getRandomTokenSale(api)
-        if (!sale.isEmpty()) {
-            val result = api.tokenSale.buyers(sale)
-            assertNotNull(result)
-            assertFalse(result.isEmpty())
-            assertFalse(result[0].isEmpty())
-            assertTrue(result[0].haveFromTime())
-            assertTrue(result[0].haveTillTime())
-            assertNotNull(result[0].ethAmount)
-            assertNotNull(result[0].tokenBuyerAnnotation)
-            assertNotNull(result[0].fromTime)
-            assertNotNull(result[0].fromTimeAsString)
-            assertNotNull(result[0].tillTime)
-            assertNotNull(result[0].tillTimeAsString)
-            assertNotNull(result[0].tokenAmount)
-            assertNotNull(result[0].tokenBuyer)
-            assertNotNull(result[0].transactions)
-            assertNotNull(result[0].toString())
-        }
+        val result = api.tokenSale.buyers(sale, limit = 5)
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        assertTrue(result[0].haveFromTime())
+        assertTrue(result[0].haveTillTime())
+        mustValid(result[0].ethAmount)
+        mayValid(result[0].tokenBuyerAnnotation)
+        mustValid(result[0].fromTime)
+        mustValid(result[0].fromTimeAsString)
+        mustValid(result[0].tillTime)
+        mustValid(result[0].tillTimeAsString)
+        mustValid(result[0].tokenAmount)
+        mustValid(result[0].tokenBuyer)
+        mustValid(result[0].transactions)
+        mustValid(result[0].toString())
     }
 
     @Test

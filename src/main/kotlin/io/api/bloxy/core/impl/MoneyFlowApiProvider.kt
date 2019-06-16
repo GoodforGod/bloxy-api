@@ -38,9 +38,9 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<Volume> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
-        val params = "volumes?${addressAsParamRequired(addresses)}$tokenParam$dateParams"
+        val params = "volumes?${asAddressRequired(addresses)}$tokenParam$dateParams"
         return get(params, errors)
     }
 
@@ -57,7 +57,7 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<Sender> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
         val params = "senders?address=${checkAddrRequired(address)}$tokenParam$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
@@ -76,7 +76,7 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<Receiver> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
         val params = "receivers?address=${checkAddrRequired(address)}$tokenParam$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
@@ -100,8 +100,8 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
-        val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = "&depth_limit=${toDepth(depth)}${asDate("snapshot_time", snapshot)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs)
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
@@ -127,8 +127,8 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx> {
-        val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = "&depth_limit=${toDepth(depth)}${asDate("snapshot_time", snapshot)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs)
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
@@ -154,8 +154,8 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
-        val snapParam = "&depth_limit=${toDepth(depth, 10)}${dateAsParam("snapshot_time", snapshot)}"
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = "&depth_limit=${toDepth(depth, 10)}${asDate("snapshot_time", snapshot)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs, 1000)
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
@@ -181,8 +181,8 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx> {
-        val snapParam = "&depth_limit=${toDepth(depth, 10)}${dateAsParam("snapshot_time", snapshot)}"
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = "&depth_limit=${toDepth(depth, 10)}${asDate("snapshot_time", snapshot)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs, 1000)
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
@@ -203,8 +203,8 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<AddrTransfer> {
-        val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "transfers?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val params = "transfers?${asAddressRequired(addresses)}${asToken(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
@@ -221,8 +221,8 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<AddrReceived> {
-        val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "received?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val params = "received?${asAddressRequired(addresses)}${asToken(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
@@ -239,8 +239,8 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<AddrSent> {
-        val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "sent?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val params = "sent?${asAddressRequired(addresses)}${asToken(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
@@ -256,7 +256,7 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<SenderSimple> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val params = "senders_by_count?address=${checkAddrRequired(address)}$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
     }
@@ -273,8 +273,24 @@ class MoneyFlowApiProvider internal constructor(client: IHttpClient, key: String
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<ReceiverSimple> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val params = "receivers_by_count?address=${checkAddrRequired(address)}$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
+    }
+
+    /**
+     *  @see io.api.bloxy.core.IMoneyFlowApi.daily
+     */
+    @NotNull
+    @JvmOverloads
+    fun daily(
+        addresses: List<String>,
+        contracts: List<String> = emptyList(),
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<FlowDaily> {
+        val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val params = "daily?${asAddressRequired(addresses)}${asToken(contracts, "&")}$dateParams"
+        return get(params, skipErrors = errors)
     }
 }

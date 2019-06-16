@@ -14,9 +14,9 @@ import io.api.bloxy.util.ParamConverter.Companion.asDate
 data class SaleDaily(
     val transactions: Int = 0,
     @Json(name = "tx_date") val txDateAsString: String = "",
-    @Json(name = "eth_amount") val eth_amount: Double = .0,
-    @Json(name = "token_amount") val token_amount: Double = .0,
-    @Json(name = "token_buyers") val token_buyers: Int = 0
+    @Json(name = "eth_amount") val ethAmount: Double = .0,
+    @Json(name = "token_amount") val tokenAmount: Double = .0,
+    @Json(name = "token_buyers") val tokenBuyers: Int = 0
 ) : IModel {
 
     @Json(ignored = true)
@@ -24,10 +24,10 @@ data class SaleDaily(
 
     fun haveDate() : Boolean = txDate != null
 
-    override fun isEmpty(): Boolean = txDateAsString.isEmpty() && transactions == 0 && token_amount == .0
+    override fun isEmpty(): Boolean = txDateAsString.isEmpty() && transactions == 0 && tokenAmount == .0
 
     override fun toString(): String {
-        return "SaleDaily(transactions=$transactions, txDateAsString='$txDateAsString', eth_amount=$eth_amount, " +
-                "token_amount=$token_amount, token_buyers=$token_buyers, txDate=$txDate)"
+        return "SaleDaily(transactions=$transactions, txDateAsString='$txDateAsString', ethAmount=$ethAmount, " +
+                "tokenAmount=$tokenAmount, tokenBuyers=$tokenBuyers, txDate=$txDate)"
     }
 }

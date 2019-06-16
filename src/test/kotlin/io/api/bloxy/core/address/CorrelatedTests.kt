@@ -20,11 +20,10 @@ class CorrelatedTests : BloxyTester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
-        assertNotNull(list[0].address)
-        assertNotNull(list[0].symbol)
-        assertNotNull(list[0].likelihood)
-
-        assertNotNull(list[0].toString())
+        mustValid(list[0].address)
+        mustValid(list[0].symbol)
+        mustValid(list[0].likelihood)
+        mustValid(list[0].toString())
     }
 
     @Test

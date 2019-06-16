@@ -35,7 +35,7 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         offset: Int = 0,
         timeSpanDays: Int = 30
     ): List<Sale> {
-        val params = "days=${toDays(timeSpanDays)}${tokenAsParam(contracts, "&")}"
+        val params = "days=${toDays(timeSpanDays)}${asToken(contracts, "&")}"
         return getOffset("tokens?$params", limit, offset, 1000, skipErrors = errors)
     }
 
@@ -50,7 +50,7 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         offset: Int = 0,
         timeSpanDays: Int = 30
     ): List<SaleTx> {
-        val params = "days=${toDays(timeSpanDays)}${tokenAsParam(contracts, "&")}"
+        val params = "days=${toDays(timeSpanDays)}${asToken(contracts, "&")}"
         return getOffset("transactions?$params", limit, offset, 100, skipErrors = errors)
     }
 
@@ -97,7 +97,7 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         withIntermediary: Boolean = false
     ): List<SaleWallet> {
         return get(
-            "addresses?token_address=${checkAddrRequired(contract)}&with_zero_balances=$withIntermediary",
+            "wallets?token_address=${checkAddrRequired(contract)}&with_zero_balances=$withIntermediary",
             errors
         )
     }
@@ -119,8 +119,8 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
-        val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = "&depth_limit=${toDepth(depth)}${asDate("snapshot_time", snapshot)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs)
         val params = "distribution?token_address=${checkAddrRequired(contract)}$numParams$ignoreParam$dateParams"
@@ -143,8 +143,8 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx> {
-        val snapParam = asIgnored(ignoreAddressWithTxs) + dateAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = asIgnored(ignoreAddressWithTxs) + asDate("snapshot_time", snapshot)
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth)}&min_tx_amount=${toZero(minTxAmount)}"
         val params = "distribution_transactions?token_address=${checkAddrRequired(contract)}$numParams$dateParams"
         return getOffset(params, limit, offset, 10000, 200000, errors)
@@ -167,8 +167,8 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
-        val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = "&depth_limit=${toDepth(depth)}${asDate("snapshot_time", snapshot)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs)
         val params = "source?token_address=${checkAddrRequired(contract)}$numParams$ignoreParam$dateParams"
@@ -191,8 +191,8 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Tx> {
-        val snapParam = asIgnored(ignoreAddressWithTxs) + dateAsParam("snapshot_time", snapshot)
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = asIgnored(ignoreAddressWithTxs) + asDate("snapshot_time", snapshot)
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&depth_limit=${toDepth(depth)}&min_tx_amount=${toZero(minTxAmount)}"
         val params = "source_transactions?token_address=${checkAddrRequired(contract)}$numParams$dateParams"
         return getOffset(params, limit, offset, 10000, 200000, errors)
@@ -209,9 +209,9 @@ class TokenSaleApiProvider internal constructor(client: IHttpClient, key: String
         offset: Int = 0,
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
-    ): List<Tx> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
-        val params = "source_transactions?token_address=${checkAddrRequired(contract)}$dateParams"
+    ): List<SaleDistribution> {
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
+        val params = "initial_distribution?token_address=${checkAddrRequired(contract)}$dateParams"
         return getOffset(params, limit, offset, 10000, 200000, errors)
     }
 }

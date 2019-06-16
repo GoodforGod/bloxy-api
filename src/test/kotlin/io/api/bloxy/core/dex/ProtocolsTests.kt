@@ -18,8 +18,8 @@ class ProtocolsTests : BloxyTester() {
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].protocol)
-        assertNotNull(result[0].smartContracts)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].protocol)
+        mustValid(result[0].smartContracts)
+        mustValid(result[0].toString())
     }
 }

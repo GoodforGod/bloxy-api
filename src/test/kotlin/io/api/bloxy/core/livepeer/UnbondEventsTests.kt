@@ -13,18 +13,18 @@ class UnbondEventsTests : BloxyTester() {
 
     @Test
     fun valid() {
-        val list = api.livepeer.unbondsEvents()
+        val list = api.livepeer.unbondsEvents(limit = 5)
         assertNotNull(list)
         assertFalse(list.isEmpty())
-        assertNotNull(list[0])
-        assertNotNull(list[0].amount)
-        assertNotNull(list[0].block)
-        assertNotNull(list[0].round)
-        assertNotNull(list[0].txFrom)
-        assertNotNull(list[0].txFromAnnotation)
-        assertNotNull(list[0].txHash)
-        assertNotNull(list[0].txTime)
-        assertNotNull(list[0].toString())
+        assertFalse(list[0].isEmpty())
+        mustValid(list[0].amount)
+        mustValid(list[0].block)
+        mustValid(list[0].round)
+        mustValid(list[0].txFrom)
+        mayValid(list[0].txFromAnnotation)
+        mustValid(list[0].txHash)
+        mustValid(list[0].txTime)
+        mustValid(list[0].toString())
         if (list.size > 1) {
             assertNotEquals(list[0], list[1])
             assertNotEquals(list[0].hashCode(), list[1].hashCode())

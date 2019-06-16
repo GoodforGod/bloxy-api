@@ -1,7 +1,8 @@
 package io.api.bloxy.core
 
 import io.api.bloxy.model.dto.dydx.*
-import io.api.bloxy.util.ParamConverter
+import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
+import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
 import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 
@@ -30,9 +31,9 @@ internal interface IdYdXProtocolApi {
         positionsIdsOrTokens: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        since: LocalDate = ParamConverter.MIN_DATE,
-        till: LocalDate = ParamConverter.MAX_DATE
-    ) : List<Position>
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<Position>
 
     /**
      * Open/increase/close position transactions of dYdX Margin Tranding
@@ -51,9 +52,9 @@ internal interface IdYdXProtocolApi {
         traders: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0,
-        since: LocalDate = ParamConverter.MIN_DATE,
-        till: LocalDate = ParamConverter.MAX_DATE
-    ) : List<PositionLS>
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<PositionLS>
 
     /**
      * Daily position aggregates for dYdX Margin Tranding
@@ -70,9 +71,9 @@ internal interface IdYdXProtocolApi {
         contract: String = "",
         limit: Int = 100,
         offset: Int = 0,
-        since: LocalDate = ParamConverter.MIN_DATE,
-        till: LocalDate = ParamConverter.MAX_DATE
-    ) : List<PositionDaily>
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<PositionDaily>
 
     /**
      * Tokenized position price/supply/holders/marketcap hourly. Source for the hourly Ether and DAI price:
@@ -84,7 +85,7 @@ internal interface IdYdXProtocolApi {
     fun positionToken(
         positionsTokens: String,
         contract: String = ""
-    ) : List<PositionToken>
+    ): List<PositionToken>
 
 
     /**
@@ -98,7 +99,7 @@ internal interface IdYdXProtocolApi {
         contract: String = "",
         positionsIdsOrTokens: List<String> = emptyList(),
         traders: List<String> = emptyList()
-    ) : List<TraderStats>
+    ): List<TraderStats>
 
 
     /**
@@ -114,9 +115,9 @@ internal interface IdYdXProtocolApi {
         contract: String = "",
         positionsIdsOrTokens: List<String> = emptyList(),
         traders: List<String> = emptyList(),
-        since: LocalDate = ParamConverter.MIN_DATE,
-        till: LocalDate = ParamConverter.MAX_DATE
-    ) : List<PositionStats>
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<PositionStats>
 
     /**
      * withdrawals events due to margin call
@@ -133,5 +134,5 @@ internal interface IdYdXProtocolApi {
         traders: List<String> = emptyList(),
         limit: Int = 100,
         offset: Int = 0
-    ) : List<MarginCall>
+    ): List<MarginCall>
 }

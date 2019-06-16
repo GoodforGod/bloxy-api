@@ -16,17 +16,17 @@ class SignaturesByNameTests : BloxyTester() {
     @Test
     fun valid() {
         val hashes = listOf("Transfer")
-        val result = api.contract.signaturesByName(hashes)
+        val result = api.contract.signaturesByName(hashes, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].abi)
-        assertNotNull(result[0].type)
-        assertNotNull(result[0].name)
-        assertNotNull(result[0].signature)
-        assertNotNull(result[0].signatureHash)
-        assertTrue(result[0].isEvent())
-        assertNotNull(result[0].toString())
+        mustValid(result[0].abi)
+        mustValid(result[0].type)
+        mustValid(result[0].name)
+        mustValid(result[0].signature)
+        mustValid(result[0].signatureHash)
+        mustValid(result[0].isEvent())
+        mustValid(result[0].toString())
     }
 
     @Test

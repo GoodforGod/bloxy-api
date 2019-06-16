@@ -14,18 +14,18 @@ class StatisticTests : BloxyTester() {
 
     @Test
     fun valid() {
-        val result = api.dapp.statistics()
+        val result = api.dapp.statistics(limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].annotation)
-        assertNotNull(result[0].amount)
-        assertNotNull(result[0].callers)
-        assertNotNull(result[0].calls)
-        assertNotNull(result[0].contractAddress)
-        assertNotNull(result[0].contractType)
-        assertNotNull(result[0].senders)
-        assertNotNull(result[0].transfers)
-        assertNotNull(result[0].toString())
+        mayValid(result[0].annotation)
+        mayValid(result[0].amount)
+        mustValid(result[0].callers)
+        mustValid(result[0].calls)
+        mustValid(result[0].contractAddress)
+        mustValid(result[0].contractType)
+        mayValid(result[0].senders)
+        mayValid(result[0].transfers)
+        mustValid(result[0].toString())
     }
 }

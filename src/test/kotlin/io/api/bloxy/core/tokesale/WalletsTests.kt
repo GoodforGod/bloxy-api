@@ -15,23 +15,25 @@ class WalletsTests : BloxyTester() {
 
     @Test
     fun `valid with sale`() {
-        val sale = SalesTests.getRandomTokenSale(api)
-        if (!sale.isEmpty()) {
-            val result = api.tokenSale.wallets(sale)
-            assertNotNull(result)
-            assertFalse(result.isEmpty())
-            assertFalse(result[0].isEmpty())
-            assertNotNull(result[0].ethAmount)
-            assertNotNull(result[0].annotation)
-            assertNotNull(result[0].symbol)
-            assertNotNull(result[0].tokenAddress)
-            assertNotNull(result[0].tokenAmount)
-            assertNotNull(result[0].tokenBuyers)
-            assertNotNull(result[0].transactions)
-            assertNotNull(result[0].typeAsString)
-            assertNotNull(result[0].tokenType)
-            assertNotNull(result[0].toString())
-        }
+        val sales = SalesTests.getTokenSale(api)
+        val result = sales.asSequence()
+            .map { sale -> api.tokenSale.wallets(sale) }
+            .filter { result -> result.isNotEmpty() }
+            .first()
+
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        mustValid(result[0].address)
+        mustValid(result[0].balance)
+        mayValid(result[0].annotation)
+        mustValid(result[0].amountReceived)
+        mayValid(result[0].amountSent)
+        mustValid(result[0].transfersReceived)
+        mayValid(result[0].transfersSent)
+        mustValid(result[0].fromTime)
+        mustValid(result[0].tillTime)
+        mustValid(result[0].toString())
     }
 
     @Test

@@ -16,30 +16,15 @@ class Balance(balances: List<CoinBalance>) : IModel {
         val empty: Balance = Balance(emptyList())
     }
 
-    private val balances: Map<String, CoinBalance>
+    private val balances: Map<String, CoinBalance> = balances.asSequence().map { it.symbol to it }.toMap()
 
-    init {
-        this.balances = HashMap()
-        balances.forEach { b -> this.balances[b.symbol] = b }
-    }
+    fun exist(symbol: String): Boolean = this.balances[symbol] != null
 
-    override fun isEmpty(): Boolean = balances.isEmpty()
+    fun getEth(): CoinBalance = get("ETH") ?: CoinBalance()
 
-    fun exist(symbol: String): Boolean {
-        return this.balances[symbol] != null
-    }
+    fun get(symbol: String): CoinBalance? = this.balances[symbol]
 
-    fun getEth(): CoinBalance {
-        return get("ETH") ?: CoinBalance()
-    }
-
-    fun get(symbol: String): CoinBalance? {
-        return this.balances[symbol]
-    }
-
-    fun getAll(): List<CoinBalance> {
-        return ArrayList(this.balances.values)
-    }
+    fun getAll(): List<CoinBalance> = ArrayList(this.balances.values)
 
     fun getSendOnly(): List<CoinBalance> {
         return ArrayList(this.balances.values).stream()
@@ -67,7 +52,7 @@ class Balance(balances: List<CoinBalance>) : IModel {
             .collect(Collectors.toList())
     }
 
-    override fun toString(): String {
-        return "Balance(balances=$balances)"
-    }
+    override fun isEmpty(): Boolean = balances.isEmpty()
+
+    override fun toString(): String = "Balance(balances=$balances)"
 }

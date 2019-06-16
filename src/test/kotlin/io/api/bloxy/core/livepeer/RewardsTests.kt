@@ -14,18 +14,18 @@ class RewardsTests : BloxyTester() {
     @Test
     fun valid() {
         val address = "0xe9e284277648fcdb09b8efc1832c73c09b5ecf59"
-        val list = api.livepeer.rewards(address)
+        val list = api.livepeer.rewards(address, limit = 5)
         assertNotNull(list)
         assertFalse(list.isEmpty())
-        assertNotNull(list[0])
-        assertNotNull(list[0].amount)
-        assertNotNull(list[0].block)
-        assertNotNull(list[0].round)
-        assertNotNull(list[0].recipient)
-        assertNotNull(list[0].recipientAnnotation)
-        assertNotNull(list[0].txHash)
-        assertNotNull(list[0].txTime)
-        assertNotNull(list[0].toString())
+        assertFalse(list[0].isEmpty())
+        mustValid(list[0].amount)
+        mustValid(list[0].block)
+        mustValid(list[0].round)
+        mustValid(list[0].recipient)
+        mayValid(list[0].recipientAnnotation)
+        mustValid(list[0].txHash)
+        mustValid(list[0].txTime)
+        mustValid(list[0].toString())
         if (list.size > 1) {
             assertNotEquals(list[0], list[1])
             assertNotEquals(list[0].hashCode(), list[1].hashCode())

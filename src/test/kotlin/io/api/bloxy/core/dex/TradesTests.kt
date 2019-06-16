@@ -3,6 +3,7 @@ package io.api.bloxy.core.dex
 import io.api.bloxy.core.BloxyTester
 import io.api.bloxy.error.ParamException
 import org.junit.Test
+import java.time.LocalDate
 
 
 /**
@@ -15,35 +16,34 @@ class TradesTests : BloxyTester() {
 
     @Test
     fun `valid empty params`() {
-        val result = api.dex.trades(emptyList())
+        val result = api.dex.trades(emptyList(), limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertTrue(result[0].haveTxTime())
-        assertNotNull(result[0].amountBuy)
-        assertNotNull(result[0].amountSell)
-        assertNotNull(result[0].buyAddress)
-        assertNotNull(result[0].buyCurrencyId)
-        assertNotNull(result[0].buySymbol)
-        assertNotNull(result[0].contractType)
-        assertNotNull(result[0].maker)
-        assertNotNull(result[0].makerFee)
-        assertNotNull(result[0].makerAnnotation)
-        assertNotNull(result[0].protocol)
-        assertNotNull(result[0].sellAddress)
-        assertNotNull(result[0].sellCurrencyId)
-        assertNotNull(result[0].sellSymbol)
-        assertNotNull(result[0].smartContractAddress)
-        assertNotNull(result[0].smartContractId)
-        assertNotNull(result[0].txHash)
-        assertNotNull(result[0].txSender)
-        assertNotNull(result[0].txTimeAsString)
-        assertNotNull(result[0].txDateAsString)
-        assertNotNull(result[0].txTime)
-        assertNotNull(result[0].taker)
-        assertNotNull(result[0].takerAnnotation)
-        assertNotNull(result[0].takerFee)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].haveTxTime())
+        mustValid(result[0].amountBuy)
+        mustValid(result[0].amountSell)
+        mayValid(result[0].buyAddress)
+        mustValid(result[0].buyCurrencyId)
+        mustValid(result[0].buySymbol)
+        mustValid(result[0].contractType)
+        mustValid(result[0].maker)
+        mayValid(result[0].makerFee)
+        mayValid(result[0].makerAnnotation)
+        mustValid(result[0].protocol)
+        mayValid(result[0].sellAddress)
+        mustValid(result[0].sellCurrencyId)
+        mustValid(result[0].sellSymbol)
+        mustValid(result[0].smartContractAddress)
+        mustValid(result[0].smartContractId)
+        mustValid(result[0].txHash)
+        mustValid(result[0].txSender)
+        mustValid(result[0].txTimeAsString)
+        mustValid(result[0].txTime)
+        mustValid(result[0].taker)
+        mayValid(result[0].takerAnnotation)
+        mayValid(result[0].takerFee)
+        mustValid(result[0].toString())
     }
 
     @Test
@@ -58,7 +58,7 @@ class TradesTests : BloxyTester() {
     @Test
     fun `valid with contracts`() {
         val contracts = listOf("0x2a0c0dbecc7e4d658f48e01e3fa353f44050c208")
-        val list = api.dex.trades(dexContracts = contracts, timeSpanDays = 40)
+        val list = api.dex.trades(dexContracts = contracts, since = LocalDate.now().minusMonths(4))
         assertNotNull(list)
     }
 

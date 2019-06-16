@@ -49,5 +49,5 @@ data class Position(
     fun haveOpenTime() : Boolean = openTime != null
     fun haveEndTime() : Boolean = endTime != null
 
-    override fun isEmpty(): Boolean = trader.isNotEmpty() && lender.isNotEmpty() && txHash.isNotEmpty()
+    override fun isEmpty(): Boolean = trader.isEmpty() && lender.isEmpty() && txHash.isEmpty()
 }

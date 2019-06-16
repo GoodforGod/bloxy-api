@@ -15,28 +15,21 @@ class TokenDistributionTests : BloxyTester() {
 
     @Test
     fun `valid with sale`() {
-        val sale = SalesTests.getRandomTokenSale(api)
-        if (!sale.isEmpty()) {
-            val result = api.tokenSale.tokenDistribution(sale)
-            assertNotNull(result)
-            assertFalse(result.isEmpty())
-            assertFalse(result[0].isEmpty())
-            assertNotNull(result[0].txTimeAsString)
-            assertNotNull(result[0].txTime)
-            assertNotNull(result[0].txTime)
-            assertNotNull(result[0].txHash)
-            assertNotNull(result[0].senderAnnotation)
-            assertNotNull(result[0].sender)
-            assertNotNull(result[0].senderTypeAsString)
-            assertNotNull(result[0].senderType)
-            assertNotNull(result[0].receiverAnnotation)
-            assertNotNull(result[0].receiver)
-            assertNotNull(result[0].receiverTypeAsString)
-            assertNotNull(result[0].receiverType)
-            assertNotNull(result[0].depth)
-            assertNotNull(result[0].amount)
-            assertNotNull(result[0].toString())
-        }
+        val result = SalesTests.getTokenSale(api).stream()
+            .map { api.tokenSale.tokenDistribution(it, limit = 5) }
+            .filter { it.isNotEmpty() }
+            .findFirst().orElse(emptyList())
+
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        mustValid(result[0].address)
+        mustValid(result[0].amount)
+        mayValid(result[0].annotation)
+        mayValid(result[0].fromTime)
+        mayValid(result[0].tillTime)
+        mayValid(result[0].transactions)
+        mustValid(result[0].toString())
     }
 
     @Test

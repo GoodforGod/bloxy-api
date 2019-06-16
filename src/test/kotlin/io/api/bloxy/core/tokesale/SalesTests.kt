@@ -19,8 +19,23 @@ class SalesTests : BloxyTester() {
 
         private var sales: List<Sale> = emptyList()
 
+        fun getTokenSale(api: BloxyApi): List<String> {
+            val result = if (sales.isEmpty()) {
+                sales = api.tokenSale.sales(limit = 5)
+                sales
+            } else {
+                sales
+            }
+
+            assertNotNull(result)
+            assertFalse(result.isEmpty())
+            assertFalse(result[0].isEmpty())
+            assertFalse(result[0].tokenAddress.isEmpty())
+            return result.asSequence().map { it.tokenAddress }.toList()
+        }
+
         fun getRandomTokenSale(api: BloxyApi): String {
-            val result = if(sales.isEmpty()) {
+            val result = if (sales.isEmpty()) {
                 sales = api.tokenSale.sales()
                 sales
             } else {
@@ -30,34 +45,36 @@ class SalesTests : BloxyTester() {
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
-            assertNotNull(result[0].ethAmount)
-            assertNotNull(result[0].symbol)
-            assertNotNull(result[0].tokenAddress)
-            assertNotNull(result[0].tokenAmount)
-            assertNotNull(result[0].tokenBuyers)
-            assertNotNull(result[0].transactions)
-            assertNotNull(result[0].typeAsString)
-            assertNotNull(result[0].tokenType)
-            assertNotNull(result[0].toString())
+            assertFalse(result[0].tokenAddress.isEmpty())
             return result[0].tokenAddress
         }
     }
 
     @Test
     fun valid() {
-        assertNotNull(getRandomTokenSale(api))
+        val result = api.tokenSale.sales()
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
+        mustValid(result[0].ethAmount)
+        mustValid(result[0].symbol)
+        mustValid(result[0].tokenAddress)
+        mustValid(result[0].tokenAmount)
+        mustValid(result[0].tokenBuyers)
+        mustValid(result[0].transactions)
+        mustValid(result[0].typeAsString)
+        mustValid(result[0].tokenType)
+        mustValid(result[0].toString())
     }
 
     @Test
     fun `valid with sale`() {
         val sale = getRandomTokenSale(api)
-        if (!sale.isEmpty()) {
-            val contracts = listOf(sale)
-            val result = api.tokenSale.sales(contracts)
-            assertNotNull(result)
-            assertFalse(result.isEmpty())
-            assertFalse(result[0].isEmpty())
-        }
+        val contracts = listOf(sale)
+        val result = api.tokenSale.sales(contracts)
+        assertNotNull(result)
+        assertFalse(result.isEmpty())
+        assertFalse(result[0].isEmpty())
     }
 
     @Test

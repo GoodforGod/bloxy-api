@@ -58,7 +58,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     fun addrStatistics(
         addresses: List<String>
     ): List<AddrStatistic> {
-        return validOnly(get("address_stat?${addressAsParamRequired(addresses)}"))
+        return validOnly(get("address_stat?${asAddressRequired(addresses)}"))
     }
 
     /**
@@ -74,7 +74,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<Sender> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
         val params = "senders?address=${checkAddrRequired(address)}$tokenParam$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
@@ -93,7 +93,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<Receiver> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
         val params = "receivers?address=${checkAddrRequired(address)}$tokenParam$dateParams"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
@@ -112,8 +112,8 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<AddrTransfer> {
-        val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "transfers?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val params = "transfers?${asAddressRequired(addresses)}${asToken(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
@@ -130,8 +130,8 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<AddrReceived> {
-        val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "received?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val params = "received?${asAddressRequired(addresses)}${asToken(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
@@ -148,8 +148,8 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<AddrSent> {
-        val dateParams = "${dateAsParam("from_date", since)}${dateAsParam("till_date", till)}"
-        val params = "sent?${addressAsParamRequired(addresses)}${tokenAsParam(contracts, "&")}$dateParams"
+        val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val params = "sent?${asAddressRequired(addresses)}${asToken(contracts, "&")}$dateParams"
         return getOffset(params, limit, offset, skipErrors = errors)
     }
 
@@ -171,8 +171,8 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
-        val snapParam = "&depth_limit=${toDepth(depth, 10)}${dateAsParam("snapshot_time", snapshot)}"
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = "&depth_limit=${toDepth(depth, 10)}${asDate("snapshot_time", snapshot)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs, 1000)
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
@@ -198,8 +198,8 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         till: LocalDateTime = MAX_DATETIME,
         snapshot: LocalDateTime = MIN_DATETIME
     ): List<Address> {
-        val snapParam = "&depth_limit=${toDepth(depth)}${dateAsParam("snapshot_time", snapshot)}"
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}$snapParam"
+        val snapParam = "&depth_limit=${toDepth(depth)}${asDate("snapshot_time", snapshot)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}$snapParam"
         val numParams = "&min_balance=${toZero(minBalance)}&min_tx_amount=${toZero(minTxAmount)}"
         val ignoreParam = asIgnored(ignoreAddressWithTxs)
         val tokenParam = if (contract == "ETH") "" else "&token_address=${checkAddrRequired(contract)}"
@@ -217,7 +217,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         limit: Int = 1000,
         offset: Int = 0
     ): List<TxTransfer> {
-        val param = "tx_transfers?${hashAsParam(checkTxsRequired(txHashes))}"
+        val param = "tx_transfers?${hashAsParam(checkTxRequired(txHashes))}"
         return getOffset(param, limit, offset)
     }
 
@@ -228,7 +228,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     fun txDetails(
         txHashes: List<String>
     ): List<TxDetail> {
-        return get("tx_info?${hashAsParam(checkTxsRequired(txHashes))}")
+        return get("tx_info?${hashAsParam(checkTxRequired(txHashes))}")
     }
 
     /**
@@ -248,7 +248,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
     fun tokenDetails(
         contracts: List<String>
     ): List<TokenDetails> {
-        return get("token_info?${tokenAsParamRequired(contracts)}", errors)
+        return get("token_info?${asTokenRequired(contracts)}", errors)
     }
 
     /**
@@ -285,7 +285,7 @@ class MaltegoApiProvider internal constructor(client: IHttpClient, key: String) 
         since: LocalDateTime = MIN_DATETIME,
         till: LocalDateTime = MAX_DATETIME
     ): List<TokenTransfer> {
-        val dateParams = "${dateAsParam("from_time", since)}${dateAsParam("till_time", till)}"
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         val params = "token=${checkAddrRequired(contract)}$dateParams"
         return getOffset("token_transfers?$params", limit, offset, skipErrors = errors)
     }

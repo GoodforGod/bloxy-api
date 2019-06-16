@@ -16,7 +16,7 @@ class AnnotationsTests : BloxyTester() {
     @Test
     fun valid() {
         val words = listOf("UserWallet")
-        val map = api.address.annotations(words)
+        val map = api.address.annotations(words, limit = 5)
         assertNotNull(map)
         assertFalse(map.isEmpty())
     }

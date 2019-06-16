@@ -3,6 +3,7 @@ package io.api.bloxy.core.impl
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.address.*
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDate
 
 
 /**
@@ -24,7 +25,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
     fun details(
         addresses: List<String>
     ): List<AddrDetails> {
-        return validOnly(get("address_diagnostics?${addressAsParamRequired(addresses)}"))
+        return validOnly(get("address_diagnostics?${asAddressRequired(addresses)}"))
     }
 
     /**
@@ -34,7 +35,7 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
     fun statistics(
         addresses: List<String>
     ): List<AddrStatistic> {
-        return validOnly(get("address_stat?${addressAsParamRequired(addresses)}"))
+        return validOnly(get("address_stat?${asAddressRequired(addresses)}"))
     }
 
     /**
@@ -83,5 +84,35 @@ class AddressApiProvider internal constructor(client: IHttpClient, key: String) 
         val params = "annotated_addresses?${asParam(checkNonBlank(words), "word[]=", "&word[]=")}"
         val wordsList: List<WordCounter> = getOffset(params, limit, offset)
         return wordsList.groupBy({ it.word }, { it.address })
+    }
+
+    /**
+     * @see io.api.bloxy.core.IAddressApi.all
+     */
+    @NotNull
+    @JvmOverloads
+    fun all(
+        limit: Long = 1000,
+        offset: Long = 0
+    ) : List<AddrInfo> {
+        return getOffset("list_all?", limit, offset, 100000, 100000000000)
+    }
+
+    /**
+     * @see io.api.bloxy.core.IAddressApi.daily
+     */
+    @NotNull
+    @JvmOverloads
+    fun daily(
+        address: String,
+        currency: Currency = Currency.USD,
+        worthless: Boolean = false,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<AddrDaily> {
+        val dateParams = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val additionalParam = "&valueless=$worthless&price_currency=${currency.name}"
+        val params = "daily_value?${asAddressRequired(address)}$dateParams$additionalParam"
+        return get(params)
     }
 }

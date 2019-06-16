@@ -16,16 +16,16 @@ class WithMethodTests : BloxyTester() {
     @Test
     fun valid() {
         val hash = "a9059cbb"
-        val result = api.contract.withMethod(hash)
+        val result = api.contract.withMethod(hash, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
-        assertNotNull(result[0].name)
-        assertNotNull(result[0].count)
-        assertNotNull(result[0].signature)
-        assertNotNull(result[0].annotation)
-        assertNotNull(result[0].smartContract)
-        assertNotNull(result[0].toString())
+        mustValid(result[0].name)
+        mustValid(result[0].count)
+        mustValid(result[0].signature)
+        mayValid(result[0].annotation)
+        mustValid(result[0].smartContract)
+        mustValid(result[0].toString())
     }
 
     @Test
