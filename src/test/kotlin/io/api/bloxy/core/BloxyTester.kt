@@ -51,6 +51,7 @@ open class BloxyTester : Assert() {
     fun mayValid(value: Double) = assertNotNull(value)
     fun mayValid(value: BigDecimal) = assertNotNull(value)
     fun mayValid(value: MethodType) = assertNotNull(value)
-    fun mayValid(value: LocalDate?) { assertTrue(value == null ?: true) }
-    fun mayValid(value: LocalDateTime?) { assertTrue(value == null ?: true)}
+    fun mayValid(value: LocalDate?) { assertFalse(LocalDate.MIN == value) }
+    fun mayValid(value: LocalDateTime?) { assertFalse(LocalDateTime.MIN == value)
+    }
 }

@@ -41,7 +41,7 @@ class TxsDistributionTests : BloxyTester() {
     fun `valid with contract`() {
         val address = "0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949"
         val contract = "0xd26114cd6ee289accf82350c8d8487fedb8a0c07"
-        val result = api.moneyFlow.txsDistribution(address, contract)
+        val result = api.moneyFlow.txsDistribution(address, contract, limit = 5, depth = 1)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -51,7 +51,7 @@ class TxsDistributionTests : BloxyTester() {
     fun `valid address non exist contract`() {
         val address = "0xC0ea08A2d404d3172d2AdD29A45be56dA40e2949"
         val contract = "0xd16114cd6ee289accf82350c8d8487fedb8a0c07"
-        val result = api.moneyFlow.txsDistribution(address, contract)
+        val result = api.moneyFlow.txsDistribution(address, contract, limit = 5, depth = 1)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
@@ -59,7 +59,7 @@ class TxsDistributionTests : BloxyTester() {
     @Test
     fun `non exist address empty result`() {
         val address = "0xC1ea08A2d404d3172d2AdD29A45be56dA40e2949"
-        val result = api.moneyFlow.txsDistribution(address)
+        val result = api.moneyFlow.txsDistribution(address, limit = 5)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
