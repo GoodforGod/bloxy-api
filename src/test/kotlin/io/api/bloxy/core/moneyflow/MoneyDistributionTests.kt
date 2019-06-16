@@ -32,7 +32,7 @@ class MoneyDistributionTests : BloxyTester() {
     fun `valid with contract`() {
         val address = "0xe49C438d7Fee8F36cE95658AB875faf197952dD8"
         val contract = "0x45555629aabfea138ead1c1e5f2ac3cce2add830"
-        val result = api.moneyFlow.moneyDistribution(address, contract)
+        val result = api.moneyFlow.moneyDistribution(address, contract, depth = 1, limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -42,7 +42,7 @@ class MoneyDistributionTests : BloxyTester() {
     fun `valid address non exist contract`() {
         val address = "0xe49C438d7Fee8F36cE95658AB875faf197952dD8"
         val contract = "0xd16114cd6ee289accf82350c8d8487fedb8a0c07"
-        val result = api.moneyFlow.moneyDistribution(address, contract)
+        val result = api.moneyFlow.moneyDistribution(address, contract, depth = 1, limit = 5)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }

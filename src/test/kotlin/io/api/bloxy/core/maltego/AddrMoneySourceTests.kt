@@ -17,7 +17,7 @@ class AddrMoneySourceTests : BloxyTester() {
     @Test
     fun valid() {
         val address = "0xe49C438d7Fee8F36cE95658AB875faf197952dD8"
-        val result = api.maltego.addrMoneySource(address, limit = 5)
+        val result = api.maltego.addrMoneySource(address, limit = 2, depth = 1)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -42,7 +42,7 @@ class AddrMoneySourceTests : BloxyTester() {
     fun `valid with contract`() {
         val address = "0xe49C438d7Fee8F36cE95658AB875faf197952dD8"
         val contract = "0x45555629aabfea138ead1c1e5f2ac3cce2add830"
-        val result = api.maltego.addrMoneySource(address, contract)
+        val result = api.maltego.addrMoneySource(address, contract, depth = 1, limit = 2)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -52,7 +52,7 @@ class AddrMoneySourceTests : BloxyTester() {
     fun `valid address non exist contract`() {
         val address = "0xe49C438d7Fee8F36cE95658AB875faf197952dD8"
         val contract = "0xd16114cd6ee289accf82350c8d8487fedb8a0c07"
-        val result = api.maltego.addrMoneySource(address, contract)
+        val result = api.maltego.addrMoneySource(address, contract, depth = 1, limit = 1)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
@@ -60,7 +60,7 @@ class AddrMoneySourceTests : BloxyTester() {
     @Test
     fun `non exist address empty result`() {
         val address = "0xC1ea08A2d404d3172d2AdD29A45be56dA40e2949"
-        val result = api.maltego.addrMoneySource(address)
+        val result = api.maltego.addrMoneySource(address, depth = 1, limit = 1)
         assertNotNull(result)
         assertTrue(result.isEmpty())
     }
