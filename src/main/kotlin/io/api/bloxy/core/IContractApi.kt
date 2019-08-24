@@ -1,9 +1,7 @@
 package io.api.bloxy.core
 
-import io.api.bloxy.model.dto.contract.ContractDetail
-import io.api.bloxy.model.dto.contract.Event
-import io.api.bloxy.model.dto.contract.Method
-import io.api.bloxy.model.dto.contract.SignatureDetail
+import io.api.bloxy.model.dto.contract.*
+import io.api.bloxy.model.dto.contract.ContractStat.Aggregator
 import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
 import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
 import java.time.LocalDate
@@ -80,10 +78,10 @@ internal interface IContractApi {
      */
     fun statistic(
         contract: String,
-        aggregator: String,
+        aggregator: Aggregator = Aggregator.ALL,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ) : List<ContractDetail>
+    ) : List<ContractStat>
 
     /**
      * List of smart contract methods and call statistics
