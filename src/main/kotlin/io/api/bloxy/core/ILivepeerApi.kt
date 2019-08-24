@@ -15,6 +15,7 @@ internal interface ILivepeerApi {
 
     /**
      * Lists external functions call to bond function with specified to argument
+     * Bloxy - List of bond calls
      * @param address receiving bond
      * @param managerProxy default is 0x511bc4556d823ae99630ae8de28b9b80df90ea2e
      * @param roundManagerProxy default is 0x3984fc4ceeef1739135476f625d36d6c35c40dc3
@@ -32,6 +33,7 @@ internal interface ILivepeerApi {
 
     /**
      * Lists Bond/Rebond/Unbond events with optional filter by delegate/delegator argument
+     * Bloxy - List of bond events
      * @param delegate default is 0xe9e284277648fcdb09b8efc1832c73c09b5ecf59
      * @param delegator address
      * @param managerProxy default is 0x511bc4556d823ae99630ae8de28b9b80df90ea2e
@@ -51,6 +53,7 @@ internal interface ILivepeerApi {
 
     /**
      * Lists external functions call to unbond function
+     * Bloxy - List of unbond events
      * @param delegate default is 0xe9e284277648fcdb09b8efc1832c73c09b5ecf59
      * @param delegator address
      * @param managerProxy default is 0x511bc4556d823ae99630ae8de28b9b80df90ea2e
@@ -70,6 +73,7 @@ internal interface ILivepeerApi {
 
     /**
      * Lists rebond events with specified delegate/delegator argument
+     * Bloxy - List of rebond events
      * @param delegate default is 0xe9e284277648fcdb09b8efc1832c73c09b5ecf59
      * @param delegator address
      * @param managerProxy default is 0x511bc4556d823ae99630ae8de28b9b80df90ea2e
@@ -89,6 +93,7 @@ internal interface ILivepeerApi {
 
     /**
      * Lists token mint events resulted from reward call
+     * Bloxy - List of reward transactions
      * @param address receiving bond
      * @param managerProxy default is 0x511bc4556d823ae99630ae8de28b9b80df90ea2e
      * @param roundManagerProxy default is 0x3984fc4ceeef1739135476f625d36d6c35c40dc3
@@ -106,6 +111,7 @@ internal interface ILivepeerApi {
 
     /**
      * Lists new rounds events
+     * Bloxy - List of rounds
      * @param roundManagerProxy default is 0x3984fc4ceeef1739135476f625d36d6c35c40dc3
      * @param limit max result (MAX 100100)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -120,6 +126,7 @@ internal interface ILivepeerApi {
 
     /**
      * Lists delegates with statistics
+     * Bloxy - Delegates statistics
      * @param managerProxy default is 0x511bc4556d823ae99630ae8de28b9b80df90ea2e
      */
     @NotNull
@@ -129,6 +136,7 @@ internal interface ILivepeerApi {
 
     /**
      * Lists delegators with statistics
+     * Bloxy - Delegators statistics
      * @param managerProxy default is 0x511bc4556d823ae99630ae8de28b9b80df90ea2e
      */
     @NotNull
@@ -138,6 +146,7 @@ internal interface ILivepeerApi {
 
     /**
      * Lists getDelegators smart contract metod results
+     * Bloxy - Delegators current status
      * @param managerProxy default is 0x511bc4556d823ae99630ae8de28b9b80df90ea2e
      * @param roundManagerProxy default is 0x3984fc4ceeef1739135476f625d36d6c35c40dc3
      */

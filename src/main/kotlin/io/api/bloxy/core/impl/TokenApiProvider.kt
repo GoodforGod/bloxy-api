@@ -199,4 +199,30 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         val params = "token=${checkAddrRequired(contract)}&group_hash=${checkNonBlank(groupHash)}$dateParams$limitParam"
         return getOffset("token_flow_group?$params", limit, offset, skipErrors = errors)
     }
+
+    /**
+     * @see io.api.bloxy.core.ITokenApi.metrics
+     */
+    @NotNull
+    fun metrics(
+        contract: String,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<TokenGroupGraph> {
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
+        return get("holder_metrics?token=${checkAddrRequired(contract)}&$dateParams", skipErrors = errors)
+    }
+
+    /**
+     * @see io.api.bloxy.core.ITokenApi.specificHolders
+     */
+    @NotNull
+    fun specificHolders(
+        contract: String,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<TokenGroupGraph> {
+        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
+        return get("token_correlated_addresses?token=${checkAddrRequired(contract)}&$dateParams", skipErrors = errors)
+    }
 }

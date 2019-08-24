@@ -116,7 +116,7 @@ class DexApiProvider internal constructor(client: IHttpClient, key: String) : Ba
     }
 
     /**
-     * @see io.api.bloxy.core.IDexApi.tradesActive
+     * @see io.api.bloxy.core.IDexApi.tradesByHash
      */
     @NotNull
     @JvmOverloads

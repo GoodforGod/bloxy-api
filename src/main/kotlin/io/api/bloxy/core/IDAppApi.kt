@@ -19,6 +19,7 @@ internal interface IDAppApi {
 
     /**
      * Lists smart contracts with users and volume statistics
+     * Bloxy - Statistics
      * @param since timestamp (default 30 days ago)
      * @param till timestamp (default now)
      * @param limit max result (MAX 100100)
@@ -34,6 +35,7 @@ internal interface IDAppApi {
 
     /**
      * Lists smart contract addresses, which called or transfered money to smart contract
+     * Bloxy - Users
      * @param contract to look for
      * @param multiSource Common source address used for filtering
      * @param limit max result (MAX 110000)
@@ -49,6 +51,7 @@ internal interface IDAppApi {
 
     /**
      * Lists addresses, which created more than one address, which send money or called smart contract
+     * Bloxy - Multi Sources
      * @param contract to look for
      * @param limit max result (MAX 110000)
      * @param offset of the list from origin (0) (MAX 100000)

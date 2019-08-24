@@ -21,6 +21,7 @@ internal interface ITokenApi {
 
     /**
      * Top token holders ordered by the token amount
+     * Bloxy - Token Holder List
      * @param contract to check
      * @param limit max result (MAX 100000)
      */
@@ -32,6 +33,7 @@ internal interface ITokenApi {
 
     /**
      * Detailed information on token holders, filtered by the count of token send/receive transactions
+     * Bloxy - Token Holder Detailed Statistics
      * @param contract to filter
      * @param limit max result (MAX 100000)
      * @param offset of the list from origin (0)
@@ -51,6 +53,7 @@ internal interface ITokenApi {
 
     /**
      * Calculate the count of addresses, holding the set of different tokens
+     * Bloxy - Correlation Between Tokens
      * @param contracts to check
      */
     @NotNull
@@ -60,6 +63,7 @@ internal interface ITokenApi {
 
     /**
      * List the tokens, owned by the same holders
+     * Bloxy - Search Similar Tokens by Common Holders
      * @param contracts to check
      */
     @NotNull
@@ -69,6 +73,7 @@ internal interface ITokenApi {
 
     /**
      * Lists tokens by matching text in symbol or name
+     * Bloxy - Search Token by Name or Symbol
      * @param nameOrSymbol of token to look for
      * @param limit max result (MAX 100000)
      */
@@ -80,6 +85,7 @@ internal interface ITokenApi {
 
     /**
      * General token information, as symbol, name, type
+     * Bloxy - Token Information
      * @param contracts to check
      */
     @NotNull
@@ -89,6 +95,7 @@ internal interface ITokenApi {
 
     /**
      * Number of token holders, supply and circulating amount
+     * Bloxy - Token Statistics
      * @param contract to check
      */
     @NotNull
@@ -98,6 +105,7 @@ internal interface ITokenApi {
 
     /**
      * Lists token transfer transactions ( most recent first )
+     * Bloxy - Token Transfers List
      * @param contract to filter
      * @param limit max result (MAX 101000 minus offset, there will be N requests performed with MAX limit per one)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -115,6 +123,7 @@ internal interface ITokenApi {
 
     /**
      * Lists token transfer transactions ( most recent first )
+     * Bloxy - List tokens
      * @param limit max result (MAX 1010000 minus offset, there will be N requests performed with MAX limit per one)
      * @param offset of the list from origin (0) (MAX 100000)
      */
@@ -126,6 +135,7 @@ internal interface ITokenApi {
 
     /**
      * Lists token transfer transactions ( most recent first ) with the origin detection
+     * Bloxy - Token Transfers With Origin
      * @param contract to filter
      * @param contracts tokens to filter
      * @param depth max depth of origin detection.
@@ -146,12 +156,12 @@ internal interface ITokenApi {
     ): List<TokenDistribution>
 
     /**
-     * Lists token amounts transfered between top groups of addresses
+     * Lists token amounts transferred between top groups of addresses
+     * Bloxy - Token Flow Graph
      * @param contract to filter
      * @param topCount limit to top addresses
      * @param groupCount limit to count of address groups
      * @param limitFlow to filter
-     * @param contract to filter
      * @param limit max result (MAX 100000 minus offset, there will be N requests performed with MAX limit per one)
      * @param since timestamp
      * @param till timestamp
@@ -168,12 +178,12 @@ internal interface ITokenApi {
     ): List<TokenGraph>
 
     /**
-     * Lists addreses by hash from token_flow result set
+     * Lists addresses by hash from token_flow result set
+     * Bloxy - Token Flow Group Addresses
      * @param contract to filter
      * @param groupHash to filter
      * @param topCount limit to top addresses
      * @param groupCount limit to count of address groups
-     * @param contract to filter
      * @param limit max result (MAX 200000 minus offset, there will be N requests performed with MAX limit per one)
      * @param offset of the list from origin (0) (MAX 100000)
      * @param since timestamp
@@ -188,6 +198,34 @@ internal interface ITokenApi {
         limitFlow: Double = 3.0,
         topCount: Int = 50,
         groupCount: Int = 50,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<TokenGroupGraph>
+
+    /**
+     * Metrics ( holder count, supply, Gini, Theil & Nakamoto indexes ) by day
+     * Bloxy - Historical holder metrics
+     * @param contract to filter
+     * @param since timestamp
+     * @param till timestamp
+     */
+    @NotNull
+    fun metrics(
+        contract: String,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<TokenGroupGraph>
+
+    /**
+     * Calculate the list of addresses, holding the set of different tokens
+     * Bloxy - Addresses holding set of specific tokens
+     * @param contract to filter
+     * @param since timestamp
+     * @param till timestamp
+     */
+    @NotNull
+    fun specificHolders(
+        contract: String,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
     ): List<TokenGroupGraph>

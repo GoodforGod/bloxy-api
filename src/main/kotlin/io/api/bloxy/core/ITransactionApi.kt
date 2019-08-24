@@ -20,6 +20,7 @@ internal interface ITransactionApi {
 
     /**
      * List of all transfers in the given transaction
+     * Bloxy - List transfers by TX hash
      * @param txHashes to filter
      * @param limit max result (MAX 200000)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -33,6 +34,7 @@ internal interface ITransactionApi {
 
     /**
      * Transaction information by hash
+     * Bloxy - Transaction information by TX hash
      * @param txHashes to filter
      */
     @NotNull
@@ -42,6 +44,7 @@ internal interface ITransactionApi {
 
     /**
      * All calls of smart contracts in transaction(s), including internal calls
+     * Bloxy - Call trace by TX hash
      * @param txHash to filter
      */
     @NotNull
@@ -52,6 +55,7 @@ internal interface ITransactionApi {
     /**
      * All calls of smart contracts in transactions, initiated from the specified smart contract
      * including internal calls
+     * Bloxy - Call traces by Smart Contract Transactions
      * @param contract to filter
      * @param limit max result (MAX 200000)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -69,6 +73,7 @@ internal interface ITransactionApi {
 
     /**
      * All events, logged in transaction(s), including internal calls
+     * Bloxy - vents by TX hash
      * @param txHash to filter
      */
     @NotNull
@@ -78,6 +83,7 @@ internal interface ITransactionApi {
 
     /**
      * All events in transactions, initiated from the specified smart contract
+     * Bloxy - Events by Smart Contract Transactions
      * @param contract to filter
      * @param limit max result (MAX 200000)
      * @param offset of the list from origin (0) (MAX 100000)
