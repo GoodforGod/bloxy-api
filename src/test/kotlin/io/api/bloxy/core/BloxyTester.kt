@@ -27,6 +27,7 @@ open class BloxyTester : Assert() {
     fun mustValid(map: Map<*, *>) =
         assertTrue(map.any { it.key.toString().isNotBlank() && it.value.toString().isNotBlank() })
 
+    fun mustValid(value: List<*>) = assertTrue(value.isNotEmpty() && value[0].toString().isNotBlank())
     fun mustValid(value: String) = assertTrue(value.isNotBlank() && value != "-")
     fun mustValid(value: Boolean) = assertTrue(value)
     fun mustValid(value: Long) = listOf(0, -1).forEach { assertNotEquals(it, value) }

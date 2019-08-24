@@ -1,7 +1,9 @@
 package io.api.bloxy.core.impl
 
+import io.api.bloxy.error.ParamException
 import io.api.bloxy.executor.IHttpClient
 import io.api.bloxy.model.dto.token.*
+import io.api.bloxy.model.dto.token.HolderCorrelation.Mode
 import org.jetbrains.annotations.NotNull
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -76,6 +78,24 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         contracts: String
     ): List<HolderSimilar> {
         return get("similar_tokens?token=${checkAddrRequired(contracts)}", errors)
+    }
+
+    /**
+     * @see io.api.bloxy.core.ITokenApi.holderSpecific
+     */
+    @NotNull
+    @JvmOverloads
+    fun holderSpecific(
+        contracts: List<String>,
+        till: LocalDate = MAX_DATE,
+        mode: Mode = Mode.RECEIVERS
+    ): List<HolderCorrelation> {
+        if(contracts.size > 10 || contracts.size < 2)
+            throw ParamException("Contracts must be between 2 and 10 inclusive")
+
+        val dateParams = asDate("till_date", till)
+        val modeParam = "&mode=${mode.name.toLowerCase()}"
+        return get("token_correlated_addresses?${asToken(contracts)}$dateParams$modeParam", skipErrors = errors)
     }
 
     /**
@@ -208,21 +228,8 @@ class TokenApiProvider internal constructor(client: IHttpClient, key: String) : 
         contract: String,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ): List<TokenGroupGraph> {
+    ): List<Metric> {
         val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
         return get("holder_metrics?token=${checkAddrRequired(contract)}&$dateParams", skipErrors = errors)
-    }
-
-    /**
-     * @see io.api.bloxy.core.ITokenApi.specificHolders
-     */
-    @NotNull
-    fun specificHolders(
-        contract: String,
-        since: LocalDate = MIN_DATE,
-        till: LocalDate = MAX_DATE
-    ): List<TokenGroupGraph> {
-        val dateParams = "${asDate("from_time", since)}${asDate("till_time", till)}"
-        return get("token_correlated_addresses?token=${checkAddrRequired(contract)}&$dateParams", skipErrors = errors)
     }
 }

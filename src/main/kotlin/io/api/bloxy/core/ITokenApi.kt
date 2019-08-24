@@ -1,6 +1,7 @@
 package io.api.bloxy.core
 
 import io.api.bloxy.model.dto.token.*
+import io.api.bloxy.model.dto.token.HolderCorrelation.Mode
 import io.api.bloxy.util.ParamConverter.Companion.MAX_DATE
 import io.api.bloxy.util.ParamConverter.Companion.MAX_DATETIME
 import io.api.bloxy.util.ParamConverter.Companion.MIN_DATE
@@ -59,7 +60,7 @@ internal interface ITokenApi {
     @NotNull
     fun holderCorrelations(
         contracts: List<String>
-    ): List<TokenCorrelation>
+    ): List<HolderCorrelation>
 
     /**
      * List the tokens, owned by the same holders
@@ -68,8 +69,24 @@ internal interface ITokenApi {
      */
     @NotNull
     fun holderSimilar(
-        contracts: String
+        contracts: List<String>,
+        till: LocalDate = MAX_DATE,
+        mode: Mode = Mode.RECEIVERS
     ): List<HolderSimilar>
+
+    /**
+     * Calculate the list of addresses, holding the set of different tokens
+     * Bloxy - Addresses holding set of specific tokens
+     * @param contract to filter
+     * @param since timestamp
+     * @param till timestamp
+     */
+    @NotNull
+    fun holderSpecific(
+        contract: String,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ): List<TokenGroupGraph>
 
     /**
      * Lists tokens by matching text in symbol or name
@@ -214,19 +231,5 @@ internal interface ITokenApi {
         contract: String,
         since: LocalDate = MIN_DATE,
         till: LocalDate = MAX_DATE
-    ): List<TokenGroupGraph>
-
-    /**
-     * Calculate the list of addresses, holding the set of different tokens
-     * Bloxy - Addresses holding set of specific tokens
-     * @param contract to filter
-     * @param since timestamp
-     * @param till timestamp
-     */
-    @NotNull
-    fun specificHolders(
-        contract: String,
-        since: LocalDate = MIN_DATE,
-        till: LocalDate = MAX_DATE
-    ): List<TokenGroupGraph>
+    ): List<Metric>
 }
