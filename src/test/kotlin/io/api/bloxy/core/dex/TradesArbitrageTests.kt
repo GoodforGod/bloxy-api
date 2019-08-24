@@ -19,7 +19,7 @@ class TradesArbitrageTests : BloxyTester() {
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         mustValid(result[0].amount)
-        mustValid(result[0].amountInCurrency)
+        mayValid(result[0].amountInCurrency)
         mustValid(result[0].symbol)
         mustValid(result[0].contractTypes)
         mustValid(result[0].smartContracts)

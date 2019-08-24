@@ -18,7 +18,7 @@ class BondEventsTests : BloxyTester() {
         assertNotNull(list)
         assertFalse(list.isEmpty())
         assertFalse(list[0].isEmpty())
-        mustValid(list[0].amount)
+        mayValid(list[0].amount)
         mustValid(list[0].block)
         mustValid(list[0].round)
         mustValid(list[0].txFrom)

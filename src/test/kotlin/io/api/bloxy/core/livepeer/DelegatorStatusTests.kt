@@ -11,7 +11,8 @@ import org.junit.Test
  */
 class DelegatorStatusTests : BloxyTester() {
 
-    @Test
+    // Takes huge amount of time to complete
+//    @Test
     fun valid() {
         val list = api.livepeer.delegatorStatus()
         assertNotNull(list)

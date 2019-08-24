@@ -36,7 +36,7 @@ class TokenSaleStatsAddressTests : BloxyTester() {
         mustValid(result[0].tokenBuyers)
         mustValid(result[0].transactions)
         mustValid(result[0].tokenBuyers)
-        mustValid(result[0].tokenAmount)
+        mayValid(result[0].tokenAmount)
         mustValid(result[0].tokenSender)
         mustValid(result[0].toString())
     }

@@ -28,7 +28,7 @@ class BuyersTests : BloxyTester() {
         mustValid(result[0].fromTimeAsString)
         mustValid(result[0].tillTime)
         mustValid(result[0].tillTimeAsString)
-        mustValid(result[0].tokenAmount)
+        mayValid(result[0].tokenAmount)
         mustValid(result[0].tokenBuyer)
         mustValid(result[0].transactions)
         mustValid(result[0].toString())

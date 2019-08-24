@@ -31,7 +31,7 @@ class TradesActiveTests : BloxyTester() {
         mustValid(result[0].fromTime)
         mustValid(result[0].fromTimeAsString)
         mustValid(result[0].makerTrades)
-        mustValid(result[0].takerTrades)
+        mayValid(result[0].takerTrades)
         mustValid(result[0].tillTime)
         mustValid(result[0].tillTimeAsString)
         mustValid(result[0].toString())

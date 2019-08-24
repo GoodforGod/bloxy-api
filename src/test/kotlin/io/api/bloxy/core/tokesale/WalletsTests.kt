@@ -15,7 +15,7 @@ class WalletsTests : BloxyTester() {
 
     @Test
     fun `valid with sale`() {
-        val sales = SalesTests.getTokenSale(api)
+        val sales = SalesTests.getTokenSaleAddress(api)
         val result = sales.asSequence()
             .map { sale -> api.tokenSale.wallets(sale) }
             .filter { result -> result.isNotEmpty() }
