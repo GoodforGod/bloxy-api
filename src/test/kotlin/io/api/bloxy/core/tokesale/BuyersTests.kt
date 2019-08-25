@@ -18,6 +18,9 @@ class BuyersTests : BloxyTester() {
         val sale = SalesTests.getRandomTokenSale(api)
         val result = api.tokenSale.buyers(sale, limit = 5)
         assertNotNull(result)
+        if(result.isEmpty())
+            return
+
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         assertTrue(result[0].haveFromTime())
