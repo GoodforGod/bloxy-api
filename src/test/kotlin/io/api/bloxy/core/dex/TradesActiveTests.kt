@@ -16,7 +16,7 @@ class TradesActiveTests : BloxyTester() {
 
     @Test
     fun `valid empty params`() {
-        val result = api.dex.tradesActive(emptyList(), limit = 5)
+        val result = api.dex.tradesActive(limit = 5)
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -30,7 +30,7 @@ class TradesActiveTests : BloxyTester() {
         mustValid(result[0].dexes)
         mustValid(result[0].fromTime)
         mustValid(result[0].fromTimeAsString)
-        mustValid(result[0].makerTrades)
+        mayValid(result[0].makerTrades)
         mayValid(result[0].takerTrades)
         mustValid(result[0].tillTime)
         mustValid(result[0].tillTimeAsString)
