@@ -15,8 +15,11 @@ class SalesTxsTests : BloxyTester() {
 
     @Test
     fun valid() {
-        val result = api.tokenSale.saleTxs(limit = 5)
+        val result = api.tokenSale.saleTxs(limit = 5, timeSpanDays = 900)
         assertNotNull(result)
+        if(result.isEmpty())
+            return
+
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         assertTrue(result[0].haveTxTime())
@@ -47,7 +50,7 @@ class SalesTxsTests : BloxyTester() {
         val sale = SalesTests.getRandomTokenSale(api)
         if (!sale.isEmpty()) {
             val contracts = listOf(sale)
-            val result = api.tokenSale.saleTxs(contracts)
+            val result = api.tokenSale.saleTxs(contracts, timeSpanDays = 900)
             assertNotNull(result)
             assertFalse(result.isEmpty())
             assertFalse(result[0].isEmpty())
@@ -58,8 +61,7 @@ class SalesTxsTests : BloxyTester() {
     fun `non exist address empty result`() {
         val contracts = listOf("0xf1b0a3efb8e8e4c201e2a935f110eaaf3ffecb8d")
         val result = api.tokenSale.saleTxs(contracts)
-        assertFalse(result.isEmpty())
-        assertFalse(result[0].isEmpty())
+        assertTrue(result.isEmpty())
     }
 
     @Test(expected = ParamException::class)

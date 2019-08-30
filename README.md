@@ -14,6 +14,17 @@ Kotlin & Java Library for all available [Bloxy](https://bloxy.info) API endpoint
 
 Library depends on [Klaxon](https://github.com/cbeust/klaxon) so jcenter repository is required.
 
+**Gradle**
+```groovy
+repositories {
+    jcenter()
+}
+ 
+dependencies {
+    compile 'com.github.goodforgod:bloxy-api:1.2.0'
+}
+```
+
 **Maven**
 ```xml
 <repositories>
@@ -27,21 +38,9 @@ Library depends on [Klaxon](https://github.com/cbeust/klaxon) so jcenter reposit
     <dependency>
         <groupId>com.github.goodforgod</groupId>
         <artifactId>bloxy-api</artifactId>
-        <version>1.1.0</version>
+        <version>1.2.0</version>
     </dependency>
 </dependencies>
-```
-
-**Gradle**
-```groovy
-repositories {
-    mavenCentral()
-    jcenter()
-}
- 
-dependencies {
-    compile 'com.github.goodforgod:bloxy-api:1.1.0'
-}
 ```
 
 ## Content

@@ -2,6 +2,7 @@ package io.api.bloxy.executor.impl
 
 import io.api.bloxy.executor.IHttpClient
 import java.io.BufferedReader
+import java.io.InputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
@@ -34,18 +35,20 @@ class HttpClient @JvmOverloads constructor(
     }
 
     private fun HttpURLConnection.getReader(): InputStreamReader {
+        val stream: InputStream = if (responseCode >= 400) errorStream else inputStream
+
         return when (contentEncoding) {
-            "deflate" -> InputStreamReader(InflaterInputStream(this.inputStream), "UTF-8")
-            "gzip" -> InputStreamReader(GZIPInputStream(this.inputStream), "UTF-8")
-            else -> InputStreamReader(this.inputStream, "UTF-8")
+            "deflate" -> InputStreamReader(InflaterInputStream(stream), "UTF-8")
+            "gzip" -> InputStreamReader(GZIPInputStream(stream), "UTF-8")
+            else -> InputStreamReader(stream, "UTF-8")
         }
     }
 
     override fun get(url: String): String {
         (URL(url).openConnection().apply {
-            readTimeout = if(this@HttpClient.readTimeout < 0) 0 else this@HttpClient.readTimeout
-            connectTimeout = if(this@HttpClient.connectTimeout < 1) 1 else this@HttpClient.connectTimeout
-            HttpClient.headers.forEach { e -> setRequestProperty(e.key, e.value) }
+            readTimeout = if (this@HttpClient.readTimeout < 0) 0 else this@HttpClient.readTimeout
+            connectTimeout = if (this@HttpClient.connectTimeout < 1) 1 else this@HttpClient.connectTimeout
+            headers.forEach { e -> setRequestProperty(e.key, e.value) }
             getHeaderField("Location")?.let { return get(it) }
         } as HttpURLConnection).getReader().use {
             return BufferedReader(it).lines().collect(Collectors.joining())

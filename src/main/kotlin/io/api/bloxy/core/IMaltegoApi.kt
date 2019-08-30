@@ -30,6 +30,7 @@ internal interface IMaltegoApi {
 
     /**
      * Lists the balance of all currency/tokens for this address
+     * Bloxy - Address Balance by Currencies
      * @param address to check
      */
     @NotNull
@@ -39,6 +40,7 @@ internal interface IMaltegoApi {
 
     /**
      * Counts and aggregates basic statistic on addresses
+     * Bloxy - Batch Address Statistics
      * @param addresses to check
      */
     @NotNull
@@ -48,6 +50,7 @@ internal interface IMaltegoApi {
 
     /**
      * Aggregates amount of receive transactions for specific currency and select top senders ( by amount )
+     * Bloxy - Top Senders To Address in Currency
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param limit max result (MAX 101000)
@@ -67,6 +70,7 @@ internal interface IMaltegoApi {
 
     /**
      * Aggregates amount of sent transactions for specific currency and select top receivers ( by amount )
+     * Bloxy - Top Receivers From Address in Currency
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param limit max result (MAX 101000)
@@ -86,6 +90,7 @@ internal interface IMaltegoApi {
 
     /**
      * List of all transfers to/from the given address
+     * Bloxy - Address Transfers
      * @param addresses to look for
      * @param contracts to filter
      * @param limit max result (MAX 200000)
@@ -105,6 +110,7 @@ internal interface IMaltegoApi {
 
     /**
      * List of transfers to the given address
+     * Bloxy - Received transfers to Address
      * @param addresses to look for
      * @param contracts to filter
      * @param limit max result (MAX 200000)
@@ -124,6 +130,7 @@ internal interface IMaltegoApi {
 
     /**
      * List of transfers from the given address
+     * Bloxy - Sent transfers from Address
      * @param addresses to look for
      * @param contracts to filter
      * @param limit max result (MAX 200000)
@@ -143,6 +150,7 @@ internal interface IMaltegoApi {
 
     /**
      * Analyses the full graph of money transactions and calculates the money sources for the given address
+     * Bloxy - Source Money For the Address
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param depth how deep should look in the transaction tree (MAX 10)
@@ -172,6 +180,7 @@ internal interface IMaltegoApi {
 
     /**
      * Analyses the full graph of money transactions and calculates the money distribution from the given address
+     * Bloxy - Money Distribution From the Address
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param depth how deep should look in the transaction tree (MAX 300)
@@ -201,6 +210,7 @@ internal interface IMaltegoApi {
 
     /**
      * List of all transfers in the given transaction
+     * Bloxy - List transfers by TX hash
      * @param txHashes to filter
      * @param limit max result (MAX 200000)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -214,6 +224,7 @@ internal interface IMaltegoApi {
 
     /**
      * Transaction information by hash
+     * Bloxy - Transaction information by TX hash
      * @param txHashes to filter
      */
     @NotNull
@@ -223,6 +234,7 @@ internal interface IMaltegoApi {
 
     /**
      * General token information, as symbol, name, type
+     * Bloxy - Token Information
      * @param contracts to check
      */
     @NotNull
@@ -232,6 +244,7 @@ internal interface IMaltegoApi {
 
     /**
      * Number of token holders, supply and circulating amount
+     * Bloxy - Token Statistics
      * @param contract to check
      */
     @NotNull
@@ -241,6 +254,7 @@ internal interface IMaltegoApi {
 
     /**
      * Top token holders ordered by the token amount
+     * Bloxy - Token Holder List
      * @param contract to check
      * @param limit max result (MAX 100000)
      */
@@ -252,6 +266,7 @@ internal interface IMaltegoApi {
 
     /**
      * Lists token transfer transactions ( most recent first )
+     * Bloxy - Token Transfers List
      * @param contract to filter
      * @param limit max result (MAX 101000 minus offset, there will be N requests performed with 1000 limit per one)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -269,6 +284,7 @@ internal interface IMaltegoApi {
 
     /**
      * Token sale smart contracts and wallets addresses
+     * Bloxy - Token Sale Addresses Statistics
      * @param contract token smart contract to filter
      */
     @NotNull

@@ -18,6 +18,9 @@ class TxsSourcesTests : BloxyTester() {
         val sale = SalesTests.getRandomTokenSale(api)
         val result = api.tokenSale.txsSources(sale, limit = 5, depth = 1)
         assertNotNull(result)
+        if(result.isEmpty())
+            return
+
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         mayValid(result[0].depth)

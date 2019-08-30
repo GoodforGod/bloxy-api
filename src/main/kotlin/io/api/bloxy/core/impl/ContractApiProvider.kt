@@ -2,11 +2,10 @@ package io.api.bloxy.core.impl
 
 import io.api.bloxy.error.ParamException
 import io.api.bloxy.executor.IHttpClient
-import io.api.bloxy.model.dto.contract.ContractDetail
-import io.api.bloxy.model.dto.contract.Event
-import io.api.bloxy.model.dto.contract.Method
-import io.api.bloxy.model.dto.contract.SignatureDetail
+import io.api.bloxy.model.dto.contract.*
+import io.api.bloxy.model.dto.contract.ContractStat.Aggregator
 import org.jetbrains.annotations.NotNull
+import java.time.LocalDate
 
 
 /**
@@ -97,6 +96,22 @@ class ContractApiProvider internal constructor(client: IHttpClient, key: String)
     ): List<ContractDetail> {
         val params = "event_in_contracts?signature_hash=${checkNonBlank(signatureHash)}"
         return getOffset(params, limit, offset, 1000, skipErrors = errors)
+    }
+
+
+    /**
+     * @see io.api.bloxy.core.IContractApi.statistic
+     */
+    fun statistic(
+        contract: String,
+        aggregator: Aggregator = Aggregator.ALL,
+        since: LocalDate = MIN_DATE,
+        till: LocalDate = MAX_DATE
+    ) : List<ContractStat> {
+        val datesParam = "${asDate("from_date", since)}${asDate("till_date", till)}"
+        val aggrParam = aggregator.name.toLowerCase()
+        val params = "stat?smart_contract_address=${checkAddrRequired(contract)}&$aggrParam&$datesParam"
+        return get(params, errors)
     }
 
     /**

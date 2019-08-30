@@ -23,6 +23,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * Aggregates amount of receive and sent amounts for each from the list of addresses
+     * Bloxy - Transactions Volume by Address
      * @param addresses to look for
      * @param contract to filter (ETH default)
      * @param since timestamp
@@ -38,6 +39,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * Aggregates amount of receive transactions for specific currency and select top senders ( by amount )
+     * Bloxy - Top Senders To Address in Currency
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param limit max result (MAX 101000)
@@ -57,6 +59,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * Aggregates amount of sent transactions for specific currency and select top receivers ( by amount )
+     * Bloxy - Top Receivers From Address in Currency
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param limit max result (MAX 101000)
@@ -76,6 +79,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * Analyses the full graph of money transactions and calculates the money distribution from the given address
+     * Bloxy - Money Distribution From the Address
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param depth how deep should look in the transaction tree (MAX 300)
@@ -106,6 +110,7 @@ internal interface IMoneyFlowApi {
     /**
      * Analyses the full graph of money transactions
      * Outputs the transactions of the flow how money distributed from the given address
+     * Bloxy - Distribution Transactions From Address
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param depth how deep should look in the transaction tree (MAX 300)
@@ -135,6 +140,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * Analyses the full graph of money transactions and calculates the money sources for the given address
+     * Bloxy - Source Money For the Address
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param depth how deep should look in the transaction tree (MAX 10)
@@ -165,6 +171,7 @@ internal interface IMoneyFlowApi {
     /**
      * Analyses the full graph of money transactions.
      * Outputs the transactions of the flow how money come into given address
+     * Bloxy - Source Transactions For the Address
      * @param address to look for
      * @param contract to filter (ETH default)
      * @param depth how deep should look in the transaction tree (MAX 10)
@@ -194,6 +201,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * List of all transfers to/from the given address
+     * Bloxy - Address Transfers
      * @param addresses to look for
      * @param contracts to filter
      * @param limit max result (MAX 200000)
@@ -213,6 +221,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * List of transfers to the given address
+     * Bloxy - Received transfers to Address
      * @param addresses to look for
      * @param contracts to filter
      * @param limit max result (MAX 200000)
@@ -232,6 +241,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * List of transfers from the given address
+     * Bloxy - Sent transfers from Address
      * @param addresses to look for
      * @param contracts to filter
      * @param limit max result (MAX 200000)
@@ -251,6 +261,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * Aggregates amount of receive transactions and select top senders ( by Transfer Count )
+     * Bloxy - Top Senders To Address by Transfer Count
      * @param address to look for
      * @param limit max result (MAX 101000)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -268,6 +279,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * Aggregates amount of sent transactions and select top receivers ( by Transfer Count )
+     * Bloxy - Top Receivers From Address by Transfer Count
      * @param address to look for
      * @param limit max result (MAX 101000)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -285,6 +297,7 @@ internal interface IMoneyFlowApi {
 
     /**
      * Show the number of transfers (ETH and token) an address has had over time (by day)
+     * Bloxy - Daily transfers to/from address(es)
      * @param addresses to look for
      * @param contracts to filter
      * @param since timestamp (default is 100 days ago)

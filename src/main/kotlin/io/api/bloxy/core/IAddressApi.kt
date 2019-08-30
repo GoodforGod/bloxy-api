@@ -18,6 +18,7 @@ internal interface IAddressApi {
 
     /**
      * Basic check that address is suitable for token transfer distribution.
+     * Bloxy - Batch Address Check
      * @param addresses to check
      */
     @NotNull
@@ -27,6 +28,7 @@ internal interface IAddressApi {
 
     /**
      * Counts and aggregates basic statistic on addresses
+     * Bloxy - Batch Address Statistics
      * @param addresses to check
      */
     @NotNull
@@ -36,6 +38,7 @@ internal interface IAddressApi {
 
     /**
      * Lists the tokens that owns holders, that also owns the same set of tokens
+     * Bloxy - Correlated Tokens for Address
      * @param address to check
      */
     @NotNull
@@ -54,6 +57,7 @@ internal interface IAddressApi {
 
     /**
      * Lists the words used in address annotations with counters
+     * Bloxy - Words used in annotations
      * @param limit max result (MAX 110000)
      * @param offset of the list from origin (0) (MAX 100000)
      * @return map with word as KEY, number of annotated addresses as VALUE
@@ -66,6 +70,7 @@ internal interface IAddressApi {
 
     /**
      * Lists the words used in address annotations per address
+     * Bloxy - Addresses annotated with the word(s)
      * @param limit max result (MAX 110000)
      * @param offset of the list from origin (0) (MAX 100000)
      * @return map with word as KEY, list of addresses as VALUE
@@ -79,6 +84,7 @@ internal interface IAddressApi {
 
     /**
      * Lists the addresses, ordered by eth balance in batches
+     * Bloxy - List all addresses
      * @param limit max result (MAX 100001000000)
      * @param offset of the list from origin (0) (MAX 100000000000)
      * @return list of all addresses
@@ -91,6 +97,7 @@ internal interface IAddressApi {
 
     /**
      * Returns deposits/withdrawals,balances and value in USD/ETH by asset for given address
+     * Bloxy - Daily Value of Address Owned Assets
      * @param since timestamp (default is ~100 days ago or not)
      * @param till timestamp (default now)
      * @return list of daily address activity

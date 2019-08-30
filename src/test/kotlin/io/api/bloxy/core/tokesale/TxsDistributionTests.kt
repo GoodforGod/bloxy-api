@@ -3,6 +3,9 @@ package io.api.bloxy.core.tokesale
 import io.api.bloxy.core.BloxyTester
 import io.api.bloxy.error.ParamException
 import org.junit.Test
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 
 /**
@@ -16,8 +19,11 @@ class TxsDistributionTests : BloxyTester() {
     @Test
     fun `valid with sale`() {
         val sale = SalesTests.getRandomTokenSale(api)
-        val result = api.tokenSale.txsDistribution(sale, limit = 5, depth = 1)
+        val result = api.tokenSale.txsDistribution(sale, limit = 5, depth = 1, since = LocalDateTime.of(LocalDate.MIN, LocalTime.NOON))
         assertNotNull(result)
+        if(result.isEmpty())
+            return
+
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         mayValid(result[0].depth)

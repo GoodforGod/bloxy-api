@@ -18,6 +18,9 @@ class StatsAddressTests : BloxyTester() {
         val sale = SalesTests.getRandomTokenSale(api)
         val result = api.tokenSale.statsAddress(sale)
         assertNotNull(result)
+        if(result.isEmpty())
+            return
+
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
         assertTrue(result[0].haveFromTime())
@@ -33,7 +36,7 @@ class StatsAddressTests : BloxyTester() {
         mustValid(result[0].tokenBuyers)
         mustValid(result[0].transactions)
         mustValid(result[0].tokenBuyers)
-        mustValid(result[0].tokenAmount)
+        mayValid(result[0].tokenAmount)
         mustValid(result[0].tokenSender)
         mustValid(result[0].toString())
     }

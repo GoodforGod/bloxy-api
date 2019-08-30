@@ -18,6 +18,7 @@ internal interface IdYdXProtocolApi {
 
     /**
      * Lists positions of dYdX Margin trading with states and statistics
+     * Bloxy - Positions
      * @param contract dex to filter
      * @param positionsIdsOrTokens filter by position id(s) or by position token address(es).
      * @param limit max result (MAX 110000)
@@ -37,6 +38,7 @@ internal interface IdYdXProtocolApi {
 
     /**
      * Open/increase/close position transactions of dYdX Margin Tranding
+     * Bloxy - Position Open/Increase/Close
      * @param contract dex to filter
      * @param positionsIdsOrTokens filter by position id(s) or by position token address(es).
      * @param traders to filter on
@@ -58,6 +60,7 @@ internal interface IdYdXProtocolApi {
 
     /**
      * Daily position aggregates for dYdX Margin Tranding
+     * Bloxy - Position Daily Statistics
      * @param contract dex to filter
      * @param positionsIdsOrTokens filter by position id(s) or by position token address(es).
      * @param limit max result (MAX 110000)
@@ -78,6 +81,7 @@ internal interface IdYdXProtocolApi {
     /**
      * Tokenized position price/supply/holders/marketcap hourly. Source for the hourly Ether and DAI price:
      * https://cryptorank.io
+     * Bloxy - Position Token Price and Market Cap
      * @param contract dex to filter
      * @param positionsTokens filter by position token address(es)
      */
@@ -90,6 +94,7 @@ internal interface IdYdXProtocolApi {
 
     /**
      * Profit/loss/volume statistics by traders for optionally selected positions. Note that it may show incorrect PL figures in case of Margin Call
+     * Bloxy - Traders Statistics
      * @param contract dex to filter
      * @param positionsIdsOrTokens filter by position id(s) or by position token address(es).
      * @param traders to filter on
@@ -104,6 +109,7 @@ internal interface IdYdXProtocolApi {
 
     /**
      * Profit/loss/volume statistics by positions. Note that it may show incorrect PL figures in case of Margin Call
+     * Bloxy - Positions Statistics
      * @param contract dex to filter
      * @param positionsIdsOrTokens filter by position id(s) or by position token address(es).
      * @param traders to filter on
@@ -120,7 +126,8 @@ internal interface IdYdXProtocolApi {
     ): List<PositionStats>
 
     /**
-     * withdrawals events due to margin call
+     * Withdrawals events due to margin call
+     * Bloxy - Withdrawals on Margin Call
      * @param contract dex to filter
      * @param positionsIdsOrTokens filter by position id(s) or by position token address(es).
      * @param traders to filter on

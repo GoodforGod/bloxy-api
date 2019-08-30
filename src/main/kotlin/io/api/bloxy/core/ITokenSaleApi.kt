@@ -20,6 +20,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Lists recent token sale aggregated statistics
+     * Bloxy - Tokens on Sale
      * @param contracts to filter
      * @param limit max result (MAX 101000)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -35,6 +36,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Lists recent token sale transactions
+     * Bloxy - Token Sale Transaction List
      * @param contracts to filter
      * @param limit max result (MAX 100100)
      * @param offset of the list from origin (0)
@@ -50,6 +52,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Aggregated statistics for a token sale by days
+     * Bloxy - Token Sale Daily Statistics
      * @param contract to filter
      */
     @NotNull
@@ -59,6 +62,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Token sale smart contracts and wallets addresses
+     * Bloxy - Token Sale Addresses Statistics
      * @param contract token smart contract to filter
      */
     @NotNull
@@ -68,6 +72,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Token sale buyers addresses
+     * Bloxy - Token Sale Buyers Statistics
      * @param contract to filter
      * @param limit max result (MAX 101000)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -81,6 +86,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Shows the wallets, used to collect currency from buyers
+     * Bloxy - TokenSale Wallets
      * @param contract to filter
      * @param withIntermediary
      */
@@ -92,6 +98,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Calculates money distribution from the tokensale
+     * Bloxy - Money Distribution From the Tokensale
      * @param contract to filter
      * @param depth how deep should look in the transaction tree (MAX 300)
      * @param limit max result (MAX 101000)
@@ -119,6 +126,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Calculates the transactions of money distribution from the tokensale
+     * Bloxy - Distribution Transactions From Tokensale
      * @param contract to filter
      * @param depth how deep should look in the transaction tree (MAX 300)
      * @param limit max result (MAX 210000)
@@ -144,6 +152,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Calculates the money sources for the tokensale by analyzing the graph of transaction for the given depth
+     * Bloxy - Money Sources For the Tokensale
      * @param contract to filter
      * @param depth how deep should look in the transaction tree (MAX 300)
      * @param limit max result (MAX 101000)
@@ -171,6 +180,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Analyses the full graph of money transactions on tokensale
+     * Bloxy - Source Transactions For the Tokensale
      * @param contract to filter
      * @param depth how deep should look in the transaction tree (MAX 300)
      * @param limit max result (MAX 210000)
@@ -196,6 +206,7 @@ internal interface ITokenSaleApi {
 
     /**
      * Builds the graph of the initial token distribution and calculates the list of token holders with the amounts
+     * Bloxy - Initial Token Distribution
      * @param contract to filter
      * @param limit max result (MAX 210000)
      * @param offset of the list from origin (0) (MAX 200000)

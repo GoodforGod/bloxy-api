@@ -23,7 +23,7 @@ class HolderDetailsTests : BloxyTester() {
         mustValid(result[0].haveFirstTxTime())
         mustValid(result[0].haveLastTxTime())
         mustValid(result[0].address)
-        mustValid(result[0].annotation)
+        mayValid(result[0].annotation)
         mustValid(result[0].balance)
         mustValid(result[0].firstTxAtAsString)
         mustValid(result[0].firstTxAt)

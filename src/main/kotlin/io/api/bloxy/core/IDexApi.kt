@@ -19,12 +19,14 @@ internal interface IDexApi {
 
     /**
      * Lists DEX protocol names and count of implementations in smart contracts
+     * Bloxy - DEX Protocols
      */
     @NotNull
     fun protocols(): List<DexProtocol>
 
     /**
      * Lists tokens by matching text in symbol or name. List is sorted descending by transaction count
+     * Bloxy - DEX Smart Contracts
      * @param protocols dex to filter
      * @param limit max result (MAX 200000)
      * @param offset of the list from origin (0) (MAX 100000)
@@ -42,6 +44,7 @@ internal interface IDexApi {
 
     /**
      * Lists trades, optionally filtered by protocol, DEX smart contract(s) and/or token(s).
+     * Bloxy - DEX Trades
      * @param protocols dex to filter
      * @param dexContracts dex to filter
      * @param tokenAddresses to filter
@@ -63,6 +66,7 @@ internal interface IDexApi {
 
     /**
      * Lists transactions sent to DEXes in pending state (not mined yet).
+     * Bloxy - DEX Pending Transactions
      * @param protocols to filter
      * @param dexContracts to filter
      */
@@ -75,6 +79,7 @@ internal interface IDexApi {
     /**
      * Lists active traders ordered by number of trades, as maker or taker.
      * !!! Note, that the data does not include the last day trades
+     * Bloxy - Active Traders on DEX
      * @param protocols dex to filter
      * @param dexContracts dex to filter
      * @param limit max result (MAX 101000)
@@ -94,6 +99,7 @@ internal interface IDexApi {
 
     /**
      * Lists trades, in a transaction
+     * Bloxy - DEX Trades By Hash
      * @param txHash transaction hash
      * @param currency for trades to view
      */
@@ -105,6 +111,7 @@ internal interface IDexApi {
 
     /**
      * Lists active traders ordered by number of trades, as maker or taker.
+     * Bloxy - DEX Arbitrage Trades
      * @param trader trader address to filter
      * @param symbol token to filter
      * @param currency to view result (ETH,USD)
@@ -126,6 +133,7 @@ internal interface IDexApi {
 
     /**
      * Lists active traders ordered by number of trades, as maker or taker.
+     * Bloxy - Deposits and Withdrawal On DEXes
      * @param protocols dex to filter
      * @param dexContracts dex to filter
      * @param currency to view result (ETH,USD)
@@ -149,8 +157,8 @@ internal interface IDexApi {
 
     /**
      * Lists active traders ordered by number of trades, as maker or taker.
+     * Bloxy - Statistics of Token DEX Trades
      * @param tokenAddress token address to filter
-     * @param currency to view result (ETH,USD)
      * @param limit max result (MAX 101000)
      * @param since timestamp (default 30 days ago)
      * @param till timestamp (default now)
