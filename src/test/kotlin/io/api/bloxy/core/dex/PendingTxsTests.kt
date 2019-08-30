@@ -15,7 +15,7 @@ class PendingTxsTests : BloxyTester() {
 
     @Test
     fun `valid empty params`() {
-        val result = api.dex.pendingTxs(emptyList())
+        val result = api.dex.pendingTxs()
         assertNotNull(result)
         assertFalse(result.isEmpty())
         assertFalse(result[0].isEmpty())
@@ -23,7 +23,7 @@ class PendingTxsTests : BloxyTester() {
         mayValid(result[0].method)
         mustValid(result[0].arguments)
         mustValid(result[0].protocol)
-        mustValid(result[0].signature)
+        mayValid(result[0].signature)
         mustValid(result[0].smartContractAddress)
         mustValid(result[0].txHash)
         mustValid(result[0].txSender)
