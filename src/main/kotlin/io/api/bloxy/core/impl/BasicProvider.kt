@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull
  */
 abstract class BasicProvider(private val client: IHttpClient, module: String, key: String) : ParamConverter() {
 
-    private val base = "https://bloxy.info/api/$module/"
+    private val base = "https://api.bloxy.info/$module/"
     private val keyParam = "&key=$key&format=structure"
 
     protected val converter = Klaxon()

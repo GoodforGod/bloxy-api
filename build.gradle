@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.github.goodforgod'
-version = '1.2.0-SNAPSHOT'
+version = '1.2.1'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -23,19 +23,6 @@ dependencies {
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit"
 }
 
-check.dependsOn jacocoTestReport
-jacocoTestReport {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
-test {
-    testLogging {
-        events "passed", "skipped", "failed"
-    }
-}
 
 task sourcesJar(type: Jar) {
     classifier = 'sources'
@@ -47,9 +34,9 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc
 }
 
-javadoc {
-    if (JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
+test {
+    testLogging {
+        events "passed", "skipped", "failed"
     }
 }
 
@@ -101,6 +88,14 @@ publishing {
     }
 }
 
+check.dependsOn jacocoTestReport
+jacocoTestReport {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
 if (project.hasProperty("signing.keyId")) {
     apply plugin: 'signing'
     signing {
@@ -114,3 +109,10 @@ jar {
         rename ".*", "pom.xml"
     }
 }
+
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
+}
+
