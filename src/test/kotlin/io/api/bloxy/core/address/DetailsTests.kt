@@ -23,7 +23,7 @@ class DetailsTests : BloxyTester() {
         mustValid(details[0].address)
         mayValid(details[0].annotation)
         mustValid(details[0].levelAsString)
-        mustValid(details[0].level)
+        mayValid(details[0].level)
         mayValid(details[0].note)
         mustValid(details[0].toString())
     }
