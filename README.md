@@ -21,7 +21,7 @@ repositories {
 }
  
 dependencies {
-    compile 'com.github.goodforgod:bloxy-api:1.2.0'
+    compile 'com.github.goodforgod:bloxy-api:1.2.1'
 }
 ```
 
@@ -38,7 +38,7 @@ dependencies {
     <dependency>
         <groupId>com.github.goodforgod</groupId>
         <artifactId>bloxy-api</artifactId>
-        <version>1.2.0</version>
+        <version>1.2.1</version>
     </dependency>
 </dependencies>
 ```
@@ -173,6 +173,10 @@ val appStats = api.dapp.statistics()
 ```
 
 ## Version History
+
+**1.2.1** - Base URL for API changed.
+
+**1.2.0** - Token, Contract new endpoints introduced.
 
 **1.1.0** - Address, Transaction, Dex, Token, MoneyFlow, TokenSale APIs enchanted, tests were reinforced
 
