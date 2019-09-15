@@ -20,11 +20,8 @@ class DetailsTests : BloxyTester() {
         assertNotNull(details)
         assertFalse(details.isEmpty())
         assertFalse(details[0].isEmpty())
-        mustValid(details[0].address)
-        mayValid(details[0].annotation)
-        mustValid(details[0].levelAsString)
-        mayValid(details[0].note)
-        mustValid(details[0].toString())
+        mayValid(details[0].address)
+        mayValid(details[0].toString())
     }
 
     @Test

@@ -17,7 +17,7 @@ data class AddrDetails(
     @Json(name = "level")
     val levelAsString: String = "",
     val annotation: String = "",
-    @Json("note") private val noteParsed: String? = null
+    @Json("note") private val noteParsed: String?
 ) : IValidModel, IDangerModel {
 
     @Json(ignored = true)
