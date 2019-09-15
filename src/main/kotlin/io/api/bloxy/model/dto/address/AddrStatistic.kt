@@ -42,7 +42,7 @@ data class AddrStatistic(
 
     override fun isEmpty(): Boolean = address.isEmpty()
 
-    override fun isValid(): Boolean = "Address was never used" != note
+    override fun isValid(): Boolean = "Address was never used" != note && "Address never received currency" != note
 
     override fun toString(): String {
         return "AddrStatistic(address='$address', note='$note', addrTypeAsString='$addrTypeAsString', " +

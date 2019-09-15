@@ -42,7 +42,7 @@ class AddrStatisticsTests : BloxyTester() {
 
     @Test
     fun `non exist address empty result`() {
-        val addresses = listOf("0x1eAb08daA285183F9A04269747D4125F08e634B0", "0x26f05a632bBe3B4Ed51E3726b093FD33Aa55C6Df")
+        val addresses = listOf("0x2eAb08daA285183F9A04269747D4125F08e634B0", "0x36f05a632bBe3B4Ed51E3726b093FD33Aa55C6Df")
         val list = api.maltego.addrStatistics(addresses)
         assertNotNull(list)
         assertTrue(list.isEmpty())
