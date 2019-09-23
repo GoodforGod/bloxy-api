@@ -13,7 +13,7 @@ import org.junit.Test
  */
 class DetailsTests : BloxyTester() {
 
-//    @Test
+    @Test
     fun valid() {
         val list = listOf("0x9eAb08daA285183F9A04269747D4125F08e634B0", "0x16f05a632bBe3B4Ed51E3726b093FD33Aa55C6Df")
         val details = api.address.details(list)
