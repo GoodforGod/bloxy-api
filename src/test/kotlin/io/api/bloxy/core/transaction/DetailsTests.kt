@@ -23,7 +23,7 @@ class DetailsTests : BloxyTester() {
         mustValid(result[0].haveTxTime())
         mustValid(result[0].amount)
         mustValid(result[0].block)
-        mustValid(result[0].gas)
+        mayValid(result[0].gas)
         mustValid(result[0].gasPrice)
         mustValid(result[0].gasValue)
         mayValid(result[0].method)
